@@ -3,7 +3,7 @@
 
 
 void h(int z) {
-	printf("Hello");
+	printf("Hello\n");
 }
 
 void g(int y) {

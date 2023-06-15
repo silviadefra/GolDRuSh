@@ -1,71 +1,82 @@
-from pwn import *
+from elftools.elf.elffile import ELFFile
+import frida
+import sys
 
-def generate_breakpoints(binary):
+def generate_function_list(binary):
     """
-    Generate breakpoints at the beginning of all functions defined in the binary.
+    Generate a list of all the functions defined by the target executable.
     """
-    breakpoints = []
-    elf = ELF(binary)
-    functions = elf.functions
-    for function in functions:
-        breakpoints.append(function.address)
-    return breakpoints
+    functions = []
+    with open(binary, "rb") as f:
+        elf = ELFFile(f)
+        for section in elf.iter_sections():
+            if section.header.sh_type == 'SHT_SYMTAB':
+                for symbol in section.iter_symbols():
+                    if symbol.entry.st_info.type == 'STT_FUNC':
+                        functions.append(symbol.name)
+    return functions
 
-def get_function_args(function):
+def trace_function_calls(binary, args):
     """
-    Get the arguments passed to a function.
-    This implementation assumes the arguments are stored in the registers.
-    You might need to modify this based on the calling convention used by the target.
-    """
-    args = []
-    regs = gdb.execute("info registers", to_string=True).strip().split("\n")
-    for reg in regs:
-        if "rax" in reg or "rdi" in reg or "rsi" in reg or "rdx" in reg:
-            arg = reg.split(":\t")[-1]
-            if arg.startswith("0x"):
-                args.append(int(arg, 16))
-    return args
-
-def run_with_breakpoints(binary, args):
-    """
-    Run the binary with breakpoints at the beginning of each function.
-    Capture function calls and their arguments when a breakpoint is hit.
+    Run the binary and trace function calls with their arguments.
     """
     entries = []
-    breakpoints = generate_breakpoints(binary)
+    function_list = generate_function_list(binary)
 
-    # Start the target executable in GDB
-    io = gdb.debug(binary)
-
-    while True:
-        # Wait for the prompt
-        io.recvuntil("(gdb) ")
-
-        # Check if we hit a breakpoint
-        if io.recvline().startswith("Breakpoint"):
-            # Get the function name from the breakpoint line
-            function_name = io.recvline().split()[0].decode()
-            function_address = int(function_name, 16)
-
-            # Get the function arguments
-            function_args = get_function_args(function_name)
-
-            # Add the entry to the list
+    def on_message(message, data):
+        if message["type"] == "send":
+            function_name = message["payload"]["function"]
+            function_args = message["payload"]["args"]
             entries.append((function_name, function_args))
 
-            # Continue execution
-            io.sendline("c")
-        else:
-            # If no breakpoint, assume the program has terminated
-            break
+    # Run the binary
+    process = frida.spawn(binary, argv=[binary] + args)
+
+    session = frida.attach(process)
+    script = session.create_script("""
+        var resolver = new ApiResolver('module');
+
+        function traceFunctionCalls() {
+            resolver.enumerateMatches('*!*', {
+                onMatch: function (match) {
+                    var targetFunction = new NativeFunction(match.address, 'void', ['pointer']);
+                    Interceptor.replace(match.address, new NativeCallback(function () {
+                        send({function: match.name, args: Array.prototype.slice.call(arguments)});
+                        return targetFunction.apply(this, arguments);
+                    }, 'void', ['pointer']));
+                },
+                onComplete: function () {
+                    send('done');
+                }
+            });
+        }
+
+        traceFunctionCalls();
+    """)
+
+    script.on("message", on_message)
+    script.load()
+
+    frida.resume(process)
+
+    # Wait for the script to complete
+    #script.join()
+
+    #sys.stdin.read()
+    # Detach and clean up
+    try:
+        session.detach()
+        frida.kill(process)
+    except Exception as e:
+        print(e)
 
     return entries
 
 # Usage example
 binary_path = "./test/test"
-arguments = ["-h"]
+arguments = ["arg1", "arg2", "arg3"]
 
-entries = run_with_breakpoints(binary_path, arguments)
+entries = trace_function_calls(binary_path, arguments)
 
 # Print the generated entries
 for entry in entries:
