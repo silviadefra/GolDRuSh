@@ -1,3 +1,22 @@
-#include <stdio>
+#include <stdlib.h>
+#include <stdio.h>
 
-void f(int x) {}
+
+void h(int z) {
+	printf("Hello");
+}
+
+void g(int y) {
+	h(y + 11);
+}
+
+void f(int x) {
+	if(x > 7)
+		g(x - 5);
+	else
+		h(x * 2);
+}
+
+int main() {
+	f(3);
+}
