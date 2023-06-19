@@ -16,8 +16,7 @@ int g(int x) {
 int main() {
     int x;
     int y;
-    printf("Enter an integer: ");
-    scanf("%d", &x);
+    x=4;
     y=x+2;
     if (y > 5) {
         int result = f(x);

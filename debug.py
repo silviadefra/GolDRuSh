@@ -2,6 +2,7 @@ from elftools.elf.elffile import ELFFile
 import frida
 import sys
 
+#questa non mi sembra utile
 def generate_function_list(binary):
     """
     Generate a list of all the functions defined by the target executable.
@@ -25,34 +26,27 @@ def trace_function_calls(binary, args):
 
     def on_message(message, data):
         if message["type"] == "send":
-            function_name = message["payload"]["function"]
-            function_args = message["payload"]["args"]
-            entries.append((function_name, function_args))
+            function_payload = message["payload"] #["function"]
+            #function_args = message["payload"]["args"]
+            entries.append((function_payload))
 
     # Run the binary
     process = frida.spawn(binary, argv=[binary] + args)
 
     session = frida.attach(process)
-    script = session.create_script("""
-        var resolver = new ApiResolver('module');
+    for f in ['f','g','h']:
+    	script = session.create_script("""
+        	console.log(DebugSymbol.getFunctionByName('"""+f+"""'))
+        	Interceptor.attach(DebugSymbol.getFunctionByName('"""+f+"""'), {
+            	onEnter: function (args) {
+                	send({function: '"""+f+"""', args: args[0]})
+            	},
+            	onLeave: function (retval) {
+                	send({function: '"""+f+"""', ret: retval})
 
-        function traceFunctionCalls() {
-            resolver.enumerateMatches('*!*', {
-                onMatch: function (match) {
-                    var targetFunction = new NativeFunction(match.address, 'void', ['pointer']);
-                    Interceptor.replace(match.address, new NativeCallback(function () {
-                        send({function: match.name, args: Array.prototype.slice.call(arguments)});
-                        return targetFunction.apply(this, arguments);
-                    }, 'void', ['pointer']));
-                },
-                onComplete: function () {
-                    send('done');
-                }
-            });
-        }
-
-        traceFunctionCalls();
-    """)
+            	}
+        	});
+    	""") 
 
     script.on("message", on_message)
     script.load()

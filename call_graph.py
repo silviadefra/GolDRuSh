@@ -5,6 +5,8 @@ import networkx as nx
 import matplotlib.pyplot as plt
 import os
 import claripy
+import pandas as pd
+import math
 
 
 # Generate call graph
@@ -20,17 +22,22 @@ def generate_call_graph(project):
     defined_functions = project.kb.functions.values()
     program_functions = []
     program_functions_addr=[]
+    program_functions_name=[]
     
     for function in defined_functions:
         if not function.is_simprocedure:
             program_functions_addr.append(function.addr)
             program_functions.append(function)
+            program_functions_name.append(function.name)
+
+    d={'name': program_functions_name,'address': program_functions_addr,'distance':[math.inf]*len(program_functions_addr),'constraints':[None]*len(program_functions_addr)}
+    function_data=pd.DataFrame(data=d)
 
 
     # Create a subgraph for the program functions
     sub_graph = call_graph.subgraph(program_functions_addr)
 
-    return (sub_graph, program_functions,cfg)
+    return (sub_graph, program_functions,function_data,cfg)
 
 
 # Find the address of the target
@@ -118,7 +125,7 @@ def main(binary_path, api_call):
     project = angr.Project(binary_path, auto_load_libs=False)
 
     # Generate the call graph
-    (call_graph, func_addr, cfg)=generate_call_graph(project)
+    (call_graph, func_addr,function_data, cfg)=generate_call_graph(project)
 
     # Find the address of the function
     api_address=find_func_address(api_call,func_addr)
@@ -130,14 +137,17 @@ def main(binary_path, api_call):
     constraints=[]
     #TODO in parallel
     for starting_address in nodes:
+        function_data.loc[function_data.index[function_data['address']==starting_address],'distance']=distance[starting_address]
         if distance[starting_address]==0:
-            break
+            continue
         addr.remove(starting_address)
         # Find for each node successors with smaller distance
         target_func=find_succ(starting_address,call_graph,addr,distance) #forse conviene non definire la funzione e mettere tutto nel main
         # Get the constraints leading to reaching the target_func
         constraints.append(get_constraints(starting_address,target_func,project))
-    print(constraints)
+        #function_data.loc[function_data.index[function_data['address']==starting_address],'constraints']=get_constraints(starting_address,target_func,project) da risolvere
+    #print(constraints)
+    print(function_data)
 
 
     # Visualize the call graph
