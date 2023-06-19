@@ -15,6 +15,7 @@ void f(int x) {
 		g(x - 5);
 	else
 		h(x * 2);
+		printf("%p\n",h);
 }
 
 int main() {
