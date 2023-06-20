@@ -29,8 +29,8 @@ def generate_call_graph(project):
             program_functions_addr.append(function.addr)
             program_functions.append(function)
             program_functions_name.append(function.name)
-
-    d={'name': program_functions_name,'address': program_functions_addr,'distance':[math.inf]*len(program_functions_addr),'constraints':[None]*len(program_functions_addr)}
+    #num_var=2
+    d={'name': program_functions_name,'address': program_functions_addr,'distance':[math.inf]*len(program_functions_addr),'constraints': [None]*len(program_functions_addr)}
     function_data=pd.DataFrame(data=d)
 
 
@@ -134,20 +134,19 @@ def main(binary_path, api_call):
     (nodes,distance)=nodes_distance(call_graph,api_address)
 
     addr=nodes.copy() #non necessario
-    constraints=[]
     #TODO in parallel
     for starting_address in nodes:
-        function_data.loc[function_data.index[function_data['address']==starting_address],'distance']=distance[starting_address]
+        i=function_data.index[function_data['address']==starting_address]
+        function_data.loc[i,'distance']=distance[starting_address]
         if distance[starting_address]==0:
             continue
         addr.remove(starting_address)
         # Find for each node successors with smaller distance
         target_func=find_succ(starting_address,call_graph,addr,distance) #forse conviene non definire la funzione e mettere tutto nel main
         # Get the constraints leading to reaching the target_func
-        constraints.append(get_constraints(starting_address,target_func,project))
-        #function_data.loc[function_data.index[function_data['address']==starting_address],'constraints']=get_constraints(starting_address,target_func,project) da risolvere
-    #print(constraints)
-    print(function_data)
+        function_data.loc[i,'constraints']=[get_constraints(starting_address,target_func,project)] #da risolvere
+    print(function_data.values.tolist())
+    
 
 
     # Visualize the call graph
