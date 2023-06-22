@@ -70,16 +70,16 @@ def nodes_distance(graph, trg):
 # Get functions' type inputs
 def get_type(project, functions,cfg):
 
+    types=[]
     # Set up the calling convention analysis for each function
     for f in functions:
         # Vriable recovery
         vr = project.analyses.VariableRecoveryFast(f)
         
         cca = project.analyses.CallingConvention(f,cfg=cfg,analyze_callsites=True)
-
+        types.append(cca.prototype)
         
-
-        print(cca.prototype)
+    return types
   
 
 # Find the successors with smaller distance
@@ -152,6 +152,7 @@ def main(binary_path, api_call):
 
     # Get functions' type inputs
     type_inputs=get_type(project, func_addr,cfg)
+    function_data['type']=type_inputs
 
     addr=nodes.copy() #non necessario
     #TODO in parallel
