@@ -29,7 +29,7 @@ def generate_call_graph(project):
             program_functions_addr.append(function.addr)
             program_functions.append(function)
             program_functions_name.append(function.name)
-    #num_var=2
+    
     d={'name': program_functions_name,'address': program_functions_addr,'distance':[math.inf]*len(program_functions_addr),'constraints': [None]*len(program_functions_addr)}
     function_data=pd.DataFrame(data=d)
 
@@ -66,6 +66,22 @@ def nodes_distance(graph, trg):
 
     return (addresses,shortest_paths)
 
+
+# Get functions' type inputs
+def get_type(project, functions,cfg):
+
+    # Set up the calling convention analysis for each function
+    for f in functions:
+        # Vriable recovery
+        vr = project.analyses.VariableRecoveryFast(f)
+        
+        cca = project.analyses.CallingConvention(f,cfg=cfg,analyze_callsites=True)
+
+        
+
+        print(cca.prototype)
+  
+
 # Find the successors with smaller distance
 def find_succ(source,graph,addr,distance):
     
@@ -75,6 +91,7 @@ def find_succ(source,graph,addr,distance):
     
     return target_addr
 
+
 # Get the constraints leading to reaching the target_func
 def get_constraints(source,target,project):
     
@@ -83,7 +100,7 @@ def get_constraints(source,target,project):
     state.options.add(angr.options.ZERO_FILL_UNCONSTRAINED_MEMORY)
     state.options.add(angr.options.ZERO_FILL_UNCONSTRAINED_REGISTERS)
 
-     # Symbolic input variables
+    # Symbolic input variables
     x = claripy.BVS('x', 32)  # Symbolic integer input with 32-bit width
     y = claripy.BVS('y', 8)  # Symbolic char input with 8-bit width
 
@@ -132,6 +149,9 @@ def main(binary_path, api_call):
 
     # Find minimum distance between nodes and target
     (nodes,distance)=nodes_distance(call_graph,api_address)
+
+    # Get functions' type inputs
+    type_inputs=get_type(project, func_addr,cfg)
 
     addr=nodes.copy() #non necessario
     #TODO in parallel
