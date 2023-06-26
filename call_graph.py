@@ -7,6 +7,7 @@ import os
 import claripy
 import pandas as pd
 import math
+import sys
 
 
 # Generate call graph
@@ -176,7 +177,6 @@ def main(binary_path, api_call):
 
 
 if __name__ == "__main__":
-    import sys
 
     if len(sys.argv) < 2:
         print("Usage: python call_graph.py <target_executable> <api_call>")

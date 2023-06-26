@@ -1,6 +1,7 @@
 from elftools.elf.elffile import ELFFile
 import frida
 import sys
+from time import sleep
 
 #questa non mi sembra utile
 def generate_function_list(binary):
@@ -17,6 +18,23 @@ def generate_function_list(binary):
                         functions.append(symbol.name)
     return functions
 
+
+def make_script(f):
+    return """
+            console.log('Called function '+DebugSymbol.getFunctionByName('"""+f+"""'))
+            Interceptor.attach(DebugSymbol.getFunctionByName('"""+f+"""'), {
+                onEnter: function (args) {
+                    send({function: '"""+f+"""', args: args[0]})
+                    console.log('onEnter function '+DebugSymbol.getFunctionByName('"""+f+"""'))
+                },
+                onLeave: function (retval) {
+                	send({function: '"""+f+"""', ret: retval})
+                    console.log('onLeave function '+DebugSymbol.getFunctionByName('"""+f+"""'))
+
+                }
+            });
+        """
+
 def trace_function_calls(binary, args):
     """
     Run the binary and trace function calls with their arguments.
@@ -25,30 +43,32 @@ def trace_function_calls(binary, args):
     function_list = generate_function_list(binary)
 
     def on_message(message, data):
-        if message["type"] == "send":
-            function_payload = message["payload"] #["function"]
-            #function_args = message["payload"]["args"]
-            entries.append((function_payload))
+        print(message)
+        if message["type"] == "send" and message["payload"] != "done":
+            #function_payload = message["payload"] #["function"]
+            function_name = message["payload"]["function"]
+            #TODO: cambiare
+            try:
+                function_args = message["payload"]["args"]
+                io="input"
+            except:
+                function_args=message["payload"]["ret"]
+                io="output"
+            entries.append((function_name,function_args))
 
     # Run the binary
     process = frida.spawn(binary, argv=[binary] + args)
 
+    sleep(1)
+
     session = frida.attach(process)
-    for f in ['f','g','h']:
-    	script = session.create_script("""
-        	console.log(DebugSymbol.getFunctionByName('"""+f+"""'))
-        	Interceptor.attach(DebugSymbol.getFunctionByName('"""+f+"""'), {
-            	onEnter: function (args) {
-                	send({function: '"""+f+"""', args: args[0]})
-            	},
-            	onLeave: function (retval) {
-                	send({function: '"""+f+"""', ret: retval})
-
-            	}
-        	});
-    	""") 
-
-    script.on("message", on_message)
+    script_txt=""
+    for f in ['h','g','f']:
+        script_txt+= make_script(f)
+        script_txt+="\n"
+    
+    script = session.create_script(script_txt)
+    script.on("message",on_message)
     script.load()
 
     frida.resume(process)
@@ -56,11 +76,12 @@ def trace_function_calls(binary, args):
     # Wait for the script to complete
     #script.join()
 
+    sleep(5)
     #sys.stdin.read()
     # Detach and clean up
     try:
         session.detach()
-        frida.kill(process)
+        #frida.kill(process)
     except Exception as e:
         print(e)
 
@@ -72,8 +93,10 @@ arguments = ["arg1", "arg2", "arg3"]
 
 entries = trace_function_calls(binary_path, arguments)
 
+
 # Print the generated entries
 for entry in entries:
+    print(entry)
     function_name, function_args = entry
     print(f"Function: {function_name}")
     print(f"Arguments: {function_args}")
