@@ -35,7 +35,7 @@ def make_script(f):
             });
         """
 
-def trace_function_calls(binary, args):
+def trace_function_calls(binary, args,functions):
     """
     Run the binary and trace function calls with their arguments.
     """
@@ -63,7 +63,7 @@ def trace_function_calls(binary, args):
 
     session = frida.attach(process)
     script_txt=""
-    for f in ['h','g','f']:
+    for f in functions:
         script_txt+= make_script(f)
         script_txt+="\n"
     
@@ -88,15 +88,15 @@ def trace_function_calls(binary, args):
     return entries
 
 # Usage example
-binary_path = "./test/test"
+binary_path = "./test/test" 
 arguments = ["arg1", "arg2", "arg3"]
+list_functions=['h','g','f']
 
-entries = trace_function_calls(binary_path, arguments)
+entries = trace_function_calls(binary_path, arguments,list_functions)
 
 
 # Print the generated entries
 for entry in entries:
-    print(entry)
     function_name, function_args = entry
     print(f"Function: {function_name}")
     print(f"Arguments: {function_args}")

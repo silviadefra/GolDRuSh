@@ -53,7 +53,7 @@ def find_func_address(target,func_addr):
     # Check if the function is found in the call graph
     if target_address is None:
         print(f"Error: '{target}' not found in the call graph.")
-        return
+        return None
 
     return target_address
 
@@ -132,7 +132,7 @@ def visualize(cfg,graph):
 
 
 # Main function
-def main(binary_path, api_call):
+def functions_dataframe(binary_path, api_call):
 
     # Check if the binary file exists
     if not os.path.isfile(binary_path):
@@ -146,8 +146,11 @@ def main(binary_path, api_call):
     (call_graph, func_addr,function_data, cfg)=generate_call_graph(project)
 
     # Find the address of the function
-    api_address=find_func_address(api_call,func_addr)
-
+    api_address=find_func_address(api_call,func_addr) 
+    # Check if the function is found in the call graph
+    if api_address==None:
+        return
+    
     # Find minimum distance between nodes and target
     (nodes,distance)=nodes_distance(call_graph,api_address)
 
@@ -168,13 +171,11 @@ def main(binary_path, api_call):
         # Get the constraints leading to reaching the target_func
         function_data.loc[i,'constraints']=[get_constraints(starting_address,target_func,project)] #da risolvere
     print(function_data.values.tolist())
-    
-
 
     # Visualize the call graph
     visualize(cfg,call_graph) #se eliminamo questa funzione possiamo togliere cfg da funzione generate_call-graph
 
-
+    return function_data
 
 if __name__ == "__main__":
 
@@ -188,4 +189,4 @@ if __name__ == "__main__":
     # Specify the function name
     api_call = sys.argv[2]
 
-    main(binary_path,api_call)
+    data=functions_dataframe(binary_path,api_call)
