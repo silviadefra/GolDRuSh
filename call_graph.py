@@ -31,7 +31,7 @@ def generate_call_graph(project):
             program_functions.append(function)
             program_functions_name.append(function.name)
     
-    d={'name': program_functions_name,'address': program_functions_addr,'distance':[math.inf]*len(program_functions_addr),'constraints': [None]*len(program_functions_addr)}
+    d={'name': program_functions_name,'address': program_functions_addr,'distance':[math.inf]*len(program_functions_addr), 'solver': [None]*len(program_functions_addr)}
     function_data=pd.DataFrame(data=d)
 
 
@@ -93,8 +93,8 @@ def find_succ(source,graph,addr,distance):
     return target_addr
 
 
-# Get the constraints leading to reaching the target_func
-def get_constraints(source,target,project):
+# Get the solver with constraints leading to reaching the target_func
+def get_solver(source,target,project):
     
     # Set up symbolic variables and constraints
     state = project.factory.blank_state(addr=source)
@@ -112,13 +112,16 @@ def get_constraints(source,target,project):
     sm = project.factory.simgr(state)
     sm.explore(find=target)
 
-    # Get the constraints leading to reaching the api_address
-    constraints = []
+    # Get the solver with constraints leading to reaching the api_address
+    path=sm.found[0]
+    paths_solver=path.solver
+    #constraints = []
     for path in sm.found:
-        constraints.append(path.solver.constraints)
-
-    return constraints
-
+        constr=path.solver.constraints
+        #print(constr)
+        paths_solver._adjust_constraint(paths_solver.Or(*constr)) #non va
+    #print(paths_solver.constraints)
+    return paths_solver
 
 # Visualize the call graph
 def visualize(cfg,graph):
@@ -166,27 +169,29 @@ def functions_dataframe(binary_path, api_call):
         if distance[starting_address]==0:
             continue
         addr.remove(starting_address)
+        
         # Find for each node successors with smaller distance
         target_func=find_succ(starting_address,call_graph,addr,distance) #forse conviene non definire la funzione e mettere tutto nel main
-        # Get the constraints leading to reaching the target_func
-        function_data.loc[i,'constraints']=[get_constraints(starting_address,target_func,project)] #da risolvere
+        
+        # Get the solver with constraints leading to reaching the target_func
+        function_data.loc[i,'solver']=[get_solver(starting_address,target_func,project)]
     print(function_data.values.tolist())
 
     # Visualize the call graph
-    visualize(cfg,call_graph) #se eliminamo questa funzione possiamo togliere cfg da funzione generate_call-graph
+    #visualize(cfg,call_graph) #se eliminamo questa funzione possiamo togliere cfg da funzione generate_call-graph
 
     return function_data
 
-if __name__ == "__main__":
+#if __name__ == "__main__":
 
-    if len(sys.argv) < 2:
-        print("Usage: python call_graph.py <target_executable> <api_call>")
-        sys.exit(1)
+#if len(sys.argv) < 2:
+    #print("Usage: python call_graph.py <target_executable> <api_call>")
+    #sys.exit(1)
 
-    # Path to the binary program
-    binary_path = sys.argv[1]
+# Path to the binary program
+#binary_path = sys.argv[1]
 
-    # Specify the function name
-    api_call = sys.argv[2]
+# Specify the function name
+#api_call = sys.argv[2]
 
-    data=functions_dataframe(binary_path,api_call)
+#data=functions_dataframe(binary_path,api_call)

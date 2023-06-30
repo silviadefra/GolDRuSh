@@ -88,16 +88,16 @@ def trace_function_calls(binary, args,functions):
     return entries
 
 # Usage example
-binary_path = "./test/test" 
-arguments = ["arg1", "arg2", "arg3"]
-list_functions=['h','g','f']
+#binary_path = "./test/test" 
+#arguments = ["arg1", "arg2", "arg3"]
+#list_functions=['h','g','f']
 
-entries = trace_function_calls(binary_path, arguments,list_functions)
+#entries = trace_function_calls(binary_path, arguments,list_functions)
 
 
 # Print the generated entries
-for entry in entries:
-    function_name, function_args = entry
-    print(f"Function: {function_name}")
-    print(f"Arguments: {function_args}")
-    print()
+#for entry in entries:
+    #function_name, function_args = entry
+    #print(f"Function: {function_name}")
+    #print(f"Arguments: {function_args}")
+    #print()
