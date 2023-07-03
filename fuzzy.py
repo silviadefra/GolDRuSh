@@ -9,8 +9,6 @@ def minimum_distance(data,functions):
     dist=sys.maxsize
     for f in functions:
         i=data.index[data['name']==f].item()
-        #print(i)
-        print(data.loc[i,'distance'])
         if data.loc[i,'distance']<dist:
             min_f=f
             dist=data.loc[i,'distance']
@@ -21,8 +19,8 @@ def to_num(value):
     ch_values=[]
     for elm in value:
         c=0
-        for pos in range(len(x)):
-            c += ord(x[pos])
+        for pos in range(len(elm)):
+            c += ord(elm[pos])
         ch_values.append(c)
     return ch_values
 
@@ -44,18 +42,20 @@ def distance_character(target, values):
 
 
 
-def fitness_func(data,reached_functions,arguments,n):
+def fitness_func(df,reached_functions,arguments):
 
-    #df=data[data['distance'] != math.inf]
-    #print(df.values.tolist())
+    # Only functions with distance =! infinity
+    data=df[df['distance'] != math.inf]
     
     # Function with minimum distance to the target
     f,node_dist=minimum_distance(data,reached_functions)
+    if node_dist==0:
+        print('You reached the good function')
+        return node_dist
 
     # 'n' values to reach the next 'good' function
     i=data.index[data['name']==f].item()
-    solver=data.loc[i,'solver']
-    values=solver.eval_upto(x, n)
+    values=data.loc[i,'solver']
 
     # From characters to numbers
     ch_args=to_num(arguments)
@@ -74,12 +74,13 @@ def fitness_func(data,reached_functions,arguments,n):
 
 
 
-def fuzzy_test(data,reached_functions,arguments,n):
+def fuzzy_test(data,reached_functions,arguments):
 
 
 
     # Fitness function for a single test
-    fit=fitness_func(data,reached_functions,arguments,n)
+    fit=fitness_func(data,reached_functions,arguments)
+    print(fit)
 
 
     

@@ -41,6 +41,7 @@ def trace_function_calls(binary, args,functions):
     """
     entries = []
     function_list = generate_function_list(binary)
+    print(function_list)
 
     def on_message(message, data):
         print(message)

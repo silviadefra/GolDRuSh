@@ -30,10 +30,9 @@ def generate_call_graph(project):
             program_functions_addr.append(function.addr)
             program_functions.append(function)
             program_functions_name.append(function.name)
-    
-    d={'name': program_functions_name,'address': program_functions_addr,'distance':[math.inf]*len(program_functions_addr), 'solver': [None]*len(program_functions_addr)}
-    function_data=pd.DataFrame(data=d)
 
+    d={'name': program_functions_name,'address': program_functions_addr,'distance':[math.inf]*len(program_functions_addr), 'solver': [[None]]*len(program_functions_addr),  'values': [[None]]*len(program_functions_addr)}
+    function_data=pd.DataFrame(data=d)
 
     # Create a subgraph for the program functions
     sub_graph = call_graph.subgraph(program_functions_addr)
@@ -94,7 +93,7 @@ def find_succ(source,graph,addr,distance):
 
 
 # Get the solver with constraints leading to reaching the target_func
-def get_solver(source,target,project):
+def get_solver(source,target,project,n):
     
     # Set up symbolic variables and constraints
     state = project.factory.blank_state(addr=source)
@@ -114,14 +113,21 @@ def get_solver(source,target,project):
 
     # Get the solver with constraints leading to reaching the api_address
     path=sm.found[0]
-    paths_solver=path.solver
-    #constraints = []
-    for path in sm.found:
-        constr=path.solver.constraints
-        #print(constr)
-        paths_solver._adjust_constraint(paths_solver.Or(*constr)) #non va
-    #print(paths_solver.constraints)
-    return paths_solver
+    s=path.solver
+    solutions=s.eval_upto(x,n)
+    #print(solutions)
+    #print(s.constraints)
+    constraints = []
+    for path in sm.found[1:]:
+        constraints=path.solver.constraints
+        #print(constraints)
+        #paths_solver._adjust_constraint(paths_solver.Or(*constraints)) #non va
+    #z=claripy.Or(constraints)
+        #t=s.Or(s.state._global_condition, constraints)
+        #s._solver.add(t)
+    #s.add(z)
+    #print(s.constraints)
+    return s, solutions
 
 # Visualize the call graph
 def visualize(cfg,graph):
@@ -135,7 +141,7 @@ def visualize(cfg,graph):
 
 
 # Main function
-def functions_dataframe(binary_path, api_call):
+def functions_dataframe(binary_path, api_call,n):
 
     # Check if the binary file exists
     if not os.path.isfile(binary_path):
@@ -164,7 +170,7 @@ def functions_dataframe(binary_path, api_call):
     addr=nodes.copy() #non necessario
     #TODO in parallel
     for starting_address in nodes:
-        i=function_data.index[function_data['address']==starting_address]
+        i=function_data.index[function_data['address']==starting_address].item()
         function_data.loc[i,'distance']=distance[starting_address]
         if distance[starting_address]==0:
             continue
@@ -173,8 +179,10 @@ def functions_dataframe(binary_path, api_call):
         # Find for each node successors with smaller distance
         target_func=find_succ(starting_address,call_graph,addr,distance) #forse conviene non definire la funzione e mettere tutto nel main
         
-        # Get the solver with constraints leading to reaching the target_func
-        function_data.loc[i,'solver']=[get_solver(starting_address,target_func,project)]
+        # Get the solver with constraints leading to reaching the target_func, and values to solve them
+        s,v=get_solver(starting_address,target_func,project,n)
+        function_data.loc[i,'solver']=s
+        function_data.at[i,'values']=v
     print(function_data.values.tolist())
 
     # Visualize the call graph
@@ -184,14 +192,17 @@ def functions_dataframe(binary_path, api_call):
 
 #if __name__ == "__main__":
 
-#if len(sys.argv) < 2:
-    #print("Usage: python call_graph.py <target_executable> <api_call>")
-    #sys.exit(1)
+    #if len(sys.argv) < 2:
+        #print("Usage: python call_graph.py <target_executable> <api_call>")
+        #sys.exit(1)
 
-# Path to the binary program
-#binary_path = sys.argv[1]
+    # Path to the binary program
+    #binary_path = sys.argv[1]
 
-# Specify the function name
-#api_call = sys.argv[2]
+    # Specify the function name
+    #api_call = sys.argv[2]
 
-#data=functions_dataframe(binary_path,api_call)
+    #num_values=2
+
+    #main(binary_path,api_call,num_values)
+

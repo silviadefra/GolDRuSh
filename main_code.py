@@ -9,8 +9,9 @@ from fuzzy import *
 
 def main(binary,api):
 
-    # Dataframe of functions, for each function: name, address, distance, constraints
-    data=functions_dataframe(binary,api)
+    # Dataframe of functions, for each function: name, address, distance, solver, values
+    num_values=2
+    data=functions_dataframe(binary,api,num_values)
 
     # Usage example
     arguments = ["args"]
@@ -24,8 +25,7 @@ def main(binary,api):
     reached_functions = list(dict.fromkeys(reached_functions))
 
 
-    num_values=2
-    fuzzy_test(data,reached_functions,arguments,num_values)
+    fuzzy_test(data,reached_functions,arguments)
 
     
 
@@ -39,7 +39,7 @@ def main(binary,api):
 if __name__ == "__main__":
 
     if len(sys.argv) < 2:
-        print("Usage: python call_graph.py <target_executable> <api_call>")
+        print("Usage: python main_code.py <target_executable> <api_call>")
         sys.exit(1)
 
     # Path to the binary program

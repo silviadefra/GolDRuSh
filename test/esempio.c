@@ -10,7 +10,7 @@ int f(int x) {
 int g(int x) {
     int result;
     result= x + 5;
-    /*printf("Result: %d\n", result);*/
+    printf("Result: %d\n", result);
     return result;
 }
 
