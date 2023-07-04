@@ -19,12 +19,13 @@ def generate_function_list(binary):
     return functions
 
 
-def make_script(f):
+def make_script(f,n):
+    args_str = ', '.join(f'args[{i}]' for i in range(n))
     return """
             console.log('Called function '+DebugSymbol.getFunctionByName('"""+f+"""'))
             Interceptor.attach(DebugSymbol.getFunctionByName('"""+f+"""'), {
                 onEnter: function (args) {
-                    send({function: '"""+f+"""', args: args[0]})
+                    send({function: '"""+f+"""', args: [""" + args_str + """]})
                     console.log('onEnter function '+DebugSymbol.getFunctionByName('"""+f+"""'))
                 },
                 onLeave: function (retval) {
@@ -35,13 +36,12 @@ def make_script(f):
             });
         """
 
-def trace_function_calls(binary, args,functions):
+def trace_function_calls(binary, args,functions,n):
     """
     Run the binary and trace function calls with their arguments.
     """
     entries = []
     function_list = generate_function_list(binary)
-    print(function_list)
 
     def on_message(message, data):
         print(message)
@@ -59,13 +59,14 @@ def trace_function_calls(binary, args,functions):
 
     # Run the binary
     process = frida.spawn(binary, argv=[binary] + args)
+    #process= frida.spawn(binary, argv=args)
 
     sleep(1)
 
     session = frida.attach(process)
     script_txt=""
-    for f in functions:
-        script_txt+= make_script(f)
+    for f,i in zip(functions,n):
+        script_txt+= make_script(f,i)
         script_txt+="\n"
     
     script = session.create_script(script_txt)
@@ -76,9 +77,10 @@ def trace_function_calls(binary, args,functions):
 
     # Wait for the script to complete
     #script.join()
-
     sleep(5)
+    
     #sys.stdin.read()
+    
     # Detach and clean up
     try:
         session.detach()
@@ -92,8 +94,9 @@ def trace_function_calls(binary, args,functions):
 #binary_path = "./test/test" 
 #arguments = ["arg1", "arg2", "arg3"]
 #list_functions=['h','g','f']
+#n=2
 
-#entries = trace_function_calls(binary_path, arguments,list_functions)
+#entries = trace_function_calls(binary_path, arguments,list_functions,n)
 
 
 # Print the generated entries

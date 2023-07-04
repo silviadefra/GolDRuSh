@@ -40,12 +40,7 @@ def distance_character(target, values):
 
 
 
-
-
-def fitness_func(df,reached_functions,arguments):
-
-    # Only functions with distance =! infinity
-    data=df[df['distance'] != math.inf]
+def fitness_func(data,reached_functions,arguments):
     
     # Function with minimum distance to the target
     f,node_dist=minimum_distance(data,reached_functions)
@@ -55,7 +50,7 @@ def fitness_func(df,reached_functions,arguments):
 
     # 'n' values to reach the next 'good' function
     i=data.index[data['name']==f].item()
-    values=data.loc[i,'solver']
+    values=data.loc[i,'values']
 
     # From characters to numbers
     ch_args=to_num(arguments)
@@ -69,22 +64,8 @@ def fitness_func(df,reached_functions,arguments):
     m=minimum/(minimum+1)
 
     fitness=node_dist+m
-
+    print(fitness)
     return fitness
-
-
-
-def fuzzy_test(data,reached_functions,arguments):
-
-
-
-    # Fitness function for a single test
-    fit=fitness_func(data,reached_functions,arguments)
-    print(fit)
-
-
-    
-
 
 
 
@@ -94,7 +75,7 @@ def fuzzy_test(data,reached_functions,arguments):
 #arguments=[]
 #num_values=2
 
-#fuzzy_test(data,reached_functions,arguments,num_values)
+#fitness_func(data,reached_functions,arguments,num_values)
 
 
 #

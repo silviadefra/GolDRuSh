@@ -7,10 +7,10 @@ int f(int x) {
     return result;
 }
 
-int g(int x) {
+int g(int x, int y) {
     int result;
-    result= x + 5;
-    printf("Result: %d\n", result);
+    result= y+ x + 5;
+    /*printf("Result: %d\n", result);*/
     return result;
 }
 
@@ -21,7 +21,7 @@ int main(int x) {
         int result = f(x);
         
     } else {
-        int result = g(x);
+        int result = g(x,y);
         
     }
 

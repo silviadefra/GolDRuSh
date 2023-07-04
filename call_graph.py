@@ -102,32 +102,32 @@ def get_solver(source,target,project,n):
 
     # Symbolic input variables
     x = claripy.BVS('x', 32)  # Symbolic integer input with 32-bit width
-    y = claripy.BVS('y', 8)  # Symbolic char input with 8-bit width
+    #y = claripy.BVS('y', 8)  # Symbolic char input with 8-bit width
 
     state.regs.rdi = x  # Assign the symbolic integer input to the RDI register for the main function
-    state.memory.store(source + 4, y)  # Store the symbolic char input in memory after the integer
+    #state.memory.store(source + 4, y)  # Store the symbolic char input in memory after the integer
 
     # Explore the program with symbolic execution
     sm = project.factory.simgr(state)
     sm.explore(find=target)
 
-    # Get the solver with constraints leading to reaching the api_address
-    path=sm.found[0]
-    s=path.solver
-    solutions=s.eval_upto(x,n)
-    #print(solutions)
-    #print(s.constraints)
+    # Get constraints leading to reaching the api_address
     constraints = []
-    for path in sm.found[1:]:
-        constraints=path.solver.constraints
-        #print(constraints)
-        #paths_solver._adjust_constraint(paths_solver.Or(*constraints)) #non va
-    #z=claripy.Or(constraints)
-        #t=s.Or(s.state._global_condition, constraints)
-        #s._solver.add(t)
-    #s.add(z)
-    #print(s.constraints)
-    return s, solutions
+    for path in sm.found:
+        constraints.extend(path.solver.constraints)
+
+
+    # Create a solver with all the constraints combined using the logical OR operator
+    if constraints:
+        combined_constraints = claripy.Or(*constraints)
+        solver = claripy.Solver()
+        solver.add(combined_constraints)
+        solutions=solver.eval(x,n)
+        solutions=[[s] for s in solutions]
+    else:
+        solver=True
+        solutions=[]
+    return solver, solutions
 
 # Visualize the call graph
 def visualize(cfg,graph):
