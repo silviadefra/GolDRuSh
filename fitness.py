@@ -15,13 +15,17 @@ def minimum_distance(data,functions):
     return min_f,dist
 
 # From characters to numbers
-def to_num(value):
+def to_num(args):
     ch_values=[]
-    for elm in value:
-        c=0
-        for pos in range(len(elm)):
-            c += ord(elm[pos])
-        ch_values.append(c)
+    for elm in args:
+        # If the argument is a string
+        if isinstance(elm, str):
+            c=0
+            for pos in range(len(elm)):
+                c += ord(elm[pos])
+            ch_values.append(c)
+        else:
+            ch_values.append(elm)
     return ch_values
 
 # Distance between strings
@@ -30,10 +34,10 @@ def distance_character(target, values):
     # Initialize with very large value so that any comparison is better
     minimum = sys.maxsize
 
-    for i in range(len(target)):
+    for value in values:
         distance=0
-        for elem,targ in zip(values[i],target[i]):
-            distance += abs(targ - elem)
+        for i in range(len(target)):
+            distance += abs(target[i] - value[i])
         if distance < minimum:
             minimum = distance
     return minimum
@@ -48,7 +52,7 @@ def fitness_func(data,reached_functions,arguments):
         print('You reached the good function')
         return node_dist
 
-    # 'n' values to reach the next 'good' function
+    # Values to reach the next 'good' function
     i=data.index[data['name']==f].item()
     values=data.loc[i,'values']
 
@@ -57,6 +61,7 @@ def fitness_func(data,reached_functions,arguments):
     ch_values=[]
     for value in values:
         ch_values.append(to_num(value))
+    #print(ch_args)
 
     # Distance to reach the next 'good' function
     minimum=distance_character(ch_args,ch_values)
@@ -64,7 +69,7 @@ def fitness_func(data,reached_functions,arguments):
     m=minimum/(minimum+1)
 
     fitness=node_dist+m
-    print(fitness)
+    #print(fitness)
     return fitness
 
 

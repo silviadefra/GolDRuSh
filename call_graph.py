@@ -101,8 +101,8 @@ def get_solver(source,target,project,n):
     state.options.add(angr.options.ZERO_FILL_UNCONSTRAINED_REGISTERS)
 
     # Symbolic input variables
-    x = claripy.BVS('x', 32)  # Symbolic integer input with 32-bit width
-    #y = claripy.BVS('y', 8)  # Symbolic char input with 8-bit width
+    #x = claripy.BVS("x", 100*8) # 100 bytes
+    x = claripy.BVS('x', 32)  # Symbolic char input with 8-bit width
 
     state.regs.rdi = x  # Assign the symbolic integer input to the RDI register for the main function
     #state.memory.store(source + 4, y)  # Store the symbolic char input in memory after the integer
@@ -122,8 +122,9 @@ def get_solver(source,target,project,n):
         combined_constraints = claripy.Or(*constraints)
         solver = claripy.Solver()
         solver.add(combined_constraints)
-        solutions=solver.eval(x,n)
+        solutions=solver.eval(x,n,)
         solutions=[[s] for s in solutions]
+        #print(solutions)
     else:
         solver=True
         solutions=[]
@@ -146,7 +147,7 @@ def functions_dataframe(binary_path, api_call,n):
     # Check if the binary file exists
     if not os.path.isfile(binary_path):
         print(f"Error: File '{binary_path}' does not exist.")
-        return
+        return 
 
     # Create an angr project
     project = angr.Project(binary_path, auto_load_libs=False)
@@ -157,8 +158,8 @@ def functions_dataframe(binary_path, api_call,n):
     # Find the address of the function
     api_address=find_func_address(api_call,func_addr) 
     # Check if the function is found in the call graph
-    if api_address==None:
-        return
+    if api_address is None:
+        return 
     
     # Find minimum distance between nodes and target
     (nodes,distance)=nodes_distance(call_graph,api_address)

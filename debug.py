@@ -44,7 +44,7 @@ def trace_function_calls(binary, args,functions,n):
     function_list = generate_function_list(binary)
 
     def on_message(message, data):
-        print(message)
+        #print(message)
         if message["type"] == "send" and message["payload"] != "done":
             #function_payload = message["payload"] #["function"]
             function_name = message["payload"]["function"]
@@ -88,6 +88,7 @@ def trace_function_calls(binary, args,functions,n):
     except Exception as e:
         print(e)
 
+    print(entries)
     return entries
 
 # Usage example
