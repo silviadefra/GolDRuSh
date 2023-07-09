@@ -18,7 +18,6 @@ def generate_function_list(binary):
                         functions.append(symbol.name)
     return functions
 
-
 def make_script(f,n):
     args_str = ', '.join(f'args[{i}]' for i in range(n))
     return """
@@ -44,7 +43,7 @@ def trace_function_calls(binary, args,functions,n):
     function_list = generate_function_list(binary)
 
     def on_message(message, data):
-        #print(message)
+        print(message)
         if message["type"] == "send" and message["payload"] != "done":
             #function_payload = message["payload"] #["function"]
             function_name = message["payload"]["function"]

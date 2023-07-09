@@ -93,19 +93,16 @@ def find_succ(source,graph,addr,distance):
 
 
 # Get the solver with constraints leading to reaching the target_func
-def get_solver(source,target,project,n):
-    
-    # Set up symbolic variables and constraints
-    state = project.factory.blank_state(addr=source)
-    state.options.add(angr.options.ZERO_FILL_UNCONSTRAINED_MEMORY)
-    state.options.add(angr.options.ZERO_FILL_UNCONSTRAINED_REGISTERS)
+def get_solver(source,target,project,n,binary_path):
 
     # Symbolic input variables
-    #x = claripy.BVS("x", 100*8) # 100 bytes
-    x = claripy.BVS('x', 32)  # Symbolic char input with 8-bit width
-
-    state.regs.rdi = x  # Assign the symbolic integer input to the RDI register for the main function
-    #state.memory.store(source + 4, y)  # Store the symbolic char input in memory after the integer
+    y = claripy.BVS("y", 100*8) # 100 bytes
+    
+    # Set up symbolic variables and constraints
+    state= project.factory.entry_state(addr=source,args=[binary_path,y])
+    state.options.add(angr.options.ZERO_FILL_UNCONSTRAINED_MEMORY)
+    state.options.add(angr.options.ZERO_FILL_UNCONSTRAINED_REGISTERS)
+    
 
     # Explore the program with symbolic execution
     sm = project.factory.simgr(state)
@@ -115,6 +112,7 @@ def get_solver(source,target,project,n):
     constraints = []
     for path in sm.found:
         constraints.extend(path.solver.constraints)
+        print(repr(path.solver.eval(y, cast_to=bytes)))
 
 
     # Create a solver with all the constraints combined using the logical OR operator
@@ -122,12 +120,16 @@ def get_solver(source,target,project,n):
         combined_constraints = claripy.Or(*constraints)
         solver = claripy.Solver()
         solver.add(combined_constraints)
-        solutions=solver.eval(x,n,)
+        solutions=solver.eval(y,n)
         solutions=[[s] for s in solutions]
         #print(solutions)
     else:
         solver=True
         solutions=[]
+
+    # Convert solutions from bytes to strings
+    #solutions_as_strings = [sol.decode('utf-8') for sol in solutions]
+    #print(solutions_as_strings)
     return solver, solutions
 
 # Visualize the call graph
@@ -181,7 +183,7 @@ def functions_dataframe(binary_path, api_call,n):
         target_func=find_succ(starting_address,call_graph,addr,distance) #forse conviene non definire la funzione e mettere tutto nel main
         
         # Get the solver with constraints leading to reaching the target_func, and values to solve them
-        s,v=get_solver(starting_address,target_func,project,n)
+        s,v=get_solver(starting_address,target_func,project,n,binary_path)
         function_data.loc[i,'solver']=s
         function_data.at[i,'values']=v
     print(function_data.values.tolist())

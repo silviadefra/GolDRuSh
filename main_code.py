@@ -23,12 +23,16 @@ def main(binary,api):
     num_inputs=[len(x.args) for x in data['type'].tolist()] # the number of input for each function
 
     # Usage example
-    tests = [['7'],['ciao'], ['de9f'], ['39hnej'], ['dwnij'], ['jwue9j2-SL']]
+    tests = [['7'],['ciao'], ['de9f'], ['39hnej']]
     
     l=[]
     for t in tests:
         # Run the binary and trace function calls with their arguments
         entries = trace_function_calls(binary, t,list_functions,num_inputs)
+        if not entries:
+            print(f"Error: trace not found")
+            return
+
         reached_functions=[x[0] for x in entries] # Only functions
         reached_functions = list(dict.fromkeys(reached_functions)) # Without repetition
 
