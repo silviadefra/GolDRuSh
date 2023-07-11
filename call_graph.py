@@ -96,23 +96,33 @@ def find_succ(source,graph,addr,distance):
 def get_solver(source,target,project,n,binary_path):
 
     # Symbolic input variables
-    y = claripy.BVS("y", 100*8) # 100 bytes
+    x= claripy.BVS("x", 16)
+    y = claripy.BVS("y", 7*8) # 100 bytes
     
     # Set up symbolic variables and constraints
-    state= project.factory.entry_state(addr=source,args=[binary_path,y])
+    state= project.factory.blank_state(addr=source)   #,args=[binary_path,y]
     state.options.add(angr.options.ZERO_FILL_UNCONSTRAINED_MEMORY)
     state.options.add(angr.options.ZERO_FILL_UNCONSTRAINED_REGISTERS)
-    
 
+    # Assign the symbolic input to the RDI register for the main function
+    state.regs.rdi = x 
+    state.memory.store(source + 4, y)
+    
     # Explore the program with symbolic execution
     sm = project.factory.simgr(state)
     sm.explore(find=target)
 
-    # Get constraints leading to reaching the api_address
+    # Get constraints and solutions leading to reaching the api_address
     constraints = []
+    sol=[]
     for path in sm.found:
         constraints.extend(path.solver.constraints)
-        print(repr(path.solver.eval(y, cast_to=bytes)))
+        sol.append([path.solver.eval(y)])
+        s=path.solver.eval(y, cast_to=bytes)
+        print(s)
+        print(s.decode())
+
+    
 
 
     # Create a solver with all the constraints combined using the logical OR operator
@@ -130,7 +140,7 @@ def get_solver(source,target,project,n,binary_path):
     # Convert solutions from bytes to strings
     #solutions_as_strings = [sol.decode('utf-8') for sol in solutions]
     #print(solutions_as_strings)
-    return solver, solutions
+    return solver, sol #solutions
 
 # Visualize the call graph
 def visualize(cfg,graph):

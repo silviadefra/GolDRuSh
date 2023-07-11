@@ -60,7 +60,7 @@ def trace_function_calls(binary, args,functions,n):
     process = frida.spawn(binary, argv=[binary] + args)
     #process= frida.spawn(binary, argv=args)
 
-    sleep(1)
+    sleep(2)
 
     session = frida.attach(process)
     script_txt=""
@@ -76,7 +76,7 @@ def trace_function_calls(binary, args,functions,n):
 
     # Wait for the script to complete
     #script.join()
-    sleep(5)
+    sleep(4)
     
     #sys.stdin.read()
     

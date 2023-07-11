@@ -21,7 +21,7 @@ def main(binary,api):
 
     list_functions=data['name'].tolist()
     num_inputs=[len(x.args) for x in data['type'].tolist()] # the number of input for each function
-
+    
     # Usage example
     tests = [['7'],['ciao'], ['de9f'], ['39hnej']]
     

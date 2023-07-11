@@ -2,9 +2,13 @@
 #include <string.h>
 
 int f(const char* str) {
-    int result = strlen(str) + 2;
-    printf("Result: %d\n", result);
-    return result;
+    if (strcmp(str, "hello") == 0) {
+        int result = strlen(str) + 2;
+        printf("Result: %d\n", result);
+        return result;
+        } else {
+        return 0;
+        }
 }
 
 int g(const char* str) {
@@ -15,7 +19,7 @@ int g(const char* str) {
 
 int main(int argc, char *argv[]) {
     if (argc < 2) {
-        printf("No input string provided.\n");
+        /*printf("No input string provided.\n");*/
         return 1;
     }
 
