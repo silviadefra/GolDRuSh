@@ -12,28 +12,31 @@ def roulette_selection(pop,n):
 
 # Single Point Crossover
 def crossover(parent1, parent2):
-    pos = np.random.randint(1, len(parent1))
+    if len(parent1)==1:
+        pos=1
+    else:
+        pos = np.random.randint(1, len(parent1))
 
     offspring1 = parent1[:pos] + parent2[pos:]
     offspring2 = parent2[:pos] + parent1[pos:]
 
     return (offspring1, offspring2)
 
-# Replace only 1 random character
-def flip_random_character(s):
-    pos = random.randint(0, len(s) - 1)
-    new_c = chr(random.randrange(0, 65536))
+# Flip one bit
+def flip_random_character(s):   #cambia bit non carattere
+    pos = np.random.randint(0, len(s))
+    new_c = 1-s[pos]
     return s[:pos] + new_c + s[pos + 1:]
 
 # Add only 1 random character
 def add_random_character(s):
-    pos = random.randint(0, len(s))
-    new_c = chr(random.randrange(0, 65536)) #da vedere
+    pos = np.random.randint(0, len(s))
+    new_c = chr(np.random.randrange(0, 65536)) #da vedere
     return s[:pos] + new_c + s[pos:]
 
 # Remove only 1 random character
 def remove_random_character(s):
-    pos = random.randint(0, len(s) - 1)
+    pos = np.random.randint(0, len(s) - 1)
     return s[:pos] + s[pos + 1:]
 
 # Each child mutates in one of the possible mutations
@@ -42,14 +45,15 @@ def mutation(children):
     for child in children:
         prob=np.random.uniform()
         if prob<0.33:
-            child=flip_random_character(child)
+            res = ''.join(format(ord(i), '08b') for i in child)
+            child=flip_random_character(res)
         elif prob<0.66:
             child=add_random_character(child)
         else:
             child=remove_random_character(child)
 
 
-def fuzzy_func(initial_pop):
+def fuzzy_func(initial_pop,data):
 
     # Usage examples
     num_parents=2
@@ -60,7 +64,9 @@ def fuzzy_func(initial_pop):
     # Single Point Crossover
     parent1=parents[0]
     parent2=parents[1]
-    children=crossover(parent1,parent2)
+    children=[]
+    for p1,p2 in zip(parent1,parent2):
+        children.append(crossover(p1,p2))
 
     # Mutation 
     mutation(children)

@@ -70,7 +70,7 @@ def fitness_func(data,reached_functions,arguments):
 
     fitness=node_dist+m
     #print(fitness)
-    return fitness
+    return fitness,f
 
 
 

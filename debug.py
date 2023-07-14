@@ -18,7 +18,9 @@ def generate_function_list(binary):
                         functions.append(symbol.name)
     return functions
 
-def make_script(f,n):
+#Script Internal functions
+def make_script_in(pair):
+    (f,n)=pair
     args_str = ', '.join(f'args[{i}]' for i in range(n))
     return """
             console.log('Called function '+DebugSymbol.getFunctionByName('"""+f+"""'))
@@ -35,7 +37,23 @@ def make_script(f,n):
             });
         """
 
-def trace_function_calls(binary, args,functions,n):
+#Scripte exported functions
+def make_script_ex(pair):
+    (f,n)=pair
+    args_str = ', '.join(f'args[{i}]' for i in range(n))
+    return """
+            Interceptor.attach(Module.findExportByName(null, '"""+f+"""'), {
+                onEnter: function (args) {
+                    send({function: '"""+f+"""', args: [""" + args_str + """]})
+                },
+                onLeave: function (retval) {
+                	send({function: '"""+f+"""', ret: retval})
+                }
+            });
+        """
+
+
+def trace_function_calls(binary, args,exported_func,internal_func):
     """
     Run the binary and trace function calls with their arguments.
     """
@@ -64,10 +82,13 @@ def trace_function_calls(binary, args,functions,n):
 
     session = frida.attach(process)
     script_txt=""
-    for f,i in zip(functions,n):
-        script_txt+= make_script(f,i)
+    for f in internal_func:
+        script_txt+= make_script_in(f)
         script_txt+="\n"
-    
+    for f in exported_func:
+        script_txt+= make_script_ex(f)
+        script_txt+="\n"
+
     script = session.create_script(script_txt)
     script.on("message",on_message)
     script.load()
@@ -87,7 +108,6 @@ def trace_function_calls(binary, args,functions,n):
     except Exception as e:
         print(e)
 
-    print(entries)
     return entries
 
 # Usage example

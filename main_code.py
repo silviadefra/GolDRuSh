@@ -6,7 +6,7 @@ from call_graph import *
 from debug import *
 from fitness import *
 from fuzzy import *
-
+from itertools import product
 
 
 
@@ -21,14 +21,18 @@ def main(binary,api):
 
     list_functions=data['name'].tolist()
     num_inputs=[len(x.args) for x in data['type'].tolist()] # the number of input for each function
-    
     # Usage example
     tests = [['7'],['ciao'], ['de9f'], ['39hnej']]
-    
+    exported_list=['strlen', 'strcmp']
+
+    # Separete exported functions with the number of inputs from intenral functions
+    exported_func=[(x,j) for x,j in zip(list_functions,num_inputs) if x in exported_list] 
+    internal_func=[(x,j) for x,j in zip(list_functions,num_inputs) if x not in exported_list]
+
     l=[]
-    for t in tests:
+    for t in tests: #TODO parallel
         # Run the binary and trace function calls with their arguments
-        entries = trace_function_calls(binary, t,list_functions,num_inputs)
+        entries = trace_function_calls(binary, t,exported_func,internal_func)
         if not entries:
             print(f"Error: trace not found")
             return
@@ -39,24 +43,19 @@ def main(binary,api):
         # Fitness function for each test
         df=data[data['distance'] != math.inf] # Only functions with distance =! infinity
         func_in_both_list=set(reached_functions) & set(df['name'].tolist()) # Only functions with distance =! infinity
-        fit=fitness_func(df,func_in_both_list,t)
-        l.append([fit,t])
+        fit,min_f=fitness_func(df,func_in_both_list,t)
+        l.append([fit,t,min_f])
 
     # 'num_best_fit' tests with best fitness
     l=sorted(l, key=lambda x: x[0])
     best_tests=[x for x in l[:num_best_fit]]
-    #print(best_tests)
+    print(best_tests)
 
     # Fuzzing
-    fuzzy_func(best_tests)
+    fuzzy_func(best_tests,data)
  
     
-
-
-    
-
-
-        
+      
 
 
 
