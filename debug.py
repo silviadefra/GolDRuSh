@@ -1,7 +1,7 @@
 from elftools.elf.elffile import ELFFile
 import frida
-import sys
 from time import sleep
+from angr.sim_type import SimTypePointer, SimTypeLongLong, SimTypeInt
 
 #questa non mi sembra utile
 def generate_function_list(binary):
@@ -20,8 +20,16 @@ def generate_function_list(binary):
 
 #Script Internal functions
 def make_script_in(pair):
-    (f,n)=pair
-    args_str = ', '.join(f'args[{i}]' for i in range(n))
+    (f,input)=pair
+    args_str=''
+    for i,type in enumerate(input):
+        if isinstance(type, SimTypePointer) or isinstance(type, SimTypeLongLong):
+            args_str+=f'args[{i}].readCString()'
+        elif isinstance(type,SimTypeInt):
+            args_str+=f'args[{i}].toInt32()'
+        else:
+            args_str+=f'args[{i}]'
+        args_str+=', '
     return """
             console.log('Called function '+DebugSymbol.getFunctionByName('"""+f+"""'))
             Interceptor.attach(DebugSymbol.getFunctionByName('"""+f+"""'), {
@@ -39,8 +47,16 @@ def make_script_in(pair):
 
 #Scripte exported functions
 def make_script_ex(pair):
-    (f,n)=pair
-    args_str = ', '.join(f'args[{i}]' for i in range(n))
+    (f,input)=pair
+    args_str=''
+    for i,type in enumerate(input):
+        if isinstance(type, SimTypePointer) or isinstance(type, SimTypeLongLong):
+            args_str+=f'args[{i}].readCString()'
+        elif isinstance(type,SimTypeInt):
+            args_str+=f'args[{i}].toInt32()'
+        else:
+            args_str+=f'args[{i}]'
+        args_str+=', '
     return """
             Interceptor.attach(Module.findExportByName(null, '"""+f+"""'), {
                 onEnter: function (args) {
@@ -72,7 +88,7 @@ def trace_function_calls(binary, args,exported_func,internal_func):
             except:
                 function_args=message["payload"]["ret"]
                 io="output"
-            entries.append((function_name,function_args))
+            entries.append([function_name,function_args,io])
 
     # Run the binary
     process = frida.spawn(binary, argv=[binary] + args)

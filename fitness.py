@@ -3,6 +3,7 @@
 import math
 import sys
 import pandas as pd
+from itertools import zip_longest
 
 # Function with minimum distance
 def minimum_distance(data,functions):
@@ -14,57 +15,62 @@ def minimum_distance(data,functions):
             dist=data.loc[i,'distance']
     return min_f,dist
 
-# From characters to numbers
-def to_num(args):
+# From characters to binary
+def to_bit(args):
     ch_values=[]
     for elm in args:
         # If the argument is a string
         if isinstance(elm, str):
-            c=0
-            for pos in range(len(elm)):
-                c += ord(elm[pos])
-            ch_values.append(c)
+            c = ''.join(format(ord(i), 'b') for i in elm)
         else:
-            ch_values.append(elm)
+            c=format(elm,'b')
+        ch_values.append(c)
     return ch_values
 
 # Distance between strings
-def distance_character(target, values):
+def distance_binary(target, values):
 
     # Initialize with very large value so that any comparison is better
     minimum = sys.maxsize
 
     for value in values:
         distance=0
-        for i in range(len(target)):
-            distance += abs(target[i] - value[i])
+        for v,t in zip(value,target):
+            distance+=sum(c1 != c2 for c1, c2 in zip_longest(t[::-1], v[::-1])) 
         if distance < minimum:
             minimum = distance
     return minimum
 
 
+#con puntatori vediamo 16 bytes
+def fitness_func(data,reached_functions):
 
-def fitness_func(data,reached_functions,arguments):
+    # Only functions with distance =! infinity
+    df=data[data['distance'] != math.inf] 
+    func_in_both_list=set([x[0] for x in reached_functions]) & set(df['name'].tolist()) 
     
     # Function with minimum distance to the target
-    f,node_dist=minimum_distance(data,reached_functions)
+    f,node_dist=minimum_distance(df,func_in_both_list)
     if node_dist==0:
         print('You reached the good function')
-        return node_dist
+        return node_dist,f
 
-    # Values to reach the next 'good' function
-    i=data.index[data['name']==f].item()
-    values=data.loc[i,'values']
+    # Values to reach the next 'good' function from the solver
+    i=df.index[df['name']==f].item()
+    values=df.loc[i,'values']
 
-    # From characters to numbers
-    ch_args=to_num(arguments)
+    # Inputs ('x[1]') of the good function 'f' from the debug function
+    for x in reached_functions:
+        if x[0]==f: 
+            ch_args=to_bit(x[1]) # From characters to binary
+
     ch_values=[]
     for value in values:
-        ch_values.append(to_num(value))
-    #print(ch_args)
+        ch_values.append(to_bit(value))
 
     # Distance to reach the next 'good' function
-    minimum=distance_character(ch_args,ch_values)
+    minimum=distance_binary(ch_args,ch_values)
+    
     # Between 0 and 1
     m=minimum/(minimum+1)
 

@@ -7,7 +7,6 @@ import os
 import claripy
 import pandas as pd
 import math
-import sys
 
 
 # Generate call graph
@@ -74,7 +73,7 @@ def get_type(project, functions,cfg):
     # Set up the calling convention analysis for each function
     for f in functions:
         # Vriable recovery
-        vr = project.analyses.VariableRecoveryFast(f)
+        project.analyses.VariableRecoveryFast(f)
         
         cca = project.analyses.CallingConvention(f,cfg=cfg,analyze_callsites=True)
         types.append(cca.prototype)
@@ -96,11 +95,12 @@ def get_main_solver(target,project,n,binary_path):
 
     # Symbolic input variables
     y = claripy.BVS("y", 7*8) # 7 bytes
+    lenght=2
 
     # Set up symbolic variables and constraints
     state= project.factory.entry_state(args=[binary_path,y])
-    state.options.add(angr.options.ZERO_FILL_UNCONSTRAINED_MEMORY)
-    state.options.add(angr.options.ZERO_FILL_UNCONSTRAINED_REGISTERS)
+    #state.options.add(angr.options.ZERO_FILL_UNCONSTRAINED_MEMORY)
+    #state.options.add(angr.options.ZERO_FILL_UNCONSTRAINED_REGISTERS)
 
     # Explore the program with symbolic execution
     sm = project.factory.simgr(state)
@@ -111,7 +111,7 @@ def get_main_solver(target,project,n,binary_path):
     solutions=[]
     for path in sm.found:
         constraints.extend(path.solver.constraints)
-        solutions.append([repr(path.solver.eval(y, cast_to=bytes))])
+        solutions.append([lenght,repr(path.solver.eval(y, cast_to=bytes))])
         #print(s)
 
     # Create a solver with all the constraints combined using the logical OR operator
@@ -132,15 +132,15 @@ def get_solver(source,target,project,n,input_type):
     input_arg=input_type.args
     args=[]
     for i in range(len(input_arg)):
-        args.append(claripy.BVS("arg"+ str(i),input_arg[i].size))
+        args.append(claripy.BVS("arg"+ str(i),input_arg[i].size)) 
 
     # Symbolic input variables
-    x = claripy.BVS("y", input_type.args[0].size) 
+    x = claripy.BVS("y", 6*8) #input_type.args[0].size) 
     y= angr.PointerWrapper(x, buffer=True)
 
     
     # Set up symbolic variables and constraints
-    state = project.factory.call_state(source, y, prototype='void f(char* a)')
+    state = project.factory.call_state(source, y, prototype='void f(char* a)') #da sistemare per usare la lista di BVS
 
     
     # Explore the program with symbolic execution
@@ -153,7 +153,7 @@ def get_solver(source,target,project,n,input_type):
     solutions=[]
     for path in sm.found:
         constraints.extend(path.solver.constraints)
-        solutions.append([repr(path.solver.eval(x, cast_to=bytes))])
+        solutions.append([path.solver.eval(x, cast_to=bytes).decode()]) #da cambiare uno per path
 
     # Create a solver with all the constraints combined using the logical OR operator
     if constraints:

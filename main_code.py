@@ -1,6 +1,5 @@
 #!/usr/bin python3
 
-import math
 import sys
 from call_graph import *
 from debug import *
@@ -20,14 +19,15 @@ def main(binary,api):
         return
 
     list_functions=data['name'].tolist()
-    num_inputs=[len(x.args) for x in data['type'].tolist()] # the number of input for each function
+    func_inputs=[x.args for x in data['type'].tolist()] # the functions inputs
+
     # Usage example
     tests = [['7'],['ciao'], ['de9f'], ['39hnej']]
     exported_list=['strlen', 'strcmp']
 
-    # Separete exported functions with the number of inputs from intenral functions
-    exported_func=[(x,j) for x,j in zip(list_functions,num_inputs) if x in exported_list] 
-    internal_func=[(x,j) for x,j in zip(list_functions,num_inputs) if x not in exported_list]
+    # Separete exported functions with the inputs from intenral functions
+    exported_func=[(x,j) for x,j in zip(list_functions,func_inputs) if x in exported_list] 
+    internal_func=[(x,j) for x,j in zip(list_functions,func_inputs) if x not in exported_list]
 
     l=[]
     for t in tests: #TODO parallel
@@ -36,14 +36,13 @@ def main(binary,api):
         if not entries:
             print(f"Error: trace not found")
             return
-
-        reached_functions=[x[0] for x in entries] # Only functions
-        reached_functions = list(dict.fromkeys(reached_functions)) # Without repetition
+        
+        entries[0][1]=[len(t)+1]+ t #per il momento sostituisco a mano inputs del main
+        
+        reached_functions=[(x[0],x[1]) for x in entries if x[2]=="input"] # Functions with input values
 
         # Fitness function for each test
-        df=data[data['distance'] != math.inf] # Only functions with distance =! infinity
-        func_in_both_list=set(reached_functions) & set(df['name'].tolist()) # Only functions with distance =! infinity
-        fit,min_f=fitness_func(df,func_in_both_list,t)
+        fit,min_f=fitness_func(data,reached_functions)
         l.append([fit,t,min_f])
 
     # 'num_best_fit' tests with best fitness
@@ -56,10 +55,6 @@ def main(binary,api):
  
     
       
-
-
-
-
 
 if __name__ == "__main__":
 
