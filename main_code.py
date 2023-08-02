@@ -23,6 +23,7 @@ def main(binary,api):
 
     # Usage example
     tests = [['7'],['ciao'], ['de9f'], ['39hnej']]
+    num_ind=len(tests)
     exported_list=['strlen', 'strcmp']
 
     # Separete exported functions with the inputs from intenral functions
@@ -30,28 +31,33 @@ def main(binary,api):
     internal_func=[(x,j) for x,j in zip(list_functions,func_inputs) if x not in exported_list]
 
     l=[]
-    for t in tests: #TODO parallel
-        # Run the binary and trace function calls with their arguments
-        entries = trace_function_calls(binary, t,exported_func,internal_func)
-        if not entries:
-            print(f"Error: trace not found")
-            return
+    i=0
+    while i< 4:
+        for t in tests: #TODO parallel
+            # Run the binary and trace function calls with their arguments
+            entries = trace_function_calls(binary, t,exported_func,internal_func)
+            if not entries:
+                print(f"Error: trace not found")
+                return
         
-        entries[0][1]=[len(t)+1]+ t #per il momento sostituisco a mano inputs del main
+            entries[0][1]=[len(t)+1]+ t #per il momento sostituisco a mano inputs del main
         
-        reached_functions=[(x[0],x[1]) for x in entries if x[2]=="input"] # Functions with input values
+            reached_functions=[(x[0],x[1]) for x in entries if x[2]=="input"] # Functions with input values
 
-        # Fitness function for each test
-        fit,min_f=fitness_func(data,reached_functions)
-        l.append([fit,t,min_f])
+            # Fitness function for each test
+            fit,min_f=fitness_func(data,reached_functions)
+            l.append([fit,t,min_f])
 
-    # 'num_best_fit' tests with best fitness
-    l=sorted(l, key=lambda x: x[0])
-    best_tests=[x for x in l[:num_best_fit]]
-    print(best_tests)
+        # 'num_best_fit' tests with best fitness
+        l=sorted(l, key=lambda x: x[0])
+        l=l[:num_ind]
+        best_tests=[x for x in l[:num_best_fit]]
+        print(best_tests)
 
-    # Fuzzing
-    fuzzy_func(best_tests,data)
+        # Fuzzing
+        tests=fuzzy_func(best_tests,data)
+        print(tests)
+        i+=1
  
     
       

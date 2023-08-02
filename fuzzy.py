@@ -33,9 +33,7 @@ def crossover(parent1, parent2):
 def flip_random_character(s):  
     res = ''.join(format(ord(i), 'b') for i in s)
     pos = np.random.randint(0, len(res))
-    print(res[pos])
     new_c = str(1-int(res[pos]))
-    print(new_c)
     new_bin=res[:pos] + new_c + res[pos + 1:]
     str_data =' '
     for i in range(0, len(new_bin), 7):
@@ -53,6 +51,8 @@ def add_random_character(s):
 
 # Remove only 1 random character
 def remove_random_character(s):
+    if len(s)==1:                #da chiedere
+        return s
     pos = np.random.randint(0, len(s) - 1)
     return s[:pos] + s[pos + 1:]
 
@@ -81,6 +81,7 @@ def fuzzy_func(initial_pop,data):
 
     # Parents selection
     parents=roulette_selection(initial_pop,num_parents)
+    print(parents)
     
     # Single Point Crossover
     parent1=parents[0]
@@ -90,5 +91,6 @@ def fuzzy_func(initial_pop,data):
     # Mutation 
     children=mutation(children)
 
-    print(children)
+    return children
+
 
