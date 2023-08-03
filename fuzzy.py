@@ -32,10 +32,10 @@ def crossover(parent1, parent2):
 # Flip one bit
 def flip_random_character(s):  
     res = ''.join(format(ord(i), 'b') for i in s)
-    pos = np.random.randint(0, len(res))
+    pos = np.random.randint(0, len(res)-1)
     new_c = str(1-int(res[pos]))
     new_bin=res[:pos] + new_c + res[pos + 1:]
-    str_data =' '
+    str_data =''
     for i in range(0, len(new_bin), 7):
         temp_data =new_bin[i:i + 7]
         decimal_data = int(temp_data,2)
@@ -51,27 +51,26 @@ def add_random_character(s):
 
 # Remove only 1 random character
 def remove_random_character(s):
-    if len(s)==1:                #da chiedere
-        return s
+    if len(s)==1:              
+        return ''
     pos = np.random.randint(0, len(s) - 1)
     return s[:pos] + s[pos + 1:]
 
 # Each child mutates in one of the possible mutations
-def mutation(children):  #mutazione tutti args insieme
+def mutation(child):  
     
-    for child in children:
-        if len(child)==1:
-            index=0
-        else: 
-            index=np.random.randint(0, len(child)) # index of the list to mute
-        prob=np.random.uniform()
-        if prob<0.33:
-            child[index]=flip_random_character(child[index])
-        elif prob<0.66:
-            child[index]=add_random_character(child[index])
-        else:
-            child[index]=remove_random_character(child[index])
-    return children
+    if len(child)==1:
+        index=0
+    else: 
+        index=np.random.randint(0, len(child)-1) # index of the list to mute
+    prob=np.random.uniform()
+    if prob<0.33:
+        child[index]=flip_random_character(child[index])
+    elif prob<0.66:
+        child[index]=add_random_character(child[index])
+    else:
+        child[index]=remove_random_character(child[index])
+    return child
 
 
 def fuzzy_func(initial_pop,data):
@@ -87,9 +86,12 @@ def fuzzy_func(initial_pop,data):
     parent1=parents[0]
     parent2=parents[1]
     children=crossover(parent1,parent2)
+    print(children)
 
     # Mutation 
-    children=mutation(children)
+    for child in children:
+        if np.random.uniform()<0.05:
+            child=mutation(child)
 
     return children
 

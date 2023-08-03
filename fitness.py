@@ -36,7 +36,7 @@ def distance_binary(target, values):
     for value in values:
         distance=0
         for v,t in zip(value,target):
-            distance+=sum(c1 != c2 for c1, c2 in zip_longest(t[::-1], v[::-1])) 
+            distance+=sum(c1 != c2 for c1, c2 in zip_longest(t, v)) 
         if distance < minimum:
             minimum = distance
     return minimum
@@ -61,7 +61,7 @@ def fitness_func(data,reached_functions):
 
     # Inputs ('x[1]') of the good function 'f' from the debug function
     for x in reached_functions:
-        if x[0]==f: 
+        if x[0]==f:
             ch_args=to_bit(x[1]) # From characters to binary
 
     ch_values=[]

@@ -2,6 +2,7 @@ from elftools.elf.elffile import ELFFile
 import frida
 from time import sleep
 from angr.sim_type import SimTypePointer, SimTypeLongLong, SimTypeInt
+import logging
 
 #questa non mi sembra utile
 def generate_function_list(binary):
@@ -77,6 +78,7 @@ def trace_function_calls(binary, args,exported_func,internal_func):
     function_list = generate_function_list(binary)
 
     def on_message(message, data):
+        logging.debug(message)
         print(message)
         if message["type"] == "send" and message["payload"] != "done":
             #function_payload = message["payload"] #["function"]
@@ -93,8 +95,6 @@ def trace_function_calls(binary, args,exported_func,internal_func):
     # Run the binary
     process = frida.spawn(binary, argv=[binary] + args)
     #process= frida.spawn(binary, argv=args)
-
-    sleep(2)
 
     session = frida.attach(process)
     script_txt=""
@@ -113,7 +113,7 @@ def trace_function_calls(binary, args,exported_func,internal_func):
 
     # Wait for the script to complete
     #script.join()
-    sleep(4)
+    sleep(2)
     
     #sys.stdin.read()
     

@@ -5,7 +5,8 @@ from call_graph import *
 from debug import *
 from fitness import *
 from fuzzy import *
-from itertools import product
+import logging
+import itertools
 
 
 
@@ -22,7 +23,7 @@ def main(binary,api):
     func_inputs=[x.args for x in data['type'].tolist()] # the functions inputs
 
     # Usage example
-    tests = [['7'],['ciao'], ['de9f'], ['39hnej']]
+    tests = [['7'],['ciao'], ['de9f'], ['39hnej'],['hallo']]
     num_ind=len(tests)
     exported_list=['strlen', 'strcmp']
 
@@ -55,14 +56,20 @@ def main(binary,api):
         print(best_tests)
 
         # Fuzzing
-        tests=fuzzy_func(best_tests,data)
-        print(tests)
+        temp_tests=fuzzy_func(best_tests,data)
+        temp_tests = list(k for k,_ in itertools.groupby(temp_tests)) #delete duplicate
+        temp_l=[x[1] for x in l]
+        tests=[x for x in temp_tests if x not in temp_l] #delete children equal to parents
+        logging.debug('New generation: {new}\n'.format(new=temp_tests))
         i+=1
  
     
       
 
 if __name__ == "__main__":
+
+    logging.basicConfig(format='%(asctime)s %(levelname)s: %(message)s', level=logging.DEBUG)
+    #logging.basicConfig(filename='solutions.log', encoding='utf-8', level=logging.DEBUG)
 
     if len(sys.argv) < 2:
         print("Usage: python main_code.py <target_executable> <api_call>")
