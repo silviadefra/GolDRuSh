@@ -33,7 +33,7 @@ def main(binary,api):
 
     l=[]
     i=0
-    while i< 4:
+    while i< 20:
         for t in tests: #TODO parallel
             # Run the binary and trace function calls with their arguments
             entries = trace_function_calls(binary, t,exported_func,internal_func)
@@ -47,21 +47,24 @@ def main(binary,api):
 
             # Fitness function for each test
             fit,min_f=fitness_func(data,reached_functions)
+            if fit==0:
+                print('You reached the good function with the argument: {fun}\n'.format(fun=t))
+                return
             l.append([fit,t,min_f])
 
         # 'num_best_fit' tests with best fitness
         l=sorted(l, key=lambda x: x[0])
-        l=l[:num_ind]
-        best_tests=[x for x in l[:num_best_fit]]
-        print(best_tests)
+        l=l[:num_best_fit]
+        logging.debug('Initial population: {pop}'.format(pop=l))
 
         # Fuzzing
-        temp_tests=fuzzy_func(best_tests,data)
+        temp_tests=fuzzy_func(l)
         temp_tests = list(k for k,_ in itertools.groupby(temp_tests)) #delete duplicate
         temp_l=[x[1] for x in l]
         tests=[x for x in temp_tests if x not in temp_l] #delete children equal to parents
         logging.debug('New generation: {new}\n'.format(new=temp_tests))
         i+=1
+    logging.info('The best argument to reach the good function is {arg}\n'.format(arg=l[0][1]))
  
     
       

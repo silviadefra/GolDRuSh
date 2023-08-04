@@ -52,7 +52,6 @@ def fitness_func(data,reached_functions):
     # Function with minimum distance to the target
     f,node_dist=minimum_distance(df,func_in_both_list)
     if node_dist==0:
-        print('You reached the good function')
         return node_dist,f
 
     # Values to reach the next 'good' function from the solver

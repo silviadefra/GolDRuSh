@@ -3,10 +3,10 @@ import numpy as np
 
 
 # Select the parents using the roulette wheel selection technique
-def roulette_selection(pop,n):
+def roulette_selection(pop):
     max = sum([x[0] for x in pop])
     selection=[(max-x[0])/(max*(len(pop)-1)) for x in pop] # smaller the fitness, higher th probability
-    index_list=np.random.choice(len(pop),n,p=selection, replace=False)
+    index_list=np.random.choice(len(pop),2,p=selection, replace=False)
     parents=[pop[i][1] for i in index_list]
     return parents
 
@@ -73,19 +73,20 @@ def mutation(child):
     return child
 
 
-def fuzzy_func(initial_pop,data):
+def fuzzy_func(initial_pop):
 
     # Usage examples
-    num_parents=2
+    num_children=len(initial_pop)
+    children=[]
 
-    # Parents selection
-    parents=roulette_selection(initial_pop,num_parents)
-    print(parents)
+    for i in range(0,num_children,2):
+
+        # Parents selection
+        parents=roulette_selection(initial_pop)
+        print(parents)
     
-    # Single Point Crossover
-    parent1=parents[0]
-    parent2=parents[1]
-    children=crossover(parent1,parent2)
+        # Single Point Crossover
+        children.extend(crossover(parents[0],parents[1]))
     print(children)
 
     # Mutation 
