@@ -1,5 +1,6 @@
 #!/usr/bin python3
 import numpy as np
+import logging
 
 
 # Select the parents using the roulette wheel selection technique
@@ -83,11 +84,11 @@ def fuzzy_func(initial_pop):
 
         # Parents selection
         parents=roulette_selection(initial_pop)
-        print(parents)
+        logging.debug(parents)
     
         # Single Point Crossover
         children.extend(crossover(parents[0],parents[1]))
-    print(children)
+    logging.debug(children)
 
     # Mutation 
     for child in children:

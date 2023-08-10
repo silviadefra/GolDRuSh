@@ -7,6 +7,7 @@ import os
 import claripy
 import pandas as pd
 import math
+import logging
 
 
 # Generate call graph
@@ -50,7 +51,7 @@ def find_func_address(target,func_addr):
 
     # Check if the function is found in the call graph
     if target_address is None:
-        print(f"Error: '{target}' not found in the call graph.")
+        logging.info(f"Error: '{target}' not found in the call graph.")
         return None
 
     return target_address
@@ -109,10 +110,19 @@ def get_main_solver(target,project,n,binary_path):
     # Get constraints and solutions leading to reaching the api_address
     constraints = []
     solutions=[]
-    for path in sm.found:
+    num_paths=len(sm.found)
+
+    if num_paths>n:
+        paths=sm.found[:n]
+    else:
+        paths=sm.found
+
+    for i,path in enumerate(paths):
+        m=math.ceil((n-i)/num_paths) #number of solution for each path
         constraints.extend(path.solver.constraints)
-        solutions.append([lenght,repr(path.solver.eval(y, cast_to=bytes))])
-        #print(s)
+        temp=path.solver.eval_upto(y,m, cast_to=bytes)
+        for x in temp:
+            solutions.append([lenght,repr(x)])
 
     # Create a solver with all the constraints combined using the logical OR operator
     if constraints:
@@ -151,9 +161,19 @@ def get_solver(source,target,project,n,input_type):
     # Get constraints and solutions leading to reaching the api_address
     constraints = []
     solutions=[]
-    for path in sm.found:
+    num_paths=len(sm.found)
+
+    if num_paths>n:
+        paths=sm.found[:n]
+    else:
+        paths=sm.found
+
+    for i,path in enumerate(paths):
+        m=math.ceil((n-i)/num_paths) #number of solution for each path
         constraints.extend(path.solver.constraints)
-        solutions.append([path.solver.eval(x, cast_to=bytes).decode()]) #da cambiare uno per path
+        temp=path.solver.eval_upto(x,m, cast_to=bytes)
+        for x in temp:
+            solutions.append([x.decode()])
 
     # Create a solver with all the constraints combined using the logical OR operator
     if constraints:
@@ -181,7 +201,7 @@ def functions_dataframe(binary_path, api_call,n):
 
     # Check if the binary file exists
     if not os.path.isfile(binary_path):
-        print(f"Error: File '{binary_path}' does not exist.")
+        logging.debug(f"Error: File '{binary_path}' does not exist.")
         return 
 
     # Create an angr project
@@ -232,7 +252,7 @@ def functions_dataframe(binary_path, api_call,n):
         s,v=get_solver(starting_address,target_func,project,n,input_type)
         function_data.loc[i,'solver']=s
         function_data.at[i,'values']=v
-    print(function_data.values.tolist())
+    logging.debug(function_data.values.tolist())
 
     # Visualize the call graph
     #visualize(cfg,call_graph) 

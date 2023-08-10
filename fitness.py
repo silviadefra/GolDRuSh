@@ -74,7 +74,7 @@ def fitness_func(data,reached_functions):
     m=minimum/(minimum+1)
 
     fitness=node_dist+m
-    #print(fitness)
+
     return fitness,f
 
 

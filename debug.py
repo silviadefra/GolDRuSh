@@ -75,11 +75,10 @@ def trace_function_calls(binary, args,exported_func,internal_func):
     Run the binary and trace function calls with their arguments.
     """
     entries = []
-    function_list = generate_function_list(binary)
+    #function_list = generate_function_list(binary)
 
     def on_message(message, data):
         logging.debug(message)
-        print(message)
         if message["type"] == "send" and message["payload"] != "done":
             #function_payload = message["payload"] #["function"]
             function_name = message["payload"]["function"]
@@ -113,7 +112,7 @@ def trace_function_calls(binary, args,exported_func,internal_func):
 
     # Wait for the script to complete
     #script.join()
-    sleep(2)
+    sleep(1)
     
     #sys.stdin.read()
     
@@ -122,7 +121,7 @@ def trace_function_calls(binary, args,exported_func,internal_func):
         session.detach()
         #frida.kill(process)
     except Exception as e:
-        print(e)
+        logging.info(e)
 
     return entries
 
