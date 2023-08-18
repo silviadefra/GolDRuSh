@@ -1,7 +1,7 @@
 #!/usr/bin python3
 
 import logging
-logging.basicConfig(format='[+] %(asctime)s %(levelname)s: %(message)s', level=logging.DEBUG)
+logging.basicConfig(format='[+] %(asctime)s %(levelname)s: %(message)s', level=logging.INFO)
 import sys
 from call_graph import *
 from debug import *
@@ -14,8 +14,9 @@ import itertools
 def main(binary,api):
 
     # Dataframe of functions, for each function: name, address, distance, solver, values
-    num_values=2
-    num_best_fit=4
+    num_values=2      #Number of solutions of the solver
+    num_best_fit=4    #Number of individual in the population
+    num_generations=20   
     data=functions_dataframe(binary,api,num_values)
     if data is None:
         return
@@ -25,6 +26,7 @@ def main(binary,api):
 
     # Usage example
     tests = [['7'],['ciao'], ['de9f'], ['39hnej'],['hallo']]
+    len_cache=len(tests)
     exported_list=['strlen', 'strcmp']
 
     # Separete exported functions with the inputs from intenral functions
@@ -33,12 +35,12 @@ def main(binary,api):
 
     l=[]
     i=0
-    while i< 20:
+    while i< num_generations:
         for t in tests: #TODO parallel
             # Run the binary and trace function calls with their arguments
             entries = trace_function_calls(binary, t,exported_func,internal_func)
             if not entries:
-                print(f"Warning: trace not found")
+                logging.worning(f"Warning: trace not found")
                 return
         
             entries[0][1]=[len(t)+1]+ t #per il momento sostituisco a mano inputs del main
@@ -46,23 +48,25 @@ def main(binary,api):
             reached_functions=[(x[0],x[1]) for x in entries if x[2]=="input"] # Functions (x[0]) and inputs (x[1])
 
             # Fitness function for each test
-            fit,min_f=fitness_func(data,reached_functions)
+            fit=fitness_func(data,reached_functions)
             if fit==0:
                 logging.info('You reached the good function with the argument: {fun}\n'.format(fun=t))
                 return
-            l.append([fit,t,min_f])
+            l.append([fit,t])
 
         # 'num_best_fit' tests with best fitness
         l=sorted(l, key=lambda x: x[0])
+        l=l[:len_cache]
         pop=l[:num_best_fit]
-        logging.debug('Initial population: {pop}'.format(pop=pop))
+        logging.info('Initial population: {pop}'.format(pop=pop))
 
         # Fuzzing
         temp_tests=fuzzy_func(pop)
+        temp_tests.sort()
         temp_tests = list(k for k,_ in itertools.groupby(temp_tests)) #delete duplicate
         temp_l=[x[1] for x in l]
         tests=[x for x in temp_tests if x not in temp_l] #delete children equal to parents
-        logging.debug('New generation: {new}\n'.format(new=temp_tests))
+        logging.info('New generation: {new}\n'.format(new=temp_tests))
         i+=1
     logging.info('The best argument to reach the good function is {arg}\n'.format(arg=l[0][1]))
  
@@ -71,8 +75,7 @@ def main(binary,api):
 
 if __name__ == "__main__":
 
-    logging.basicConfig(format='[+] %(asctime)s %(levelname)s: %(message)s', level=logging.DEBUG, stream=sys.stdout)
-    logging.info('ciao')
+    #logging.basicConfig(format='[+] %(asctime)s %(levelname)s: %(message)s', level=logging.DEBUG, stream=sys.stdout)
     #logging.basicConfig(filename='solutions.log', encoding='utf-8', level=logging.DEBUG)
 
     if len(sys.argv) < 2:

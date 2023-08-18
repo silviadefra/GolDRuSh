@@ -2,7 +2,6 @@
 
 import math
 import sys
-import pandas as pd
 from itertools import zip_longest
 
 # Function with minimum distance
@@ -52,7 +51,7 @@ def fitness_func(data,reached_functions):
     # Function with minimum distance to the target
     f,node_dist=minimum_distance(df,func_in_both_list)
     if node_dist==0:
-        return node_dist,f
+        return node_dist
 
     # Values to reach the next 'good' function from the solver
     i=df.index[df['name']==f].item()
@@ -75,7 +74,7 @@ def fitness_func(data,reached_functions):
 
     fitness=node_dist+m
 
-    return fitness,f
+    return fitness
 
 
 

@@ -1,23 +1,9 @@
-from elftools.elf.elffile import ELFFile
+
 import frida
 from time import sleep
 from angr.sim_type import SimTypePointer, SimTypeLongLong, SimTypeInt
 import logging
 
-#questa non mi sembra utile
-def generate_function_list(binary):
-    """
-    Generate a list of all the functions defined by the target executable.
-    """
-    functions = []
-    with open(binary, "rb") as f:
-        elf = ELFFile(f)
-        for section in elf.iter_sections():
-            if section.header.sh_type == 'SHT_SYMTAB':
-                for symbol in section.iter_symbols():
-                    if symbol.entry.st_info.type == 'STT_FUNC':
-                        functions.append(symbol.name)
-    return functions
 
 #Script Internal functions
 def make_script_in(pair):
@@ -75,7 +61,6 @@ def trace_function_calls(binary, args,exported_func,internal_func):
     Run the binary and trace function calls with their arguments.
     """
     entries = []
-    #function_list = generate_function_list(binary)
 
     def on_message(message, data):
         logging.debug(message)

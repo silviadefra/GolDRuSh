@@ -140,17 +140,15 @@ def get_solver(source,target,project,n,input_type):
 
     # The size of each input
     input_arg=input_type.args
-    args=[]
-    for i in range(len(input_arg)):
-        args.append(claripy.BVS("arg"+ str(i),input_arg[i].size)) 
+    args=[claripy.BVS("arg"+ str(i),input_arg[i].size) for i in range(len(input_arg))]
 
     # Symbolic input variables
-    x = claripy.BVS("y", 6*8) #input_type.args[0].size) 
-    y= angr.PointerWrapper(x, buffer=True)
+    #x = claripy.BVS("y", 6*8) #input_type.args[0].size) 
+    y=[angr.PointerWrapper(x,buffer=True) for x in args]
 
     
     # Set up symbolic variables and constraints
-    state = project.factory.call_state(source, y, prototype='void f(char* a)') #da sistemare per usare la lista di BVS
+    state = project.factory.call_state(source, *y) #, prototype=input_type) #da sistemare prototype (input_type è simtypefun ci serve symtypepointer)
 
     
     # Explore the program with symbolic execution
@@ -171,9 +169,10 @@ def get_solver(source,target,project,n,input_type):
     for i,path in enumerate(paths):
         m=math.ceil((n-i)/num_paths) #number of solution for each path
         constraints.extend(path.solver.constraints)
-        temp=path.solver.eval_upto(x,m, cast_to=bytes)
-        for x in temp:
-            solutions.append([x.decode()])
+        temp=[path.solver.eval_upto(args[i],m, cast_to=bytes) for i in range(len(args))]
+        min_length=min(len(sublist) for sublist in temp)
+        for i in range(min_length):
+            solutions.append([x[i].decode() for x in temp])
 
     # Create a solver with all the constraints combined using the logical OR operator
     if constraints:

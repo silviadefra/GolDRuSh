@@ -16,13 +16,13 @@ def crossover(parent1, parent2):
     if len(parent1)==1:
         index=0
     else:
-        index=np.random.randint(0, len(parent1)-1) # index of the list to crossover
+        index=np.random.randint(0, len(parent1)) # index of the list to crossover
     p1=parent1[index]
     p2=parent2[index]
     if len(p1)==1:
         pos=0
     else:
-        pos = np.random.randint(0, len(p1)-1) # position of the word to cross
+        pos = np.random.randint(0, len(p1)) # position of the word to cross
     c1=p1[:pos]+p2[pos:]
     c2=p2[:pos] + p1[pos:]
     offspring1 = parent1[:index] +[c1] + parent2[index +1:]
