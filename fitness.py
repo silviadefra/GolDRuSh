@@ -41,7 +41,7 @@ def distance_binary(target, values):
     return minimum
 
 
-#con puntatori vediamo 16 bytes
+#Main Function
 def fitness_func(data,reached_functions):
 
     # Only functions with distance =! infinity

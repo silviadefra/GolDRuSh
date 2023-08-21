@@ -55,7 +55,7 @@ def make_script_ex(pair):
             });
         """
 
-
+#Main Function
 def trace_function_calls(binary, args,exported_func,internal_func):
     """
     Run the binary and trace function calls with their arguments.

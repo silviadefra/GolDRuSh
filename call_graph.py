@@ -1,13 +1,12 @@
 #!/usr/bin python3
 
-import angr
+from angr import Project, PointerWrapper
+from angr.sim_type import SimTypeFunction, SimTypePointer
 import networkx as nx
 import matplotlib.pyplot as plt
-import os
 import claripy
-import pandas as pd
+from pandas import DataFrame
 import math
-import logging
 
 
 # Generate call graph
@@ -32,7 +31,7 @@ def generate_call_graph(project):
             program_functions_name.append(function.name)
 
     d={'name': program_functions_name,'address': program_functions_addr,'distance':[math.inf]*len(program_functions_addr), 'solver': [[None]]*len(program_functions_addr),  'values': [[None]]*len(program_functions_addr)}
-    function_data=pd.DataFrame(data=d)
+    function_data=DataFrame(data=d)
 
     # Create a subgraph for the program functions
     sub_graph = call_graph.subgraph(program_functions_addr)
@@ -48,11 +47,6 @@ def find_func_address(target,func_addr):
     for function in func_addr:
         if function.name == target:
                 target_address = function.addr
-
-    # Check if the function is found in the call graph
-    if target_address is None:
-        logging.info(f"Error: '{target}' not found in the call graph.")
-        return None
 
     return target_address
 
@@ -92,16 +86,17 @@ def find_succ(source,graph,addr,distance):
     return target_addr
 
 # Get solver and values to reach the target_func of the main
-def get_main_solver(target,project,n,binary_path):
+def get_main_solver(target,project,n,binary_path,input):
+
+    # Input arguments
+    input_arg=input.args
 
     # Symbolic input variables
-    y = claripy.BVS("y", 7*8) # 7 bytes
-    lenght=2
+    args=[claripy.BVS("arg"+ str(i),input_arg[i].size) for i in range(len(input_arg))]
+    lenght=len(input_arg)+1
 
     # Set up symbolic variables and constraints
-    state= project.factory.entry_state(args=[binary_path,y])
-    #state.options.add(angr.options.ZERO_FILL_UNCONSTRAINED_MEMORY)
-    #state.options.add(angr.options.ZERO_FILL_UNCONSTRAINED_REGISTERS)
+    state= project.factory.entry_state(args=[binary_path]+args)
 
     # Explore the program with symbolic execution
     sm = project.factory.simgr(state)
@@ -120,9 +115,11 @@ def get_main_solver(target,project,n,binary_path):
     for i,path in enumerate(paths):
         m=math.ceil((n-i)/num_paths) #number of solution for each path
         constraints.extend(path.solver.constraints)
-        temp=path.solver.eval_upto(y,m, cast_to=bytes)
-        for x in temp:
-            solutions.append([lenght,repr(x)])
+        temp=[path.solver.eval_upto(args[i],m, cast_to=bytes) for i in range(len(args))]
+        min_length=min(len(sublist) for sublist in temp)
+        for i in range(min_length):
+            solutions.append([lenght]+[repr(x[i]) for x in temp])
+        
 
     # Create a solver with all the constraints combined using the logical OR operator
     if constraints:
@@ -138,17 +135,19 @@ def get_main_solver(target,project,n,binary_path):
 # Get the solver with constraints leading to reaching the target_func
 def get_solver(source,target,project,n,input_type):
 
-    # The size of each input
+    # Input arguments
     input_arg=input_type.args
-    args=[claripy.BVS("arg"+ str(i),input_arg[i].size) for i in range(len(input_arg))]
 
     # Symbolic input variables
-    #x = claripy.BVS("y", 6*8) #input_type.args[0].size) 
-    y=[angr.PointerWrapper(x,buffer=True) for x in args]
+    args=[claripy.BVS("arg"+ str(i),input_arg[i].size) for i in range(len(input_arg))]
+    y=[PointerWrapper(x,buffer=True) for x in args]
 
+    #Change inputs into pointer
+    p=[SimTypePointer(r) for r in input_arg]
+    c=SimTypeFunction(p,input_type.returnty)
     
     # Set up symbolic variables and constraints
-    state = project.factory.call_state(source, *y) #, prototype=input_type) #da sistemare prototype (input_type è simtypefun ci serve symtypepointer)
+    state = project.factory.call_state(source, *y, prototype=c) 
 
     
     # Explore the program with symbolic execution
@@ -198,13 +197,8 @@ def visualize(cfg,graph):
 # Main function
 def functions_dataframe(binary_path, api_call,n):
 
-    # Check if the binary file exists
-    if not os.path.isfile(binary_path):
-        logging.debug(f"Error: File '{binary_path}' does not exist.")
-        return 
-
     # Create an angr project
-    project = angr.Project(binary_path, auto_load_libs=False)
+    project = Project(binary_path, auto_load_libs=False)
 
     # Generate the call graph
     (call_graph, func_addr,function_data, cfg)=generate_call_graph(project)
@@ -213,7 +207,7 @@ def functions_dataframe(binary_path, api_call,n):
     api_address=find_func_address(api_call,func_addr) 
     # Check if the function is found in the call graph
     if api_address is None:
-        return 
+        return
     
     # Find minimum distance between nodes and target
     (nodes,distance)=nodes_distance(call_graph,api_address)
@@ -226,12 +220,13 @@ def functions_dataframe(binary_path, api_call,n):
     main_f=nodes[0]# Main function
     i=function_data.index[function_data['address']==main_f].item() # main function index
     function_data.loc[i,'distance']=distance[main_f] # main function distance
+    input_type=function_data.loc[i,'type']
     
     # Find successors with smaller distance
     target_func=find_succ(main_f,call_graph,nodes,distance)
 
     # Get the solver with constraints leading to reaching the target_func, and values to solve them
-    s,v=get_main_solver(target_func,project,n,binary_path)
+    s,v=get_main_solver(target_func,project,n,binary_path,input_type)
     function_data.loc[i,'solver']=s
     function_data.at[i,'values']=v
 
@@ -251,7 +246,6 @@ def functions_dataframe(binary_path, api_call,n):
         s,v=get_solver(starting_address,target_func,project,n,input_type)
         function_data.loc[i,'solver']=s
         function_data.at[i,'values']=v
-    logging.debug(function_data.values.tolist())
 
     # Visualize the call graph
     #visualize(cfg,call_graph) 
