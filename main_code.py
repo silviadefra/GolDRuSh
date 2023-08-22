@@ -22,10 +22,10 @@ def main(binary,api):
     
     #TODO Parameters for the algorithm: they must be passed from the command line
     num_values=2      #Number of solutions of the solver
-    num_best_fit=4    #Number of individual in the population
-    num_generations=20 
-    tests = [['7'],['ciao'], ['de9f'], ['39hnej'],['hallo']]  #Our tests
-    len_cache=len(tests)                #lenght cache for fitness
+    num_best_fit=8    #Number of individual in the population
+    num_generations=100 
+    tests = [['7'],['ciao'], ['de9f'], ['39hnej'],['zdjgf'],['29jskaj8jn'],['>)JWOMLsax)il'],['laI0U(>)'],['èospè']]  #Our tests
+    len_cache=100                #lenght cache for fitness
     
     #TODO
     exported_list=['strlen', 'strcmp']
@@ -38,7 +38,7 @@ def main(binary,api):
         logging.info(f"Error: '{api}' not found in the call graph.")
         return
 
-    logging.debug(data.values.tolist())
+    logging.info(data.values.tolist())
 
     list_functions=data['name'].tolist()
     func_inputs=[x.args for x in data['type'].tolist()] # the functions inputs
@@ -70,7 +70,7 @@ def main(binary,api):
             l.append([fit,t])
 
         # 'num_best_fit' tests with best fitness
-        l=sorted(l, key=lambda x: x[0])
+        l=sorted(l, key=lambda x: (x[0], len(str(x[0]).split('.')[1])))
         l=l[:len_cache]
         pop=l[:num_best_fit]
         logging.info('Initial population: {pop}'.format(pop=pop))

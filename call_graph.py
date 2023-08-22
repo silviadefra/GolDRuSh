@@ -86,7 +86,7 @@ def find_succ(source,graph,addr,distance):
     return target_addr
 
 # Get solver and values to reach the target_func of the main
-def get_main_solver(target,project,n,binary_path,input):
+def get_main_solver(target,project,n,binary_path,input):    #da sistemare
 
     # Input arguments
     input_arg=input.args

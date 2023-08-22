@@ -33,7 +33,7 @@ def crossover(parent1, parent2):
 # Flip one bit
 def flip_random_character(s):  
     res = ''.join(format(ord(i), 'b') for i in s)
-    pos = random.randint(0, len(res)-1)
+    pos = random.randint(0, len(res))
     new_c = str(1-int(res[pos]))
     new_bin=res[:pos] + new_c + res[pos + 1:]
     str_data =''
@@ -46,7 +46,7 @@ def flip_random_character(s):
 
 # Add only 1 random character
 def add_random_character(s):
-    pos = random.randint(0, len(s))
+    pos = random.randint(0, len(s)+1)
     new_c = chr(random.randint(0, 65536)) #da vedere
     return s[:pos] + new_c + s[pos:]
 
@@ -54,7 +54,7 @@ def add_random_character(s):
 def remove_random_character(s):
     if len(s)==1:              
         return ''
-    pos = random.randint(0, len(s) - 1)
+    pos = random.randint(0, len(s))
     return s[:pos] + s[pos + 1:]
 
 # Each child mutates in one of the possible mutations
@@ -92,7 +92,7 @@ def fuzzy_func(initial_pop):
 
     # Mutation 
     for child in children:
-        if random.random_sample()<0.05:
+        if random.random_sample()<0.1:
             child=mutation(child)
 
     return children
