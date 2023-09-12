@@ -24,7 +24,7 @@ def main(binary,api):
     num_values=2      #Number of solutions of the solver
     num_best_fit=8    #Number of individual in the population
     num_generations=100 
-    tests = [['7'],['ciao'], ['de9f'], ['39hnej'],['zdjgf'],['29jskaj8jn'],['>)JWOMLsax)il'],['laI0U(>)'],['èospè']]  #Our tests
+    tests = [['2358'],['35'], ['9124'], ['34'],['14'],['82375'],['2'],['1982674'],['736']]  #Our tests
     len_cache=100                #lenght cache for fitness
     
     #TODO

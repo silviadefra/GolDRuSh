@@ -1,0 +1,3 @@
+void* b1, void* b2, unsigned long m, unsigned long n ;
+b1 = malloc(m) , read(?,b2,n) ;
+b1 == b2 AND m < n ;

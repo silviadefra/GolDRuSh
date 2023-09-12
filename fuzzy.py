@@ -80,7 +80,8 @@ def fuzzy_func(initial_pop):
     num_children=len(initial_pop)
     children=[]
 
-    for i in range(0,num_children,2):
+    #TODO parallel
+    for i in range(0,num_children,2): 
 
         # Parents selection
         parents=roulette_selection(initial_pop)
