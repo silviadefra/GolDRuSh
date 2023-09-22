@@ -11,15 +11,14 @@ grammar = r"""
 
     ?rule: [decl] pattern pred ";" 
     ?decl: (type CNAME ",")* type CNAME ";" 
-    ?type: integer | character | string | word #?type: number| character | pointer | void
-    #?number: num | sign num 
-    ?integer: "int"  #?num: "int" | "short" | "long" | "float" | "double" 
-    #?sign: "signed" | "unsigned"
+    ?type: number| character | pointer | void #ci serve solo bits, e come tipo numeri caratteri puntatori
+    ?number: "int" | "short" | "long" | "float" | "double" 
     ?character: "char" 
-    ?string: "string"  #?pointer: "*" | type "*" 
-    ?word: "word"       #?void: "void"
+    ?pointer: "*" | type "*" 
+    ?void: "void"
     ?pattern: (api ",")* api ";"
-    ?api: CNAME"("[parlist]")" | CNAME "=" CNAME"("[parlist]")"
+    ?api: func"("[parlist]")" | CNAME "=" func"("[parlist]")"
+    func: CNAME
     ?parlist: (par ",")* par
     ?par: CNAME | QMARK
     QMARK: "?" 
@@ -77,7 +76,7 @@ def parse_file(filename):
 
 def main():
 
-    tree = parse_file("Features_ITASEC2021")   
+    tree = parse_file("rules.txt")   
 
     #print(tree.pretty)
     return tree
@@ -85,6 +84,9 @@ def main():
 
 if __name__ == '__main__':
     tree = main()
+
+    print(tree.pretty())
+    
 
 
 

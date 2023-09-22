@@ -7,6 +7,10 @@ import matplotlib.pyplot as plt
 import claripy
 from pandas import DataFrame
 import math
+import sys
+from lark.tree import Tree
+from tree_visitor import FuncVisitor
+
 
 
 # Generate call graph
@@ -38,29 +42,6 @@ def generate_call_graph(project):
 
     return (sub_graph, program_functions,function_data,cfg)
 
-
-# Find the address of the target
-def find_func_address(target,func_addr):
-    target_address = None
-
-    #TODO without for loop
-    for function in func_addr:
-        if function.name == target:
-                target_address = function.addr
-
-    return target_address
-
-
-# Label the nodes with the minimum path length to the target node
-def nodes_distance(graph, trg):
-
-    shortest_paths = nx.shortest_path_length(graph, target=trg)
-    addresses=list(shortest_paths)
-    addresses.reverse()
-
-    return (addresses,shortest_paths)
-
-
 # Get functions' type inputs
 def get_type(project, functions,cfg):
 
@@ -74,7 +55,57 @@ def get_type(project, functions,cfg):
         types.append(cca.prototype)
         
     return types
-  
+
+
+# Find the address of the target
+def find_func_address(target,func_addr):
+    target_address = None
+
+    #TODO without for loop
+    for function in func_addr:
+        if function.name == target:
+                target_address = function.addr
+
+    return target_address
+
+def is_reachable(project,start, end,steps,start_input,end_input):
+    flag=True
+    
+    # Input arguments
+    input_arg=start_input.args
+
+    # Symbolic input variables
+    args=[claripy.BVS("arg"+ str(i),input_arg[i].size) for i in range(len(input_arg))]
+    y=[PointerWrapper(x,buffer=True) for x in args]
+
+    #Change inputs into pointer
+    p=[SimTypePointer(r) for r in input_arg]
+    c=SimTypeFunction(p,start_input.returnty)
+    
+    # Set up symbolic variables and constraints
+    state = project.factory.call_state(start,*y,prototype=c)
+
+    # Explore the program with symbolic execution
+    sm = project.factory.simgr(state)
+    sm.explore(n=steps,find=end)
+    
+    # Check if the address 'end' is not found
+    if not any(end in state.history.bbl_addrs for state in sm.found):
+        return False
+
+    return flag
+
+
+
+# Label the nodes with the minimum path length to the target node
+def nodes_distance(graph, trg):
+
+    shortest_paths = nx.shortest_path_length(graph, target=trg)
+    addresses=list(shortest_paths)
+    addresses.reverse()
+
+    return (addresses,shortest_paths)
+ 
 
 # Find the successors with smaller distance
 def find_succ(source,graph,addr,distance):
@@ -154,7 +185,6 @@ def get_solver(source,target,project,n,input_type):
     sm = project.factory.simgr(state, save_unconstrained=True)
     sm.explore(find=target)
 
-
     # Get constraints and solutions leading to reaching the api_address
     constraints = []
     solutions=[]
@@ -195,7 +225,7 @@ def visualize(cfg,graph):
 
 
 # Main function
-def functions_dataframe(binary_path, api_call,n):
+def functions_dataframe(binary_path, n,api_list, steps):
 
     # Create an angr project
     project = Project(binary_path, auto_load_libs=False)
@@ -203,19 +233,31 @@ def functions_dataframe(binary_path, api_call,n):
     # Generate the call graph
     (call_graph, func_addr,function_data, cfg)=generate_call_graph(project)
 
-    # Find the address of the function
-    api_address=find_func_address(api_call,func_addr) 
-    # Check if the function is found in the call graph
-    if api_address is None:
-        return
-    
-    # Find minimum distance between nodes and target
-    (nodes,distance)=nodes_distance(call_graph,api_address)
-
     # Get functions' type inputs
     type_inputs=get_type(project, func_addr,cfg)
     function_data['type']=type_inputs
 
+    # Find the address of the functions
+    api_address=[find_func_address(x,func_addr) for x in api_list]
+        
+    # Check if the functions are found in the call graph
+    if None in api_address:
+        return
+    
+    # Check if the functions can be reached in a max of 'steps' steps and if they are sat
+    for i in range(len(api_address)-1):
+        j=function_data.index[function_data['address']==api_address[i]].item()
+        start_input=function_data.loc[j,'type']
+        l=function_data.index[function_data['address']==api_address[i+1]].item()
+        end_input=function_data.loc[l,'type']
+        flag=is_reachable(project,api_address[i],api_address[i+1],steps,start_input,end_input)
+        
+        if not flag:
+            return
+
+    
+    # Find minimum distance between nodes and target
+    (nodes,distance)=nodes_distance(call_graph,api_address[0])
     
     main_f=nodes[0]# Main function
     i=function_data.index[function_data['address']==main_f].item() # main function index
@@ -252,19 +294,37 @@ def functions_dataframe(binary_path, api_call,n):
 
     return function_data
 
-#if __name__ == "__main__":
 
-    #if len(sys.argv) < 2:
-        #print("Usage: python call_graph.py <target_executable> <api_call>")
+def main():
+
+    if len(sys.argv) < 2:
+        print("Usage: python call_graph.py <target_executable> <filename>")
         #sys.exit(1)
 
     # Path to the binary program
-    #binary_path = sys.argv[1]
+    binary_path = sys.argv[1]
 
     # Specify the function name
-    #api_call = sys.argv[2]
+    filename= sys.argv[2]
 
-    #num_values=2
+    with open(filename, "r") as file:
+        rules = file.read()
 
-    #main(binary_path,api_call,num_values)
+    num_values=2
+    steps=5
+
+    for tree in rules:
+        visitor = FuncVisitor()
+        visitor.visit(tree)
+
+        functions_data=functions_dataframe(binary_path,num_values,visitor.api_list,steps)
+
+    return functions_data
+
+
+if __name__ == "__main__":
+
+    functions_data=main()
+
+    
 

@@ -12,9 +12,6 @@ int main(int argc, char *argv[])
     char path[] = "integer_of.txt";
 
     fd = open(path, O_RDONLY);
-    /* for some file descriptor fd*/
-    read(fd, &len, sizeof(len));
-    /* We forgot to check for input < 0 */
 
     if (len > 8000) {return 0; }
     buf = malloc(len);
