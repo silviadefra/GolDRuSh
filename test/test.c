@@ -20,4 +20,5 @@ void f(int x) {
 
 int main() {
 	f(3);
+	printf("ciao\n");
 }

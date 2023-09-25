@@ -5,3 +5,4 @@ b1 == b2 AND m < n ;
 long m;
 malloc(m);
 m == 0;
+

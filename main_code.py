@@ -4,7 +4,7 @@ import sys
 from os import path
 import logging
 logging.basicConfig(format='[+] %(asctime)s %(levelname)s: %(message)s', level=logging.INFO)
-from call_graph import functions_dataframe
+from symbolic import file_data,functions_dataframe
 from debug import trace_function_calls
 from fitness import fitness_func
 from fuzzy import fuzzy_func
@@ -15,7 +15,7 @@ from tree_visitor import FuncVisitor
 
 
 
-def main(binary,api):
+def main(binary):
 
     # Check if the binary file exists
     if not path.isfile(binary):
@@ -37,20 +37,24 @@ def main(binary,api):
     #TODO
     exported_list=['strlen', 'strcmp']
 
+    # General info of 'binary' (functions name, address)
+    project,call_graph,function_data,func_addr=file_data(binary)
+    #logging.info(function_data.values.tolist())
+
     # Iterate through the 'tree' to find the 'api' subtree.
     for num_tree,tree in enumerate(trees.children):
         visitor = FuncVisitor()
         visitor.visit(tree)
 
         # Now, 'visitor.func_list' contains a list of 'func' elements.
-        logging.debug(visitor.api_list)
+        logging.info(visitor.api_list)
 
-        # Dataframe of functions, for each function: name, address, distance, solver, values  
-        data=functions_dataframe(binary,num_values,visitor.api_list,steps)
+        # Dataframe of functions, for each function: distance, solver, values  
+        data=functions_dataframe(binary,project,call_graph,function_data,func_addr,num_values,visitor.api_list,steps)
     
         # Check if the function is found in the call graph
         if data is None:
-            logging.info(f"Error: '{api}' not found in the call graph.")
+            #logging.info(f"Error: '{api}' not found in the call graph.")
             continue
 
         logging.info(data.values.tolist())
@@ -112,16 +116,16 @@ if __name__ == "__main__":
     #logging.basicConfig(format='[+] %(asctime)s %(levelname)s: %(message)s', level=logging.DEBUG, stream=sys.stdout)
     #logging.basicConfig(filename='solutions.log', encoding='utf-8', level=logging.DEBUG)
 
-    if len(sys.argv) < 2:
-        print("Usage: python main_code.py <target_executable> <api_call>")
+    if len(sys.argv) < 1:
+        print("Usage: python main_code.py <target_executable>")
         sys.exit(1)
 
     # Path to the binary program
     binary_path = sys.argv[1]
 
     # Specify the function name
-    api_call = sys.argv[2]
+    #api_call = sys.argv[2]
 
-    main(binary_path,api_call)
+    main(binary_path)
 
     

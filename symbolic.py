@@ -100,9 +100,17 @@ def is_reachable(project,start, end,steps,start_input,end_input):
 # Label the nodes with the minimum path length to the target node
 def nodes_distance(graph, trg):
 
+    t=trg[0]
+    g=graph.reverse(copy=False)
+    parents=list(nx.predecessor(g,t,cutoff=1))[1:]
+    for p in parents:
+        p_children=list(nx.predecessor(graph,p,cutoff=1))[1:]
+        for c in trg[1:]:
+            if c not in p_children:
+                graph.remove_edge(p,t)
+    
     shortest_paths = nx.shortest_path_length(graph, target=trg)
     addresses=list(shortest_paths)
-    addresses.reverse()
 
     return (addresses,shortest_paths)
  
@@ -222,10 +230,8 @@ def visualize(cfg,graph):
     plt.axis('off')
     plt.show()
 
-
-
-# Main function
-def functions_dataframe(binary_path, n,api_list, steps):
+# General info of 'binary' (functions name, address)
+def file_data(binary_path):
 
     # Create an angr project
     project = Project(binary_path, auto_load_libs=False)
@@ -237,6 +243,15 @@ def functions_dataframe(binary_path, n,api_list, steps):
     type_inputs=get_type(project, func_addr,cfg)
     function_data['type']=type_inputs
 
+    # Visualize the call graph
+    #visualize(cfg,call_graph) 
+
+    return project,call_graph,function_data,func_addr
+
+
+# Dataframe of functions, for each function: distance, solver, values  
+def functions_dataframe(binary_path, project, call_graph, function_data,func_addr, n,api_list, steps):
+
     # Find the address of the functions
     api_address=[find_func_address(x,func_addr) for x in api_list]
         
@@ -245,21 +260,27 @@ def functions_dataframe(binary_path, n,api_list, steps):
         return
     
     # Check if the functions can be reached in a max of 'steps' steps and if they are sat
-    for i in range(len(api_address)-1):
-        j=function_data.index[function_data['address']==api_address[i]].item()
-        start_input=function_data.loc[j,'type']
-        l=function_data.index[function_data['address']==api_address[i+1]].item()
-        end_input=function_data.loc[l,'type']
-        flag=is_reachable(project,api_address[i],api_address[i+1],steps,start_input,end_input)
+    #for i in range(len(api_address)-1):
         
-        if not flag:
-            return
+        #j=function_data.index[function_data['address']==api_address[i]].item()
+        #start_input=function_data.loc[j,'type']
+        #l=function_data.index[function_data['address']==api_address[i+1]].item()
+        #end_input=function_data.loc[l,'type']
+        #flag=is_reachable(project,api_address[i],api_address[i+1],steps,start_input,end_input)
+        
+        #if not flag:
+            #return
 
     
     # Find minimum distance between nodes and target
-    (nodes,distance)=nodes_distance(call_graph,api_address[0])
+    (nodes,distance)=nodes_distance(call_graph,api_address)
+
+    if len(nodes)==1:
+        return
     
-    main_f=nodes[0]# Main function
+    # Main function
+    start_nodes = [n for n, d in call_graph.in_degree() if d == 0]
+    main_f=list(set(start_nodes) & set(nodes))[0]
     i=function_data.index[function_data['address']==main_f].item() # main function index
     function_data.loc[i,'distance']=distance[main_f] # main function distance
     input_type=function_data.loc[i,'type']
@@ -289,12 +310,10 @@ def functions_dataframe(binary_path, n,api_list, steps):
         function_data.loc[i,'solver']=s
         function_data.at[i,'values']=v
 
-    # Visualize the call graph
-    #visualize(cfg,call_graph) 
-
     return function_data
 
 
+# Main function
 def main():
 
     if len(sys.argv) < 2:
@@ -313,11 +332,13 @@ def main():
     num_values=2
     steps=5
 
+    (project,call_graph,function_data,func_addr)=file_data(binary_path)
+
     for tree in rules:
         visitor = FuncVisitor()
         visitor.visit(tree)
 
-        functions_data=functions_dataframe(binary_path,num_values,visitor.api_list,steps)
+        functions_data=functions_dataframe(binary_path,project,call_graph,function_data,func_addr,num_values,visitor.api_list,steps)
 
     return functions_data
 
@@ -325,6 +346,3 @@ def main():
 if __name__ == "__main__":
 
     functions_data=main()
-
-    
-
