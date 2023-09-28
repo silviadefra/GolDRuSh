@@ -13,8 +13,6 @@ from itertools import groupby
 from tree_visitor import FuncVisitor
 
 
-
-
 def main(binary):
 
     # Check if the binary file exists

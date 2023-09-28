@@ -8,7 +8,6 @@ import claripy
 from pandas import DataFrame
 import math
 import sys
-from lark.tree import Tree
 from tree_visitor import FuncVisitor
 
 
@@ -53,7 +52,7 @@ def get_type(project, functions,cfg):
         
         cca = project.analyses.CallingConvention(f,cfg=cfg,analyze_callsites=True)
         types.append(cca.prototype)
-        
+    
     return types
 
 
@@ -68,52 +67,83 @@ def find_func_address(target,func_addr):
 
     return target_address
 
-def is_reachable(project,start, end,steps,start_input,end_input):
-    flag=True
-    
-    # Input arguments
-    input_arg=start_input.args
-
-    # Symbolic input variables
-    args=[claripy.BVS("arg"+ str(i),input_arg[i].size) for i in range(len(input_arg))]
-    y=[PointerWrapper(x,buffer=True) for x in args]
-
-    #Change inputs into pointer
-    p=[SimTypePointer(r) for r in input_arg]
-    c=SimTypeFunction(p,start_input.returnty)
-    
-    # Set up symbolic variables and constraints
-    state = project.factory.call_state(start,*y,prototype=c)
-
-    # Explore the program with symbolic execution
-    sm = project.factory.simgr(state)
-    sm.explore(n=steps,find=end)
-    
-    # Check if the address 'end' is not found
-    if not any(end in state.history.bbl_addrs for state in sm.found):
-        return False
-
-    return flag
-
-
 
 # Label the nodes with the minimum path length to the target node
 def nodes_distance(graph, trg):
 
+    # Check that functions in 'trg' are called by the same function, if not cut the edge
     t=trg[0]
     g=graph.reverse(copy=False)
-    parents=list(nx.predecessor(g,t,cutoff=1))[1:]
+    parents=list(nx.predecessor(g,t,cutoff=1))[1:] #t's parents
     for p in parents:
         p_children=list(nx.predecessor(graph,p,cutoff=1))[1:]
+        
+        # For each function 'c' in 'trg', if 'c' is not child of a parent 'p' of 't', cut the edge (p,t)
         for c in trg[1:]:
             if c not in p_children:
                 graph.remove_edge(p,t)
     
-    shortest_paths = nx.shortest_path_length(graph, target=trg)
+    shortest_paths = nx.shortest_path_length(graph, target=t)
     addresses=list(shortest_paths)
 
     return (addresses,shortest_paths)
- 
+
+def get_main_solver_distance1(api_address,project,n,binary_path,input,num_steps):
+
+     # Input arguments
+    input_arg=input.args
+
+    # Symbolic input variables
+    args=[claripy.BVS("arg"+ str(i),input_arg[i].size) for i in range(len(input_arg))]
+    lenght=len(input_arg)+1
+
+    # Set up symbolic variables and constraints
+    state= project.factory.entry_state(args=[binary_path]+args)
+    cca=project.factory.cc()
+
+    # Explore the program with symbolic execution
+    sm = project.factory.simgr(state)
+    sm.explore(find=api_address[0])
+    sm.move(from_stash="found", to_stash="active")
+
+    # Check if the functions in 'api_address' can be reached in a max of 'num_steps' steps
+    for a in api_address[1:]:
+        # Explore for a maximum of 'num_steps' steps
+        sm.run(n=num_steps)
+    
+        # Check if the address 'a' is not found
+        if not any(a in state.history.bbl_addrs for state in sm.active):
+            return None, None
+        
+    # Get constraints and solutions leading to reaching the api_address
+    constraints = []
+    solutions=[]
+    num_paths=len(sm.found)
+
+    if num_paths>n:
+        paths=sm.found[:n]
+    else:
+        paths=sm.found
+
+    for i,path in enumerate(paths):
+        m=math.ceil((n-i)/num_paths) #number of solution for each path
+        constraints.extend(path.solver.constraints)
+        temp=[path.solver.eval_upto(args[i],m, cast_to=bytes) for i in range(len(args))]
+        min_length=min(len(sublist) for sublist in temp)
+        for i in range(min_length):
+            solutions.append([lenght]+[repr(x[i]) for x in temp])
+        
+
+    # Create a solver with all the constraints combined using the logical OR operator
+    if constraints:
+        combined_constraints = claripy.Or(*constraints)
+        solver = claripy.Solver()
+        solver.add(combined_constraints)
+    else:
+        solver=True
+
+    return solver, solutions
+
 
 # Find the successors with smaller distance
 def find_succ(source,graph,addr,distance):
@@ -284,18 +314,30 @@ def functions_dataframe(binary_path, project, call_graph, function_data,func_add
     i=function_data.index[function_data['address']==main_f].item() # main function index
     function_data.loc[i,'distance']=distance[main_f] # main function distance
     input_type=function_data.loc[i,'type']
-    
-    # Find successors with smaller distance
-    target_func=find_succ(main_f,call_graph,nodes,distance)
 
-    # Get the solver with constraints leading to reaching the target_func, and values to solve them
-    s,v=get_main_solver(target_func,project,n,binary_path,input_type)
-    function_data.loc[i,'solver']=s
-    function_data.at[i,'values']=v
+    # If 'api_address' are reachable from the main
+    if distance[main_f]==1:
+        # Get the solver with constraints leading to reaching the target_func, and values to solve them
+        s,v=get_main_solver_distance1(api_address,project,n,binary_path,input_type,steps)
 
-    addr=nodes[1:].copy() 
+        if s is None:
+            return
+        
+        function_data.loc[i,'solver']=s
+        function_data.at[i,'values']=v
+
+    else:
+        # Find successors with smaller distance
+        target_func=find_succ(main_f,call_graph,nodes,distance)
+
+        # Get the solver with constraints leading to reaching the target_func, and values to solve them
+        s,v=get_main_solver(target_func,project,n,binary_path,input_type)
+        function_data.loc[i,'solver']=s
+        function_data.at[i,'values']=v
+
+    nodes.remove(main_f)
     #TODO in parallel
-    for starting_address in addr:
+    for starting_address in nodes:
         i=function_data.index[function_data['address']==starting_address].item()
         function_data.loc[i,'distance']=distance[starting_address]
         input_type=function_data.loc[i,'type']
@@ -303,7 +345,7 @@ def functions_dataframe(binary_path, project, call_graph, function_data,func_add
             continue
         
         # Find for each node successors with smaller distance
-        target_func=find_succ(starting_address,call_graph,addr,distance) #forse conviene non definire la funzione e mettere tutto nel main
+        target_func=find_succ(starting_address,call_graph,nodes,distance) #forse conviene non definire la funzione e mettere tutto nel main
         
         # Get the solver with constraints leading to reaching the target_func, and values to solve them
         s,v=get_solver(starting_address,target_func,project,n,input_type)
