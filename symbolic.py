@@ -88,7 +88,7 @@ def nodes_distance(graph, trg):
 
     return (addresses,shortest_paths)
 
-def get_main_solver_distance1(api_address,project,n,binary_path,input,num_steps):
+def get_main_solver_distance1(api_address,project,n,binary_path,input,num_steps,api_types):
 
      # Input arguments
     input_arg=input.args
@@ -97,9 +97,11 @@ def get_main_solver_distance1(api_address,project,n,binary_path,input,num_steps)
     args=[claripy.BVS("arg"+ str(i),input_arg[i].size) for i in range(len(input_arg))]
     lenght=len(input_arg)+1
 
+    #Calling convention
+    cc=project.factory.cc()
+
     # Set up symbolic variables and constraints
     state= project.factory.entry_state(args=[binary_path]+args)
-    cca=project.factory.cc()
 
     # Explore the program with symbolic execution
     sm = project.factory.simgr(state)
@@ -282,26 +284,20 @@ def file_data(binary_path):
 # Dataframe of functions, for each function: distance, solver, values  
 def functions_dataframe(binary_path, project, call_graph, function_data,func_addr, n,api_list, steps):
 
-    # Find the address of the functions
+    # Find the address of the 'api_list'
     api_address=[find_func_address(x,func_addr) for x in api_list]
         
     # Check if the functions are found in the call graph
     if None in api_address:
         return
-    
-    # Check if the functions can be reached in a max of 'steps' steps and if they are sat
-    #for i in range(len(api_address)-1):
-        
-        #j=function_data.index[function_data['address']==api_address[i]].item()
-        #start_input=function_data.loc[j,'type']
-        #l=function_data.index[function_data['address']==api_address[i+1]].item()
-        #end_input=function_data.loc[l,'type']
-        #flag=is_reachable(project,api_address[i],api_address[i+1],steps,start_input,end_input)
-        
-        #if not flag:
-            #return
 
-    
+    # Find the types of the 'api_list'
+    api_types=[]
+    for x in api_address:
+        i=function_data.index[function_data['address']==x].item() # api index
+        api_types.append(function_data.loc[i,'type'])
+
+
     # Find minimum distance between nodes and target
     (nodes,distance)=nodes_distance(call_graph,api_address)
 
@@ -318,7 +314,7 @@ def functions_dataframe(binary_path, project, call_graph, function_data,func_add
     # If 'api_address' are reachable from the main
     if distance[main_f]==1:
         # Get the solver with constraints leading to reaching the target_func, and values to solve them
-        s,v=get_main_solver_distance1(api_address,project,n,binary_path,input_type,steps)
+        s,v=get_main_solver_distance1(api_address,project,n,binary_path,input_type,steps,api_types)
 
         if s is None:
             return
