@@ -6,15 +6,12 @@
 int main(int argc, char *argv[])
 {
     int fd;
-    char *buf;
+    int size;
     int len= atoi(argv[1]);
-    
-    char path[] = "integer_of.txt";
-
-    fd = open(path, O_RDONLY);
 
     if (len > 8000) {return 0; }
-    buf = malloc(len);
-    read(fd, buf, len); /* len casted to unsigned and overflows */
+    char *buf = (char*) malloc(len *sizeof(char));
+    size=len+10;
+    read(STDIN_FILENO, buf, len * sizeof(int)); 
     return 0;
 }

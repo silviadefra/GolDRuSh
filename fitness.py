@@ -3,6 +3,7 @@
 import math
 import sys
 from itertools import zip_longest
+from angr import Project
 
 # Function with minimum distance
 def minimum_distance(data,functions):
@@ -42,7 +43,7 @@ def distance_binary(target, values):
 
 
 #Main Function
-def fitness_func(data,reached_functions):
+def fitness_func(data,reached_functions,p):
 
     # Only functions with distance =! infinity
     df=data[data['distance'] != math.inf] 
@@ -50,7 +51,7 @@ def fitness_func(data,reached_functions):
     
     # Function with minimum distance to the target
     f,node_dist=minimum_distance(df,func_in_both_list)
-    if node_dist==0:
+    if node_dist==0:                
         return node_dist
 
     # Values to reach the next 'good' function from the solver

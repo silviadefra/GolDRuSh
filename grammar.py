@@ -59,7 +59,6 @@ grammar = r"""
 
 
 def parse_file(filename):
-    # make a loop also
 
     p = Lark(grammar, parser='lalr', debug=True)  # lexer='standard'
 
@@ -78,7 +77,6 @@ def main():
 
     tree = parse_file("rules.txt")   
 
-    #print(tree.pretty)
     return tree
 
 

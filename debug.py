@@ -78,7 +78,6 @@ def trace_function_calls(binary, args,exported_func,internal_func):
 
     # Run the binary
     process = frida.spawn(binary, argv=[binary] + args)
-    #process= frida.spawn(binary, argv=args)
 
     session = frida.attach(process)
     script_txt=""
