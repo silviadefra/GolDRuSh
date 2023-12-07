@@ -17,6 +17,12 @@ int g(const char* str) {
     return result;
 }
 
+int h(const char* str) {
+    int result = strlen(str) + 5;
+    /*printf("Result: %d\n", result);*/
+    return result;
+}
+
 int main(int argc, char *argv[]) {
     if (argc < 2) {
         /*printf("No input string provided.\n");*/
@@ -27,6 +33,11 @@ int main(int argc, char *argv[]) {
 
     if (strlen(input) > 3) {
         int result = f(input);
+
+        if (result==0) {
+            int c = h(input);
+        }
+
         // Use the result if needed
     } else {
         int result = g(input);

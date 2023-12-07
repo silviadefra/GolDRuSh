@@ -1,22 +1,56 @@
 #!/usr/bin python3
 
-from angr import PointerWrapper
 from angr.errors import SimUnsatError
-from angr.sim_type import SimTypeFunction, SimTypePointer
-import networkx as nx
+from angr import sim_options
 import claripy
-import math
 import sys
 from tree_visitor import FuncVisitor
 from call_graph import file_data
 from graph_distance import first_distance
 from solver_utility import SolverUtility
+from angr import PointerWrapper
+from angr.sim_type import SimTypeFunction, SimTypePointer
+
+
+def value_api(addr,types,p):
+
+    block = p.factory.block(addr)
+    block.capstone.pp() # Capstone object has pretty print and other data about the dissassembly
+    block.vex.pp()
+
+    input_arg = types.args
+
+    # Symbolic input variables
+    args = [claripy.BVS("arg"+ str(i), size.size) for i,size in enumerate(input_arg)]
+    y = [PointerWrapper(x, buffer=True) for x in args]
+
+        #Change inputs into pointer
+    d = [SimTypePointer(r) for r in types.args]
+    c = SimTypeFunction(d, types.returnty)
+    initial_state = p.factory.call_state(addr,*y,prototype=c)
+    #initial_state.regs.ip = addr
+    print(initial_state.callstack)
+
+    simulation = p.factory.simulation_manager(initial_state)
+    simulation.run()
+    
+    final_state = simulation.deadended[0]
+
+    print(final_state.addr)
+
+    # Retrieve the return value
+    #return_value = final_state.solver.eval(final_state.regs.ret)
+
+    # Retrieve the values of function arguments
+    #arg1_value = final_state.solver.eval(final_state.mem[final_state.regs.esp + 4].int.resolved)
+    #arg2_value = final_state.solver.eval(final_state.mem[final_state.regs.esp + 8].int.resolved)
+    #print(return_value)
 
 
 
 def get_main_solver_distance1(api_address,project,n,binary_path,input,num_steps,api_type):
 
-     # Input arguments
+    # Input arguments
     input_arg=input.args
 
     # Symbolic input variables
@@ -25,65 +59,46 @@ def get_main_solver_distance1(api_address,project,n,binary_path,input,num_steps,
 
     #Calling convention
     cc=project.factory.cc()
-    print(cc)
+
+    #for a,t in zip(api_address,api_type):
+        #value_api(a,t,project)
+
+    ret=api_type[0].returnty
+    return_value = claripy.BVS("return_value", ret.size)
+
+    #__getattr__(
+    a=cc.return_val(ret)
+    print(type(a.reg_name))
+    print(a)
 
     # Set up symbolic variables and constraints
-    state= project.factory.entry_state(args=[binary_path]+args,cc=cc)
+    state= project.factory.entry_state(args=[binary_path]+args, cc=cc)
+    state.options |= {sim_options.CONSTRAINT_TRACKING_IN_SOLVER}
+    state.options -= {sim_options.COMPOSITE_SOLVER}
+    setattr(state.regs,a.reg_name,return_value) #settattr(obj,attr_name,val)=(obj.attr_name=val)
+    #state.regs.rax= return_value
 
     # Explore the program with symbolic execution
     sm = project.factory.simgr(state)
     sm.explore(find=api_address[0])
     
-    # Get constraints and solutions leading to reaching the api_address
-    constraints = []
-    solutions=[]
-    num_paths=len(sm.found)
-
-    if num_paths>n:
-        paths=sm.found[:n]
-    else:
-        paths=sm.found
-
-    for i,path in enumerate(paths):
-        ret=api_type[0].returnty
-        return_value = claripy.BVS("return_value", ret.size)
-        a=cc.return_val(ret)
-
-        # Read the return value from the memory at api_address[0]
-        #api_return_value = path.memory.load(api_address[0], ret.size, endness=path.arch.memory_endness)
-    
-        # Add a constraint that relates the symbolic variable to the return value of the API function
-        path.solver.add(return_value == a)
-
-        m=math.ceil((n-i)/num_paths) #number of solution for each path
-        constraints.extend(path.solver.constraints)
-        try:
-            temp=[path.solver.eval_upto(args[i],m, cast_to=bytes) for i in range(len(args))]
-        except SimUnsatError:
-            print(path.solver.unsat_core)
-
-        min_length=min(len(sublist) for sublist in temp)
-        for i in range(min_length):
-            solutions.append([lenght]+[repr(x[i]) for x in temp])
-    
-
     # Check if the functions in 'api_address' can be reached in a max of 'num_steps' steps
-    sm.move(from_stash="found", to_stash="active")
     for a in api_address[1:]:
-        # Explore for a maximum of 'num_steps' steps
-        sm.run(n=num_steps)
-    
-        # Check if the address 'a' is not found
-        if not any(a in state.history.bbl_addrs for state in sm.active):
-            return None, None      
+        if sm.found:
+            sm= project.factory.simgr(sm.found[0], save_unconstrained=True)
+            sm.explore(find=a,n=num_steps)
+        else:
+            return None,None
+        
+    solver=sm.found[0].solver
 
-    # Create a solver with all the constraints combined using the logical OR operator
-    if constraints:
-        combined_constraints = claripy.Or(*constraints)
-        solver = claripy.Solver()
-        solver.add(combined_constraints)
-    else:
-        solver=True
+    # Get solutions leading to reaching the api_address
+    solutions=[]
+    temp=[sm.found[0].solver.eval_upto(args[i],n, cast_to=bytes) for i in range(len(args))]   
+
+    min_length=min(len(sublist) for sublist in temp)
+    for i in range(min_length):
+        solutions.append([lenght]+[repr(x[i]) for x in temp])
 
     return solver, solutions
 
@@ -94,167 +109,7 @@ def find_succ(source,graph,addr,distance):
     elems_in_both_lists = set(addr) & set(list(graph.successors(source)))
     target_addr=[x for x in elems_in_both_lists if distance[source] > distance[x]]
     
-    
     return target_addr
-
-# Get solver and values to reach the target_func of the main
-def get_main_solver(target,project,n,binary_path,input):
-
-    # Input arguments
-    input_arg=input.args
-
-    # Symbolic input variables
-    args=[claripy.BVS("arg"+ str(i),input_arg[i].size) for i in range(len(input_arg))]
-    lenght=len(input_arg)+1
-
-    # Set up symbolic variables and constraints
-    state= project.factory.entry_state(args=[binary_path]+args)
-
-    # Explore the program with symbolic execution
-    sm = project.factory.simgr(state)
-    sm.explore(find=target)
-
-    # Get constraints and solutions leading to reaching the api_address
-    constraints = []
-    solutions=[]
-    num_paths=len(sm.found)
-
-    if num_paths>n:
-        paths=sm.found[:n]
-    else:
-        paths=sm.found
-
-    for i,path in enumerate(paths):
-        m=math.ceil((n-i)/num_paths) #number of solution for each path
-        constraints.extend(path.solver.constraints)
-        temp=[path.solver.eval_upto(args[i],m, cast_to=bytes) for i in range(len(args))]
-        min_length=min(len(sublist) for sublist in temp)
-        for i in range(min_length):
-            solutions.append([lenght]+[repr(x[i]) for x in temp])
-        
-
-    # Create a solver with all the constraints combined using the logical OR operator
-    if constraints:
-        combined_constraints = claripy.Or(*constraints)
-        solver = claripy.Solver()
-        solver.add(combined_constraints)
-    else:
-        solver=True
-
-    return solver, solutions
-
-# Get the solver with constraints leading to reaching the target_func
-def get_solver_distance1(source,api_address,project,n,input_type,num_steps,flag):
-
-    # Input arguments
-    input_arg=input_type.args
-
-    # Symbolic input variables
-    args=[claripy.BVS("arg"+ str(i),input_arg[i].size) for i in range(len(input_arg))]
-    y=[PointerWrapper(x,buffer=True) for x in args]
-
-    #Change inputs into pointer
-    p=[SimTypePointer(r) for r in input_arg]
-    c=SimTypeFunction(p,input_type.returnty)
-    
-    # Set up symbolic variables and constraints
-    state = project.factory.call_state(source, *y, prototype=c) 
-
-    
-    # Explore the program with symbolic execution
-    sm = project.factory.simgr(state, save_unconstrained=True)
-    sm.explore(find=api_address[0])
-
-
-    # Get constraints and solutions leading to reaching the api_address
-    constraints = []
-    solutions=[]
-    num_paths=len(sm.found)
-
-    if num_paths>n:
-        paths=sm.found[:n]
-    else:
-        paths=sm.found
-
-    for i,path in enumerate(paths):
-        m=math.ceil((n-i)/num_paths) #number of solution for each path
-        constraints.extend(path.solver.constraints)
-        temp=[path.solver.eval_upto(args[i],m, cast_to=bytes) for i in range(len(args))]
-        min_length=min(len(sublist) for sublist in temp)
-        for i in range(min_length):
-            solutions.append([x[i].decode() for x in temp])
-
-    # Check if the functions in 'api_address' can be reached in a max of 'num_steps' steps
-    sm.move(from_stash="found", to_stash="active")
-    for a in api_address[1:]:
-        # Explore for a maximum of 'num_steps' steps
-        sm.run(n=num_steps)
-    
-        # Check if the address 'a' is not found
-        if not any(a in state.history.bbl_addrs for state in sm.active):
-            return None, None      
-
-    # Create a solver with all the constraints combined using the logical OR operator
-    if constraints:
-        combined_constraints = claripy.Or(*constraints)
-        solver = claripy.Solver()
-        solver.add(combined_constraints)
-    else:
-        solver=True
-
-    return solver, solutions
-
-
-# Get the solver with constraints leading to reaching the target_func
-def get_solver(source,target,project,n,input_type):
-
-    # Input arguments
-    input_arg=input_type.args
-
-    # Symbolic input variables
-    args=[claripy.BVS("arg"+ str(i),input_arg[i].size) for i in range(len(input_arg))]
-    y=[PointerWrapper(x,buffer=True) for x in args]
-
-    #Change inputs into pointer
-    p=[SimTypePointer(r) for r in input_arg]
-    c=SimTypeFunction(p,input_type.returnty)
-    
-    # Set up symbolic variables and constraints
-    state = project.factory.call_state(source, *y, prototype=c) 
-
-    
-    # Explore the program with symbolic execution
-    sm = project.factory.simgr(state, save_unconstrained=True)
-    sm.explore(find=target)
-
-
-    # Get constraints and solutions leading to reaching the api_address
-    constraints = []
-    solutions=[]
-    num_paths=len(sm.found)
-
-    if num_paths>n:
-        paths=sm.found[:n]
-    else:
-        paths=sm.found
-
-    for i,path in enumerate(paths):
-        m=math.ceil((n-i)/num_paths) #number of solution for each path
-        constraints.extend(path.solver.constraints)
-        temp=[path.solver.eval_upto(args[i],m, cast_to=bytes) for i in range(len(args))]
-        min_length=min(len(sublist) for sublist in temp)
-        for i in range(min_length):
-            solutions.append([x[i].decode() for x in temp])
-
-    # Create a solver with all the constraints combined using the logical OR operator
-    if constraints:
-        combined_constraints = claripy.Or(*constraints)
-        solver = claripy.Solver()
-        solver.add(combined_constraints)
-    else:
-        solver=True
-
-    return solver, solutions
 
 
 def entry_node(nodes,data,graph):
@@ -264,19 +119,19 @@ def entry_node(nodes,data,graph):
     i=data.index[data['address']==main_f].item() # main function index
     input_type=data.loc[i,'type'] 
 
-    return main_f,input_type
+    return main_f,input_type,i
 
 
 # Dataframe of functions, for each function: solver, values  
 def functions_dataframe(binary_path, project, call_graph, function_data, n, steps,nodes,distance,api_address,api_type):
     
     # function 'main' of the binary
-    main_f,input_type=entry_node(nodes,function_data,call_graph)
+    main_f,input_type,i=entry_node(nodes,function_data,call_graph)
 
     main_solver=SolverUtility(project)
     # If 'api_address' are reachable from the main
     if distance[main_f]==1:
-        s,v=main_solver.get_solver(api_address,n,input_type,binary=binary_path,num_steps=steps)
+        s,v=get_main_solver_distance1(api_address,project,n,binary_path,input_type,steps,api_type)
         if s is None:
             return
         
@@ -305,12 +160,10 @@ def functions_dataframe(binary_path, project, call_graph, function_data, n, step
             # Find for each node successors with smaller distance
             target_func=find_succ(starting_address,call_graph,nodes,distance) #forse conviene non definire la funzione e mettere tutto nel main
             # Get the solver with constraints leading to reaching the target_func, and values to solve them
-            s,v=get_solver(target_func,n,input_type,source=starting_address)
+            s,v=func_solver.get_solver(target_func,n,input_type,source=starting_address)
         
         function_data.loc[i,'solver']=s
         function_data.at[i,'values']=v
-    #if function_data.loc[function_data['distance'] == 1]['solver']:
-        #return 
 
     return function_data
 

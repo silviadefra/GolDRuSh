@@ -6,3 +6,7 @@ long m;
 malloc(m);
 m == 0;
 
+int i, int j;
+f(i), h(j);
+i == j;
+

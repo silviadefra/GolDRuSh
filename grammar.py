@@ -17,8 +17,7 @@ grammar = r"""
     ?pointer: "*" | type "*" 
     ?void: "void"
     ?pattern: (api ",")* api ";"
-    ?api: func"("[parlist]")" | CNAME "=" func"("[parlist]")"
-    func: CNAME
+    ?api: CNAME"("[parlist]")" | CNAME "=" CNAME"("[parlist]")"
     ?parlist: (par ",")* par
     ?par: CNAME | QMARK
     QMARK: "?" 

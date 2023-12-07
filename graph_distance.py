@@ -6,18 +6,6 @@ from tree_visitor import FuncVisitor
 from call_graph import file_data
 
 
-# Find the address of the target
-def find_func_address(target,func_addr):
-    target_address = None
-
-    #TODO without for loop
-    for function in func_addr:
-        if function.name == target:
-                target_address = function.addr
-
-    return target_address
-
-
 # Label the nodes with the minimum path length to the target node
 def nodes_distance(graph, trg):
 
@@ -39,41 +27,34 @@ def nodes_distance(graph, trg):
     return addresses,shortest_paths
 
 # For each function graph distance and list of the targets 
-def first_distance(func_addr,api_list,function_data,call_graph):
-    # Find the address of the 'api_list'
-    api_address=[find_func_address(x,func_addr) for x in api_list]
-    # Check if the functions are found in the call graph
-    if None in api_address:
-        return
+def first_distance(api_address,function_data,call_graph):
     
-    api_type=[]
-    for x in api_address:
-        i=function_data.index[function_data['address']==x].item()
-        api_type.append(function_data.loc[i,'type'])
-
-
     # Find minimum distance between nodes and target
     nodes,distance=nodes_distance(call_graph,api_address)
 
     if len(nodes)==1:
-        return
+        return None,None,None
     
     for node in nodes:
         i=function_data.index[function_data['address']==node].item()
         function_data.loc[i,'distance']=distance[node]
-    
-    return nodes,distance,api_address,api_type,function_data
+
+    for api in api_address[1:]:
+        i=function_data.index[function_data['address']==api].item()
+        function_data.loc[i,'distance']=0
+
+    return nodes,distance,function_data
 
 # Main function
 def main(binary_path,rules):
 
-    _,call_graph,function_data,func_addr=file_data(binary_path)
+    _,call_graph,function_data,_=file_data(binary_path)
 
     for tree in rules:
         visitor = FuncVisitor()
         visitor.visit(tree)
 
-        nodes,distance,api_address,api_type,function_data=first_distance(func_addr,visitor.api_list,function_data,call_graph)
+        nodes,distance,function_data=first_distance(visitor.api_list,function_data,call_graph)
 
 
 if __name__ == "__main__":

@@ -65,7 +65,6 @@ def trace_function_calls(binary, args,exported_func,internal_func):
     def on_message(message, data):
         logging.debug(message)
         if message["type"] == "send" and message["payload"] != "done":
-            #function_payload = message["payload"] #["function"]
             function_name = message["payload"]["function"]
             #TODO: cambiare
             try:
@@ -95,15 +94,11 @@ def trace_function_calls(binary, args,exported_func,internal_func):
     frida.resume(process)
 
     # Wait for the script to complete
-    #script.join()
     sleep(1)
-    
-    #sys.stdin.read()
     
     # Detach and clean up
     try:
         session.detach()
-        #frida.kill(process)
     except Exception as e:
         logging.info(e)
 

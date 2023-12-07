@@ -1,9 +1,7 @@
 #!/usr/bin python3
 
-import math
 import sys
 from itertools import zip_longest
-from angr import Project
 
 # Function with minimum distance
 def minimum_distance(data,functions):
@@ -43,10 +41,8 @@ def distance_binary(target, values):
 
 
 #Main Function
-def fitness_func(data,reached_functions,p):
-
-    # Only functions with distance =! infinity
-    df=data[data['distance'] != math.inf] 
+def fitness_func(df,reached_functions):
+ 
     func_in_both_list=set([x[0] for x in reached_functions]) & set(df['name'].tolist()) 
     
     # Function with minimum distance to the target

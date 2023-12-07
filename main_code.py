@@ -11,8 +11,36 @@ from debug import trace_function_calls
 from fitness import fitness_func
 from fuzzy import fuzzy_func
 from grammar import parse_file
-from itertools import groupby
+from itertools import groupby, zip_longest
 from tree_visitor import FuncVisitor
+from math import inf
+
+
+# Find the address of the target
+def find_func_address(target,func_addr):
+    target_address = None
+
+    #TODO without for loop
+    for function in func_addr:
+        if function.name == target:
+                target_address = function.addr
+
+    return target_address
+
+
+def rules_api_list(func_addr,api_list,function_data):
+    # Find the address of the 'api_list'
+    api_address=[find_func_address(x,func_addr) for x in api_list]
+    # Check if the functions are found in the call graph
+    if None in api_address:
+        return None,None
+    
+    api_type=[]
+    for x in api_address:
+        i=function_data.index[function_data['address']==x].item()
+        api_type.append(function_data.loc[i,'type'])
+    
+    return api_address,api_type
 
 
 # Separete exported functions with the inputs from intenral functions
@@ -24,6 +52,14 @@ def separete_func(list_functions,prototype,exported_list):
     internal_func=[(x,j) for x,j in zip(list_functions,func_inputs) if (x,j) not in exported_func]
 
     return exported_func,internal_func
+
+
+def gen_pop(l,num_best_fit,len_cache):
+    l=sorted(l, key=lambda x: (x[0], len(str(x[0]).split('.')[1])))
+    l=l[:len_cache]
+    pop=l[:num_best_fit]
+
+    return pop,l
 
 
 def del_duplicate(temp,l):
@@ -54,14 +90,25 @@ def main(binary):
 
     # General info of 'binary' (functions name, address)
     project,call_graph,function_data,func_addr=file_data(binary)
+    logging.info(function_data.values.tolist())
 
     # Iterate through the 'tree' to find the 'api' subtree.
     for num_tree,tree in enumerate(trees.children):
         visitor = FuncVisitor()
         visitor.visit(tree)  # Now, 'visitor.api_list' contains a list of 'api' elements.
+        logging.info(visitor.api_list)
+        logging.info(visitor.par_list)
+
+        api_address,api_type=rules_api_list(func_addr,visitor.api_list,function_data)
+        # Check if the function is found in the call graph
+        if api_address is None:
+            continue
 
         # For each function graph distance and list of the targets 
-        nodes,distance,api_address,api_type,data=first_distance(func_addr,visitor.api_list,function_data,call_graph)
+        nodes,distance,data=first_distance(api_address,function_data,call_graph)
+        # Check if the function is found in the call graph
+        if nodes is None:
+            continue
 
         # Dataframe of functions, for each function: solver, values
         data=functions_dataframe(binary_path,project,call_graph,function_data,num_values,steps,nodes,distance,api_address,api_type)
@@ -69,7 +116,10 @@ def main(binary):
         if data is None:
             continue
 
-        logging.debug(data.values.tolist())
+        logging.info(data.values.tolist())
+
+        # Only functions with distance =! infinity
+        df=data[data['distance'] != inf]
 
         # Separete exported functions from intenral functions
         exported_func,internal_func=separete_func(data['name'].tolist(),data['type'].tolist(),exported_list)
@@ -84,15 +134,15 @@ def main(binary):
                 if not entries:
                     logging.warning(f"Warning: trace not found")
                     return
-                logging.info('here')
-                entries[0][1]=[len(t)+1]+ t #per il momento sostituisco a mano inputs del main
+                
+                #entries[0][1]=[len(t)+1]+ t #per il momento sostituisco a mano inputs del main
         
                 reached_functions=[(x[0],x[1]) for x in entries if x[2]=="input"] # Functions (x[0]) and inputs (x[1])
     
                 # Fitness function for each test
-                fit=fitness_func(data,reached_functions,project)
+                fit=fitness_func(df,reached_functions)
                 if fit==0:
-                    logging.info('You found rule {num} with arguments: {fun}\n'.format(num=num_tree,fun=t))
+                    logging.info('You found rule {num} with arguments: {fun}\n'.format(num=num_tree+1,fun=t))
                     break
                 l.append([fit,t])
             
@@ -100,9 +150,7 @@ def main(binary):
                 break
 
             # 'num_best_fit' tests with best fitness
-            l=sorted(l, key=lambda x: (x[0], len(str(x[0]).split('.')[1])))
-            l=l[:len_cache]
-            pop=l[:num_best_fit]
+            pop,l=gen_pop(l,num_best_fit,len_cache)
             logging.info('Initial population: {pop}'.format(pop=pop))
 
             # Fuzzing
@@ -114,7 +162,7 @@ def main(binary):
             
             i+=1
         if fit!=0:
-            logging.info('The best arguments for rule {num} are: {arg}\n'.format(num=num_tree,arg=l[0][1]))
+            logging.info('The best arguments for rule {num} are: {arg}\n'.format(num=num_tree+1,arg=l[0][1]))
  
     
 
