@@ -10,8 +10,8 @@ grammar = r"""
 
 
     ?rule: [decl] pattern pred ";" 
-    ?decl: (type CNAME ",")* type CNAME ";" 
-    ?type: number| character | pointer | void #ci serve solo bits, e come tipo numeri caratteri puntatori
+    ?decl: (type CNAME ",")* type CNAME ";" #ci serve?
+    ?type: number| character | pointer | void 
     ?number: "int" | "short" | "long" | "float" | "double" 
     ?character: "char" 
     ?pointer: "*" | type "*" 
@@ -40,9 +40,10 @@ grammar = r"""
     sum: sum SOP prod | prod
     SOP: "+" | "-" 
     prod: atom| prod MOP atom
-    MOP: "*" | "/" 
-    atom: NUMBER | SIGN atom | CNAME | "(" sum ")" 
+    MOP: "*" | "/"
+    atom: arg | SIGN atom | "(" sum ")" 
     SIGN: "-"
+    arg: NUMBER | CNAME
 
 
     %import common.NUMBER

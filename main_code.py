@@ -11,7 +11,7 @@ from debug import trace_function_calls
 from fitness import fitness_func
 from fuzzy import fuzzy_func
 from grammar import parse_file
-from itertools import groupby, zip_longest
+from itertools import groupby
 from tree_visitor import FuncVisitor
 from math import inf
 
@@ -96,8 +96,6 @@ def main(binary):
     for num_tree,tree in enumerate(trees.children):
         visitor = FuncVisitor()
         visitor.visit(tree)  # Now, 'visitor.api_list' contains a list of 'api' elements.
-        logging.info(visitor.api_list)
-        logging.info(visitor.par_list)
 
         api_address,api_type=rules_api_list(func_addr,visitor.api_list,function_data)
         # Check if the function is found in the call graph
@@ -111,7 +109,7 @@ def main(binary):
             continue
 
         # Dataframe of functions, for each function: solver, values
-        data=functions_dataframe(binary_path,project,call_graph,function_data,num_values,steps,nodes,distance,api_address,api_type)
+        data=functions_dataframe(binary_path,project,call_graph,function_data,num_values,steps,nodes,distance,api_address,api_type,visitor.par_list)
         # Check if the function is found in the call graph
         if data is None:
             continue

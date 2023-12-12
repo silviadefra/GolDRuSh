@@ -7,6 +7,28 @@ class SolverUtility:
     def __init__(self, project):
         self.project = project
 
+    def _symbolic_par(self,cc,par,state):
+        symb_par=claripy.BVS("return_value", par.size)
+        par_val=cc.return_val(par)
+        
+        setattr(state.regs,par_val.reg_name,symb_par) #settattr(obj,attr_name,val)=(obj.attr_name=val)
+        
+        return symb_par
+
+    def _rules_symbolic_par(self,cc,types,par_list,state):
+        # Symbolic return variable
+        if par_list[0] is not None:
+            symb_ret=self._symbolic_par(cc,types.returnty,state)
+            
+        # Symbolic input variables
+        input_arg=types.args
+        symb_input=[]
+        for x,i in enumerate(par_list):
+            if x!='?':
+                symb_input.append(self._symbolic_par(cc,input_arg[i],state))
+        symb_input=[symb_ret]+symb_input  
+
+        return symb_input    
 
     def _create_call_state(self,args, input_type, source):
         y = [PointerWrapper(x, buffer=True) for x in args]
@@ -52,7 +74,7 @@ class SolverUtility:
         return solver
 
 
-    def _explore_paths(self, find, n, input_type,source=None, num_steps=None, binary=None,api_list=[]):
+    def _explore_paths(self, find, n, input_type,source=None, num_steps=None, binary=None,api_list=[],api_type=None,par_list=None):
         
         input_arg = input_type.args
 
@@ -64,12 +86,21 @@ class SolverUtility:
         else:
             state = self._create_call_state(args,input_arg, source)
 
+        if num_steps is not None:
+            #Calling convention
+            cc=self.project.factory.cc()
+            symbolic_par=[]
+            for a,b in zip(api_type,par_list):
+                symbolic_par.append(self._rules_symbolic_par(cc,a,b,state))
+        
+        
+        
         # Explore the program with symbolic execution
         sm = self.project.factory.simgr(state, save_unconstrained=True)
         sm.explore(find=find)
 
         if num_steps is not None:
-            for a in find[1:]:
+            for a in api_list:
                 if sm.found:
                     sm= self.project.factory.simgr(sm.found[0], save_unconstrained=True)
                     sm.explore(find=a,n=num_steps)
@@ -86,9 +117,9 @@ class SolverUtility:
         return solver, solutions
     
 
-    def get_solver(self, target, n, input_type,source=None, num_steps=None, binary=None):
+    def get_solver(self, target, n, input_type,source=None, num_steps=None, binary=None,api_type=None,par_list=None):
         
         if len(target)>1:
-            return self._explore_paths(target[0], n, input_type,source,num_steps,binary,target[1:])
+            return self._explore_paths(target[0], n, input_type,source,num_steps,binary,api_list=target[1:],api_type=api_type,par_list=par_list)
         else:
             return self._explore_paths(target, n, input_type,source,num_steps,binary)
