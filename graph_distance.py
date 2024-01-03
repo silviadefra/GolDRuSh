@@ -2,7 +2,7 @@
 
 import networkx as nx
 import sys
-from tree_visitor import FuncVisitor
+from tree_visitor import RuleVisitor
 from call_graph import file_data
 
 
@@ -36,12 +36,12 @@ def first_distance(api_address,function_data,call_graph):
         return None,None,None
     
     for node in nodes:
-        i=function_data.index[function_data['address']==node].item()
-        function_data.loc[i,'distance']=distance[node]
+        func=function_data.get_function_by_addr(node)
+        func.set_distance(distance[node])
 
     for api in api_address[1:]:
-        i=function_data.index[function_data['address']==api].item()
-        function_data.loc[i,'distance']=0
+        func=function_data.get_function_by_addr(api)
+        func.set_distance(0)
 
     return nodes,distance,function_data
 
@@ -51,7 +51,7 @@ def main(binary_path,rules):
     _,call_graph,function_data,_=file_data(binary_path)
 
     for tree in rules:
-        visitor = FuncVisitor()
+        visitor = RuleVisitor()
         visitor.visit(tree)
 
         nodes,distance,function_data=first_distance(visitor.api_list,function_data,call_graph)

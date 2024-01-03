@@ -1,12 +1,120 @@
-void* b1, void* b2, long m, long n ;
+# CWE-190
 b1 = malloc(m) , read(?,b2,n) ;
 b1 == b2 AND m < n ;
 
-long m;
-malloc(m);
-m == 0;
+# CWE-190
+b1 = malloc(m) , memcpy(b2,?,n) ;
+b1 == b2 AND m < n ;
 
-int i, int j;
-f(i), h(j);
-i == j;
+# CWE-190
+b1 = malloc(m) , strncpy(b2,?,n) ;
+b1 == b2 AND m < n ;
+
+# CWE-190
+b1 = malloc(m), b2 = malloc(n) , strcpy(to,from) ;
+(b1 == from AND b2 == to AND m > n) OR (b1 == to AND b2 == from AND m < n);
+
+# CWE-20
+malloc(x);
+x<0;
+
+# CWE-20
+#scanf(?,m) , malloc(n) ;
+#m == &n
+
+# CWE-134
+printf(p);
+p == 0x40000;
+
+# CWE-134
+memcpy(to,from,?) , printf(p);
+from == 0x40000 AND to == p ;
+
+# CWE-416
+free(x), free(y);
+x == y;
+
+# CWE-416
+free(x), memchr(y,?,?);
+x == y;
+
+# CWE-416
+free(x), memcmp(y,z,?);
+x == y OR x == z;
+
+# CWE-416
+free(x), memcpy(y,z,?);
+x == y OR x == z;
+
+# CWE-416
+free(x), memmove(y,z,?);
+x == y OR x == z;
+
+# CWE-416
+free(x), memset(y,?,?);
+x == y;
+
+# CWE-416
+free(x), strcat(y,z);
+x == y OR x == z;
+
+# CWE-416
+free(x), strncat(y,z,?);
+x == y OR x == z;
+
+# CWE-416
+free(x), strcmp(y,z);
+x == y OR x == z;
+
+# CWE-416
+free(x), strncmp(y,z,?);
+x == y OR x == z;
+
+# CWE-416
+free(x), strchr(y,z);
+x == y OR x == z;
+
+# CWE-416
+free(x), strcpy(y,z);
+x == y OR x == z;
+
+# CWE-416
+free(x), strncpy(y,z,?);
+x == y OR x == z;
+
+# CWE-416
+free(x), strcspn(y,z);
+x == y OR x == z;
+
+# CWE-416
+free(x), strlen(y);
+x == y;
+
+# CWE-416
+free(x), strpbrk(y,z);
+x == y OR x == z;
+
+# CWE-416
+free(x), strrchr(y,?);
+x == y;
+
+# CWE-416
+free(x), strspn(y,z);
+x == y OR x == z;
+
+# CWE-416
+free(x), strstr(y,z);
+x == y OR x == z;
+
+# CWE-416
+free(x), strtok(y,?);
+x == y;
+
+# CWE-416
+free(x), strxfrm(y,z,?);
+x == y OR x == z;
+
+# CWE-416
+free(x), printf(y);
+x == y;
 

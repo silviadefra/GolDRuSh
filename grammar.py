@@ -9,13 +9,7 @@ grammar = r"""
     COMMENT: /#.*/
 
 
-    ?rule: [decl] pattern pred ";" 
-    ?decl: (type CNAME ",")* type CNAME ";" #ci serve?
-    ?type: number| character | pointer | void 
-    ?number: "int" | "short" | "long" | "float" | "double" 
-    ?character: "char" 
-    ?pointer: "*" | type "*" 
-    ?void: "void"
+    ?rule: pattern pred ";" 
     ?pattern: (api ",")* api ";"
     ?api: CNAME"("[parlist]")" | CNAME "=" CNAME"("[parlist]")"
     ?parlist: (par ",")* par
@@ -41,9 +35,8 @@ grammar = r"""
     SOP: "+" | "-" 
     prod: atom| prod MOP atom
     MOP: "*" | "/"
-    atom: arg | SIGN atom | "(" sum ")" 
+    atom: NUMBER | CNAME | SIGN atom | "(" sum ")" #| "&"CNAME
     SIGN: "-"
-    arg: NUMBER | CNAME
 
 
     %import common.NUMBER
@@ -83,7 +76,7 @@ def main():
 if __name__ == '__main__':
     tree = main()
 
-    print(tree.pretty())
+    print(tree)
     
 
 

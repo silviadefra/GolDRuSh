@@ -9,10 +9,10 @@ import logging
 def make_script_in(pair):
     (f,input)=pair
     args_str=''
-    for i,type in enumerate(input):
-        if isinstance(type, SimTypePointer) or isinstance(type, SimTypeLongLong):
+    for i,t in enumerate(input):
+        if isinstance(t, SimTypePointer) or isinstance(t, SimTypeLongLong):
             args_str+=f'args[{i}].readCString()'
-        elif isinstance(type,SimTypeInt):
+        elif isinstance(t,SimTypeInt):
             args_str+=f'args[{i}].toInt32()'
         else:
             args_str+=f'args[{i}]'

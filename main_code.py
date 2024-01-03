@@ -11,42 +11,37 @@ from debug import trace_function_calls
 from fitness import fitness_func
 from fuzzy import fuzzy_func
 from grammar import parse_file
+from tree_visitor import RuleVisitor
 from itertools import groupby
-from tree_visitor import FuncVisitor
-from math import inf
 
 
 # Find the address of the target
-def find_func_address(target,func_addr):
-    target_address = None
+def find_func(target,func_data):
 
-    #TODO without for loop
-    for function in func_addr:
-        if function.name == target:
-                target_address = function.addr
+    func=func_data.get_function_by_name(target)
+    target_address = func.address
+    api_prototype=func.type
 
-    return target_address
+    return [target_address,api_prototype]
 
 
-def rules_api_list(func_addr,api_list,function_data):
+def rules_api_list(api_list,function_data):
     # Find the address of the 'api_list'
-    api_address=[find_func_address(x,func_addr) for x in api_list]
+    api=[find_func(x,function_data) for x in api_list]
+    api_address=[x[0] for x in api]
+    api_type=[x[1] for x in api]
     # Check if the functions are found in the call graph
     if None in api_address:
         return None,None
-    
-    api_type=[]
-    for x in api_address:
-        i=function_data.index[function_data['address']==x].item()
-        api_type.append(function_data.loc[i,'type'])
     
     return api_address,api_type
 
 
 # Separete exported functions with the inputs from intenral functions
-def separete_func(list_functions,prototype,exported_list):
-
-    func_inputs=[x.args for x in prototype]
+def separete_func(data,exported_list):
+    list_functions=data.get_names()
+    prototypes=data.get_prototypes()
+    func_inputs=[x.args for x in prototypes]
 
     exported_func=[(x,j) for x,j in zip(list_functions,func_inputs) if x in exported_list] 
     internal_func=[(x,j) for x,j in zip(list_functions,func_inputs) if (x,j) not in exported_func]
@@ -63,7 +58,7 @@ def gen_pop(l,num_best_fit,len_cache):
 
 
 def del_duplicate(temp,l):
-
+    temp.sort()
     temp = list(k for k,_ in groupby(temp)) #delete duplicate
     temp_l=[x[1] for x in l]
     tests=[x for x in temp if x not in temp_l] #delete children equal to parents
@@ -77,7 +72,7 @@ def main(binary):
     num_values=2      #Number of solutions of the solver
     num_best_fit=8    #Number of individual in the population
     num_generations=100 
-    tests = [['2358', 'ciao'],['35'], ['9124'], ['34'],['14'],['82375'],['2'],['1982674'],['736']]  #Our tests
+    tests = [['2358'],['35'], ['9124'], ['34'],['14'],['82375'],['2'],['1982674'],['736']]  #Our tests
     len_cache=100                #lenght cache for fitness
     rules_file="rules.txt"
     steps=5
@@ -89,38 +84,38 @@ def main(binary):
     exported_list=['strlen', 'strcmp']
 
     # General info of 'binary' (functions name, address)
-    project,call_graph,function_data,func_addr=file_data(binary)
-    logging.info(function_data.values.tolist())
+    project,call_graph,function_data,register_inputs=file_data(binary)
+    #logging.info(function_data.values.tolist())
 
     # Iterate through the 'tree' to find the 'api' subtree.
     for num_tree,tree in enumerate(trees.children):
-        visitor = FuncVisitor()
+        visitor = RuleVisitor()
         visitor.visit(tree)  # Now, 'visitor.api_list' contains a list of 'api' elements.
 
-        api_address,api_type=rules_api_list(func_addr,visitor.api_list,function_data)
+        api_address,api_type=rules_api_list(visitor.api_list,function_data)
         # Check if the function is found in the call graph
         if api_address is None:
             continue
 
-        # For each function graph distance and list of the targets 
+        # For each function graph distance and list of the targets
         nodes,distance,data=first_distance(api_address,function_data,call_graph)
         # Check if the function is found in the call graph
         if nodes is None:
             continue
 
         # Dataframe of functions, for each function: solver, values
-        data=functions_dataframe(binary_path,project,call_graph,function_data,num_values,steps,nodes,distance,api_address,api_type,visitor.par_list)
+        data=functions_dataframe(binary_path,project,call_graph,function_data,num_values,steps,nodes,distance,api_address,api_type,visitor,register_inputs)
         # Check if the function is found in the call graph
         if data is None:
             continue
 
-        logging.info(data.values.tolist())
-
-        # Only functions with distance =! infinity
-        df=data[data['distance'] != inf]
+        #data.print_function_info()
 
         # Separete exported functions from intenral functions
-        exported_func,internal_func=separete_func(data['name'].tolist(),data['type'].tolist(),exported_list)
+        exported_func,internal_func=separete_func(data,exported_list)
+        
+        # Only functions with distance =! infinity
+        df=data.remove_functions_with_infinity_distance()
         
         l=[]
         i=0
@@ -132,8 +127,6 @@ def main(binary):
                 if not entries:
                     logging.warning(f"Warning: trace not found")
                     return
-                
-                #entries[0][1]=[len(t)+1]+ t #per il momento sostituisco a mano inputs del main
         
                 reached_functions=[(x[0],x[1]) for x in entries if x[2]=="input"] # Functions (x[0]) and inputs (x[1])
     
@@ -156,7 +149,7 @@ def main(binary):
             logging.info('New generation: {new}\n'.format(new=temp_tests))
 
             # Delete duplicate
-            tests=del_duplicate(temp_tests.sort(),l)
+            tests=del_duplicate(temp_tests,l)
             
             i+=1
         if fit!=0:
@@ -169,7 +162,7 @@ if __name__ == "__main__":
     #logging.basicConfig(filename='solutions.log', encoding='utf-8', level=logging.DEBUG)
 
     if len(sys.argv) < 1:
-        print("Usage: python main_code.py <target_executable>")
+        logging.info("Usage: python main_code.py <target_executable>")
         sys.exit(1)
 
     # Path to the binary program

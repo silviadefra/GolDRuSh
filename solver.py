@@ -87,27 +87,24 @@ class SolverUtility:
         else:
             state = self._create_call_state(args,input_arg, source)
 
-        if num_steps is not None:
-            #Calling convention
-            cc=self.project.factory.cc()
-            symbolic_par=dict()
-            for a,b in zip(api_type,visitor.par_list):
-                symbolic_par.update(self._rules_symbolic_par(cc,a,b,state,register_inputs))
-    
-            claripy_contstraints=visitor.predicate(symbolic_par)
-    
         # Explore the program with symbolic execution
         sm = self.project.factory.simgr(state, save_unconstrained=True)
         sm.explore(find=find)
 
         if num_steps is not None:
-            for a in api_list:
+            #Calling convention
+            cc=self.project.factory.cc()
+            symbolic_par=dict()
+            for i,a in enumerate(api_list):
                 if sm.found:
+                    symbolic_par.update(self._rules_symbolic_par(cc,api_type[i],visitor.par_list[i],sm.found[0],register_inputs))
                     sm= self.project.factory.simgr(sm.found[0], save_unconstrained=True)
                     sm.explore(find=a,n=num_steps)
                 else:
                     return None,None
-        
+
+            symbolic_par.update(self._rules_symbolic_par(cc,api_type[-1],visitor.par_list[-1],sm.found[0],register_inputs))
+            claripy_contstraints=visitor.predicate(symbolic_par)
             solver=sm.found[0].solver
             solver.add(claripy_contstraints)
 

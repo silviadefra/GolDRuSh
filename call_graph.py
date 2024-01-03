@@ -3,9 +3,8 @@
 from angr import Project
 import networkx as nx
 import matplotlib.pyplot as plt
-from pandas import DataFrame
-import math
 import sys
+from functionclass import ProgramFunction, FunctionList
 
 
 
@@ -22,36 +21,35 @@ def generate_call_graph(project):
     defined_functions = project.kb.functions.values()
     program_functions = []
     program_functions_addr=[]
-    program_functions_name=[]
     
     for function in defined_functions:
         if not function.is_simprocedure:
             program_functions_addr.append(function.addr)
-            program_functions.append(function)
-            program_functions_name.append(function.name)
+            # Variable recovery
+            project.analyses.VariableRecoveryFast(function)
+            # Set up the calling convention analysis for each function
+            cca = project.analyses.CallingConvention(function,cfg=cfg,analyze_callsites=True)
+            program_functions.append(ProgramFunction(function,cca))
+    functions=FunctionList(program_functions)
 
-    d={'name': program_functions_name,'address': program_functions_addr,'distance':[math.inf]*len(program_functions_addr), 'solver': [[None]]*len(program_functions_addr),  'values': [[None]]*len(program_functions_addr)}
-    function_data=DataFrame(data=d)
+    register_input=get_register(cca)
 
     # Create a subgraph for the program functions
     sub_graph = call_graph.subgraph(program_functions_addr)
 
-    return sub_graph,program_functions,function_data,cfg
+    return sub_graph,functions,register_input
 
 
-# Get functions' prototype
-def get_type(project, functions,cfg):
+# Inputs register name and position
+def get_register(cca):
+    
+    register_inputs=[]    
+    for regnum in cca.cc.arch.argument_registers:
+        register_inputs.append([cca.cc.arch.argument_register_positions[regnum],cca.cc.arch.register_names[regnum]])
+    register_inputs=sorted(register_inputs,key=lambda x:x[0])
+    register_inputs=[x[1] for x in register_inputs]
 
-    types=[]
-    # Set up the calling convention analysis for each function
-    for f in functions:
-        # Variable recovery
-        project.analyses.VariableRecoveryFast(f)
-        
-        cca = project.analyses.CallingConvention(f,cfg=cfg,analyze_callsites=True)
-        types.append(cca.prototype)
-
-    return types
+    return register_inputs
 
 
 # Visualize the call graph
@@ -71,16 +69,12 @@ def file_data(binary_path):
     project = Project(binary_path, auto_load_libs=False)
 
     # Generate the call graph
-    call_graph, func_addr,function_data, cfg=generate_call_graph(project)
-
-    # Get functions' type inputs
-    type_inputs=get_type(project, func_addr,cfg)
-    function_data['type']=type_inputs
+    call_graph, func_addr, register_input=generate_call_graph(project)
 
     # Visualize the call graph
     #visualize(cfg,call_graph) 
 
-    return project,call_graph,function_data,func_addr
+    return project,call_graph,func_addr,register_input
 
 
 if __name__ == "__main__":
@@ -92,4 +86,4 @@ if __name__ == "__main__":
     # Path to the binary program
     binary_path = sys.argv[1]
 
-    project,call_graph,function_data,func_addr=file_data(binary_path)
+    project,call_graph,function_data,func_addr,register_input=file_data(binary_path)
