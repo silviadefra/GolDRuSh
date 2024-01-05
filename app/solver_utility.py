@@ -1,6 +1,7 @@
 import claripy
 from angr import PointerWrapper
 from angr.sim_type import SimTypeFunction, SimTypePointer
+from angr.errors import SimUnsatError
 from math import ceil
 
 class SolverUtility:
@@ -42,11 +43,15 @@ class SolverUtility:
     
     def _get_solutions(self,path,n,args):
         solutions=[]
-        temp=[path.solver.eval_upto(args[i],n, cast_to=bytes) for i in range(len(args))]   
+        try:
+            temp=[path.solver.eval_upto(args[i],n, cast_to=bytes) for i in range(len(args))]  
+        except SimUnsatError:
+            return None
 
         min_length=min(len(sublist) for sublist in temp)
         for i in range(min_length):
             solutions.append([repr(x[i]) for x in temp])
+        
         return solutions
 
     def _explore(self, sm, args, n):
@@ -59,7 +64,10 @@ class SolverUtility:
         for i, path in enumerate(paths):
             constraints.extend(path.solver.constraints)
             solutions.extend(self._get_solutions(path,ceil((n-i)/num_paths),args))
-
+        
+        solutions=[x for x in solutions if x is not None]
+        if not solutions:
+            return None,None
         # Create a solver with all the constraints combined using the logical OR operator
         if constraints:
             solver = self._combine_constraints(constraints)
@@ -75,7 +83,7 @@ class SolverUtility:
         return solver
 
 
-    def _explore_paths(self, find, n, input_type,source=None, num_steps=None, binary=None,api_list=[],api_type=None,visitor=None,register_inputs=None):
+    def _explore_paths(self, find, n, input_type,source, binary,num_steps=None,api_list=[],api_type=None,visitor=None,register_inputs=None):
         
         input_arg = input_type.args
 
@@ -85,7 +93,7 @@ class SolverUtility:
         if source is None:
             state=self.project.factory.entry_state(args=[binary]+args)
         else:
-            state = self._create_call_state(args,input_arg, source)
+            state = self._create_call_state(args,input_type, source)
 
         if num_steps is not None:
             #Calling convention
@@ -119,9 +127,8 @@ class SolverUtility:
         return solver, solutions
     
 
-    def get_solver(self, target, n, input_type,source=None, num_steps=None, binary=None,api_type=None,visitor=None,register_inputs=None):
-        
+    def get_solver(self, target, n, input_type,source=None, binary=None,num_steps=None, api_type=None,visitor=None,register_inputs=None):
         if num_steps is not None:
-            return self._explore_paths(target[0], n, input_type,source,num_steps,binary,api_list=target[1:],api_type=api_type,visitor=visitor,register_inputs=register_inputs)
+            return self._explore_paths(target[0], n, input_type,source,binary,num_steps,api_list=target[1:],api_type=api_type,visitor=visitor,register_inputs=register_inputs)
         else:
             return self._explore_paths(target, n, input_type,source,binary)

@@ -13,15 +13,15 @@ def nodes_distance(graph, trg):
     t=trg[0]
     g=graph.reverse(copy=False)
     t_parents=list(nx.predecessor(g,t,cutoff=1))[1:] #t's parents
+    subgraph=graph.copy()
     for p in t_parents:
-        p_children=list(nx.predecessor(graph,p,cutoff=1))[1:]
-        
+        p_children=list(nx.predecessor(graph,p,cutoff=1))[1:] 
         # For each function 'c' in 'trg', if 'c' is not child of a parent 'p' of 't', cut the edge (p,t)
         for c in trg[1:]:
             if c not in p_children:
-                graph.remove_edge(p,t)
+                subgraph.remove_edge(p,t)
     
-    shortest_paths = nx.shortest_path_length(graph, target=t)
+    shortest_paths = nx.shortest_path_length(subgraph, target=t)
     addresses=list(shortest_paths)
 
     return addresses,shortest_paths

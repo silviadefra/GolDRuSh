@@ -3,7 +3,7 @@
 import sys
 from os import path
 import logging
-logging.basicConfig(format='[+] %(asctime)s %(levelname)s: %(message)s', level=logging.INFO)
+logging.basicConfig(format='[+] %(asctime)s %(levelname)s: %(message)s', level=logging.WARNING)
 from call_graph import file_data
 from graph_distance import first_distance
 from symbolic import functions_dataframe
@@ -19,6 +19,8 @@ from itertools import groupby
 def find_func(target,func_data):
 
     func=func_data.get_function_by_name(target)
+    if func is None:
+        return None
     target_address = func.address
     api_prototype=func.type
 
@@ -28,11 +30,12 @@ def find_func(target,func_data):
 def rules_api_list(api_list,function_data):
     # Find the address of the 'api_list'
     api=[find_func(x,function_data) for x in api_list]
+    # Check if the functions are found in the call graph
+    if None in api:
+        return None,None
+    
     api_address=[x[0] for x in api]
     api_type=[x[1] for x in api]
-    # Check if the functions are found in the call graph
-    if None in api_address:
-        return None,None
     
     return api_address,api_type
 
@@ -133,7 +136,7 @@ def main(binary):
                 # Fitness function for each test
                 fit=fitness_func(df,reached_functions)
                 if fit==0:
-                    logging.info('You found rule {num} with arguments: {fun}\n'.format(num=num_tree+1,fun=t))
+                    logging.warning('You found rule {num} with arguments: {fun}\n'.format(num=num_tree+1,fun=t))
                     break
                 l.append([fit,t])
             
@@ -142,18 +145,18 @@ def main(binary):
 
             # 'num_best_fit' tests with best fitness
             pop,l=gen_pop(l,num_best_fit,len_cache)
-            logging.info('Initial population: {pop}'.format(pop=pop))
+            logging.warning('Initial population: {pop}'.format(pop=pop))
 
             # Fuzzing
             temp_tests=fuzzy_func(pop)
-            logging.info('New generation: {new}\n'.format(new=temp_tests))
+            logging.warning('New generation: {new}\n'.format(new=temp_tests))
 
             # Delete duplicate
             tests=del_duplicate(temp_tests,l)
             
             i+=1
         if fit!=0:
-            logging.info('The best arguments for rule {num} are: {arg}\n'.format(num=num_tree+1,arg=l[0][1]))
+            logging.warning('The best arguments for rule {num} are: {arg}\n'.format(num=num_tree+1,arg=l[0][1]))
  
     
 

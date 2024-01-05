@@ -52,12 +52,13 @@ def functions_dataframe(binary_path, project, call_graph, function_data, n, step
     for starting_address in nodes:
         if distance[starting_address]==0:
             continue
+        
         func_solver=SolverUtility(project)
-        func=function_data(starting_address)
+        func=function_data.get_function_by_addr(starting_address)
         input_type=func.type 
         if distance[starting_address]==1:
             s,v=func_solver.get_solver(api_address,n,input_type,source=starting_address,num_steps=steps,api_type=api_type,visitor=visitor,register_inputs=register_inputs)
-            if s is None:
+            if v is None:
                 return
         else:
             # Find for each node successors with smaller distance

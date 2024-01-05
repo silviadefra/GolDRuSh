@@ -28,14 +28,13 @@ grammar = r"""
     TRUE: "true"
     FALSE: "false"
 
-
     apred: sum COP sum
     COP: "==" | "<" | ">" | ">=" | "<=" | "!="
     sum: sum SOP prod | prod
     SOP: "+" | "-" 
     prod: atom| prod MOP atom
     MOP: "*" | "/"
-    atom: NUMBER | CNAME | SIGN atom | "(" sum ")" #| "&"CNAME
+    atom: NUMBER | CNAME | SIGN atom | "(" sum ")" | "0x"NUMBER #| "&"CNAME | "0x"NUMBER
     SIGN: "-"
 
 

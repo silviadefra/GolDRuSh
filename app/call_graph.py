@@ -13,6 +13,7 @@ def generate_call_graph(project):
 
     # Set up the call graph analysis
     cfg = project.analyses.CFGEmulated(keep_state=True)
+    #cfg = project.analyses.CFGFast()
 
     # Retrieve the call graph
     call_graph = cfg.functions.callgraph

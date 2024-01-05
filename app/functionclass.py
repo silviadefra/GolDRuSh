@@ -4,7 +4,7 @@ import logging
 
 class ProgramFunction:
     def __init__(self, function,cca):
-        self.address = function.addr
+        self.address =function.addr
         self.name = function.name
         self.type=cca.prototype
         self.distance = inf
