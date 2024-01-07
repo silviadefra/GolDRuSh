@@ -1,7 +1,5 @@
 from lark import Lark
-import logging
 
-logging.basicConfig(level=logging.DEBUG)
 grammar = r"""
 
     ?start: (line)*
@@ -59,6 +57,8 @@ def parse_file(filename):
     with open(filename, "r") as file:
         data = file.read()
         l = p.parse(data)
+
+    print(l.pretty())
 
     return l
 
