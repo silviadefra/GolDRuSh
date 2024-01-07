@@ -24,11 +24,11 @@ x<0;
 
 # CWE-134
 #printf(p);
-#p == 0x40000;
+# p == 0x40000;
 
 # CWE-134
 #memcpy(to,from,?) , printf(p);
-#from == 0x40000 AND to == p ;
+# from == 0x40000 AND to == p ;
 
 # CWE-416
 free(x), free(y);
