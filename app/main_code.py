@@ -4,14 +4,14 @@ import sys
 from os import path
 import logging
 logging.basicConfig(format='[+] %(asctime)s %(levelname)s: %(message)s', level=logging.WARNING)
-from app.call_graph import file_data
-from app.graph_distance import first_distance
-from app.symbolic import functions_dataframe
-from app.debug import trace_function_calls
-from app.fitness import fitness_func
-from app.fuzzy import fuzzy_func
-from app.grammar import parse_file
-from app.tree_visitor import RuleVisitor
+from call_graph import file_data
+from graph_distance import first_distance
+from symbolic import functions_dataframe
+from debug import trace_function_calls
+from fitness import fitness_func
+from fuzzy import fuzzy_func
+from grammar import parse_file
+from tree_visitor import RuleVisitor
 from itertools import groupby
 
 
