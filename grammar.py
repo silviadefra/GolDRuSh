@@ -58,8 +58,6 @@ def parse_file(filename):
         data = file.read()
         l = p.parse(data)
 
-    print(l.pretty())
-
     return l
 
 
