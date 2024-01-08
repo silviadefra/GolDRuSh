@@ -1,6 +1,7 @@
 #!/usr/bin python3
 from math import inf
 import logging
+from copy import deepcopy
 
 class ProgramFunction:
     def __init__(self, function,cca):
@@ -58,11 +59,20 @@ class FunctionList:
 
         return FunctionList(new_list)
     
+    def copy(self):
+        # Use deepcopy to create a deep copy of the list of program functions
+        copied_functions = deepcopy(self.program_functions)
+
+        # Create a new FunctionList instance with the copied functions
+        copied_function_list = FunctionList(copied_functions)
+
+        return copied_function_list
+    
     def print_function_info(self):
         for func in self.program_functions:
-            logging.info(f"Function Name: {func.name}")
-            logging.info(f"Function Address: {func.address}")
-            logging.info(f"Function Type: {func.type}")
-            logging.info(f"Distance: {func.distance}")
-            logging.info(f"Solver: {func.solver}")
-            logging.info(f"Values: {func.values}")
+            logging.warning(f"Function Name: {func.name}")
+            logging.warning(f"Function Address: {func.address}")
+            logging.warning(f"Function Type: {func.type}")
+            logging.warning(f"Distance: {func.distance}")
+            logging.warning(f"Solver: {func.solver}")
+            logging.warning(f"Values: {func.values}")

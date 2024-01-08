@@ -46,7 +46,7 @@ class SolverUtility:
         try:
             temp=[path.solver.eval_upto(args[i],n, cast_to=bytes) for i in range(len(args))]  
         except SimUnsatError:
-            return None
+            return solutions
 
         min_length=min(len(sublist) for sublist in temp)
         for i in range(min_length):
@@ -59,22 +59,15 @@ class SolverUtility:
         num_paths=len(sm.found)
         paths = sm.found[:n] if num_paths > n else sm.found
 
-        constraints = []
         solutions = []
         for i, path in enumerate(paths):
-            constraints.extend(path.solver.constraints)
             solutions.extend(self._get_solutions(path,ceil((n-i)/num_paths),args))
         
         solutions=[x for x in solutions if x is not None]
         if not solutions:
-            return None,None
-        # Create a solver with all the constraints combined using the logical OR operator
-        if constraints:
-            solver = self._combine_constraints(constraints)
-        else:
-            solver = True
+            return None
 
-        return solver, solutions
+        return solutions
 
     def _combine_constraints(self, constraints):
         combined_constraints = claripy.Or(*constraints)
@@ -84,7 +77,7 @@ class SolverUtility:
 
 
     def _explore_paths(self, find, n, input_type,source, binary,num_steps=None,api_list=[],api_type=None,visitor=None,register_inputs=None):
-        
+        solver=None
         input_arg = input_type.args
 
         # Symbolic input variables
@@ -122,7 +115,7 @@ class SolverUtility:
             # Get solutions leading to reaching the api_address
             solutions=self._get_solutions(sm.found[0],n,args)
         else:
-            solver, solutions = self._explore(sm,args, n)
+            solutions = self._explore(sm,args, n)
 
         return solver, solutions
     

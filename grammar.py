@@ -32,10 +32,13 @@ grammar = r"""
     SOP: "+" | "-" 
     prod: atom| prod MOP atom
     MOP: "*" | "/"
-    atom: NUMBER | CNAME | SIGN atom | "(" sum ")" | "0x"NUMBER #| "&"CNAME | "0x"NUMBER
+    atom: decorhex | CNAME | "(" sum ")"  | "&"CNAME 
+    decorhex: ["+"|"-"] INT | "\\x" HEXDIGIT+ 
     SIGN: "-"
 
 
+    %import common.INT
+    %import common.HEXDIGIT
     %import common.NUMBER
     %import common.CNAME
     %import common.ESCAPED_STRING

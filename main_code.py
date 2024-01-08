@@ -87,38 +87,37 @@ def main(binary):
     exported_list=['strlen', 'strcmp']
 
     # General info of 'binary' (functions name, address)
-    project,call_graph,function_data,register_inputs=file_data(binary)
-    #logging.info(function_data.values.tolist())
+    project,call_graph,general_function_data,register_inputs=file_data(binary)
+    reverse_graph=call_graph.reverse(copy=False)
+
+    # Separete exported functions from intenral functions
+    exported_func,internal_func=separete_func(general_function_data,exported_list)
 
     # Iterate through the 'tree' to find the 'api' subtree.
     for num_tree,tree in enumerate(trees.children):
         visitor = RuleVisitor()
         visitor.visit(tree)  # Now, 'visitor.api_list' contains a list of 'api' elements.
 
-        api_address,api_type=rules_api_list(visitor.api_list,function_data)
+        api_address,api_type=rules_api_list(visitor.api_list,general_function_data)
         # Check if the function is found in the call graph
         if api_address is None:
             continue
-
+        
+        function_data=general_function_data.copy()
         # For each function graph distance and list of the targets
-        nodes,distance,data=first_distance(api_address,function_data,call_graph)
+        nodes,distance=first_distance(api_address,function_data,call_graph,reverse_graph)
         # Check if the function is found in the call graph
         if nodes is None:
             continue
 
         # Dataframe of functions, for each function: solver, values
-        data=functions_dataframe(binary_path,project,call_graph,function_data,num_values,steps,nodes,distance,api_address,api_type,visitor,register_inputs)
+        flag=functions_dataframe(binary_path,project,call_graph,function_data,num_values,steps,nodes,distance,api_address,api_type,visitor,register_inputs)
         # Check if the function is found in the call graph
-        if data is None:
+        if flag is None:
             continue
 
-        #data.print_function_info()
-
-        # Separete exported functions from intenral functions
-        exported_func,internal_func=separete_func(data,exported_list)
-        
         # Only functions with distance =! infinity
-        df=data.remove_functions_with_infinity_distance()
+        df=function_data.remove_functions_with_infinity_distance()
         
         l=[]
         i=0
@@ -159,7 +158,6 @@ def main(binary):
             logging.warning('The best arguments for rule {num} are: {arg}\n'.format(num=num_tree+1,arg=l[0][1]))
  
     
-
 if __name__ == "__main__":
 
     #logging.basicConfig(filename='solutions.log', encoding='utf-8', level=logging.DEBUG)
