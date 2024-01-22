@@ -35,17 +35,19 @@ def functions_dataframe(binary_path, project, call_graph, function_data, n, step
     main_solver=SolverUtility(project)
     # If 'api_address' are reachable from the main
     if distance[main_f]==1:
-        s,v=main_solver.get_solver(api_address,n,input_type,binary=binary_path,num_steps=steps,api_type=api_type,visitor=visitor,register_inputs=register_inputs)         
+        s,v,a=main_solver.get_solver(api_address,n,input_type,binary=binary_path,num_steps=steps,api_type=api_type,visitor=visitor,register_inputs=register_inputs)         
+        f_last_api=function_data.get_function_by_addr(api_address[-1])
+        f_last_api.set_args(a)
+        f_last_api.set_solver(s)
     else:
         # Find successors with smaller distance
         target_func=find_succ(main_f,call_graph,nodes,distance)
         # Get the solver with constraints leading to reaching the target_func, and values to solve them
-        s,v=main_solver.get_solver(target_func,n,input_type,binary=binary_path)
+        _,v,_=main_solver.get_solver(target_func,n,input_type,binary=binary_path)
 
     if v is None:
             return
     
-    func.set_solver(s)
     func.set_values(v)
 
     nodes.remove(main_f)
@@ -58,17 +60,19 @@ def functions_dataframe(binary_path, project, call_graph, function_data, n, step
         func=function_data.get_function_by_addr(starting_address)
         input_type=func.type 
         if distance[starting_address]==1:
-            s,v=func_solver.get_solver(api_address,n,input_type,source=starting_address,num_steps=steps,api_type=api_type,visitor=visitor,register_inputs=register_inputs)
+            s,v,a=func_solver.get_solver(api_address,n,input_type,source=starting_address,num_steps=steps,api_type=api_type,visitor=visitor,register_inputs=register_inputs)
+            f_last_api=function_data.get_function_by_addr(api_address[-1])
+            f_last_api.set_args(a)
+            f_last_api.set_solver(s)
         else:
             # Find for each node successors with smaller distance
             target_func=find_succ(starting_address,call_graph,nodes,distance) #forse conviene non definire la funzione e mettere tutto nel main
             # Get the solver with constraints leading to reaching the target_func, and values to solve them
-            s,v=func_solver.get_solver(target_func,n,input_type,source=starting_address)
+            _,v,_=func_solver.get_solver(target_func,n,input_type,source=starting_address)
         
         if v is None:
                 return
         
-        func.set_solver(s)
         func.set_values(v)
 
     return True

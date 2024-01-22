@@ -7,30 +7,37 @@ import sys
 from functionclass import ProgramFunction, FunctionList
 
 
-
 # Generate call graph
 def generate_call_graph(project):
 
     # Set up the call graph analysis
-    cfg = project.analyses.CFGEmulated(keep_state=True)
+    cfg = project.analyses.CFGEmulated()
     #cfg = project.analyses.CFGFast()
 
     # Retrieve the call graph
     call_graph = cfg.functions.callgraph
     
     # Filter out internal functions and keep only the explicitly defined functions
-    defined_functions = project.kb.functions.values()
+    defined_functions = cfg.functions.values()
     program_functions = []
     program_functions_addr=[]
     
     for function in defined_functions:
         if not function.is_simprocedure:
-            program_functions_addr.append(function.addr)
             # Variable recovery
             project.analyses.VariableRecoveryFast(function)
             # Set up the calling convention analysis for each function
             cca = project.analyses.CallingConvention(function,cfg=cfg,analyze_callsites=True)
+            if cca.prototype is None:
+                vm = cca._variable_manager[function.addr]
+                input_variables = vm.input_variables()
+                print(input_variables)
+                input_args = cca._args_from_vars(input_variables, vm)
+                input_args = list(input_args) 
+                print(input_args)
+                #continue
             program_functions.append(ProgramFunction(function,cca))
+            program_functions_addr.append(function.addr)
     functions=FunctionList(program_functions)
 
     register_input=get_register(cca)
@@ -38,7 +45,7 @@ def generate_call_graph(project):
     # Create a subgraph for the program functions
     sub_graph = call_graph.subgraph(program_functions_addr)
 
-    return sub_graph,functions,register_input
+    return sub_graph,functions,register_input,cfg
 
 
 # Inputs register name and position
@@ -70,10 +77,10 @@ def file_data(binary_path):
     project = Project(binary_path, auto_load_libs=False)
 
     # Generate the call graph
-    call_graph, func_addr, register_input=generate_call_graph(project)
+    call_graph, func_addr, register_input,cfg=generate_call_graph(project)
 
     # Visualize the call graph
-    #visualize(cfg,call_graph) 
+    visualize(cfg,call_graph) 
 
     return project,call_graph,func_addr,register_input
 

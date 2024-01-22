@@ -32,15 +32,17 @@ def first_distance(api_address,function_data,call_graph,reverse_graph):
     nodes,distance=nodes_distance(call_graph,reverse_graph,api_address)
 
     if len(nodes)==1:
-        return None,None,None
+        return None,None
     
     for node in nodes:
         func=function_data.get_function_by_addr(node)
         func.set_distance(distance[node])
 
-    for api in api_address[1:]:
+    for api in api_address[1:-1]:
         func=function_data.get_function_by_addr(api)
         func.set_distance(0)
+    func=function_data.get_function_by_addr(api_address[-1])
+    func.set_distance(-1)
 
     return nodes,distance
 

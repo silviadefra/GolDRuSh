@@ -80,6 +80,7 @@ def trace_function_calls(binary, args,exported_func,internal_func):
 
     session = frida.attach(process)
     script_txt=""
+    internal_func=[x for x in internal_func if x!='main']
     for f in internal_func:
         script_txt+= make_script_in(f)
         script_txt+="\n"

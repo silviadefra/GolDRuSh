@@ -11,6 +11,7 @@ class ProgramFunction:
         self.distance = inf
         self.solver = [None]
         self.values = [None]
+        self.args= [None]
 
 
     def set_distance(self,num):
@@ -21,6 +22,17 @@ class ProgramFunction:
 
     def set_values(self,values):
         self.values=values
+
+    def set_args(self,args):
+        self.args=args
+
+    def print_info(self):
+        logging.warning(f"Function Name: {self.name}")
+        logging.warning(f"Function Address: {self.address}")
+        logging.warning(f"Function Type: {self.type}")
+        logging.warning(f"Distance: {self.distance}")
+        logging.warning(f"Solver: {self.solver}")
+        logging.warning(f"Values: {self.values}")
 
 
 class FunctionList:
@@ -55,9 +67,7 @@ class FunctionList:
         return names
     
     def remove_functions_with_infinity_distance(self):
-        new_list = [func for func in self.program_functions if func.distance != inf]
-
-        return FunctionList(new_list)
+        self.program_functions = [func for func in self.program_functions if func.distance != inf]
     
     def copy(self):
         # Use deepcopy to create a deep copy of the list of program functions

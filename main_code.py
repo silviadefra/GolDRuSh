@@ -3,7 +3,8 @@
 import sys
 from os import path
 import logging
-logging.basicConfig(format='[+] %(asctime)s %(levelname)s: %(message)s', level=logging.WARNING)
+logging.basicConfig(filename='test/solutions.log', encoding='utf-8', level=logging.WARNING)
+#logging.basicConfig(format='[+] %(asctime)s %(levelname)s: %(message)s', level=logging.WARNING)
 from call_graph import file_data
 from graph_distance import first_distance
 from symbolic import functions_dataframe
@@ -44,6 +45,10 @@ def rules_api_list(api_list,function_data):
 def separete_func(data,exported_list):
     list_functions=data.get_names()
     prototypes=data.get_prototypes()
+    for i,x in enumerate(prototypes):
+        if x is None:
+            f=data.get_function_by_name(list_functions[i])
+            f.print_info()
     func_inputs=[x.args for x in prototypes]
 
     exported_func=[(x,j) for x,j in zip(list_functions,func_inputs) if x in exported_list] 
@@ -87,7 +92,12 @@ def main(binary):
     exported_list=['strlen', 'strcmp']
 
     # General info of 'binary' (functions name, address)
+    logging.warning('Binary file: {file}'.format(file=binary))
     project,call_graph,general_function_data,register_inputs=file_data(binary)
+    #if True:
+    logging.warning('Call graph created')
+    general_function_data.print_function_info()
+        #return
     reverse_graph=call_graph.reverse(copy=False)
 
     # Separete exported functions from intenral functions
@@ -102,6 +112,7 @@ def main(binary):
         # Check if the function is found in the call graph
         if api_address is None:
             continue
+        logging.warning('Rules {num}'.format(num=num_tree+1))
         
         function_data=general_function_data.copy()
         # For each function graph distance and list of the targets
@@ -109,15 +120,17 @@ def main(binary):
         # Check if the function is found in the call graph
         if nodes is None:
             continue
+        logging.warning('Graph distance')
 
         # Dataframe of functions, for each function: solver, values
         flag=functions_dataframe(binary_path,project,call_graph,function_data,num_values,steps,nodes,distance,api_address,api_type,visitor,register_inputs)
         # Check if the function is found in the call graph
         if flag is None:
             continue
+        logging.warning('Values calculated')
 
         # Only functions with distance =! infinity
-        df=function_data.remove_functions_with_infinity_distance()
+        function_data.remove_functions_with_infinity_distance()
         
         l=[]
         i=0
@@ -126,6 +139,7 @@ def main(binary):
             
                 # Run the binary and trace function calls with their arguments
                 entries = trace_function_calls(binary, t,exported_func,internal_func)
+                logging.warning('Trace function calls')
                 if not entries:
                     logging.warning(f"Warning: trace not found")
                     return
@@ -133,7 +147,7 @@ def main(binary):
                 reached_functions=[(x[0],x[1]) for x in entries if x[2]=="input"] # Functions (x[0]) and inputs (x[1])
     
                 # Fitness function for each test
-                fit=fitness_func(df,reached_functions)
+                fit=fitness_func(function_data,reached_functions)
                 if fit==0:
                     logging.warning('You found rule {num} with arguments: {fun}\n'.format(num=num_tree+1,fun=t))
                     break
@@ -159,8 +173,6 @@ def main(binary):
  
     
 if __name__ == "__main__":
-
-    #logging.basicConfig(filename='solutions.log', encoding='utf-8', level=logging.DEBUG)
 
     if len(sys.argv) < 1:
         logging.info("Usage: python main_code.py <target_executable>")

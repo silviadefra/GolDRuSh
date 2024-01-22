@@ -32,9 +32,8 @@ grammar = r"""
     SOP: "+" | "-" 
     prod: atom| prod MOP atom
     MOP: "*" | "/"
-    atom: decorhex | CNAME | "(" sum ")"  | "&"CNAME 
-    decorhex: ["+"|"-"] INT | "\\x" HEXDIGIT+ 
-    SIGN: "-"
+    atom: decorhex | CNAME | "(" sum ")"  #| "&"CNAME #non riesco a differenziare tra i due
+    decorhex: ["+"|"-"] INT | "\\x" HEXDIGIT+
 
 
     %import common.INT
@@ -60,7 +59,7 @@ def parse_file(filename):
     with open(filename, "r") as file:
         data = file.read()
         l = p.parse(data)
-
+        
     return l
 
 

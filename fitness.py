@@ -2,6 +2,7 @@
 
 import sys
 from itertools import zip_longest
+from claripy import Solver
 
 # Function with minimum distance
 def minimum_distance(data,functions):
@@ -42,23 +43,29 @@ def distance_binary(target, values):
 
 #Main Function
 def fitness_func(df,reached_functions):
- 
     func_in_both_list=set([x[0] for x in reached_functions]) & set(df.get_names()) 
     
     # Function with minimum distance to the target
     f,node_dist=minimum_distance(df,func_in_both_list)
-    # Values to reach the next 'good' function from the solver
-    func=df.get_function_by_name(f)
-    values=func.values
     
-    if node_dist==0:
+    if node_dist==-1:
+        s = Solver()
+        func=df.get_function_by_name(f)
+        constraints=func.solver
+        a=func.args
+        c=[a[i]==t for i,t in enumerate(x[1])]
+        if s.satisfiable(extra_constraints=c):
+            return 0
+    elif node_dist==0:
         for function in func_in_both_list:
             func=df.get_function_by_name(function)
             if func.distance==1:
                 f=function
-                values=func.values
                 break
-
+    
+    # Values to reach the next 'good' function from the solver
+    func=df.get_function_by_name(f)
+    values=func.values
 
     # Inputs ('x[1]') of the good function 'f' from the debug function
     for x in reached_functions:

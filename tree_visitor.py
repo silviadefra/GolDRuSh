@@ -106,7 +106,7 @@ class RuleVisitor(Visitor):
             return self.claripy_apred(termtree)
         
         elif termtree.data=='pred':
-            return self.claripy_pred(termtree) #parentesi
+            return self.claripy_pred(termtree)
         
         else:
             pass
@@ -138,9 +138,9 @@ class RuleVisitor(Visitor):
     # prod: atom| prod MOP atom
     def claripy_prod(self,tree):
         if isinstance(tree,Token):
-            return symb_val[tree.value]
+            return self.claripy_atom(tree)
         
-        elif len(tree.children) == 3:
+        if len(tree.children) == 3:
             lf=self.claripy_prod(tree.children[0])
             rf=self.claripy_atom(tree.children[2])
             op=tree.children[1].value
@@ -154,24 +154,35 @@ class RuleVisitor(Visitor):
             pass
 
 
-    # atom: NUMBER | CNAME | SIGN atom | "(" sum ")"
+    #atom: decorhex | CNAME | "(" sum ")"  | "&"CNAME 
     def claripy_atom(self,tree):
-        if len(tree.children) == 2:
-            x= - self.claripy_atom(tree.children[1])
-            return x
-
-        elif isinstance(tree.children[0],Tree):
-            return self.claripy_sum(tree.children[0])   #parentesi
+        termtree=tree.children[0]
+        if isinstance(termtree,Tree):
+            if termtree.data=='decorhex':
+                return self.claripy_decorhex(termtree)
         
-        elif tree.children[0].type=='CNAME': 
-            return symb_val[tree.children[0].value]
+            elif termtree.data=='sum':
+                return self.claripy_sum(termtree)
         
-        elif tree.children[0].type=='NUMBER':
-            return eval(tree.children[0].value)
+        elif termtree.type=='CNAME': 
+            if termtree.value[0]=='&':
+                return                     #da sistemare
+            else:
+                return symb_val[termtree.value]
 
         else:
             pass
 
+    
+    # decorhex: ["+"|"-"] INT | "\\x" HEXDIGIT+ 
+    def claripy_decorhex(self,tree):
+        termtree=tree.children[0]
+        if termtree.type=='INT':
+            return int(termtree.value)
+        
+        elif termtree.type== 'HEXDIGIT':
+            s='0x'.join(x.value for x in tree.children)
+            return s
 
 
 

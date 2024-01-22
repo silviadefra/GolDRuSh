@@ -41,10 +41,10 @@ class SolverUtility:
 
         return self.project.factory.call_state(source, *y, prototype=c)
     
-    def _get_solutions(self,path,n,args):
+    def _get_solutions(self,solver,n,args):
         solutions=[]
         try:
-            temp=[path.solver.eval_upto(args[i],n, cast_to=bytes) for i in range(len(args))]  
+            temp=[solver.eval_upto(args[i],n, cast_to=bytes) for i in range(len(args))]  
         except SimUnsatError:
             return solutions
 
@@ -61,7 +61,8 @@ class SolverUtility:
 
         solutions = []
         for i, path in enumerate(paths):
-            solutions.extend(self._get_solutions(path,ceil((n-i)/num_paths),args))
+            s=path.solver
+            solutions.extend(self._get_solutions(s,ceil((n-i)/num_paths),args))
         
         solutions=[x for x in solutions if x is not None]
         if not solutions:
@@ -69,15 +70,10 @@ class SolverUtility:
 
         return solutions
 
-    def _combine_constraints(self, constraints):
-        combined_constraints = claripy.Or(*constraints)
-        solver = claripy.Solver()
-        solver.add(combined_constraints)
-        return solver
-
 
     def _explore_paths(self, find, n, input_type,source, binary,num_steps=None,api_list=[],api_type=None,visitor=None,register_inputs=None):
-        solver=None
+        claripy_contstraints=None
+        symbolic_par=None
         input_arg = input_type.args
 
         # Symbolic input variables
@@ -96,6 +92,7 @@ class SolverUtility:
                 symbolic_par.update(self._rules_symbolic_par(cc,a,b,state,register_inputs))
     
             claripy_contstraints=visitor.predicate(symbolic_par)
+            print(claripy_contstraints)
     
         # Explore the program with symbolic execution
         sm = self.project.factory.simgr(state, save_unconstrained=True)
@@ -108,16 +105,18 @@ class SolverUtility:
                     sm.explore(find=a,n=num_steps)
                 else:
                     return None,None
-        
-            solver=sm.found[0].solver
-            solver.add(claripy_contstraints)
+            if sm.found:
+                solver=sm.found[0].solver
+                solver.add(claripy_contstraints)
+            else:
+                return None,None,None
 
             # Get solutions leading to reaching the api_address
-            solutions=self._get_solutions(sm.found[0],n,args)
+            solutions=self._get_solutions(solver,n,args)
         else:
             solutions = self._explore(sm,args, n)
 
-        return solver, solutions
+        return claripy_contstraints, solutions,symbolic_par
     
 
     def get_solver(self, target, n, input_type,source=None, binary=None,num_steps=None, api_type=None,visitor=None,register_inputs=None):
