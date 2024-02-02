@@ -47,7 +47,6 @@ class SolverUtility:
             temp=[solver.eval_upto(args[i],n, cast_to=bytes) for i in range(len(args))]  
         except SimUnsatError:
             return solutions
-
         min_length=min(len(sublist) for sublist in temp)
         for i in range(min_length):
             solutions.append([repr(x[i]) for x in temp])
@@ -92,7 +91,6 @@ class SolverUtility:
                 symbolic_par.update(self._rules_symbolic_par(cc,a,b,state,register_inputs))
     
             claripy_contstraints=visitor.predicate(symbolic_par)
-            print(claripy_contstraints)
     
         # Explore the program with symbolic execution
         sm = self.project.factory.simgr(state, save_unconstrained=True)
@@ -116,7 +114,7 @@ class SolverUtility:
         else:
             solutions = self._explore(sm,args, n)
 
-        return claripy_contstraints, solutions,symbolic_par
+        return solutions,symbolic_par
     
 
     def get_solver(self, target, n, input_type,source=None, binary=None,num_steps=None, api_type=None,visitor=None,register_inputs=None):

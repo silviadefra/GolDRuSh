@@ -29,12 +29,7 @@ def generate_call_graph(project):
             # Set up the calling convention analysis for each function
             cca = project.analyses.CallingConvention(function,cfg=cfg,analyze_callsites=True)
             if cca.prototype is None:
-                vm = cca._variable_manager[function.addr]
-                input_variables = vm.input_variables()
-                print(input_variables)
-                input_args = cca._args_from_vars(input_variables, vm)
-                input_args = list(input_args) 
-                print(input_args)
+                return None,None,None,None
                 #continue
             program_functions.append(ProgramFunction(function,cca))
             program_functions_addr.append(function.addr)
@@ -78,9 +73,11 @@ def file_data(binary_path):
 
     # Generate the call graph
     call_graph, func_addr, register_input,cfg=generate_call_graph(project)
+    if call_graph is None:
+        return None,None,None,None
 
     # Visualize the call graph
-    visualize(cfg,call_graph) 
+    #visualize(cfg,call_graph) 
 
     return project,call_graph,func_addr,register_input
 

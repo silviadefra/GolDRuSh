@@ -80,7 +80,7 @@ def main(binary):
     num_values=2      #Number of solutions of the solver
     num_best_fit=8    #Number of individual in the population
     num_generations=100 
-    tests = [['2358'],['35'], ['9124'], ['34'],['14'],['82375'],['2'],['1982674'],['736']]  #Our tests
+    tests = [['j'],['jadlfkjvp'], ['ogjlns'], ['loknlosk'],['pr'],['knladop'],['ppppppppp'],['AAAAAAAAAAAAaaaaaaaaaaaaaaBBBBBBBBBBBBBBBBBBBbbbbbbbbbbbbbbbbbbbbbjjjjjjjjjjjjjjJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ'],['kijokkjolkj']]  #Our tests
     len_cache=100                #lenght cache for fitness
     rules_file="rules.txt"
     steps=5
@@ -89,15 +89,14 @@ def main(binary):
     trees = parse_file(rules_file)
     
     #TODO
-    exported_list=['strlen', 'strcmp']
+    exported_list=['strlen', 'strcmp', 'strncpy']
 
     # General info of 'binary' (functions name, address)
     logging.warning('Binary file: {file}'.format(file=binary))
     project,call_graph,general_function_data,register_inputs=file_data(binary)
-    #if True:
+    if project is None:
+        return
     logging.warning('Call graph created')
-    general_function_data.print_function_info()
-        #return
     reverse_graph=call_graph.reverse(copy=False)
 
     # Separete exported functions from intenral functions
@@ -131,23 +130,21 @@ def main(binary):
 
         # Only functions with distance =! infinity
         function_data.remove_functions_with_infinity_distance()
+        function_data.print_function_info()
         
         l=[]
         i=0
         while i< num_generations:
             for t in tests: #TODO parallel
-            
                 # Run the binary and trace function calls with their arguments
                 entries = trace_function_calls(binary, t,exported_func,internal_func)
-                logging.warning('Trace function calls')
                 if not entries:
                     logging.warning(f"Warning: trace not found")
                     return
-        
-                reached_functions=[(x[0],x[1]) for x in entries if x[2]=="input"] # Functions (x[0]) and inputs (x[1])
+                logging.warning('Trace function calls')
     
                 # Fitness function for each test
-                fit=fitness_func(function_data,reached_functions)
+                fit=fitness_func(function_data,entries,visitor)
                 if fit==0:
                     logging.warning('You found rule {num} with arguments: {fun}\n'.format(num=num_tree+1,fun=t))
                     break

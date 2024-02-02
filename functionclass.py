@@ -9,30 +9,26 @@ class ProgramFunction:
         self.name = function.name
         self.type=cca.prototype
         self.distance = inf
-        self.solver = [None]
         self.values = [None]
-        self.args= [None]
+        self.sympar= [None]
 
 
     def set_distance(self,num):
         self.distance=num
 
-    def set_solver(self,solver):
-        self.solver=solver
-
     def set_values(self,values):
         self.values=values
 
     def set_args(self,args):
-        self.args=args
+        self.sympar=args
 
     def print_info(self):
         logging.warning(f"Function Name: {self.name}")
         logging.warning(f"Function Address: {self.address}")
         logging.warning(f"Function Type: {self.type}")
         logging.warning(f"Distance: {self.distance}")
-        logging.warning(f"Solver: {self.solver}")
         logging.warning(f"Values: {self.values}")
+        logging.warning(f"Symbolic parameters: {self.sympar}")
 
 
 class FunctionList:
@@ -84,5 +80,5 @@ class FunctionList:
             logging.warning(f"Function Address: {func.address}")
             logging.warning(f"Function Type: {func.type}")
             logging.warning(f"Distance: {func.distance}")
-            logging.warning(f"Solver: {func.solver}")
             logging.warning(f"Values: {func.values}")
+            logging.warning(f"Symbolic parameters: {func.sympar}")
