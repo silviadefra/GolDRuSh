@@ -91,7 +91,6 @@ class SolverUtility:
                 symbolic_par.update(self._rules_symbolic_par(cc,a,b,state,register_inputs))
     
             claripy_contstraints=visitor.predicate(symbolic_par)
-    
         # Explore the program with symbolic execution
         sm = self.project.factory.simgr(state, save_unconstrained=True)
         sm.explore(find=find)
@@ -107,14 +106,13 @@ class SolverUtility:
                 solver=sm.found[0].solver
                 solver.add(claripy_contstraints)
             else:
-                return None,None,None
-
+                return None,None
             # Get solutions leading to reaching the api_address
             solutions=self._get_solutions(solver,n,args)
         else:
             solutions = self._explore(sm,args, n)
-
-        return solutions,symbolic_par
+    
+        return solutions, symbolic_par
     
 
     def get_solver(self, target, n, input_type,source=None, binary=None,num_steps=None, api_type=None,visitor=None,register_inputs=None):

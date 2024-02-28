@@ -4,6 +4,7 @@ import networkx as nx
 import sys
 from tree_visitor import RuleVisitor
 from call_graph import file_data
+from math import inf
 
 
 # Label the nodes with the minimum path length to the target node
@@ -37,12 +38,15 @@ def first_distance(api_address,function_data,call_graph,reverse_graph):
     for node in nodes:
         func=function_data.get_function_by_addr(node)
         func.set_distance(distance[node])
+    
+    func=function_data.get_function_by_addr(api_address[0])
+    func.set_distance(inf)
 
-    for api in api_address[1:-1]:
-        func=function_data.get_function_by_addr(api)
-        func.set_distance(0)
-    func=function_data.get_function_by_addr(api_address[-1])
-    func.set_distance(-1)
+    # for api in api_address[1:-1]:
+    #     func=function_data.get_function_by_addr(api)
+    #     func.set_distance(0)
+    # func=function_data.get_function_by_addr(api_address[-1])
+    # func.set_distance(-1)
 
     return nodes,distance
 

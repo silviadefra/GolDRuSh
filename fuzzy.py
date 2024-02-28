@@ -47,7 +47,7 @@ def flip_random_character(s):
 # Add only 1 random character
 def add_random_character(s):
     pos = random.randint(0, len(s)+1)
-    new_c = chr(random.randint(0, 65536)) #da vedere
+    new_c = chr(random.randint(0, 127)) #da vedere
     return s[:pos] + new_c + s[pos:]
 
 # Remove only 1 random character

@@ -2,7 +2,8 @@
 
 import sys
 from itertools import zip_longest
-from claripy import Solver, And
+from claripy import Solver
+from math import log10
 
 # Function with minimum distance
 def func_with_minimum_distance(data,functions):
@@ -34,9 +35,27 @@ def distance_binary(target, values):
         distance=0
         for v,t in zip(value,target):
             distance+=sum(c1 != c2 for c1, c2 in zip_longest(t, v)) 
+            #logging.warning('Distance {d} between {v} and {t}'.format(d=distance,v=v,t=t))
         if distance < minimum:
             minimum = distance
     return minimum
+
+
+def filter_entries(data,func):
+    output_data=[]
+    found_start = False
+
+    for sublist in data:
+        if not found_start and sublist[0] == func.name and sublist[-1] == 'input':
+            found_start = True
+            continue
+        elif found_start and sublist[0] == func.name and sublist[-1] == 'output':
+            found_start=False
+            continue
+        elif found_start:
+            output_data.append(sublist[0])
+    
+    return output_data
 
 #Associate concrete value to symbolic parameters
 def combine_concrete_symbolic(visitor,entries,par):
@@ -46,6 +65,7 @@ def combine_concrete_symbolic(visitor,entries,par):
         ent=[e for e in entries if e[0]==x]
         if y[0] is not None:
             output=[e for e in ent if e[2]=='output']
+            
             par[y[0]]=output[0][1]
             
         # Symbolic input variables
@@ -59,8 +79,6 @@ def combine_concrete_symbolic(visitor,entries,par):
 def add_constraints(par,conc_val,visitor):
     s = Solver()
     constraints=visitor.predicate(par)
-    print(conc_val)
-    print(par)
     s.add(constraints)
     for key in conc_val:
         if type(conc_val[key]) is str:
@@ -89,21 +107,19 @@ def fitness_func(df,entries,visitor):
     func,test_values=func_with_minimum_distance(df,func_in_both_list)
     # Values to reach the next 'good' function from the solver
     values=func.values
+    fitness=func.distance
     
-    # If it reached the last api
-    if func.distance==-1:
-        #Associate concrete value to symbolic parameters of the rules
-        par=func.sympar
-        conc_val=combine_concrete_symbolic(visitor,entries,par.copy())
-        s=add_constraints(par,conc_val,visitor)
-        if s.satisfiable():
-            return 0
-        else:
-            values=prev_func_vals(df,func_in_both_list)
-    #If it reached at least one api but not the last one
-    elif func.distance==0:
-        values=prev_func_vals(df,func_in_both_list)
-        
+    # If it reached the last function
+    if func.distance==1:
+        filtered=filter_entries(entries,func)
+        if all(el in visitor.api_list for el in filtered):
+            func=df.get_function_by_name(visitor.api_list[-1])
+            #Associate concrete value to symbolic parameters of the rules
+            par=func.sympar
+            conc_val=combine_concrete_symbolic(visitor,entries,par.copy())
+            s=add_constraints(par,conc_val,visitor)
+            if s.satisfiable():
+                return 0        
 
     # From characters to binary
     ch_args=to_bit(test_values) 
@@ -114,11 +130,12 @@ def fitness_func(df,entries,visitor):
 
     # Distance to reach the next 'good' function
     minimum=distance_binary(ch_args,ch_values)
-    
+    print(minimum)
     # Between 0 and 1
-    m=minimum/(minimum+1)
+    m=-(1/log10(minimum+10))
 
-    fitness=func.distance+m
+    fitness=fitness+m
+    print(fitness)
 
     return fitness
 

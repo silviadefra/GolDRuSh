@@ -3,7 +3,7 @@
 import sys
 from os import path
 import logging
-logging.basicConfig(filename='test/solutions.log', encoding='utf-8', level=logging.WARNING)
+logging.basicConfig(filename='test/solutions.log',format='%(asctime)s : %(message)s', encoding='utf-8', level=logging.WARNING)
 #logging.basicConfig(format='[+] %(asctime)s %(levelname)s: %(message)s', level=logging.WARNING)
 from call_graph import file_data
 from graph_distance import first_distance
@@ -14,6 +14,19 @@ from fuzzy import fuzzy_func
 from grammar import parse_file
 from tree_visitor import RuleVisitor
 from itertools import groupby
+from random import sample,choices
+from string import ascii_letters,digits
+from csv import writer
+
+
+def generate_random_string(length):
+    return [''.join(choices(ascii_letters + digits, k=length))]
+
+def generate_tests():
+    lengths = [8, 16, 24, 32]
+    random_strings = [generate_random_string(length) for length in lengths]
+    logging.warning('Test genereted: {tests}'.format(tests=random_strings))
+    return random_strings
 
 
 # Find the address of the target
@@ -28,7 +41,7 @@ def find_func(target,func_data):
     return [target_address,api_prototype]
 
 
-def rules_api_list(api_list,function_data):
+def rule_api_list(api_list,function_data):
     # Find the address of the 'api_list'
     api=[find_func(x,function_data) for x in api_list]
     # Check if the functions are found in the call graph
@@ -58,10 +71,19 @@ def separete_func(data,exported_list):
 
 
 def gen_pop(l,num_best_fit,len_cache):
-    l=sorted(l, key=lambda x: (x[0], len(str(x[0]).split('.')[1])))
-    l=l[:len_cache]
-    pop=l[:num_best_fit]
-
+    temp=sorted(l, key=lambda x: (x[0], len(str(x[0]).split('.')[1])))
+    temp=list(k for k,_ in groupby(temp)) #delete duplicate
+    l=temp[:len_cache]
+    i=0
+    pop=[]
+    k=len(temp)
+    while i< min(num_best_fit,k):
+        min_fit=temp[0][0]
+        mom=[x for x in l if x[0]==min_fit]
+        ki=min(num_best_fit-i,len(mom))
+        pop=pop + sample(mom,k=ki)
+        i=i+ki
+        temp=temp[len(mom):]
     return pop,l
 
 
@@ -74,16 +96,25 @@ def del_duplicate(temp,l):
     return tests
 
 
+def write_n_to_csv(n):
+    csv_file = 'fit_values.csv'
+
+    # Write 'n' to the CSV file
+    with open(csv_file, mode='a', newline='') as file:
+        w = writer(file)
+        w.writerow([n])
+
+
 def main(binary):
     
     #TODO Parameters for the algorithm: they must be passed from the command line
-    num_values=2      #Number of solutions of the solver
-    num_best_fit=8    #Number of individual in the population
-    num_generations=100 
-    tests = [['j'],['jadlfkjvp'], ['ogjlns'], ['loknlosk'],['pr'],['knladop'],['ppppppppp'],['AAAAAAAAAAAAaaaaaaaaaaaaaaBBBBBBBBBBBBBBBBBBBbbbbbbbbbbbbbbbbbbbbbjjjjjjjjjjjjjjJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ'],['kijokkjolkj']]  #Our tests
+    num_values=4      #Number of solutions of the solver
+    num_best_fit=4    #Number of individual in the population
+    num_generations=10000 
+    tests =generate_tests()  #Our tests
     len_cache=100                #lenght cache for fitness
-    rules_file="rules.txt"
-    steps=5
+    rules_file="rule.txt"
+    steps=8
 
     #TODO: non c'è bisogno di farlo ogni volta, se va bene il file 
     trees = parse_file(rules_file)
@@ -96,22 +127,24 @@ def main(binary):
     project,call_graph,general_function_data,register_inputs=file_data(binary)
     if project is None:
         return
-    logging.warning('Call graph created')
+    logging.warning('Call graph genereted')
     reverse_graph=call_graph.reverse(copy=False)
 
     # Separete exported functions from intenral functions
     exported_func,internal_func=separete_func(general_function_data,exported_list)
 
     # Iterate through the 'tree' to find the 'api' subtree.
-    for num_tree,tree in enumerate(trees.children):
+    #for num_tree,tree in enumerate(trees.children):
+    for num_tree in range(1):
         visitor = RuleVisitor()
-        visitor.visit(tree)  # Now, 'visitor.api_list' contains a list of 'api' elements.
+        #visitor.visit(tree)  # Now, 'visitor.api_list' contains a list of 'api' elements.
+        visitor.visit(trees)
 
-        api_address,api_type=rules_api_list(visitor.api_list,general_function_data)
+        api_address,api_type=rule_api_list(visitor.api_list,general_function_data)
         # Check if the function is found in the call graph
         if api_address is None:
             continue
-        logging.warning('Rules {num}'.format(num=num_tree+1))
+        logging.warning('Rule {num}'.format(num=num_tree+1))
         
         function_data=general_function_data.copy()
         # For each function graph distance and list of the targets
@@ -129,7 +162,7 @@ def main(binary):
         logging.warning('Values calculated')
 
         # Only functions with distance =! infinity
-        function_data.remove_functions_with_infinity_distance()
+        function_data.remove_functions_with_infinity_distance(visitor.api_list)
         function_data.print_function_info()
         
         l=[]
@@ -149,22 +182,24 @@ def main(binary):
                     logging.warning('You found rule {num} with arguments: {fun}\n'.format(num=num_tree+1,fun=t))
                     break
                 l.append([fit,t])
-            
             if fit==0:
                 break
 
             # 'num_best_fit' tests with best fitness
             pop,l=gen_pop(l,num_best_fit,len_cache)
-            logging.warning('Initial population: {pop}'.format(pop=pop))
-
+            logging.warning('Initial population: {pop} at round {num_round}'.format(pop=pop,num_round=i))
+            
             # Fuzzing
             temp_tests=fuzzy_func(pop)
             logging.warning('New generation: {new}\n'.format(new=temp_tests))
 
             # Delete duplicate
             tests=del_duplicate(temp_tests,l)
+            logging.warning('New Tests: {new}\n'.format(new=tests))
             
+            #if tests:
             i+=1
+            write_n_to_csv(pop[0][0])
         if fit!=0:
             logging.warning('The best arguments for rule {num} are: {arg}\n'.format(num=num_tree+1,arg=l[0][1]))
  

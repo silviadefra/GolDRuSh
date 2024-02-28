@@ -62,8 +62,10 @@ class FunctionList:
 
         return names
     
-    def remove_functions_with_infinity_distance(self):
-        self.program_functions = [func for func in self.program_functions if func.distance != inf]
+    def remove_functions_with_infinity_distance(self,api_list):
+        not_infinity=[func for func in self.program_functions if func.distance != inf]
+        api=[func for func in self.program_functions if func.name in api_list]
+        self.program_functions =not_infinity + api 
     
     def copy(self):
         # Use deepcopy to create a deep copy of the list of program functions

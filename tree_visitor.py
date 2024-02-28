@@ -24,11 +24,9 @@ class RuleVisitor(Visitor):
         self.par_list= []
         self.pred_tree=None
 
-
-    def rule(self,tree):
-        self.pred_tree=tree.children[1]
-
-    
+    def pred(self,tree):
+        self.pred_tree=tree
+   
     #api: CNAME"("[parlist]")" | CNAME "=" CNAME"("[parlist]")"
     def api(self, tree):
         cnames = []
