@@ -1,0 +1,7 @@
+angr
+frida-tools
+numpy
+lark
+claripy
+matplotlib
+pandas

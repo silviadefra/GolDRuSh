@@ -111,11 +111,3 @@ def trace_function_calls(binary, args,exported_func,internal_func):
 #n=2
 
 #entries = trace_function_calls(binary_path, arguments,list_functions,n)
-
-
-# Print the generated entries
-#for entry in entries:
-    #function_name, function_args = entry
-    #print(f"Function: {function_name}")
-    #print(f"Arguments: {function_args}")
-    #print()

@@ -86,7 +86,7 @@ def add_constraints(par,conc_val,visitor):
         elif type(conc_val[key]) is int:
             s.add(par[key] == conc_val[key])
         else:
-            print(f'tipo sconosciuto {type(conc_val[key])}')
+            print(f'Unknwon type {type(conc_val[key])}')
     return s
 
 
@@ -130,12 +130,10 @@ def fitness_func(df,entries,visitor):
 
     # Distance to reach the next 'good' function
     minimum=distance_binary(ch_args,ch_values)
-    print(minimum)
     # Between 0 and 1
     m=-(1/log10(minimum+10))
 
     fitness=fitness+m
-    print(fitness)
 
     return fitness
 

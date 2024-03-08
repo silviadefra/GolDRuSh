@@ -22,8 +22,7 @@ from csv import writer
 def generate_random_string(length):
     return [''.join(choices(ascii_letters + digits, k=length))]
 
-def generate_tests():
-    lengths = [8, 16, 24, 32]
+def generate_tests(lengths):
     random_strings = [generate_random_string(length) for length in lengths]
     logging.warning('Test genereted: {tests}'.format(tests=random_strings))
     return random_strings
@@ -95,7 +94,7 @@ def del_duplicate(temp,l):
 
     return tests
 
-
+# Create a csv with the best fitness for each generation
 def write_n_to_csv(n):
     csv_file = 'fit_values.csv'
 
@@ -105,19 +104,19 @@ def write_n_to_csv(n):
         w.writerow([n])
 
 
-def main(binary):
+def main(binary, rules_file):
     
     #TODO Parameters for the algorithm: they must be passed from the command line
     num_values=4      #Number of solutions of the solver
     num_best_fit=4    #Number of individual in the population
     num_generations=10000 
-    tests =generate_tests()  #Our tests
     len_cache=100                #lenght cache for fitness
-    rules_file="rule.txt"
     steps=8
+    lengths_tests = [8, 16, 24, 32]
 
-    #TODO: non c'è bisogno di farlo ogni volta, se va bene il file 
-    trees = parse_file(rules_file)
+    tests =generate_tests()  #Our tests
+ 
+    trees = parse_file(rules_file) # Our rules
     
     #TODO
     exported_list=['strlen', 'strcmp', 'strncpy']
@@ -134,11 +133,9 @@ def main(binary):
     exported_func,internal_func=separete_func(general_function_data,exported_list)
 
     # Iterate through the 'tree' to find the 'api' subtree.
-    #for num_tree,tree in enumerate(trees.children):
-    for num_tree in range(1):
+    for num_tree,tree in enumerate(trees.children):
         visitor = RuleVisitor()
-        #visitor.visit(tree)  # Now, 'visitor.api_list' contains a list of 'api' elements.
-        visitor.visit(trees)
+        visitor.visit(tree)  # Now, 'visitor.api_list' contains a list of 'api' elements.
 
         api_address,api_type=rule_api_list(visitor.api_list,general_function_data)
         # Check if the function is found in the call graph
@@ -199,24 +196,26 @@ def main(binary):
             
             #if tests:
             i+=1
-            write_n_to_csv(pop[0][0])
+            #write_n_to_csv(pop[0][0])
         if fit!=0:
             logging.warning('The best arguments for rule {num} are: {arg}\n'.format(num=num_tree+1,arg=l[0][1]))
  
     
 if __name__ == "__main__":
 
-    if len(sys.argv) < 1:
-        logging.info("Usage: python main_code.py <target_executable>")
+    if len(sys.argv) < 2:
+        logging.info("Usage: python main_code.py <target_executable> <rules_file>")
         sys.exit(1)
 
     # Path to the binary program
     binary_path = sys.argv[1]
+    # Path to the rules file
+    rules_file=sys.argv[2]
 
     # Check if the binary file exists
     if not path.isfile(binary_path):
         logging.warning(f"Error: File '{binary_path}' does not exist.")
 
-    main(binary_path)
+    main(binary_path,rules_file)
 
     
