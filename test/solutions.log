@@ -1,0 +1,1177 @@
+2024-03-12 09:42:13,495 : Test genereted: [['nvyjtBSR'], ['xfUvyvoND2vwIas8'], ['h0ZNpdecbOHF5YlcAizGDJdn'], ['ua8bApgExvPeW35EahfKTsoY9M8XX3aq']]
+2024-03-12 09:42:13,587 : Binary file: test/itasec
+2024-03-12 09:42:13,886 : Call graph genereted
+2024-03-12 09:42:13,887 : Rule 3
+2024-03-12 09:42:13,889 : Graph distance
+2024-03-12 09:42:14,041 : The program is accessing register with an unspecified value. This could indicate unwanted behavior.
+2024-03-12 09:42:14,042 : angr will cope with this by generating an unconstrained symbolic variable and continuing. You can resolve this by:
+2024-03-12 09:42:14,042 : 1) setting a value to the initial state
+2024-03-12 09:42:14,042 : 2) adding the state option ZERO_FILL_UNCONSTRAINED_{MEMORY,REGISTERS}, to make unknown regions hold null
+2024-03-12 09:42:14,042 : 3) adding the state option SYMBOL_FILL_UNCONSTRAINED_{MEMORY,REGISTERS}, to suppress these messages.
+2024-03-12 09:42:14,042 : Filling register rbp with 8 unconstrained bytes referenced from 0x4011ad (vuln+0x4 in itasec (0x11ad))
+2024-03-12 09:42:14,107 : Values calculated
+2024-03-12 09:42:14,107 : Function Name: vuln
+2024-03-12 09:42:14,107 : Function Address: 4198825
+2024-03-12 09:42:14,107 : Function Type: (long long (64 bits), int (32 bits)) -> int (32 bits)
+2024-03-12 09:42:14,107 : Distance: 1
+2024-03-12 09:42:14,107 : Values: [["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'", "b'\\x00\\x00\\x00\\x00'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02'", "b'\\x00\\x00\\x00\\x02'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x06'", "b'\\x00\\x00\\x00\\x06'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x0e'", "b'\\x00\\x00\\x00\\x0e'"]]
+2024-03-12 09:42:14,107 : Symbolic parameters: [None]
+2024-03-12 09:42:14,108 : Function Name: cncp
+2024-03-12 09:42:14,108 : Function Address: 4198889
+2024-03-12 09:42:14,108 : Function Type: (long long (64 bits)) -> int (32 bits)
+2024-03-12 09:42:14,108 : Distance: 2
+2024-03-12 09:42:14,108 : Values: [None]
+2024-03-12 09:42:14,108 : Symbolic parameters: [None]
+2024-03-12 09:42:14,108 : Function Name: main
+2024-03-12 09:42:14,108 : Function Address: 4199084
+2024-03-12 09:42:14,108 : Function Type: (int (32 bits), long long (64 bits)) -> int (32 bits)
+2024-03-12 09:42:14,108 : Distance: 3
+2024-03-12 09:42:14,108 : Values: [["b'\\x00\\x00\\x00\\x00'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'"], ["b'\\x00\\x00\\x00\\x02'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02'"], ["b'\\x00\\x00\\x00\\x06'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x06'"], ["b'\\x00\\x00\\x00\\x0e'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x0e'"]]
+2024-03-12 09:42:14,108 : Symbolic parameters: [None]
+2024-03-12 09:42:14,108 : Function Name: strncpy
+2024-03-12 09:42:14,108 : Function Address: 4198528
+2024-03-12 09:42:14,108 : Function Type: (char*, char*, unsigned long (64 bits)) -> char*
+2024-03-12 09:42:14,108 : Distance: inf
+2024-03-12 09:42:14,108 : Values: [None]
+2024-03-12 09:42:14,108 : Symbolic parameters: {'b1': <BV64 b1_28_64>, 'm': <BV64 m_29_64>, 'b2': <BV64 b2_30_64>, 'n': <BV64 n_31_64>}
+2024-03-12 09:42:14,108 : Function Name: malloc
+2024-03-12 09:42:14,108 : Function Address: 4198576
+2024-03-12 09:42:14,108 : Function Type: (unsigned long (64 bits)) -> void*
+2024-03-12 09:42:14,108 : Distance: inf
+2024-03-12 09:42:14,108 : Values: [None]
+2024-03-12 09:42:14,108 : Symbolic parameters: [None]
+2024-03-12 09:42:15,176 : Trace function calls
+2024-03-12 09:42:16,227 : Trace function calls
+2024-03-12 09:43:54,035 : Test genereted: [['IsZEJBbR'], ['F0dEGEEWuqzM18Ie'], ['o2vtfEStbNpNnPJ5z80KXysm'], ['qGZZEYbqIj72xNVyAvXIIHBZ0SqtbkTP']]
+2024-03-12 09:43:54,128 : Binary file: test/itasec
+2024-03-12 09:43:54,431 : Call graph genereted
+2024-03-12 09:43:54,431 : Rule 3
+2024-03-12 09:43:54,434 : Graph distance
+2024-03-12 09:43:54,552 : The program is accessing register with an unspecified value. This could indicate unwanted behavior.
+2024-03-12 09:43:54,552 : angr will cope with this by generating an unconstrained symbolic variable and continuing. You can resolve this by:
+2024-03-12 09:43:54,552 : 1) setting a value to the initial state
+2024-03-12 09:43:54,552 : 2) adding the state option ZERO_FILL_UNCONSTRAINED_{MEMORY,REGISTERS}, to make unknown regions hold null
+2024-03-12 09:43:54,552 : 3) adding the state option SYMBOL_FILL_UNCONSTRAINED_{MEMORY,REGISTERS}, to suppress these messages.
+2024-03-12 09:43:54,552 : Filling register rbp with 8 unconstrained bytes referenced from 0x4011ad (vuln+0x4 in itasec (0x11ad))
+2024-03-12 09:43:54,622 : Values calculated
+2024-03-12 09:43:54,622 : Function Name: vuln
+2024-03-12 09:43:54,622 : Function Address: 4198825
+2024-03-12 09:43:54,622 : Function Type: (long long (64 bits), int (32 bits)) -> int (32 bits)
+2024-03-12 09:43:54,622 : Distance: 1
+2024-03-12 09:43:54,622 : Values: [["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'", "b'\\x00\\x00\\x00\\x00'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02'", "b'\\x00\\x00\\x00\\x02'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x06'", "b'\\x00\\x00\\x00\\x06'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x0e'", "b'\\x00\\x00\\x00\\x0e'"]]
+2024-03-12 09:43:54,622 : Symbolic parameters: [None]
+2024-03-12 09:43:54,622 : Function Name: cncp
+2024-03-12 09:43:54,622 : Function Address: 4198889
+2024-03-12 09:43:54,622 : Function Type: (long long (64 bits)) -> int (32 bits)
+2024-03-12 09:43:54,622 : Distance: 2
+2024-03-12 09:43:54,623 : Values: [None]
+2024-03-12 09:43:54,623 : Symbolic parameters: [None]
+2024-03-12 09:43:54,623 : Function Name: main
+2024-03-12 09:43:54,623 : Function Address: 4199084
+2024-03-12 09:43:54,623 : Function Type: (int (32 bits), long long (64 bits)) -> int (32 bits)
+2024-03-12 09:43:54,623 : Distance: 3
+2024-03-12 09:43:54,623 : Values: [["b'\\x00\\x00\\x00\\x00'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'"], ["b'\\x00\\x00\\x00\\x02'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02'"], ["b'\\x00\\x00\\x00\\x06'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x06'"], ["b'\\x00\\x00\\x00\\x0e'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x0e'"]]
+2024-03-12 09:43:54,623 : Symbolic parameters: [None]
+2024-03-12 09:43:54,623 : Function Name: strncpy
+2024-03-12 09:43:54,623 : Function Address: 4198528
+2024-03-12 09:43:54,623 : Function Type: (char*, char*, unsigned long (64 bits)) -> char*
+2024-03-12 09:43:54,623 : Distance: inf
+2024-03-12 09:43:54,623 : Values: [None]
+2024-03-12 09:43:54,623 : Symbolic parameters: {'b1': <BV64 b1_28_64>, 'm': <BV64 m_29_64>, 'b2': <BV64 b2_30_64>, 'n': <BV64 n_31_64>}
+2024-03-12 09:43:54,623 : Function Name: malloc
+2024-03-12 09:43:54,623 : Function Address: 4198576
+2024-03-12 09:43:54,623 : Function Type: (unsigned long (64 bits)) -> void*
+2024-03-12 09:43:54,623 : Distance: inf
+2024-03-12 09:43:54,623 : Values: [None]
+2024-03-12 09:43:54,623 : Symbolic parameters: [None]
+2024-03-12 09:43:54,682 : {'type': 'send', 'payload': {'function': 'main', 'args': [2, '\\\x04}��\x7f']}}
+2024-03-12 09:43:54,683 : {'type': 'send', 'payload': {'function': 'cncp', 'args': ['IsZEJBbR']}}
+2024-03-12 09:43:54,683 : {'type': 'send', 'payload': {'function': 'strlen', 'args': ['IsZEJBbR']}}
+2024-03-12 09:43:54,683 : {'type': 'send', 'payload': {'function': 'strlen', 'ret': '0x8'}}
+2024-03-12 09:43:54,683 : {'type': 'send', 'payload': {'function': 'vuln', 'args': ['IsZEJBbR', 8]}}
+2024-03-12 09:43:54,683 : {'type': 'send', 'payload': {'function': 'malloc', 'args': [16]}}
+2024-03-12 09:43:54,683 : {'type': 'send', 'payload': {'function': 'malloc', 'ret': '0x55ae57bd53c0'}}
+2024-03-12 09:43:54,683 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', 'IsZEJBbR', 8]}}
+2024-03-12 09:43:54,683 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x55ae57bd53c0'}}
+2024-03-12 09:43:54,683 : {'type': 'send', 'payload': {'function': 'vuln', 'ret': '0x55ae57bd53c0'}}
+2024-03-12 09:43:54,683 : {'type': 'send', 'payload': {'function': 'cncp', 'ret': '0x55ae57bd53c0'}}
+2024-03-12 09:43:54,683 : {'type': 'send', 'payload': {'function': 'test', 'args': ['IsZEJBbR']}}
+2024-03-12 09:43:54,683 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', 'IsZEJBbR', 1]}}
+2024-03-12 09:43:54,683 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x7ffeac7cffa7'}}
+2024-03-12 09:43:54,684 : {'type': 'send', 'payload': {'function': 'test', 'ret': '0x0'}}
+2024-03-12 09:43:54,684 : {'type': 'send', 'payload': {'function': 'main', 'ret': '0x0'}}
+2024-03-12 09:43:55,683 : Trace function calls
+2024-03-12 09:43:55,733 : {'type': 'send', 'payload': {'function': 'main', 'args': [2, 'T�.<�\x7f']}}
+2024-03-12 09:43:55,733 : {'type': 'send', 'payload': {'function': 'cncp', 'args': ['F0dEGEEWuqzM18Ie']}}
+2024-03-12 09:43:55,733 : {'type': 'send', 'payload': {'function': 'strlen', 'args': ['F0dEGEEWuqzM18Ie']}}
+2024-03-12 09:43:55,733 : {'type': 'send', 'payload': {'function': 'strlen', 'ret': '0x10'}}
+2024-03-12 09:43:55,733 : {'type': 'send', 'payload': {'function': 'cncp', 'ret': '0x561fb6c90004'}}
+2024-03-12 09:43:55,733 : {'type': 'send', 'payload': {'function': 'test', 'args': ['']}}
+2024-03-12 09:43:55,733 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', '', 1]}}
+2024-03-12 09:43:55,734 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x7ffc3c2e82c7'}}
+2024-03-12 09:43:55,734 : {'type': 'send', 'payload': {'function': 'test', 'ret': '0x0'}}
+2024-03-12 09:43:55,734 : {'type': 'send', 'payload': {'function': 'main', 'ret': '0x0'}}
+2024-03-12 09:43:56,734 : Trace function calls
+2024-03-12 09:47:03,743 : Test genereted: [['sdY9XxMx'], ['WmCuWC2OqvGlIle9'], ['50c7w4ZK9p2qouyMbrpHZ7P1'], ['lsf7ayHor2MLiCsaOFuiC0b3aOYrScWc']]
+2024-03-12 09:47:03,846 : Binary file: test/itasec
+2024-03-12 09:47:04,154 : Call graph genereted
+2024-03-12 09:47:04,155 : Rule 3
+2024-03-12 09:47:04,157 : Graph distance
+2024-03-12 09:47:04,279 : The program is accessing register with an unspecified value. This could indicate unwanted behavior.
+2024-03-12 09:47:04,279 : angr will cope with this by generating an unconstrained symbolic variable and continuing. You can resolve this by:
+2024-03-12 09:47:04,279 : 1) setting a value to the initial state
+2024-03-12 09:47:04,279 : 2) adding the state option ZERO_FILL_UNCONSTRAINED_{MEMORY,REGISTERS}, to make unknown regions hold null
+2024-03-12 09:47:04,279 : 3) adding the state option SYMBOL_FILL_UNCONSTRAINED_{MEMORY,REGISTERS}, to suppress these messages.
+2024-03-12 09:47:04,279 : Filling register rbp with 8 unconstrained bytes referenced from 0x4011ad (vuln+0x4 in itasec (0x11ad))
+2024-03-12 09:47:04,349 : Values calculated
+2024-03-12 09:47:04,349 : Function Name: vuln
+2024-03-12 09:47:04,349 : Function Address: 4198825
+2024-03-12 09:47:04,349 : Function Type: (long long (64 bits), int (32 bits)) -> int (32 bits)
+2024-03-12 09:47:04,349 : Distance: 1
+2024-03-12 09:47:04,349 : Values: [["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'", "b'\\x00\\x00\\x00\\x00'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02'", "b'\\x00\\x00\\x00\\x02'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x06'", "b'\\x00\\x00\\x00\\x06'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x0e'", "b'\\x00\\x00\\x00\\x0e'"]]
+2024-03-12 09:47:04,349 : Symbolic parameters: [None]
+2024-03-12 09:47:04,349 : Function Name: cncp
+2024-03-12 09:47:04,349 : Function Address: 4198889
+2024-03-12 09:47:04,349 : Function Type: (long long (64 bits)) -> int (32 bits)
+2024-03-12 09:47:04,349 : Distance: 2
+2024-03-12 09:47:04,349 : Values: [None]
+2024-03-12 09:47:04,349 : Symbolic parameters: [None]
+2024-03-12 09:47:04,349 : Function Name: main
+2024-03-12 09:47:04,349 : Function Address: 4199084
+2024-03-12 09:47:04,349 : Function Type: (int (32 bits), long long (64 bits)) -> int (32 bits)
+2024-03-12 09:47:04,349 : Distance: 3
+2024-03-12 09:47:04,349 : Values: [["b'\\x00\\x00\\x00\\x00'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'"], ["b'\\x00\\x00\\x00\\x02'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02'"], ["b'\\x00\\x00\\x00\\x06'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x06'"], ["b'\\x00\\x00\\x00\\x0e'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x0e'"]]
+2024-03-12 09:47:04,349 : Symbolic parameters: [None]
+2024-03-12 09:47:04,349 : Function Name: strncpy
+2024-03-12 09:47:04,349 : Function Address: 4198528
+2024-03-12 09:47:04,349 : Function Type: (char*, char*, unsigned long (64 bits)) -> char*
+2024-03-12 09:47:04,349 : Distance: inf
+2024-03-12 09:47:04,349 : Values: [None]
+2024-03-12 09:47:04,349 : Symbolic parameters: {'b1': <BV64 b1_28_64>, 'm': <BV64 m_29_64>, 'b2': <BV64 b2_30_64>, 'n': <BV64 n_31_64>}
+2024-03-12 09:47:04,349 : Function Name: malloc
+2024-03-12 09:47:04,349 : Function Address: 4198576
+2024-03-12 09:47:04,349 : Function Type: (unsigned long (64 bits)) -> void*
+2024-03-12 09:47:04,349 : Distance: inf
+2024-03-12 09:47:04,349 : Values: [None]
+2024-03-12 09:47:04,349 : Symbolic parameters: [None]
+2024-03-12 09:47:04,405 : {'type': 'send', 'payload': {'function': 'main', 'args': [2, '\\$Ĩ�\x7f']}}
+2024-03-12 09:47:04,405 : {'type': 'send', 'payload': {'function': 'cncp', 'args': ['sdY9XxMx']}}
+2024-03-12 09:47:04,405 : {'type': 'send', 'payload': {'function': 'strlen', 'args': ['sdY9XxMx']}}
+2024-03-12 09:47:04,405 : {'type': 'send', 'payload': {'function': 'strlen', 'ret': '0x8'}}
+2024-03-12 09:47:04,405 : {'type': 'send', 'payload': {'function': 'vuln', 'args': ['sdY9XxMx', 8]}}
+2024-03-12 09:47:04,405 : {'type': 'send', 'payload': {'function': 'malloc', 'args': [16]}}
+2024-03-12 09:47:04,406 : {'type': 'send', 'payload': {'function': 'malloc', 'ret': '0x562a626eb3c0'}}
+2024-03-12 09:47:04,406 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', 'sdY9XxMx', 8]}}
+2024-03-12 09:47:04,406 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x562a626eb3c0'}}
+2024-03-12 09:47:04,406 : {'type': 'send', 'payload': {'function': 'vuln', 'ret': '0x562a626eb3c0'}}
+2024-03-12 09:47:04,406 : {'type': 'send', 'payload': {'function': 'cncp', 'ret': '0x562a626eb3c0'}}
+2024-03-12 09:47:04,406 : {'type': 'send', 'payload': {'function': 'test', 'args': ['sdY9XxMx']}}
+2024-03-12 09:47:04,406 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', 'sdY9XxMx', 1]}}
+2024-03-12 09:47:04,406 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x7fffa8c40347'}}
+2024-03-12 09:47:04,406 : {'type': 'send', 'payload': {'function': 'test', 'ret': '0x0'}}
+2024-03-12 09:47:04,406 : {'type': 'send', 'payload': {'function': 'main', 'ret': '0x0'}}
+2024-03-12 09:47:05,406 : Trace function calls
+2024-03-12 09:47:05,455 : {'type': 'send', 'payload': {'function': 'main', 'args': [2, 'T��']}}
+2024-03-12 09:47:05,455 : {'type': 'send', 'payload': {'function': 'cncp', 'args': ['WmCuWC2OqvGlIle9']}}
+2024-03-12 09:47:05,455 : {'type': 'send', 'payload': {'function': 'strlen', 'args': ['WmCuWC2OqvGlIle9']}}
+2024-03-12 09:47:05,455 : {'type': 'send', 'payload': {'function': 'strlen', 'ret': '0x10'}}
+2024-03-12 09:47:05,455 : {'type': 'send', 'payload': {'function': 'cncp', 'ret': '0x55a3fbcd1004'}}
+2024-03-12 09:47:05,455 : {'type': 'send', 'payload': {'function': 'test', 'args': ['']}}
+2024-03-12 09:47:05,455 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', '', 1]}}
+2024-03-12 09:47:05,455 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x7ffe0085d7f7'}}
+2024-03-12 09:47:05,455 : {'type': 'send', 'payload': {'function': 'test', 'ret': '0x0'}}
+2024-03-12 09:47:05,456 : {'type': 'send', 'payload': {'function': 'main', 'ret': '0x0'}}
+2024-03-12 09:47:06,456 : Trace function calls
+2024-03-12 09:47:23,951 : Test genereted: [['QfU0o2w3'], ['NdhmmNTvDk5T129o'], ['tVao2m3Fs6ppDWdsrT6akmdV'], ['AEi46aZPPfHxbBGooVqdWWyoDUv5U0cx']]
+2024-03-12 09:47:24,051 : Binary file: test/itasec
+2024-03-12 09:47:24,362 : Call graph genereted
+2024-03-12 09:47:24,362 : Rule 3
+2024-03-12 09:47:24,364 : Graph distance
+2024-03-12 09:47:24,489 : The program is accessing register with an unspecified value. This could indicate unwanted behavior.
+2024-03-12 09:47:24,489 : angr will cope with this by generating an unconstrained symbolic variable and continuing. You can resolve this by:
+2024-03-12 09:47:24,489 : 1) setting a value to the initial state
+2024-03-12 09:47:24,489 : 2) adding the state option ZERO_FILL_UNCONSTRAINED_{MEMORY,REGISTERS}, to make unknown regions hold null
+2024-03-12 09:47:24,489 : 3) adding the state option SYMBOL_FILL_UNCONSTRAINED_{MEMORY,REGISTERS}, to suppress these messages.
+2024-03-12 09:47:24,489 : Filling register rbp with 8 unconstrained bytes referenced from 0x4011ad (vuln+0x4 in itasec (0x11ad))
+2024-03-12 09:47:24,557 : Values calculated
+2024-03-12 09:47:24,558 : Function Name: vuln
+2024-03-12 09:47:24,558 : Function Address: 4198825
+2024-03-12 09:47:24,558 : Function Type: (long long (64 bits), int (32 bits)) -> int (32 bits)
+2024-03-12 09:47:24,558 : Distance: 1
+2024-03-12 09:47:24,558 : Values: [["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'", "b'\\x00\\x00\\x00\\x00'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02'", "b'\\x00\\x00\\x00\\x02'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x06'", "b'\\x00\\x00\\x00\\x06'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x0e'", "b'\\x00\\x00\\x00\\x0e'"]]
+2024-03-12 09:47:24,558 : Symbolic parameters: [None]
+2024-03-12 09:47:24,558 : Function Name: cncp
+2024-03-12 09:47:24,558 : Function Address: 4198889
+2024-03-12 09:47:24,558 : Function Type: (long long (64 bits)) -> int (32 bits)
+2024-03-12 09:47:24,558 : Distance: 2
+2024-03-12 09:47:24,558 : Values: [None]
+2024-03-12 09:47:24,558 : Symbolic parameters: [None]
+2024-03-12 09:47:24,558 : Function Name: main
+2024-03-12 09:47:24,558 : Function Address: 4199084
+2024-03-12 09:47:24,558 : Function Type: (int (32 bits), long long (64 bits)) -> int (32 bits)
+2024-03-12 09:47:24,558 : Distance: 3
+2024-03-12 09:47:24,558 : Values: [["b'\\x00\\x00\\x00\\x00'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'"], ["b'\\x00\\x00\\x00\\x02'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02'"], ["b'\\x00\\x00\\x00\\x06'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x06'"], ["b'\\x00\\x00\\x00\\x0e'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x0e'"]]
+2024-03-12 09:47:24,558 : Symbolic parameters: [None]
+2024-03-12 09:47:24,558 : Function Name: strncpy
+2024-03-12 09:47:24,558 : Function Address: 4198528
+2024-03-12 09:47:24,558 : Function Type: (char*, char*, unsigned long (64 bits)) -> char*
+2024-03-12 09:47:24,558 : Distance: inf
+2024-03-12 09:47:24,558 : Values: [None]
+2024-03-12 09:47:24,559 : Symbolic parameters: {'b1': <BV64 b1_28_64>, 'm': <BV64 m_29_64>, 'b2': <BV64 b2_30_64>, 'n': <BV64 n_31_64>}
+2024-03-12 09:47:24,559 : Function Name: malloc
+2024-03-12 09:47:24,559 : Function Address: 4198576
+2024-03-12 09:47:24,559 : Function Type: (unsigned long (64 bits)) -> void*
+2024-03-12 09:47:24,559 : Distance: inf
+2024-03-12 09:47:24,559 : Values: [None]
+2024-03-12 09:47:24,559 : Symbolic parameters: [None]
+2024-03-12 09:47:24,616 : {'type': 'send', 'payload': {'function': 'main', 'args': [2, '\\�i��\x7f']}}
+2024-03-12 09:47:24,616 : {'type': 'send', 'payload': {'function': 'cncp', 'args': ['QfU0o2w3']}}
+2024-03-12 09:47:24,616 : {'type': 'send', 'payload': {'function': 'strlen', 'args': ['QfU0o2w3']}}
+2024-03-12 09:47:24,616 : {'type': 'send', 'payload': {'function': 'strlen', 'ret': '0x8'}}
+2024-03-12 09:47:24,617 : {'type': 'send', 'payload': {'function': 'vuln', 'args': ['QfU0o2w3', 8]}}
+2024-03-12 09:47:24,617 : {'type': 'send', 'payload': {'function': 'malloc', 'args': [16]}}
+2024-03-12 09:47:24,617 : {'type': 'send', 'payload': {'function': 'malloc', 'ret': '0x562dad3bc3c0'}}
+2024-03-12 09:47:24,617 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', 'QfU0o2w3', 8]}}
+2024-03-12 09:47:24,617 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x562dad3bc3c0'}}
+2024-03-12 09:47:24,617 : {'type': 'send', 'payload': {'function': 'vuln', 'ret': '0x562dad3bc3c0'}}
+2024-03-12 09:47:24,617 : {'type': 'send', 'payload': {'function': 'cncp', 'ret': '0x562dad3bc3c0'}}
+2024-03-12 09:47:24,617 : {'type': 'send', 'payload': {'function': 'test', 'args': ['QfU0o2w3']}}
+2024-03-12 09:47:24,617 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', 'QfU0o2w3', 1]}}
+2024-03-12 09:47:24,617 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x7ffdb769bd57'}}
+2024-03-12 09:47:24,617 : {'type': 'send', 'payload': {'function': 'test', 'ret': '0x0'}}
+2024-03-12 09:47:24,617 : {'type': 'send', 'payload': {'function': 'main', 'ret': '0x0'}}
+2024-03-12 09:47:25,617 : Trace function calls
+2024-03-12 09:47:25,665 : {'type': 'send', 'payload': {'function': 'main', 'args': [2, 'T$���\x7f']}}
+2024-03-12 09:47:25,665 : {'type': 'send', 'payload': {'function': 'cncp', 'args': ['NdhmmNTvDk5T129o']}}
+2024-03-12 09:47:25,665 : {'type': 'send', 'payload': {'function': 'strlen', 'args': ['NdhmmNTvDk5T129o']}}
+2024-03-12 09:47:25,665 : {'type': 'send', 'payload': {'function': 'strlen', 'ret': '0x10'}}
+2024-03-12 09:47:25,665 : {'type': 'send', 'payload': {'function': 'cncp', 'ret': '0x55d8ab05b004'}}
+2024-03-12 09:47:25,666 : {'type': 'send', 'payload': {'function': 'test', 'args': ['']}}
+2024-03-12 09:47:25,666 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', '', 1]}}
+2024-03-12 09:47:25,666 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x7ffde8ca0437'}}
+2024-03-12 09:47:25,666 : {'type': 'send', 'payload': {'function': 'test', 'ret': '0x0'}}
+2024-03-12 09:47:25,666 : {'type': 'send', 'payload': {'function': 'main', 'ret': '0x0'}}
+2024-03-12 09:47:26,666 : Trace function calls
+2024-03-12 09:49:37,980 : Test genereted: [['FP6F1PlR'], ['bsqVZr804a1C1Z4w'], ['EdToWe33uJVvam22fcBVExTe'], ['Rg4fgFqjvJPMsdngFDQTLVIap9cVGD2P']]
+2024-03-12 09:49:38,073 : Binary file: test/itasec
+2024-03-12 09:49:38,375 : Call graph genereted
+2024-03-12 09:49:38,375 : Rule 3
+2024-03-12 09:49:38,377 : Graph distance
+2024-03-12 09:49:38,495 : The program is accessing register with an unspecified value. This could indicate unwanted behavior.
+2024-03-12 09:49:38,496 : angr will cope with this by generating an unconstrained symbolic variable and continuing. You can resolve this by:
+2024-03-12 09:49:38,496 : 1) setting a value to the initial state
+2024-03-12 09:49:38,496 : 2) adding the state option ZERO_FILL_UNCONSTRAINED_{MEMORY,REGISTERS}, to make unknown regions hold null
+2024-03-12 09:49:38,496 : 3) adding the state option SYMBOL_FILL_UNCONSTRAINED_{MEMORY,REGISTERS}, to suppress these messages.
+2024-03-12 09:49:38,496 : Filling register rbp with 8 unconstrained bytes referenced from 0x4011ad (vuln+0x4 in itasec (0x11ad))
+2024-03-12 09:49:38,562 : Values calculated
+2024-03-12 09:49:38,563 : Function Name: vuln
+2024-03-12 09:49:38,563 : Function Address: 4198825
+2024-03-12 09:49:38,563 : Function Type: (long long (64 bits), int (32 bits)) -> int (32 bits)
+2024-03-12 09:49:38,563 : Distance: 1
+2024-03-12 09:49:38,563 : Values: [["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'", "b'\\x00\\x00\\x00\\x00'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02'", "b'\\x00\\x00\\x00\\x02'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x06'", "b'\\x00\\x00\\x00\\x06'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x0e'", "b'\\x00\\x00\\x00\\x0e'"]]
+2024-03-12 09:49:38,563 : Symbolic parameters: [None]
+2024-03-12 09:49:38,563 : Function Name: cncp
+2024-03-12 09:49:38,563 : Function Address: 4198889
+2024-03-12 09:49:38,563 : Function Type: (long long (64 bits)) -> int (32 bits)
+2024-03-12 09:49:38,563 : Distance: 2
+2024-03-12 09:49:38,563 : Values: [None]
+2024-03-12 09:49:38,563 : Symbolic parameters: [None]
+2024-03-12 09:49:38,563 : Function Name: main
+2024-03-12 09:49:38,563 : Function Address: 4199084
+2024-03-12 09:49:38,563 : Function Type: (int (32 bits), long long (64 bits)) -> int (32 bits)
+2024-03-12 09:49:38,563 : Distance: 3
+2024-03-12 09:49:38,563 : Values: [["b'\\x00\\x00\\x00\\x00'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'"], ["b'\\x00\\x00\\x00\\x02'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02'"], ["b'\\x00\\x00\\x00\\x06'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x06'"], ["b'\\x00\\x00\\x00\\x0e'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x0e'"]]
+2024-03-12 09:49:38,563 : Symbolic parameters: [None]
+2024-03-12 09:49:38,563 : Function Name: strncpy
+2024-03-12 09:49:38,563 : Function Address: 4198528
+2024-03-12 09:49:38,563 : Function Type: (char*, char*, unsigned long (64 bits)) -> char*
+2024-03-12 09:49:38,563 : Distance: inf
+2024-03-12 09:49:38,563 : Values: [None]
+2024-03-12 09:49:38,563 : Symbolic parameters: {'b1': <BV64 b1_28_64>, 'm': <BV64 m_29_64>, 'b2': <BV64 b2_30_64>, 'n': <BV64 n_31_64>}
+2024-03-12 09:49:38,563 : Function Name: malloc
+2024-03-12 09:49:38,563 : Function Address: 4198576
+2024-03-12 09:49:38,563 : Function Type: (unsigned long (64 bits)) -> void*
+2024-03-12 09:49:38,563 : Distance: inf
+2024-03-12 09:49:38,563 : Values: [None]
+2024-03-12 09:49:38,563 : Symbolic parameters: [None]
+2024-03-12 09:49:38,622 : {'type': 'send', 'payload': {'function': 'main', 'args': [2, '\\�b��\x7f']}}
+2024-03-12 09:49:38,622 : {'type': 'send', 'payload': {'function': 'cncp', 'args': ['FP6F1PlR']}}
+2024-03-12 09:49:38,622 : {'type': 'send', 'payload': {'function': 'strlen', 'args': ['FP6F1PlR']}}
+2024-03-12 09:49:38,622 : {'type': 'send', 'payload': {'function': 'strlen', 'ret': '0x8'}}
+2024-03-12 09:49:38,622 : {'type': 'send', 'payload': {'function': 'vuln', 'args': ['FP6F1PlR', 8]}}
+2024-03-12 09:49:38,622 : {'type': 'send', 'payload': {'function': 'malloc', 'args': [16]}}
+2024-03-12 09:49:38,622 : {'type': 'send', 'payload': {'function': 'malloc', 'ret': '0x55be8daa63c0'}}
+2024-03-12 09:49:38,622 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', 'FP6F1PlR', 8]}}
+2024-03-12 09:49:38,622 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x55be8daa63c0'}}
+2024-03-12 09:49:38,623 : {'type': 'send', 'payload': {'function': 'vuln', 'ret': '0x55be8daa63c0'}}
+2024-03-12 09:49:38,623 : {'type': 'send', 'payload': {'function': 'cncp', 'ret': '0x55be8daa63c0'}}
+2024-03-12 09:49:38,623 : {'type': 'send', 'payload': {'function': 'test', 'args': ['FP6F1PlR']}}
+2024-03-12 09:49:38,623 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', 'FP6F1PlR', 1]}}
+2024-03-12 09:49:38,623 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x7ffd836297e7'}}
+2024-03-12 09:49:38,623 : {'type': 'send', 'payload': {'function': 'test', 'ret': '0x0'}}
+2024-03-12 09:49:38,623 : {'type': 'send', 'payload': {'function': 'main', 'ret': '0x0'}}
+2024-03-12 09:49:39,623 : Trace function calls
+2024-03-12 09:49:39,637 : Function Name: strncpy
+2024-03-12 09:49:39,637 : Function Address: 4198528
+2024-03-12 09:49:39,637 : Function Type: (char*, char*, unsigned long (64 bits)) -> char*
+2024-03-12 09:49:39,637 : Distance: inf
+2024-03-12 09:49:39,637 : Values: [None]
+2024-03-12 09:49:39,637 : Symbolic parameters: {'b1': <BV64 b1_28_64>, 'm': <BV64 m_29_64>, 'b2': <BV64 b2_30_64>, 'n': <BV64 n_31_64>}
+2024-03-12 09:49:39,670 : {'type': 'send', 'payload': {'function': 'main', 'args': [2, 'T��Z�\x7f']}}
+2024-03-12 09:49:39,670 : {'type': 'send', 'payload': {'function': 'cncp', 'args': ['bsqVZr804a1C1Z4w']}}
+2024-03-12 09:49:39,670 : {'type': 'send', 'payload': {'function': 'strlen', 'args': ['bsqVZr804a1C1Z4w']}}
+2024-03-12 09:49:39,670 : {'type': 'send', 'payload': {'function': 'strlen', 'ret': '0x10'}}
+2024-03-12 09:49:39,670 : {'type': 'send', 'payload': {'function': 'cncp', 'ret': '0x561e9a22f004'}}
+2024-03-12 09:49:39,670 : {'type': 'send', 'payload': {'function': 'test', 'args': ['']}}
+2024-03-12 09:49:39,670 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', '', 1]}}
+2024-03-12 09:49:39,670 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x7ffe5aed6477'}}
+2024-03-12 09:49:39,670 : {'type': 'send', 'payload': {'function': 'test', 'ret': '0x0'}}
+2024-03-12 09:49:39,670 : {'type': 'send', 'payload': {'function': 'main', 'ret': '0x0'}}
+2024-03-12 09:49:40,671 : Trace function calls
+2024-03-12 09:49:40,671 : Function Name: cncp
+2024-03-12 09:49:40,672 : Function Address: 4198889
+2024-03-12 09:49:40,672 : Function Type: (long long (64 bits)) -> int (32 bits)
+2024-03-12 09:49:40,672 : Distance: 2
+2024-03-12 09:49:40,672 : Values: [None]
+2024-03-12 09:49:40,672 : Symbolic parameters: [None]
+2024-03-12 09:52:04,384 : Test genereted: [['fj4tY25E'], ['WQMTl3sR2neD1Ogl'], ['loVVCNFSvf9EoS1reaJSBaho'], ['l6pEErzQJzyqL05VR9co3EriYfCCTjHc']]
+2024-03-12 09:52:04,475 : Binary file: test/itasec
+2024-03-12 09:52:04,775 : Call graph genereted
+2024-03-12 09:52:04,775 : Rule 3
+2024-03-12 09:52:04,778 : Graph distance
+2024-03-12 09:52:04,898 : The program is accessing register with an unspecified value. This could indicate unwanted behavior.
+2024-03-12 09:52:04,899 : angr will cope with this by generating an unconstrained symbolic variable and continuing. You can resolve this by:
+2024-03-12 09:52:04,899 : 1) setting a value to the initial state
+2024-03-12 09:52:04,899 : 2) adding the state option ZERO_FILL_UNCONSTRAINED_{MEMORY,REGISTERS}, to make unknown regions hold null
+2024-03-12 09:52:04,899 : 3) adding the state option SYMBOL_FILL_UNCONSTRAINED_{MEMORY,REGISTERS}, to suppress these messages.
+2024-03-12 09:52:04,899 : Filling register rbp with 8 unconstrained bytes referenced from 0x4011ad (vuln+0x4 in itasec (0x11ad))
+2024-03-12 09:52:04,983 : Values calculated
+2024-03-12 09:52:04,983 : Function Name: vuln
+2024-03-12 09:52:04,983 : Function Address: 4198825
+2024-03-12 09:52:04,983 : Function Type: (long long (64 bits), int (32 bits)) -> int (32 bits)
+2024-03-12 09:52:04,983 : Distance: 1
+2024-03-12 09:52:04,983 : Values: [["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'", "b'\\x00\\x00\\x00\\x00'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02'", "b'\\x00\\x00\\x00\\x02'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x06'", "b'\\x00\\x00\\x00\\x06'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x0e'", "b'\\x00\\x00\\x00\\x0e'"]]
+2024-03-12 09:52:04,983 : Symbolic parameters: [None]
+2024-03-12 09:52:04,983 : Function Name: cncp
+2024-03-12 09:52:04,983 : Function Address: 4198889
+2024-03-12 09:52:04,983 : Function Type: (long long (64 bits)) -> int (32 bits)
+2024-03-12 09:52:04,983 : Distance: 2
+2024-03-12 09:52:04,983 : Values: [None]
+2024-03-12 09:52:04,983 : Symbolic parameters: [None]
+2024-03-12 09:52:04,983 : Function Name: main
+2024-03-12 09:52:04,983 : Function Address: 4199084
+2024-03-12 09:52:04,983 : Function Type: (int (32 bits), long long (64 bits)) -> int (32 bits)
+2024-03-12 09:52:04,983 : Distance: 3
+2024-03-12 09:52:04,983 : Values: [["b'\\x00\\x00\\x00\\x00'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'"], ["b'\\x00\\x00\\x00\\x02'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02'"], ["b'\\x00\\x00\\x00\\x06'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x06'"], ["b'\\x00\\x00\\x00\\x0e'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x0e'"]]
+2024-03-12 09:52:04,983 : Symbolic parameters: [None]
+2024-03-12 09:52:04,983 : Function Name: strncpy
+2024-03-12 09:52:04,983 : Function Address: 4198528
+2024-03-12 09:52:04,983 : Function Type: (char*, char*, unsigned long (64 bits)) -> char*
+2024-03-12 09:52:04,983 : Distance: inf
+2024-03-12 09:52:04,984 : Values: [None]
+2024-03-12 09:52:04,984 : Symbolic parameters: {'b1': <BV64 b1_28_64>, 'm': <BV64 m_29_64>, 'b2': <BV64 b2_30_64>, 'n': <BV64 n_31_64>}
+2024-03-12 09:52:04,984 : Function Name: malloc
+2024-03-12 09:52:04,984 : Function Address: 4198576
+2024-03-12 09:52:04,984 : Function Type: (unsigned long (64 bits)) -> void*
+2024-03-12 09:52:04,984 : Distance: inf
+2024-03-12 09:52:04,984 : Values: [None]
+2024-03-12 09:52:04,984 : Symbolic parameters: [None]
+2024-03-12 09:52:05,040 : {'type': 'send', 'payload': {'function': 'main', 'args': [2, '\\�@o�\x7f']}}
+2024-03-12 09:52:05,041 : {'type': 'send', 'payload': {'function': 'cncp', 'args': ['fj4tY25E']}}
+2024-03-12 09:52:05,041 : {'type': 'send', 'payload': {'function': 'strlen', 'args': ['fj4tY25E']}}
+2024-03-12 09:52:05,041 : {'type': 'send', 'payload': {'function': 'strlen', 'ret': '0x8'}}
+2024-03-12 09:52:05,041 : {'type': 'send', 'payload': {'function': 'vuln', 'args': ['fj4tY25E', 8]}}
+2024-03-12 09:52:05,041 : {'type': 'send', 'payload': {'function': 'malloc', 'args': [16]}}
+2024-03-12 09:52:05,041 : {'type': 'send', 'payload': {'function': 'malloc', 'ret': '0x5565d43163c0'}}
+2024-03-12 09:52:05,041 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', 'fj4tY25E', 8]}}
+2024-03-12 09:52:05,041 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x5565d43163c0'}}
+2024-03-12 09:52:05,041 : {'type': 'send', 'payload': {'function': 'vuln', 'ret': '0x5565d43163c0'}}
+2024-03-12 09:52:05,041 : {'type': 'send', 'payload': {'function': 'cncp', 'ret': '0x5565d43163c0'}}
+2024-03-12 09:52:05,041 : {'type': 'send', 'payload': {'function': 'test', 'args': ['fj4tY25E']}}
+2024-03-12 09:52:05,041 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', 'fj4tY25E', 1]}}
+2024-03-12 09:52:05,041 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x7ffc6f40dc07'}}
+2024-03-12 09:52:05,041 : {'type': 'send', 'payload': {'function': 'test', 'ret': '0x0'}}
+2024-03-12 09:52:05,041 : {'type': 'send', 'payload': {'function': 'main', 'ret': '0x0'}}
+2024-03-12 09:52:06,042 : Trace function calls
+2024-03-12 09:52:06,091 : {'type': 'send', 'payload': {'function': 'main', 'args': [2, 'T4�*�\x7f']}}
+2024-03-12 09:52:06,092 : {'type': 'send', 'payload': {'function': 'cncp', 'args': ['WQMTl3sR2neD1Ogl']}}
+2024-03-12 09:52:06,092 : {'type': 'send', 'payload': {'function': 'strlen', 'args': ['WQMTl3sR2neD1Ogl']}}
+2024-03-12 09:52:06,092 : {'type': 'send', 'payload': {'function': 'strlen', 'ret': '0x10'}}
+2024-03-12 09:52:06,092 : {'type': 'send', 'payload': {'function': 'cncp', 'ret': '0x5637f1b70004'}}
+2024-03-12 09:52:06,092 : {'type': 'send', 'payload': {'function': 'test', 'args': ['']}}
+2024-03-12 09:52:06,092 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', '', 1]}}
+2024-03-12 09:52:06,092 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x7ffe2aaf24e7'}}
+2024-03-12 09:52:06,092 : {'type': 'send', 'payload': {'function': 'test', 'ret': '0x0'}}
+2024-03-12 09:52:06,092 : {'type': 'send', 'payload': {'function': 'main', 'ret': '0x0'}}
+2024-03-12 09:52:07,093 : Trace function calls
+2024-03-12 09:57:12,714 : Test genereted: [['rJK0MY1D'], ['8vBjVnuZKh55abXo'], ['SuHIh1aaRh2NReTuHdOseOdI'], ['HtjmIpycCQ3pSGwYYUsKXc3iKEA4YQ9C']]
+2024-03-12 09:57:12,805 : Binary file: test/itasec
+2024-03-12 09:57:13,106 : Call graph genereted
+2024-03-12 09:57:13,107 : Rule 3
+2024-03-12 09:57:13,109 : Graph distance
+2024-03-12 09:57:13,233 : Values calculated
+2024-03-12 09:57:13,233 : Function Name: vuln
+2024-03-12 09:57:13,233 : Function Address: 4198825
+2024-03-12 09:57:13,234 : Function Type: (long long (64 bits), int (32 bits)) -> int (32 bits)
+2024-03-12 09:57:13,234 : Distance: 1
+2024-03-12 09:57:13,234 : Values: [None]
+2024-03-12 09:57:13,234 : Symbolic parameters: [None]
+2024-03-12 09:57:13,234 : Function Name: cncp
+2024-03-12 09:57:13,234 : Function Address: 4198889
+2024-03-12 09:57:13,234 : Function Type: (long long (64 bits)) -> int (32 bits)
+2024-03-12 09:57:13,234 : Distance: 2
+2024-03-12 09:57:13,234 : Values: [None]
+2024-03-12 09:57:13,234 : Symbolic parameters: [None]
+2024-03-12 09:57:13,234 : Function Name: main
+2024-03-12 09:57:13,234 : Function Address: 4199084
+2024-03-12 09:57:13,234 : Function Type: (int (32 bits), long long (64 bits)) -> int (32 bits)
+2024-03-12 09:57:13,234 : Distance: 3
+2024-03-12 09:57:13,234 : Values: [["b'\\x00\\x00\\x00\\x00'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'"], ["b'\\x00\\x00\\x00\\x02'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02'"], ["b'\\x00\\x00\\x00\\x06'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x06'"], ["b'\\x00\\x00\\x00\\x0e'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x0e'"]]
+2024-03-12 09:57:13,234 : Symbolic parameters: [None]
+2024-03-12 09:57:13,234 : Function Name: strncpy
+2024-03-12 09:57:13,234 : Function Address: 4198528
+2024-03-12 09:57:13,234 : Function Type: (char*, char*, unsigned long (64 bits)) -> char*
+2024-03-12 09:57:13,234 : Distance: inf
+2024-03-12 09:57:13,234 : Values: [None]
+2024-03-12 09:57:13,234 : Symbolic parameters: [None]
+2024-03-12 09:57:13,234 : Function Name: malloc
+2024-03-12 09:57:13,234 : Function Address: 4198576
+2024-03-12 09:57:13,234 : Function Type: (unsigned long (64 bits)) -> void*
+2024-03-12 09:57:13,234 : Distance: inf
+2024-03-12 09:57:13,234 : Values: [None]
+2024-03-12 09:57:13,234 : Symbolic parameters: [None]
+2024-03-12 09:57:13,290 : {'type': 'send', 'payload': {'function': 'main', 'args': [2, '\\4\x1b`�\x7f']}}
+2024-03-12 09:57:13,290 : {'type': 'send', 'payload': {'function': 'cncp', 'args': ['rJK0MY1D']}}
+2024-03-12 09:57:13,290 : {'type': 'send', 'payload': {'function': 'strlen', 'args': ['rJK0MY1D']}}
+2024-03-12 09:57:13,290 : {'type': 'send', 'payload': {'function': 'strlen', 'ret': '0x8'}}
+2024-03-12 09:57:13,290 : {'type': 'send', 'payload': {'function': 'vuln', 'args': ['rJK0MY1D', 8]}}
+2024-03-12 09:57:13,290 : {'type': 'send', 'payload': {'function': 'malloc', 'args': [16]}}
+2024-03-12 09:57:13,290 : {'type': 'send', 'payload': {'function': 'malloc', 'ret': '0x55e0952ce3c0'}}
+2024-03-12 09:57:13,290 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', 'rJK0MY1D', 8]}}
+2024-03-12 09:57:13,290 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x55e0952ce3c0'}}
+2024-03-12 09:57:13,290 : {'type': 'send', 'payload': {'function': 'vuln', 'ret': '0x55e0952ce3c0'}}
+2024-03-12 09:57:13,291 : {'type': 'send', 'payload': {'function': 'cncp', 'ret': '0x55e0952ce3c0'}}
+2024-03-12 09:57:13,291 : {'type': 'send', 'payload': {'function': 'test', 'args': ['rJK0MY1D']}}
+2024-03-12 09:57:13,291 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', 'rJK0MY1D', 1]}}
+2024-03-12 09:57:13,291 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x7ffd601b2597'}}
+2024-03-12 09:57:13,291 : {'type': 'send', 'payload': {'function': 'test', 'ret': '0x0'}}
+2024-03-12 09:57:13,291 : {'type': 'send', 'payload': {'function': 'main', 'ret': '0x0'}}
+2024-03-12 09:57:14,291 : Trace function calls
+2024-03-12 10:00:31,554 : Test genereted: [['Wnc8bD5W'], ['wWRcwuRtQRumc4Re'], ['XVs55n2NUnED0tHwrtQi6ixk'], ['bna4cxCyZi436MRnJIa62SPDrRiadfmS']]
+2024-03-12 10:00:31,654 : Binary file: test/itasec
+2024-03-12 10:00:31,960 : Call graph genereted
+2024-03-12 10:00:31,960 : Rule 3
+2024-03-12 10:00:31,962 : Graph distance
+2024-03-12 10:00:32,081 : The program is accessing register with an unspecified value. This could indicate unwanted behavior.
+2024-03-12 10:00:32,082 : angr will cope with this by generating an unconstrained symbolic variable and continuing. You can resolve this by:
+2024-03-12 10:00:32,082 : 1) setting a value to the initial state
+2024-03-12 10:00:32,082 : 2) adding the state option ZERO_FILL_UNCONSTRAINED_{MEMORY,REGISTERS}, to make unknown regions hold null
+2024-03-12 10:00:32,082 : 3) adding the state option SYMBOL_FILL_UNCONSTRAINED_{MEMORY,REGISTERS}, to suppress these messages.
+2024-03-12 10:00:32,082 : Filling register rbp with 8 unconstrained bytes referenced from 0x4011ad (vuln+0x4 in itasec (0x11ad))
+2024-03-12 10:00:32,150 : Values calculated
+2024-03-12 10:00:32,150 : Function Name: vuln
+2024-03-12 10:00:32,151 : Function Address: 4198825
+2024-03-12 10:00:32,151 : Function Type: (long long (64 bits), int (32 bits)) -> int (32 bits)
+2024-03-12 10:00:32,151 : Distance: 1
+2024-03-12 10:00:32,151 : Values: [["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'", "b'\\x00\\x00\\x00\\x00'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02'", "b'\\x00\\x00\\x00\\x02'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x06'", "b'\\x00\\x00\\x00\\x06'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x0e'", "b'\\x00\\x00\\x00\\x0e'"]]
+2024-03-12 10:00:32,151 : Symbolic parameters: [None]
+2024-03-12 10:00:32,151 : Function Name: cncp
+2024-03-12 10:00:32,151 : Function Address: 4198889
+2024-03-12 10:00:32,151 : Function Type: (long long (64 bits)) -> int (32 bits)
+2024-03-12 10:00:32,151 : Distance: 2
+2024-03-12 10:00:32,151 : Values: [None]
+2024-03-12 10:00:32,151 : Symbolic parameters: [None]
+2024-03-12 10:00:32,151 : Function Name: main
+2024-03-12 10:00:32,151 : Function Address: 4199084
+2024-03-12 10:00:32,151 : Function Type: (int (32 bits), long long (64 bits)) -> int (32 bits)
+2024-03-12 10:00:32,151 : Distance: 3
+2024-03-12 10:00:32,151 : Values: [["b'\\x00\\x00\\x00\\x00'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'"], ["b'\\x00\\x00\\x00\\x02'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02'"], ["b'\\x00\\x00\\x00\\x06'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x06'"], ["b'\\x00\\x00\\x00\\x0e'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x0e'"]]
+2024-03-12 10:00:32,151 : Symbolic parameters: [None]
+2024-03-12 10:00:32,151 : Function Name: strncpy
+2024-03-12 10:00:32,151 : Function Address: 4198528
+2024-03-12 10:00:32,151 : Function Type: (char*, char*, unsigned long (64 bits)) -> char*
+2024-03-12 10:00:32,151 : Distance: inf
+2024-03-12 10:00:32,151 : Values: [None]
+2024-03-12 10:00:32,151 : Symbolic parameters: {'b1': <BV64 b1_28_64>, 'm': <BV64 m_29_64>, 'b2': <BV64 b2_30_64>, 'n': <BV64 n_31_64>}
+2024-03-12 10:00:32,151 : Function Name: malloc
+2024-03-12 10:00:32,151 : Function Address: 4198576
+2024-03-12 10:00:32,151 : Function Type: (unsigned long (64 bits)) -> void*
+2024-03-12 10:00:32,151 : Distance: inf
+2024-03-12 10:00:32,151 : Values: [None]
+2024-03-12 10:00:32,151 : Symbolic parameters: [None]
+2024-03-12 10:00:32,204 : {'type': 'send', 'payload': {'function': 'main', 'args': [2, '\\����\x7f']}}
+2024-03-12 10:00:32,204 : {'type': 'send', 'payload': {'function': 'cncp', 'args': ['Wnc8bD5W']}}
+2024-03-12 10:00:32,204 : {'type': 'send', 'payload': {'function': 'strlen', 'args': ['Wnc8bD5W']}}
+2024-03-12 10:00:32,204 : {'type': 'send', 'payload': {'function': 'strlen', 'ret': '0x8'}}
+2024-03-12 10:00:32,204 : {'type': 'send', 'payload': {'function': 'vuln', 'args': ['Wnc8bD5W', 8]}}
+2024-03-12 10:00:32,204 : {'type': 'send', 'payload': {'function': 'malloc', 'args': [16]}}
+2024-03-12 10:00:32,204 : {'type': 'send', 'payload': {'function': 'malloc', 'ret': '0x5592eda4c3c0'}}
+2024-03-12 10:00:32,204 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', 'Wnc8bD5W', 8]}}
+2024-03-12 10:00:32,204 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x5592eda4c3c0'}}
+2024-03-12 10:00:32,204 : {'type': 'send', 'payload': {'function': 'vuln', 'ret': '0x5592eda4c3c0'}}
+2024-03-12 10:00:32,204 : {'type': 'send', 'payload': {'function': 'cncp', 'ret': '0x5592eda4c3c0'}}
+2024-03-12 10:00:32,205 : {'type': 'send', 'payload': {'function': 'test', 'args': ['Wnc8bD5W']}}
+2024-03-12 10:00:32,205 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', 'Wnc8bD5W', 1]}}
+2024-03-12 10:00:32,205 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x7ffde5a2d337'}}
+2024-03-12 10:00:32,205 : {'type': 'send', 'payload': {'function': 'test', 'ret': '0x0'}}
+2024-03-12 10:00:32,205 : {'type': 'send', 'payload': {'function': 'main', 'ret': '0x0'}}
+2024-03-12 10:00:33,205 : Trace function calls
+2024-03-12 10:00:33,257 : {'type': 'send', 'payload': {'function': 'main', 'args': [2, 'T$99�\x7f']}}
+2024-03-12 10:00:33,257 : {'type': 'send', 'payload': {'function': 'cncp', 'args': ['wWRcwuRtQRumc4Re']}}
+2024-03-12 10:00:33,257 : {'type': 'send', 'payload': {'function': 'strlen', 'args': ['wWRcwuRtQRumc4Re']}}
+2024-03-12 10:00:33,257 : {'type': 'send', 'payload': {'function': 'strlen', 'ret': '0x10'}}
+2024-03-12 10:00:33,257 : {'type': 'send', 'payload': {'function': 'cncp', 'ret': '0x555c7073f004'}}
+2024-03-12 10:00:33,257 : {'type': 'send', 'payload': {'function': 'test', 'args': ['']}}
+2024-03-12 10:00:33,257 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', '', 1]}}
+2024-03-12 10:00:33,257 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x7ffd393900d7'}}
+2024-03-12 10:00:33,257 : {'type': 'send', 'payload': {'function': 'test', 'ret': '0x0'}}
+2024-03-12 10:00:33,257 : {'type': 'send', 'payload': {'function': 'main', 'ret': '0x0'}}
+2024-03-12 10:00:34,258 : Trace function calls
+2024-03-12 10:03:57,198 : Test genereted: [['DE4tPUes'], ['PsxyZowXVLISldTt'], ['pqia0yXkcvgILwbHe6ffxS5m'], ['qxbbOZU960BRaJO2YExl9M8cdDGTOL2S']]
+2024-03-12 10:03:57,288 : Binary file: test/itasec
+2024-03-12 10:03:57,583 : Call graph genereted
+2024-03-12 10:03:57,584 : Rule 3
+2024-03-12 10:03:57,586 : Graph distance
+2024-03-12 10:03:57,704 : The program is accessing register with an unspecified value. This could indicate unwanted behavior.
+2024-03-12 10:03:57,704 : angr will cope with this by generating an unconstrained symbolic variable and continuing. You can resolve this by:
+2024-03-12 10:03:57,704 : 1) setting a value to the initial state
+2024-03-12 10:03:57,704 : 2) adding the state option ZERO_FILL_UNCONSTRAINED_{MEMORY,REGISTERS}, to make unknown regions hold null
+2024-03-12 10:03:57,704 : 3) adding the state option SYMBOL_FILL_UNCONSTRAINED_{MEMORY,REGISTERS}, to suppress these messages.
+2024-03-12 10:03:57,704 : Filling register rbp with 8 unconstrained bytes referenced from 0x4011ad (vuln+0x4 in itasec (0x11ad))
+2024-03-12 10:03:57,773 : Values calculated
+2024-03-12 10:03:57,774 : Function Name: vuln
+2024-03-12 10:03:57,774 : Function Address: 4198825
+2024-03-12 10:03:57,774 : Function Type: (long long (64 bits), int (32 bits)) -> int (32 bits)
+2024-03-12 10:03:57,774 : Distance: 1
+2024-03-12 10:03:57,774 : Values: [["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'", "b'\\x00\\x00\\x00\\x00'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02'", "b'\\x00\\x00\\x00\\x02'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x06'", "b'\\x00\\x00\\x00\\x06'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x0e'", "b'\\x00\\x00\\x00\\x0e'"]]
+2024-03-12 10:03:57,774 : Symbolic parameters: [None]
+2024-03-12 10:03:57,774 : Function Name: cncp
+2024-03-12 10:03:57,774 : Function Address: 4198889
+2024-03-12 10:03:57,774 : Function Type: (long long (64 bits)) -> int (32 bits)
+2024-03-12 10:03:57,774 : Distance: 2
+2024-03-12 10:03:57,774 : Values: [None]
+2024-03-12 10:03:57,774 : Symbolic parameters: [None]
+2024-03-12 10:03:57,774 : Function Name: main
+2024-03-12 10:03:57,774 : Function Address: 4199084
+2024-03-12 10:03:57,774 : Function Type: (int (32 bits), long long (64 bits)) -> int (32 bits)
+2024-03-12 10:03:57,774 : Distance: 3
+2024-03-12 10:03:57,774 : Values: [["b'\\x00\\x00\\x00\\x00'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'"], ["b'\\x00\\x00\\x00\\x02'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02'"], ["b'\\x00\\x00\\x00\\x06'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x06'"], ["b'\\x00\\x00\\x00\\x0e'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x0e'"]]
+2024-03-12 10:03:57,774 : Symbolic parameters: [None]
+2024-03-12 10:03:57,774 : Function Name: strncpy
+2024-03-12 10:03:57,774 : Function Address: 4198528
+2024-03-12 10:03:57,774 : Function Type: (char*, char*, unsigned long (64 bits)) -> char*
+2024-03-12 10:03:57,774 : Distance: inf
+2024-03-12 10:03:57,774 : Values: [None]
+2024-03-12 10:03:57,774 : Symbolic parameters: {'b1': <BV64 b1_28_64>, 'm': <BV64 m_29_64>, 'b2': <BV64 b2_30_64>, 'n': <BV64 n_31_64>}
+2024-03-12 10:03:57,774 : Function Name: malloc
+2024-03-12 10:03:57,774 : Function Address: 4198576
+2024-03-12 10:03:57,774 : Function Type: (unsigned long (64 bits)) -> void*
+2024-03-12 10:03:57,774 : Distance: inf
+2024-03-12 10:03:57,774 : Values: [None]
+2024-03-12 10:03:57,774 : Symbolic parameters: [None]
+2024-03-12 10:03:57,831 : {'type': 'send', 'payload': {'function': 'main', 'args': [2, '\\�<��\x7f']}}
+2024-03-12 10:03:57,832 : {'type': 'send', 'payload': {'function': 'cncp', 'args': ['DE4tPUes']}}
+2024-03-12 10:03:57,832 : {'type': 'send', 'payload': {'function': 'strlen', 'args': ['DE4tPUes']}}
+2024-03-12 10:03:57,832 : {'type': 'send', 'payload': {'function': 'strlen', 'ret': '0x8'}}
+2024-03-12 10:03:57,832 : {'type': 'send', 'payload': {'function': 'vuln', 'args': ['DE4tPUes', 8]}}
+2024-03-12 10:03:57,832 : {'type': 'send', 'payload': {'function': 'malloc', 'args': [16]}}
+2024-03-12 10:03:57,832 : {'type': 'send', 'payload': {'function': 'malloc', 'ret': '0x55d624a7e3c0'}}
+2024-03-12 10:03:57,832 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', 'DE4tPUes', 8]}}
+2024-03-12 10:03:57,832 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x55d624a7e3c0'}}
+2024-03-12 10:03:57,832 : {'type': 'send', 'payload': {'function': 'vuln', 'ret': '0x55d624a7e3c0'}}
+2024-03-12 10:03:57,832 : {'type': 'send', 'payload': {'function': 'cncp', 'ret': '0x55d624a7e3c0'}}
+2024-03-12 10:03:57,832 : {'type': 'send', 'payload': {'function': 'test', 'args': ['DE4tPUes']}}
+2024-03-12 10:03:57,832 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', 'DE4tPUes', 1]}}
+2024-03-12 10:03:57,832 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x7ffcb23ca1c7'}}
+2024-03-12 10:03:57,832 : {'type': 'send', 'payload': {'function': 'test', 'ret': '0x0'}}
+2024-03-12 10:03:57,833 : {'type': 'send', 'payload': {'function': 'main', 'ret': '0x0'}}
+2024-03-12 10:03:58,832 : Trace function calls
+2024-03-12 10:03:58,882 : {'type': 'send', 'payload': {'function': 'main', 'args': [2, 'T\x14�_�\x7f']}}
+2024-03-12 10:03:58,882 : {'type': 'send', 'payload': {'function': 'cncp', 'args': ['PsxyZowXVLISldTt']}}
+2024-03-12 10:03:58,882 : {'type': 'send', 'payload': {'function': 'strlen', 'args': ['PsxyZowXVLISldTt']}}
+2024-03-12 10:03:58,882 : {'type': 'send', 'payload': {'function': 'strlen', 'ret': '0x10'}}
+2024-03-12 10:03:58,882 : {'type': 'send', 'payload': {'function': 'cncp', 'ret': '0x561b63288004'}}
+2024-03-12 10:03:58,882 : {'type': 'send', 'payload': {'function': 'test', 'args': ['']}}
+2024-03-12 10:03:58,883 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', '', 1]}}
+2024-03-12 10:03:58,883 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x7ffd5f7fff27'}}
+2024-03-12 10:03:58,883 : {'type': 'send', 'payload': {'function': 'test', 'ret': '0x0'}}
+2024-03-12 10:03:58,883 : {'type': 'send', 'payload': {'function': 'main', 'ret': '0x0'}}
+2024-03-12 10:03:59,883 : Trace function calls
+2024-03-12 10:05:25,138 : Test genereted: [['uOSq7MRn'], ['ZYoS6dc601k3xyer'], ['YsSvsgsiE1XRNcs82iOyh7RM'], ['SQcjP5IKAyZwEtacDmJxqKVcF2qRgYFU']]
+2024-03-12 10:05:25,233 : Binary file: test/itasec
+2024-03-12 10:05:25,534 : Call graph genereted
+2024-03-12 10:05:25,534 : Rule 3
+2024-03-12 10:05:25,536 : Graph distance
+2024-03-12 10:05:25,653 : The program is accessing register with an unspecified value. This could indicate unwanted behavior.
+2024-03-12 10:05:25,653 : angr will cope with this by generating an unconstrained symbolic variable and continuing. You can resolve this by:
+2024-03-12 10:05:25,653 : 1) setting a value to the initial state
+2024-03-12 10:05:25,653 : 2) adding the state option ZERO_FILL_UNCONSTRAINED_{MEMORY,REGISTERS}, to make unknown regions hold null
+2024-03-12 10:05:25,653 : 3) adding the state option SYMBOL_FILL_UNCONSTRAINED_{MEMORY,REGISTERS}, to suppress these messages.
+2024-03-12 10:05:25,653 : Filling register rbp with 8 unconstrained bytes referenced from 0x4011ad (vuln+0x4 in itasec (0x11ad))
+2024-03-12 10:05:25,720 : Values calculated
+2024-03-12 10:05:25,721 : Function Name: vuln
+2024-03-12 10:05:25,721 : Function Address: 4198825
+2024-03-12 10:05:25,721 : Function Type: (long long (64 bits), int (32 bits)) -> int (32 bits)
+2024-03-12 10:05:25,721 : Distance: 1
+2024-03-12 10:05:25,721 : Values: [["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'", "b'\\x00\\x00\\x00\\x00'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02'", "b'\\x00\\x00\\x00\\x02'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x06'", "b'\\x00\\x00\\x00\\x06'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x0e'", "b'\\x00\\x00\\x00\\x0e'"]]
+2024-03-12 10:05:25,721 : Symbolic parameters: [None]
+2024-03-12 10:05:25,721 : Function Name: cncp
+2024-03-12 10:05:25,721 : Function Address: 4198889
+2024-03-12 10:05:25,721 : Function Type: (long long (64 bits)) -> int (32 bits)
+2024-03-12 10:05:25,721 : Distance: 2
+2024-03-12 10:05:25,721 : Values: [None]
+2024-03-12 10:05:25,721 : Symbolic parameters: [None]
+2024-03-12 10:05:25,721 : Function Name: main
+2024-03-12 10:05:25,721 : Function Address: 4199084
+2024-03-12 10:05:25,721 : Function Type: (int (32 bits), long long (64 bits)) -> int (32 bits)
+2024-03-12 10:05:25,721 : Distance: 3
+2024-03-12 10:05:25,721 : Values: [["b'\\x00\\x00\\x00\\x00'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'"], ["b'\\x00\\x00\\x00\\x02'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02'"], ["b'\\x00\\x00\\x00\\x06'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x06'"], ["b'\\x00\\x00\\x00\\x0e'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x0e'"]]
+2024-03-12 10:05:25,721 : Symbolic parameters: [None]
+2024-03-12 10:05:25,721 : Function Name: strncpy
+2024-03-12 10:05:25,721 : Function Address: 4198528
+2024-03-12 10:05:25,721 : Function Type: (char*, char*, unsigned long (64 bits)) -> char*
+2024-03-12 10:05:25,721 : Distance: inf
+2024-03-12 10:05:25,721 : Values: [None]
+2024-03-12 10:05:25,721 : Symbolic parameters: {'b1': <BV64 b1_28_64>, 'm': <BV64 m_29_64>, 'b2': <BV64 b2_30_64>, 'n': <BV64 n_31_64>}
+2024-03-12 10:05:25,721 : Function Name: malloc
+2024-03-12 10:05:25,721 : Function Address: 4198576
+2024-03-12 10:05:25,721 : Function Type: (unsigned long (64 bits)) -> void*
+2024-03-12 10:05:25,721 : Distance: inf
+2024-03-12 10:05:25,721 : Values: [None]
+2024-03-12 10:05:25,721 : Symbolic parameters: [None]
+2024-03-12 10:05:25,778 : {'type': 'send', 'payload': {'function': 'main', 'args': [2, '\\��\x07�\x7f']}}
+2024-03-12 10:05:25,779 : {'type': 'send', 'payload': {'function': 'cncp', 'args': ['uOSq7MRn']}}
+2024-03-12 10:05:25,779 : {'type': 'send', 'payload': {'function': 'strlen', 'args': ['uOSq7MRn']}}
+2024-03-12 10:05:25,779 : {'type': 'send', 'payload': {'function': 'strlen', 'ret': '0x8'}}
+2024-03-12 10:05:25,779 : {'type': 'send', 'payload': {'function': 'vuln', 'args': ['uOSq7MRn', 8]}}
+2024-03-12 10:05:25,779 : {'type': 'send', 'payload': {'function': 'malloc', 'args': [16]}}
+2024-03-12 10:05:25,779 : {'type': 'send', 'payload': {'function': 'malloc', 'ret': '0x56132d5f73c0'}}
+2024-03-12 10:05:25,779 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', 'uOSq7MRn', 8]}}
+2024-03-12 10:05:25,779 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x56132d5f73c0'}}
+2024-03-12 10:05:25,779 : {'type': 'send', 'payload': {'function': 'vuln', 'ret': '0x56132d5f73c0'}}
+2024-03-12 10:05:25,779 : {'type': 'send', 'payload': {'function': 'cncp', 'ret': '0x56132d5f73c0'}}
+2024-03-12 10:05:25,779 : {'type': 'send', 'payload': {'function': 'test', 'args': ['uOSq7MRn']}}
+2024-03-12 10:05:25,779 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', 'uOSq7MRn', 1]}}
+2024-03-12 10:05:25,779 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x7fff07e5a097'}}
+2024-03-12 10:05:25,780 : {'type': 'send', 'payload': {'function': 'test', 'ret': '0x0'}}
+2024-03-12 10:05:25,780 : {'type': 'send', 'payload': {'function': 'main', 'ret': '0x0'}}
+2024-03-12 10:05:26,780 : Trace function calls
+2024-03-12 10:05:26,829 : {'type': 'send', 'payload': {'function': 'main', 'args': [2, 'Td\x10��\x7f']}}
+2024-03-12 10:05:26,829 : {'type': 'send', 'payload': {'function': 'cncp', 'args': ['ZYoS6dc601k3xyer']}}
+2024-03-12 10:05:26,829 : {'type': 'send', 'payload': {'function': 'strlen', 'args': ['ZYoS6dc601k3xyer']}}
+2024-03-12 10:05:26,830 : {'type': 'send', 'payload': {'function': 'strlen', 'ret': '0x10'}}
+2024-03-12 10:05:26,830 : {'type': 'send', 'payload': {'function': 'cncp', 'ret': '0x563779f7f004'}}
+2024-03-12 10:05:26,830 : {'type': 'send', 'payload': {'function': 'test', 'args': ['']}}
+2024-03-12 10:05:26,830 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', '', 1]}}
+2024-03-12 10:05:26,830 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x7ffcb7105f97'}}
+2024-03-12 10:05:26,830 : {'type': 'send', 'payload': {'function': 'test', 'ret': '0x0'}}
+2024-03-12 10:05:26,830 : {'type': 'send', 'payload': {'function': 'main', 'ret': '0x0'}}
+2024-03-12 10:05:27,830 : Trace function calls
+2024-03-12 10:07:50,626 : Test genereted: [['TWZ0TMpg'], ['FzVJSPiWyH2XrxZS'], ['Zb2p8yBHBGxP95empi1v15Bp'], ['9SpP5rjT3m6zmx0l7JMVCqXyGc4RoAf7']]
+2024-03-12 10:07:50,721 : Binary file: test/itasec
+2024-03-12 10:07:51,027 : Call graph genereted
+2024-03-12 10:07:51,027 : Rule 3
+2024-03-12 10:07:51,030 : Graph distance
+2024-03-12 10:07:51,150 : The program is accessing register with an unspecified value. This could indicate unwanted behavior.
+2024-03-12 10:07:51,150 : angr will cope with this by generating an unconstrained symbolic variable and continuing. You can resolve this by:
+2024-03-12 10:07:51,150 : 1) setting a value to the initial state
+2024-03-12 10:07:51,150 : 2) adding the state option ZERO_FILL_UNCONSTRAINED_{MEMORY,REGISTERS}, to make unknown regions hold null
+2024-03-12 10:07:51,150 : 3) adding the state option SYMBOL_FILL_UNCONSTRAINED_{MEMORY,REGISTERS}, to suppress these messages.
+2024-03-12 10:07:51,150 : Filling register rbp with 8 unconstrained bytes referenced from 0x4011ad (vuln+0x4 in itasec (0x11ad))
+2024-03-12 10:07:51,224 : Values calculated
+2024-03-12 10:07:51,224 : Function Name: vuln
+2024-03-12 10:07:51,224 : Function Address: 4198825
+2024-03-12 10:07:51,224 : Function Type: (long long (64 bits), int (32 bits)) -> int (32 bits)
+2024-03-12 10:07:51,224 : Distance: 1
+2024-03-12 10:07:51,224 : Values: [["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'", "b'\\x00\\x00\\x00\\x00'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02'", "b'\\x00\\x00\\x00\\x02'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x06'", "b'\\x00\\x00\\x00\\x06'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x0e'", "b'\\x00\\x00\\x00\\x0e'"]]
+2024-03-12 10:07:51,224 : Symbolic parameters: [None]
+2024-03-12 10:07:51,224 : Function Name: cncp
+2024-03-12 10:07:51,224 : Function Address: 4198889
+2024-03-12 10:07:51,224 : Function Type: (long long (64 bits)) -> int (32 bits)
+2024-03-12 10:07:51,224 : Distance: 2
+2024-03-12 10:07:51,224 : Values: [None]
+2024-03-12 10:07:51,224 : Symbolic parameters: [None]
+2024-03-12 10:07:51,224 : Function Name: main
+2024-03-12 10:07:51,224 : Function Address: 4199084
+2024-03-12 10:07:51,224 : Function Type: (int (32 bits), long long (64 bits)) -> int (32 bits)
+2024-03-12 10:07:51,224 : Distance: 3
+2024-03-12 10:07:51,224 : Values: [["b'\\x00\\x00\\x00\\x00'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'"], ["b'\\x00\\x00\\x00\\x02'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02'"], ["b'\\x00\\x00\\x00\\x06'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x06'"], ["b'\\x00\\x00\\x00\\x0e'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x0e'"]]
+2024-03-12 10:07:51,224 : Symbolic parameters: [None]
+2024-03-12 10:07:51,224 : Function Name: strncpy
+2024-03-12 10:07:51,224 : Function Address: 4198528
+2024-03-12 10:07:51,224 : Function Type: (char*, char*, unsigned long (64 bits)) -> char*
+2024-03-12 10:07:51,224 : Distance: inf
+2024-03-12 10:07:51,224 : Values: [None]
+2024-03-12 10:07:51,224 : Symbolic parameters: {'b1': <BV64 b1_28_64>, 'm': <BV64 m_29_64>, 'b2': <BV64 b2_30_64>, 'n': <BV64 n_31_64>}
+2024-03-12 10:07:51,224 : Function Name: malloc
+2024-03-12 10:07:51,224 : Function Address: 4198576
+2024-03-12 10:07:51,224 : Function Type: (unsigned long (64 bits)) -> void*
+2024-03-12 10:07:51,224 : Distance: inf
+2024-03-12 10:07:51,224 : Values: [None]
+2024-03-12 10:07:51,224 : Symbolic parameters: [None]
+2024-03-12 10:07:51,276 : {'type': 'send', 'payload': {'function': 'main', 'args': [2, '\\4���\x7f']}}
+2024-03-12 10:07:51,276 : {'type': 'send', 'payload': {'function': 'cncp', 'args': ['TWZ0TMpg']}}
+2024-03-12 10:07:51,276 : {'type': 'send', 'payload': {'function': 'strlen', 'args': ['TWZ0TMpg']}}
+2024-03-12 10:07:51,276 : {'type': 'send', 'payload': {'function': 'strlen', 'ret': '0x8'}}
+2024-03-12 10:07:51,276 : {'type': 'send', 'payload': {'function': 'vuln', 'args': ['TWZ0TMpg', 8]}}
+2024-03-12 10:07:51,276 : {'type': 'send', 'payload': {'function': 'malloc', 'args': [16]}}
+2024-03-12 10:07:51,276 : {'type': 'send', 'payload': {'function': 'malloc', 'ret': '0x5586231db3c0'}}
+2024-03-12 10:07:51,276 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', 'TWZ0TMpg', 8]}}
+2024-03-12 10:07:51,276 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x5586231db3c0'}}
+2024-03-12 10:07:51,277 : {'type': 'send', 'payload': {'function': 'vuln', 'ret': '0x5586231db3c0'}}
+2024-03-12 10:07:51,277 : {'type': 'send', 'payload': {'function': 'cncp', 'ret': '0x5586231db3c0'}}
+2024-03-12 10:07:51,277 : {'type': 'send', 'payload': {'function': 'test', 'args': ['TWZ0TMpg']}}
+2024-03-12 10:07:51,277 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', 'TWZ0TMpg', 1]}}
+2024-03-12 10:07:51,277 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x7ffeed8a10f7'}}
+2024-03-12 10:07:51,277 : {'type': 'send', 'payload': {'function': 'test', 'ret': '0x0'}}
+2024-03-12 10:07:51,277 : {'type': 'send', 'payload': {'function': 'main', 'ret': '0x0'}}
+2024-03-12 10:07:52,277 : Trace function calls
+2024-03-12 10:07:52,327 : {'type': 'send', 'payload': {'function': 'main', 'args': [2, 'T�Ճ�\x7f']}}
+2024-03-12 10:07:52,328 : {'type': 'send', 'payload': {'function': 'cncp', 'args': ['FzVJSPiWyH2XrxZS']}}
+2024-03-12 10:07:52,328 : {'type': 'send', 'payload': {'function': 'strlen', 'args': ['FzVJSPiWyH2XrxZS']}}
+2024-03-12 10:07:52,328 : {'type': 'send', 'payload': {'function': 'strlen', 'ret': '0x10'}}
+2024-03-12 10:07:52,328 : {'type': 'send', 'payload': {'function': 'cncp', 'ret': '0x55848392e004'}}
+2024-03-12 10:07:52,328 : {'type': 'send', 'payload': {'function': 'test', 'args': ['']}}
+2024-03-12 10:07:52,328 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', '', 1]}}
+2024-03-12 10:07:52,328 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x7ffd83d5c7f7'}}
+2024-03-12 10:07:52,328 : {'type': 'send', 'payload': {'function': 'test', 'ret': '0x0'}}
+2024-03-12 10:07:52,328 : {'type': 'send', 'payload': {'function': 'main', 'ret': '0x0'}}
+2024-03-12 10:07:53,329 : Trace function calls
+2024-03-12 10:09:16,367 : Test genereted: [['97RDrOgT'], ['UemDEu2ux8flWLUX'], ['WY0p6EDeWPazy8b8PNEPKDzM'], ['sHjAV3uBnsHJxYiJeV2B5CZjRMRx7GzI']]
+2024-03-12 10:09:16,459 : Binary file: test/itasec
+2024-03-12 10:09:16,756 : Call graph genereted
+2024-03-12 10:09:16,757 : Rule 3
+2024-03-12 10:09:16,759 : Graph distance
+2024-03-12 10:09:16,880 : The program is accessing register with an unspecified value. This could indicate unwanted behavior.
+2024-03-12 10:09:16,881 : angr will cope with this by generating an unconstrained symbolic variable and continuing. You can resolve this by:
+2024-03-12 10:09:16,881 : 1) setting a value to the initial state
+2024-03-12 10:09:16,881 : 2) adding the state option ZERO_FILL_UNCONSTRAINED_{MEMORY,REGISTERS}, to make unknown regions hold null
+2024-03-12 10:09:16,881 : 3) adding the state option SYMBOL_FILL_UNCONSTRAINED_{MEMORY,REGISTERS}, to suppress these messages.
+2024-03-12 10:09:16,881 : Filling register rbp with 8 unconstrained bytes referenced from 0x4011ad (vuln+0x4 in itasec (0x11ad))
+2024-03-12 10:09:16,954 : Values calculated
+2024-03-12 10:09:16,954 : Function Name: vuln
+2024-03-12 10:09:16,954 : Function Address: 4198825
+2024-03-12 10:09:16,954 : Function Type: (long long (64 bits), int (32 bits)) -> int (32 bits)
+2024-03-12 10:09:16,954 : Distance: 1
+2024-03-12 10:09:16,954 : Values: [["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'", "b'\\x00\\x00\\x00\\x00'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02'", "b'\\x00\\x00\\x00\\x02'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x06'", "b'\\x00\\x00\\x00\\x06'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x0e'", "b'\\x00\\x00\\x00\\x0e'"]]
+2024-03-12 10:09:16,954 : Symbolic parameters: [None]
+2024-03-12 10:09:16,954 : Function Name: cncp
+2024-03-12 10:09:16,954 : Function Address: 4198889
+2024-03-12 10:09:16,954 : Function Type: (long long (64 bits)) -> int (32 bits)
+2024-03-12 10:09:16,954 : Distance: 2
+2024-03-12 10:09:16,954 : Values: [None]
+2024-03-12 10:09:16,954 : Symbolic parameters: [None]
+2024-03-12 10:09:16,954 : Function Name: main
+2024-03-12 10:09:16,954 : Function Address: 4199084
+2024-03-12 10:09:16,954 : Function Type: (int (32 bits), long long (64 bits)) -> int (32 bits)
+2024-03-12 10:09:16,954 : Distance: 3
+2024-03-12 10:09:16,954 : Values: [["b'\\x00\\x00\\x00\\x00'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'"], ["b'\\x00\\x00\\x00\\x02'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02'"], ["b'\\x00\\x00\\x00\\x06'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x06'"], ["b'\\x00\\x00\\x00\\x0e'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x0e'"]]
+2024-03-12 10:09:16,954 : Symbolic parameters: [None]
+2024-03-12 10:09:16,954 : Function Name: strncpy
+2024-03-12 10:09:16,954 : Function Address: 4198528
+2024-03-12 10:09:16,954 : Function Type: (char*, char*, unsigned long (64 bits)) -> char*
+2024-03-12 10:09:16,954 : Distance: inf
+2024-03-12 10:09:16,954 : Values: [None]
+2024-03-12 10:09:16,954 : Symbolic parameters: {'b1': <BV64 b1_28_64>, 'm': <BV64 m_29_64>, 'b2': <BV64 b2_30_64>, 'n': <BV64 n_31_64>}
+2024-03-12 10:09:16,955 : Function Name: malloc
+2024-03-12 10:09:16,955 : Function Address: 4198576
+2024-03-12 10:09:16,955 : Function Type: (unsigned long (64 bits)) -> void*
+2024-03-12 10:09:16,955 : Distance: inf
+2024-03-12 10:09:16,955 : Values: [None]
+2024-03-12 10:09:16,955 : Symbolic parameters: [None]
+2024-03-12 10:09:17,006 : {'type': 'send', 'payload': {'function': 'main', 'args': [2, '\\�}\x08�\x7f']}}
+2024-03-12 10:09:17,007 : {'type': 'send', 'payload': {'function': 'cncp', 'args': ['97RDrOgT']}}
+2024-03-12 10:09:17,007 : {'type': 'send', 'payload': {'function': 'strlen', 'args': ['97RDrOgT']}}
+2024-03-12 10:09:17,007 : {'type': 'send', 'payload': {'function': 'strlen', 'ret': '0x8'}}
+2024-03-12 10:09:17,007 : {'type': 'send', 'payload': {'function': 'vuln', 'args': ['97RDrOgT', 8]}}
+2024-03-12 10:09:17,007 : {'type': 'send', 'payload': {'function': 'malloc', 'args': [16]}}
+2024-03-12 10:09:17,007 : {'type': 'send', 'payload': {'function': 'malloc', 'ret': '0x5627d4ca73c0'}}
+2024-03-12 10:09:17,007 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', '97RDrOgT', 8]}}
+2024-03-12 10:09:17,007 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x5627d4ca73c0'}}
+2024-03-12 10:09:17,007 : {'type': 'send', 'payload': {'function': 'vuln', 'ret': '0x5627d4ca73c0'}}
+2024-03-12 10:09:17,007 : {'type': 'send', 'payload': {'function': 'cncp', 'ret': '0x5627d4ca73c0'}}
+2024-03-12 10:09:17,007 : {'type': 'send', 'payload': {'function': 'test', 'args': ['97RDrOgT']}}
+2024-03-12 10:09:17,007 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', '97RDrOgT', 1]}}
+2024-03-12 10:09:17,007 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x7ffd087dba17'}}
+2024-03-12 10:09:17,007 : {'type': 'send', 'payload': {'function': 'test', 'ret': '0x0'}}
+2024-03-12 10:09:17,008 : {'type': 'send', 'payload': {'function': 'main', 'ret': '0x0'}}
+2024-03-12 10:09:18,007 : Trace function calls
+2024-03-12 10:09:18,058 : {'type': 'send', 'payload': {'function': 'main', 'args': [2, 'T\x14���\x7f']}}
+2024-03-12 10:09:18,058 : {'type': 'send', 'payload': {'function': 'cncp', 'args': ['UemDEu2ux8flWLUX']}}
+2024-03-12 10:09:18,058 : {'type': 'send', 'payload': {'function': 'strlen', 'args': ['UemDEu2ux8flWLUX']}}
+2024-03-12 10:09:18,058 : {'type': 'send', 'payload': {'function': 'strlen', 'ret': '0x10'}}
+2024-03-12 10:09:18,058 : {'type': 'send', 'payload': {'function': 'cncp', 'ret': '0x5578911bf004'}}
+2024-03-12 10:09:18,058 : {'type': 'send', 'payload': {'function': 'test', 'args': ['']}}
+2024-03-12 10:09:18,058 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', '', 1]}}
+2024-03-12 10:09:18,058 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x7ffed7f6f157'}}
+2024-03-12 10:09:18,058 : {'type': 'send', 'payload': {'function': 'test', 'ret': '0x0'}}
+2024-03-12 10:09:18,058 : {'type': 'send', 'payload': {'function': 'main', 'ret': '0x0'}}
+2024-03-12 10:09:19,059 : Trace function calls
+2024-03-12 10:09:57,456 : Test genereted: [['wWi6bhm6'], ['ZBtY9dBB2qmgrz48'], ['PKmQFN7JBdB56F9Qu50A50d7'], ['KiNP2jYRiIH19OZ6bfynTa9hnZQx5bHN']]
+2024-03-12 10:09:57,551 : Binary file: test/itasec
+2024-03-12 10:09:57,849 : Call graph genereted
+2024-03-12 10:09:57,850 : Rule 3
+2024-03-12 10:09:57,852 : Graph distance
+2024-03-12 10:09:57,968 : The program is accessing register with an unspecified value. This could indicate unwanted behavior.
+2024-03-12 10:09:57,968 : angr will cope with this by generating an unconstrained symbolic variable and continuing. You can resolve this by:
+2024-03-12 10:09:57,968 : 1) setting a value to the initial state
+2024-03-12 10:09:57,968 : 2) adding the state option ZERO_FILL_UNCONSTRAINED_{MEMORY,REGISTERS}, to make unknown regions hold null
+2024-03-12 10:09:57,968 : 3) adding the state option SYMBOL_FILL_UNCONSTRAINED_{MEMORY,REGISTERS}, to suppress these messages.
+2024-03-12 10:09:57,968 : Filling register rbp with 8 unconstrained bytes referenced from 0x4011ad (vuln+0x4 in itasec (0x11ad))
+2024-03-12 10:09:58,046 : Filling register rbp with 8 unconstrained bytes referenced from 0x4011ed (cncp+0x4 in itasec (0x11ed))
+2024-03-12 10:09:58,053 : Filling memory at 0x7ffffffffff0000 with 121 unconstrained bytes referenced from 0x500010 (strlen+0x0 in extern-address space (0x10))
+2024-03-12 10:09:58,214 : Values calculated
+2024-03-12 10:09:58,214 : Function Name: vuln
+2024-03-12 10:09:58,214 : Function Address: 4198825
+2024-03-12 10:09:58,214 : Function Type: (long long (64 bits), int (32 bits)) -> int (32 bits)
+2024-03-12 10:09:58,214 : Distance: 1
+2024-03-12 10:09:58,215 : Values: [["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'", "b'\\x00\\x00\\x00\\x00'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02'", "b'\\x00\\x00\\x00\\x02'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x06'", "b'\\x00\\x00\\x00\\x06'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x0e'", "b'\\x00\\x00\\x00\\x0e'"]]
+2024-03-12 10:09:58,215 : Symbolic parameters: [None]
+2024-03-12 10:09:58,215 : Function Name: cncp
+2024-03-12 10:09:58,215 : Function Address: 4198889
+2024-03-12 10:09:58,215 : Function Type: (long long (64 bits)) -> int (32 bits)
+2024-03-12 10:09:58,215 : Distance: 2
+2024-03-12 10:09:58,215 : Values: [["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'"], ["b'\\x01\\x01@ \\x01@\\x04\\x02'"], ["b'\\x01\\t@ \\x01@\\x04\\x02'"], ["b'\\x01\\x01\\x01\\x01\\x01\\x01\\x01\\x01'"]]
+2024-03-12 10:09:58,215 : Symbolic parameters: [None]
+2024-03-12 10:09:58,215 : Function Name: main
+2024-03-12 10:09:58,215 : Function Address: 4199084
+2024-03-12 10:09:58,215 : Function Type: (int (32 bits), long long (64 bits)) -> int (32 bits)
+2024-03-12 10:09:58,215 : Distance: 3
+2024-03-12 10:09:58,215 : Values: [["b'\\x00\\x00\\x00\\x00'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'"], ["b'\\x00\\x00\\x00\\x02'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02'"], ["b'\\x00\\x00\\x00\\x06'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x06'"], ["b'\\x00\\x00\\x00\\x0e'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x0e'"]]
+2024-03-12 10:09:58,215 : Symbolic parameters: [None]
+2024-03-12 10:09:58,215 : Function Name: strncpy
+2024-03-12 10:09:58,215 : Function Address: 4198528
+2024-03-12 10:09:58,215 : Function Type: (char*, char*, unsigned long (64 bits)) -> char*
+2024-03-12 10:09:58,215 : Distance: inf
+2024-03-12 10:09:58,215 : Values: [None]
+2024-03-12 10:09:58,215 : Symbolic parameters: {'b1': <BV64 b1_28_64>, 'm': <BV64 m_29_64>, 'b2': <BV64 b2_30_64>, 'n': <BV64 n_31_64>}
+2024-03-12 10:09:58,215 : Function Name: malloc
+2024-03-12 10:09:58,215 : Function Address: 4198576
+2024-03-12 10:09:58,215 : Function Type: (unsigned long (64 bits)) -> void*
+2024-03-12 10:09:58,215 : Distance: inf
+2024-03-12 10:09:58,215 : Values: [None]
+2024-03-12 10:09:58,215 : Symbolic parameters: [None]
+2024-03-12 10:09:58,267 : {'type': 'send', 'payload': {'function': 'main', 'args': [2, '\\d@��\x7f']}}
+2024-03-12 10:09:58,267 : {'type': 'send', 'payload': {'function': 'cncp', 'args': ['wWi6bhm6']}}
+2024-03-12 10:09:58,267 : {'type': 'send', 'payload': {'function': 'strlen', 'args': ['wWi6bhm6']}}
+2024-03-12 10:09:58,267 : {'type': 'send', 'payload': {'function': 'strlen', 'ret': '0x8'}}
+2024-03-12 10:09:58,267 : {'type': 'send', 'payload': {'function': 'vuln', 'args': ['wWi6bhm6', 8]}}
+2024-03-12 10:09:58,267 : {'type': 'send', 'payload': {'function': 'malloc', 'args': [16]}}
+2024-03-12 10:09:58,267 : {'type': 'send', 'payload': {'function': 'malloc', 'ret': '0x55dd0c6a73c0'}}
+2024-03-12 10:09:58,267 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', 'wWi6bhm6', 8]}}
+2024-03-12 10:09:58,267 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x55dd0c6a73c0'}}
+2024-03-12 10:09:58,267 : {'type': 'send', 'payload': {'function': 'vuln', 'ret': '0x55dd0c6a73c0'}}
+2024-03-12 10:09:58,267 : {'type': 'send', 'payload': {'function': 'cncp', 'ret': '0x55dd0c6a73c0'}}
+2024-03-12 10:09:58,267 : {'type': 'send', 'payload': {'function': 'test', 'args': ['wWi6bhm6']}}
+2024-03-12 10:09:58,267 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', 'wWi6bhm6', 1]}}
+2024-03-12 10:09:58,267 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x7ffdfc404727'}}
+2024-03-12 10:09:58,268 : {'type': 'send', 'payload': {'function': 'test', 'ret': '0x0'}}
+2024-03-12 10:09:58,268 : {'type': 'send', 'payload': {'function': 'main', 'ret': '0x0'}}
+2024-03-12 10:09:59,268 : Trace function calls
+2024-03-12 10:09:59,313 : {'type': 'send', 'payload': {'function': 'main', 'args': [2, 'T����\x7f']}}
+2024-03-12 10:09:59,314 : {'type': 'send', 'payload': {'function': 'cncp', 'args': ['ZBtY9dBB2qmgrz48']}}
+2024-03-12 10:09:59,314 : {'type': 'send', 'payload': {'function': 'strlen', 'args': ['ZBtY9dBB2qmgrz48']}}
+2024-03-12 10:09:59,314 : {'type': 'send', 'payload': {'function': 'strlen', 'ret': '0x10'}}
+2024-03-12 10:09:59,314 : {'type': 'send', 'payload': {'function': 'cncp', 'ret': '0x55f9bffdf004'}}
+2024-03-12 10:09:59,314 : {'type': 'send', 'payload': {'function': 'test', 'args': ['']}}
+2024-03-12 10:09:59,314 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', '', 1]}}
+2024-03-12 10:09:59,314 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x7ffe95fcd4b7'}}
+2024-03-12 10:09:59,314 : {'type': 'send', 'payload': {'function': 'test', 'ret': '0x0'}}
+2024-03-12 10:09:59,314 : {'type': 'send', 'payload': {'function': 'main', 'ret': '0x0'}}
+2024-03-12 10:10:00,315 : Trace function calls
+2024-03-12 10:10:00,351 : {'type': 'send', 'payload': {'function': 'main', 'args': [2, 'L����\x7f']}}
+2024-03-12 10:10:00,351 : {'type': 'send', 'payload': {'function': 'cncp', 'args': ['PKmQFN7JBdB56F9Qu50A50d7']}}
+2024-03-12 10:10:00,352 : {'type': 'send', 'payload': {'function': 'strlen', 'args': ['PKmQFN7JBdB56F9Qu50A50d7']}}
+2024-03-12 10:10:00,352 : {'type': 'send', 'payload': {'function': 'strlen', 'ret': '0x18'}}
+2024-03-12 10:10:00,352 : {'type': 'send', 'payload': {'function': 'cncp', 'ret': '0x558d1d7e6004'}}
+2024-03-12 10:10:00,352 : {'type': 'send', 'payload': {'function': 'test', 'args': ['']}}
+2024-03-12 10:10:00,352 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', '', 1]}}
+2024-03-12 10:10:00,352 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x7ffefbc0c7c7'}}
+2024-03-12 10:10:00,352 : {'type': 'send', 'payload': {'function': 'test', 'ret': '0x0'}}
+2024-03-12 10:10:00,352 : {'type': 'send', 'payload': {'function': 'main', 'ret': '0x0'}}
+2024-03-12 10:10:01,352 : Trace function calls
+2024-03-12 10:10:01,386 : {'type': 'send', 'payload': {'function': 'main', 'args': [2, 'D4\n��\x7f']}}
+2024-03-12 10:10:01,386 : {'type': 'send', 'payload': {'function': 'cncp', 'args': ['KiNP2jYRiIH19OZ6bfynTa9hnZQx5bHN']}}
+2024-03-12 10:10:01,386 : {'type': 'send', 'payload': {'function': 'strlen', 'args': ['KiNP2jYRiIH19OZ6bfynTa9hnZQx5bHN']}}
+2024-03-12 10:10:01,386 : {'type': 'send', 'payload': {'function': 'strlen', 'ret': '0x20'}}
+2024-03-12 10:10:01,386 : {'type': 'send', 'payload': {'function': 'cncp', 'ret': '0x55a04b4f1004'}}
+2024-03-12 10:10:01,386 : {'type': 'send', 'payload': {'function': 'test', 'args': ['']}}
+2024-03-12 10:10:01,386 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', '', 1]}}
+2024-03-12 10:10:01,386 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x7ffcac0a1057'}}
+2024-03-12 10:10:01,386 : {'type': 'send', 'payload': {'function': 'test', 'ret': '0x0'}}
+2024-03-12 10:10:01,387 : {'type': 'send', 'payload': {'function': 'main', 'ret': '0x0'}}
+2024-03-12 10:10:02,387 : Trace function calls
+2024-03-12 10:10:02,388 : Initial population: [[0.6018923427995866, ['wWi6bhm6']], [1.4633243538184497, ['PKmQFN7JBdB56F9Qu50A50d7']], [1.5062474181551493, ['ZBtY9dBB2qmgrz48']], [1.5284295514133022, ['KiNP2jYRiIH19OZ6bfynTa9hnZQx5bHN']]] at round 0
+2024-03-12 10:10:02,392 : New generation: [['wWi6bjYRiIH19OZ6bfynTa9hnZQx5bHN'], ['KiNP2hm6'], ['ZBtY9jYRiIH19OZ6bfynTa9hnZQx5bHN'], ['KiNP2dBB2qmgrz48']]
+
+2024-03-12 10:10:02,392 : New Tests: [['KiNP2dBB2qmgrz48'], ['KiNP2hm6'], ['ZBtY9jYRiIH19OZ6bfynTa9hnZQx5bHN'], ['wWi6bjYRiIH19OZ6bfynTa9hnZQx5bHN']]
+
+2024-03-12 10:10:02,427 : {'type': 'send', 'payload': {'function': 'main', 'args': [2, 'T��z�\x7f']}}
+2024-03-12 10:10:02,428 : {'type': 'send', 'payload': {'function': 'cncp', 'args': ['KiNP2dBB2qmgrz48']}}
+2024-03-12 10:10:02,428 : {'type': 'send', 'payload': {'function': 'strlen', 'args': ['KiNP2dBB2qmgrz48']}}
+2024-03-12 10:10:02,428 : {'type': 'send', 'payload': {'function': 'strlen', 'ret': '0x10'}}
+2024-03-12 10:10:02,428 : {'type': 'send', 'payload': {'function': 'cncp', 'ret': '0x562e22de3004'}}
+2024-03-12 10:10:02,428 : {'type': 'send', 'payload': {'function': 'test', 'args': ['']}}
+2024-03-12 10:10:02,428 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', '', 1]}}
+2024-03-12 10:10:02,428 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x7ffe7af197b7'}}
+2024-03-12 10:10:02,428 : {'type': 'send', 'payload': {'function': 'test', 'ret': '0x0'}}
+2024-03-12 10:10:02,428 : {'type': 'send', 'payload': {'function': 'main', 'ret': '0x0'}}
+2024-03-12 10:10:03,428 : Trace function calls
+2024-03-12 10:10:03,462 : {'type': 'send', 'payload': {'function': 'main', 'args': [2, '\\DR��\x7f']}}
+2024-03-12 10:10:03,462 : {'type': 'send', 'payload': {'function': 'cncp', 'args': ['KiNP2hm6']}}
+2024-03-12 10:10:03,462 : {'type': 'send', 'payload': {'function': 'strlen', 'args': ['KiNP2hm6']}}
+2024-03-12 10:10:03,462 : {'type': 'send', 'payload': {'function': 'strlen', 'ret': '0x8'}}
+2024-03-12 10:10:03,462 : {'type': 'send', 'payload': {'function': 'vuln', 'args': ['KiNP2hm6', 8]}}
+2024-03-12 10:10:03,462 : {'type': 'send', 'payload': {'function': 'malloc', 'args': [16]}}
+2024-03-12 10:10:03,462 : {'type': 'send', 'payload': {'function': 'malloc', 'ret': '0x563a5ac6c3c0'}}
+2024-03-12 10:10:03,463 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', 'KiNP2hm6', 8]}}
+2024-03-12 10:10:03,463 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x563a5ac6c3c0'}}
+2024-03-12 10:10:03,463 : {'type': 'send', 'payload': {'function': 'vuln', 'ret': '0x563a5ac6c3c0'}}
+2024-03-12 10:10:03,463 : {'type': 'send', 'payload': {'function': 'cncp', 'ret': '0x563a5ac6c3c0'}}
+2024-03-12 10:10:03,463 : {'type': 'send', 'payload': {'function': 'test', 'args': ['KiNP2hm6']}}
+2024-03-12 10:10:03,463 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', 'KiNP2hm6', 1]}}
+2024-03-12 10:10:03,463 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x7ffc89523a97'}}
+2024-03-12 10:10:03,463 : {'type': 'send', 'payload': {'function': 'test', 'ret': '0x0'}}
+2024-03-12 10:10:03,463 : {'type': 'send', 'payload': {'function': 'main', 'ret': '0x0'}}
+2024-03-12 10:10:04,463 : Trace function calls
+2024-03-12 10:10:04,514 : {'type': 'send', 'payload': {'function': 'main', 'args': [2, 'D��[�\x7f']}}
+2024-03-12 10:10:04,515 : {'type': 'send', 'payload': {'function': 'cncp', 'args': ['ZBtY9jYRiIH19OZ6bfynTa9hnZQx5bHN']}}
+2024-03-12 10:10:04,515 : {'type': 'send', 'payload': {'function': 'strlen', 'args': ['ZBtY9jYRiIH19OZ6bfynTa9hnZQx5bHN']}}
+2024-03-12 10:10:04,515 : {'type': 'send', 'payload': {'function': 'strlen', 'ret': '0x20'}}
+2024-03-12 10:10:04,515 : {'type': 'send', 'payload': {'function': 'cncp', 'ret': '0x55ac64c4b004'}}
+2024-03-12 10:10:04,515 : {'type': 'send', 'payload': {'function': 'test', 'args': ['']}}
+2024-03-12 10:10:04,515 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', '', 1]}}
+2024-03-12 10:10:04,515 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x7ffe5ba4d867'}}
+2024-03-12 10:10:04,515 : {'type': 'send', 'payload': {'function': 'test', 'ret': '0x0'}}
+2024-03-12 10:10:04,515 : {'type': 'send', 'payload': {'function': 'main', 'ret': '0x0'}}
+2024-03-12 10:10:05,516 : Trace function calls
+2024-03-12 10:10:05,546 : {'type': 'send', 'payload': {'function': 'main', 'args': [2, 'DD1��\x7f']}}
+2024-03-12 10:10:05,547 : {'type': 'send', 'payload': {'function': 'cncp', 'args': ['wWi6bjYRiIH19OZ6bfynTa9hnZQx5bHN']}}
+2024-03-12 10:10:05,547 : {'type': 'send', 'payload': {'function': 'strlen', 'args': ['wWi6bjYRiIH19OZ6bfynTa9hnZQx5bHN']}}
+2024-03-12 10:10:05,547 : {'type': 'send', 'payload': {'function': 'strlen', 'ret': '0x20'}}
+2024-03-12 10:10:05,547 : {'type': 'send', 'payload': {'function': 'cncp', 'ret': '0x55835a206004'}}
+2024-03-12 10:10:05,547 : {'type': 'send', 'payload': {'function': 'test', 'args': ['']}}
+2024-03-12 10:10:05,547 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', '', 1]}}
+2024-03-12 10:10:05,547 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x7ffcb53125b7'}}
+2024-03-12 10:10:05,547 : {'type': 'send', 'payload': {'function': 'test', 'ret': '0x0'}}
+2024-03-12 10:10:05,547 : {'type': 'send', 'payload': {'function': 'main', 'ret': '0x0'}}
+2024-03-12 10:10:06,547 : Trace function calls
+2024-03-12 10:10:06,548 : Initial population: [[0.6018923427995866, ['wWi6bhm6']], [0.6029404546204394, ['KiNP2hm6']], [1.4633243538184497, ['PKmQFN7JBdB56F9Qu50A50d7']], [1.5062474181551493, ['ZBtY9dBB2qmgrz48']]] at round 1
+2024-03-12 10:10:06,548 : New generation: [['wWi6bhm6'], ['KiNPdQ[\x16'], ['PImQFNo\x15\x05I\x05W47\x1a\x1e]8 u0'], ['KiNP2hm6d7']]
+
+2024-03-12 10:10:06,548 : New Tests: [['KiNP2hm6d7'], ['KiNPdQ[\x16'], ['PImQFNo\x15\x05I\x05W47\x1a\x1e]8 u0']]
+
+2024-03-12 10:10:06,583 : {'type': 'send', 'payload': {'function': 'main', 'args': [2, 'Zĕj�\x7f']}}
+2024-03-12 10:10:06,583 : {'type': 'send', 'payload': {'function': 'cncp', 'args': ['KiNP2hm6d7']}}
+2024-03-12 10:10:06,583 : {'type': 'send', 'payload': {'function': 'strlen', 'args': ['KiNP2hm6d7']}}
+2024-03-12 10:10:06,583 : {'type': 'send', 'payload': {'function': 'strlen', 'ret': '0xa'}}
+2024-03-12 10:10:06,583 : {'type': 'send', 'payload': {'function': 'vuln', 'args': ['KiNP2hm6d7', 10]}}
+2024-03-12 10:10:06,584 : {'type': 'send', 'payload': {'function': 'malloc', 'args': [16]}}
+2024-03-12 10:10:06,584 : {'type': 'send', 'payload': {'function': 'malloc', 'ret': '0x5634c14943c0'}}
+2024-03-12 10:10:06,584 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', 'KiNP2hm6d7', 10]}}
+2024-03-12 10:10:06,584 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x5634c14943c0'}}
+2024-03-12 10:10:06,584 : {'type': 'send', 'payload': {'function': 'vuln', 'ret': '0x5634c14943c0'}}
+2024-03-12 10:10:06,584 : {'type': 'send', 'payload': {'function': 'cncp', 'ret': '0x5634c14943c0'}}
+2024-03-12 10:10:06,584 : {'type': 'send', 'payload': {'function': 'test', 'args': ['KiNP2hm6d7']}}
+2024-03-12 10:10:06,584 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', 'KiNP2hm6d7', 1]}}
+2024-03-12 10:10:06,584 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x7ffd6a95bd87'}}
+2024-03-12 10:10:06,584 : {'type': 'send', 'payload': {'function': 'test', 'ret': '0x0'}}
+2024-03-12 10:10:06,584 : {'type': 'send', 'payload': {'function': 'main', 'ret': '0x0'}}
+2024-03-12 10:10:07,584 : Trace function calls
+2024-03-12 10:10:07,633 : {'type': 'send', 'payload': {'function': 'main', 'args': [2, '\\�{^�\x7f']}}
+2024-03-12 10:10:07,633 : {'type': 'send', 'payload': {'function': 'cncp', 'args': ['KiNPdQ[\x16']}}
+2024-03-12 10:10:07,633 : {'type': 'send', 'payload': {'function': 'strlen', 'args': ['KiNPdQ[\x16']}}
+2024-03-12 10:10:07,633 : {'type': 'send', 'payload': {'function': 'strlen', 'ret': '0x8'}}
+2024-03-12 10:10:07,634 : {'type': 'send', 'payload': {'function': 'vuln', 'args': ['KiNPdQ[\x16', 8]}}
+2024-03-12 10:10:07,634 : {'type': 'send', 'payload': {'function': 'malloc', 'args': [16]}}
+2024-03-12 10:10:07,634 : {'type': 'send', 'payload': {'function': 'malloc', 'ret': '0x558b9f5b13c0'}}
+2024-03-12 10:10:07,634 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', 'KiNPdQ[\x16', 8]}}
+2024-03-12 10:10:07,634 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x558b9f5b13c0'}}
+2024-03-12 10:10:07,634 : {'type': 'send', 'payload': {'function': 'vuln', 'ret': '0x558b9f5b13c0'}}
+2024-03-12 10:10:07,634 : {'type': 'send', 'payload': {'function': 'cncp', 'ret': '0x558b9f5b13c0'}}
+2024-03-12 10:10:07,634 : {'type': 'send', 'payload': {'function': 'test', 'args': ['KiNPdQ[\x16']}}
+2024-03-12 10:10:07,634 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', 'KiNPdQ[\x16', 1]}}
+2024-03-12 10:10:07,634 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x7ffd5e7bc997'}}
+2024-03-12 10:10:07,634 : {'type': 'send', 'payload': {'function': 'test', 'ret': '0x0'}}
+2024-03-12 10:10:07,634 : {'type': 'send', 'payload': {'function': 'main', 'ret': '0x0'}}
+2024-03-12 10:10:08,634 : Trace function calls
+2024-03-12 10:10:08,682 : {'type': 'send', 'payload': {'function': 'main', 'args': [2, 'O\x14g\r�\x7f']}}
+2024-03-12 10:10:08,682 : {'type': 'send', 'payload': {'function': 'cncp', 'args': ['PImQFNo\x15\x05I\x05W47\x1a\x1e]8 u0']}}
+2024-03-12 10:10:08,683 : {'type': 'send', 'payload': {'function': 'strlen', 'args': ['PImQFNo\x15\x05I\x05W47\x1a\x1e]8 u0']}}
+2024-03-12 10:10:08,683 : {'type': 'send', 'payload': {'function': 'strlen', 'ret': '0x15'}}
+2024-03-12 10:10:08,683 : {'type': 'send', 'payload': {'function': 'cncp', 'ret': '0x55f7b2824004'}}
+2024-03-12 10:10:08,683 : {'type': 'send', 'payload': {'function': 'test', 'args': ['']}}
+2024-03-12 10:10:08,683 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', '', 1]}}
+2024-03-12 10:10:08,683 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x7ffc0d66fa37'}}
+2024-03-12 10:10:08,683 : {'type': 'send', 'payload': {'function': 'test', 'ret': '0x0'}}
+2024-03-12 10:10:08,683 : {'type': 'send', 'payload': {'function': 'main', 'ret': '0x0'}}
+2024-03-12 10:10:09,683 : Trace function calls
+2024-03-12 10:10:09,684 : Initial population: [[0.6018923427995866, ['wWi6bhm6']], [0.6021036936980835, ['KiNP2hm6d7']], [0.6029404546204394, ['KiNP2hm6']], [0.6031475154375134, ['KiNPdQ[\x16']]] at round 2
+2024-03-12 10:10:09,718 : New generation: [['wWi6bhm6d7'], ['KiNP2hm6'], ['KiNP2hm6d7'], ['KiNPdQ[']]
+
+2024-03-12 10:10:09,718 : New Tests: [['KiNPdQ['], ['wWi6bhm6d7']]
+
+2024-03-12 10:10:09,746 : {'type': 'send', 'payload': {'function': 'main', 'args': [2, ']����\x7f']}}
+2024-03-12 10:10:09,746 : {'type': 'send', 'payload': {'function': 'cncp', 'args': ['KiNPdQ[']}}
+2024-03-12 10:10:09,746 : {'type': 'send', 'payload': {'function': 'strlen', 'args': ['KiNPdQ[']}}
+2024-03-12 10:10:09,747 : {'type': 'send', 'payload': {'function': 'strlen', 'ret': '0x7'}}
+2024-03-12 10:10:09,747 : {'type': 'send', 'payload': {'function': 'vuln', 'args': ['KiNPdQ[', 7]}}
+2024-03-12 10:10:09,747 : {'type': 'send', 'payload': {'function': 'malloc', 'args': [16]}}
+2024-03-12 10:10:09,747 : {'type': 'send', 'payload': {'function': 'malloc', 'ret': '0x5626cf7d63c0'}}
+2024-03-12 10:10:09,747 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', 'KiNPdQ[', 7]}}
+2024-03-12 10:10:09,747 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x5626cf7d63c0'}}
+2024-03-12 10:10:09,747 : {'type': 'send', 'payload': {'function': 'vuln', 'ret': '0x5626cf7d63c0'}}
+2024-03-12 10:10:09,747 : {'type': 'send', 'payload': {'function': 'cncp', 'ret': '0x5626cf7d63c0'}}
+2024-03-12 10:10:09,747 : {'type': 'send', 'payload': {'function': 'test', 'args': ['KiNPdQ[']}}
+2024-03-12 10:10:09,747 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', 'KiNPdQ[', 1]}}
+2024-03-12 10:10:09,747 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x7fffe0e57d87'}}
+2024-03-12 10:10:09,747 : {'type': 'send', 'payload': {'function': 'test', 'ret': '0x0'}}
+2024-03-12 10:10:09,747 : {'type': 'send', 'payload': {'function': 'main', 'ret': '0x0'}}
+2024-03-12 10:10:10,747 : Trace function calls
+2024-03-12 10:10:10,797 : {'type': 'send', 'payload': {'function': 'main', 'args': [2, 'Z����\x7f']}}
+2024-03-12 10:10:10,797 : {'type': 'send', 'payload': {'function': 'cncp', 'args': ['wWi6bhm6d7']}}
+2024-03-12 10:10:10,797 : {'type': 'send', 'payload': {'function': 'strlen', 'args': ['wWi6bhm6d7']}}
+2024-03-12 10:10:10,797 : {'type': 'send', 'payload': {'function': 'strlen', 'ret': '0xa'}}
+2024-03-12 10:10:10,797 : {'type': 'send', 'payload': {'function': 'vuln', 'args': ['wWi6bhm6d7', 10]}}
+2024-03-12 10:10:10,797 : {'type': 'send', 'payload': {'function': 'malloc', 'args': [16]}}
+2024-03-12 10:10:10,797 : {'type': 'send', 'payload': {'function': 'malloc', 'ret': '0x564169aae3c0'}}
+2024-03-12 10:10:10,798 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', 'wWi6bhm6d7', 10]}}
+2024-03-12 10:10:10,798 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x564169aae3c0'}}
+2024-03-12 10:10:10,798 : {'type': 'send', 'payload': {'function': 'vuln', 'ret': '0x564169aae3c0'}}
+2024-03-12 10:10:10,798 : {'type': 'send', 'payload': {'function': 'cncp', 'ret': '0x564169aae3c0'}}
+2024-03-12 10:10:10,798 : {'type': 'send', 'payload': {'function': 'test', 'args': ['wWi6bhm6d7']}}
+2024-03-12 10:10:10,798 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', 'wWi6bhm6d7', 1]}}
+2024-03-12 10:10:10,798 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x7ffee8e36ab7'}}
+2024-03-12 10:10:10,798 : {'type': 'send', 'payload': {'function': 'test', 'ret': '0x0'}}
+2024-03-12 10:10:10,798 : {'type': 'send', 'payload': {'function': 'main', 'ret': '0x0'}}
+2024-03-12 10:19:48,090 : Test genereted: [['dqzFEJYE'], ['Ng9lDADYnOqCvUTC'], ['FokyyICejydLHywwiyg13kjn'], ['Ox9tPPlvu30WfUfd66phBejYTARbwzQR']]
+2024-03-12 10:19:48,185 : Binary file: test/itasec
+2024-03-12 10:19:48,481 : Call graph genereted
+2024-03-12 10:19:48,482 : Rule 3
+2024-03-12 10:19:48,484 : Graph distance
+2024-03-12 10:19:48,602 : The program is accessing register with an unspecified value. This could indicate unwanted behavior.
+2024-03-12 10:19:48,602 : angr will cope with this by generating an unconstrained symbolic variable and continuing. You can resolve this by:
+2024-03-12 10:19:48,602 : 1) setting a value to the initial state
+2024-03-12 10:19:48,602 : 2) adding the state option ZERO_FILL_UNCONSTRAINED_{MEMORY,REGISTERS}, to make unknown regions hold null
+2024-03-12 10:19:48,602 : 3) adding the state option SYMBOL_FILL_UNCONSTRAINED_{MEMORY,REGISTERS}, to suppress these messages.
+2024-03-12 10:19:48,602 : Filling register rbp with 8 unconstrained bytes referenced from 0x4011ad (vuln+0x4 in itasec (0x11ad))
+2024-03-12 10:19:48,681 : Filling register rbp with 8 unconstrained bytes referenced from 0x4011ed (cncp+0x4 in itasec (0x11ed))
+2024-03-12 10:19:48,688 : Filling memory at 0x7ffffffffff0000 with 121 unconstrained bytes referenced from 0x500010 (strlen+0x0 in extern-address space (0x10))
+2024-03-12 10:19:48,852 : Values calculated
+2024-03-12 10:19:48,853 : Function Name: vuln
+2024-03-12 10:19:48,853 : Function Address: 4198825
+2024-03-12 10:19:48,853 : Function Type: (long long (64 bits), int (32 bits)) -> int (32 bits)
+2024-03-12 10:19:48,853 : Distance: 1
+2024-03-12 10:19:48,853 : Values: [["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'", "b'\\x00\\x00\\x00\\x00'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02'", "b'\\x00\\x00\\x00\\x02'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x06'", "b'\\x00\\x00\\x00\\x06'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x0e'", "b'\\x00\\x00\\x00\\x0e'"]]
+2024-03-12 10:19:48,853 : Symbolic parameters: [None]
+2024-03-12 10:19:48,853 : Function Name: cncp
+2024-03-12 10:19:48,853 : Function Address: 4198889
+2024-03-12 10:19:48,853 : Function Type: (long long (64 bits)) -> int (32 bits)
+2024-03-12 10:19:48,853 : Distance: 2
+2024-03-12 10:19:48,853 : Values: [["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'"], ["b'\\x01\\x01@ \\x01@\\x04\\x02'"], ["b'\\x01\\t@ \\x01@\\x04\\x02'"], ["b'\\x01\\x01\\x01\\x01\\x01\\x01\\x01\\x01'"]]
+2024-03-12 10:19:48,853 : Symbolic parameters: [None]
+2024-03-12 10:19:48,853 : Function Name: main
+2024-03-12 10:19:48,853 : Function Address: 4199084
+2024-03-12 10:19:48,853 : Function Type: (int (32 bits), long long (64 bits)) -> int (32 bits)
+2024-03-12 10:19:48,853 : Distance: 3
+2024-03-12 10:19:48,853 : Values: [["b'\\x00\\x00\\x00\\x00'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'"], ["b'\\x00\\x00\\x00\\x02'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02'"], ["b'\\x00\\x00\\x00\\x06'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x06'"], ["b'\\x00\\x00\\x00\\x0e'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x0e'"]]
+2024-03-12 10:19:48,853 : Symbolic parameters: [None]
+2024-03-12 10:19:48,853 : Function Name: strncpy
+2024-03-12 10:19:48,853 : Function Address: 4198528
+2024-03-12 10:19:48,853 : Function Type: (char*, char*, unsigned long (64 bits)) -> char*
+2024-03-12 10:19:48,853 : Distance: inf
+2024-03-12 10:19:48,853 : Values: [None]
+2024-03-12 10:19:48,853 : Symbolic parameters: {'b1': <BV64 b1_28_64>, 'm': <BV64 m_29_64>, 'b2': <BV64 b2_30_64>, 'n': <BV64 n_31_64>}
+2024-03-12 10:19:48,854 : Function Name: malloc
+2024-03-12 10:19:48,854 : Function Address: 4198576
+2024-03-12 10:19:48,854 : Function Type: (unsigned long (64 bits)) -> void*
+2024-03-12 10:19:48,854 : Distance: inf
+2024-03-12 10:19:48,854 : Values: [None]
+2024-03-12 10:19:48,854 : Symbolic parameters: [None]
+2024-03-12 10:19:48,915 : {'type': 'send', 'payload': {'function': 'main', 'args': [2, '\\�(��\x7f']}}
+2024-03-12 10:19:48,915 : {'type': 'send', 'payload': {'function': 'cncp', 'args': ['dqzFEJYE']}}
+2024-03-12 10:19:48,915 : {'type': 'send', 'payload': {'function': 'strlen', 'args': ['dqzFEJYE']}}
+2024-03-12 10:19:48,915 : {'type': 'send', 'payload': {'function': 'strlen', 'ret': '0x8'}}
+2024-03-12 10:19:48,915 : {'type': 'send', 'payload': {'function': 'vuln', 'args': ['dqzFEJYE', 8]}}
+2024-03-12 10:19:48,915 : {'type': 'send', 'payload': {'function': 'malloc', 'args': [16]}}
+2024-03-12 10:19:48,915 : {'type': 'send', 'payload': {'function': 'malloc', 'ret': '0x5612e64173c0'}}
+2024-03-12 10:19:48,916 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', 'dqzFEJYE', 8]}}
+2024-03-12 10:19:48,916 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x5612e64173c0'}}
+2024-03-12 10:19:48,916 : {'type': 'send', 'payload': {'function': 'vuln', 'ret': '0x5612e64173c0'}}
+2024-03-12 10:19:48,916 : {'type': 'send', 'payload': {'function': 'cncp', 'ret': '0x5612e64173c0'}}
+2024-03-12 10:19:48,916 : {'type': 'send', 'payload': {'function': 'test', 'args': ['dqzFEJYE']}}
+2024-03-12 10:19:48,916 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', 'dqzFEJYE', 1]}}
+2024-03-12 10:19:48,916 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x7ffce828c417'}}
+2024-03-12 10:19:48,916 : {'type': 'send', 'payload': {'function': 'test', 'ret': '0x0'}}
+2024-03-12 10:19:48,916 : {'type': 'send', 'payload': {'function': 'main', 'ret': '0x0'}}
+2024-03-12 10:19:49,915 : Trace function calls
+2024-03-12 10:19:49,965 : {'type': 'send', 'payload': {'function': 'main', 'args': [2, 'T$\n&�\x7f']}}
+2024-03-12 10:19:49,965 : {'type': 'send', 'payload': {'function': 'cncp', 'args': ['Ng9lDADYnOqCvUTC']}}
+2024-03-12 10:19:49,965 : {'type': 'send', 'payload': {'function': 'strlen', 'args': ['Ng9lDADYnOqCvUTC']}}
+2024-03-12 10:19:49,965 : {'type': 'send', 'payload': {'function': 'strlen', 'ret': '0x10'}}
+2024-03-12 10:19:49,965 : {'type': 'send', 'payload': {'function': 'cncp', 'ret': '0x5575a0442004'}}
+2024-03-12 10:19:49,966 : {'type': 'send', 'payload': {'function': 'test', 'args': ['']}}
+2024-03-12 10:19:49,966 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', '', 1]}}
+2024-03-12 10:19:49,966 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x7ffe260a0357'}}
+2024-03-12 10:19:49,966 : {'type': 'send', 'payload': {'function': 'test', 'ret': '0x0'}}
+2024-03-12 10:19:49,966 : {'type': 'send', 'payload': {'function': 'main', 'ret': '0x0'}}
+2024-03-12 10:19:50,966 : Trace function calls
+2024-03-12 10:19:50,996 : {'type': 'send', 'payload': {'function': 'main', 'args': [2, 'L����\x7f']}}
+2024-03-12 10:19:51,000 : {'type': 'send', 'payload': {'function': 'cncp', 'args': ['FokyyICejydLHywwiyg13kjn']}}
+2024-03-12 10:19:51,000 : {'type': 'send', 'payload': {'function': 'strlen', 'args': ['FokyyICejydLHywwiyg13kjn']}}
+2024-03-12 10:19:51,000 : {'type': 'send', 'payload': {'function': 'strlen', 'ret': '0x18'}}
+2024-03-12 10:19:51,000 : {'type': 'send', 'payload': {'function': 'cncp', 'ret': '0x56221629a004'}}
+2024-03-12 10:19:51,001 : {'type': 'send', 'payload': {'function': 'test', 'args': ['']}}
+2024-03-12 10:19:51,001 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', '', 1]}}
+2024-03-12 10:19:51,001 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x7ffcfca78507'}}
+2024-03-12 10:19:51,001 : {'type': 'send', 'payload': {'function': 'test', 'ret': '0x0'}}
+2024-03-12 10:19:51,001 : {'type': 'send', 'payload': {'function': 'main', 'ret': '0x0'}}
+2024-03-12 10:19:51,998 : Trace function calls
+2024-03-12 10:19:52,036 : {'type': 'send', 'payload': {'function': 'main', 'args': [2, 'D��\r�\x7f']}}
+2024-03-12 10:19:52,036 : {'type': 'send', 'payload': {'function': 'cncp', 'args': ['Ox9tPPlvu30WfUfd66phBejYTARbwzQR']}}
+2024-03-12 10:19:52,036 : {'type': 'send', 'payload': {'function': 'strlen', 'args': ['Ox9tPPlvu30WfUfd66phBejYTARbwzQR']}}
+2024-03-12 10:19:52,037 : {'type': 'send', 'payload': {'function': 'strlen', 'ret': '0x20'}}
+2024-03-12 10:19:52,037 : {'type': 'send', 'payload': {'function': 'cncp', 'ret': '0x5624ff681004'}}
+2024-03-12 10:19:52,037 : {'type': 'send', 'payload': {'function': 'test', 'args': ['']}}
+2024-03-12 10:19:52,037 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', '', 1]}}
+2024-03-12 10:19:52,037 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x7fff0dfbc057'}}
+2024-03-12 10:19:52,037 : {'type': 'send', 'payload': {'function': 'test', 'ret': '0x0'}}
+2024-03-12 10:19:52,037 : {'type': 'send', 'payload': {'function': 'main', 'ret': '0x0'}}
+2024-03-12 10:19:53,038 : Trace function calls
+2024-03-12 10:19:53,039 : Initial population: [[0.6029404546204394, ['dqzFEJYE']], [1.4745387728193466, ['FokyyICejydLHywwiyg13kjn']], [1.509184748008935, ['Ng9lDADYnOqCvUTC']], [1.531295165943851, ['Ox9tPPlvu30WfUfd66phBejYTARbwzQR']]] at round 0
+2024-03-12 10:19:53,039 : New generation: [['Ox9tPPlvu30WfUfd66phBejYTAR'], ['dqzFEJYEbwzQR'], ['Ox9tPADYnOqCvUTC'], ['NgsY\t!YmkO\x05>5.6&m\\\x1a\x10Y:V5\x104X]~T5\x02']]
+
+2024-03-12 10:19:53,039 : New Tests: [['NgsY\t!YmkO\x05>5.6&m\\\x1a\x10Y:V5\x104X]~T5\x02'], ['Ox9tPADYnOqCvUTC'], ['Ox9tPPlvu30WfUfd66phBejYTAR'], ['dqzFEJYEbwzQR']]
+
+2024-03-12 10:19:53,074 : {'type': 'send', 'payload': {'function': 'main', 'args': [2, 'Dd\x18��\x7f']}}
+2024-03-12 10:19:53,075 : {'type': 'send', 'payload': {'function': 'cncp', 'args': ['NgsY\t!YmkO\x05>5.6&m\\\x1a\x10Y:V5\x104X]~T5\x02']}}
+2024-03-12 10:19:53,075 : {'type': 'send', 'payload': {'function': 'strlen', 'args': ['NgsY\t!YmkO\x05>5.6&m\\\x1a\x10Y:V5\x104X]~T5\x02']}}
+2024-03-12 10:19:53,075 : {'type': 'send', 'payload': {'function': 'strlen', 'ret': '0x20'}}
+2024-03-12 10:19:53,075 : {'type': 'send', 'payload': {'function': 'cncp', 'ret': '0x55683afa8004'}}
+2024-03-12 10:19:53,075 : {'type': 'send', 'payload': {'function': 'test', 'args': ['']}}
+2024-03-12 10:19:53,075 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', '', 1]}}
+2024-03-12 10:19:53,075 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x7ffea6184a37'}}
+2024-03-12 10:19:53,075 : {'type': 'send', 'payload': {'function': 'test', 'ret': '0x0'}}
+2024-03-12 10:19:53,075 : {'type': 'send', 'payload': {'function': 'main', 'ret': '0x0'}}
+2024-03-12 10:19:54,075 : Trace function calls
+2024-03-12 10:19:54,105 : {'type': 'send', 'payload': {'function': 'main', 'args': [2, 'T��\x0e�\x7f']}}
+2024-03-12 10:19:54,105 : {'type': 'send', 'payload': {'function': 'cncp', 'args': ['Ox9tPADYnOqCvUTC']}}
+2024-03-12 10:19:54,105 : {'type': 'send', 'payload': {'function': 'strlen', 'args': ['Ox9tPADYnOqCvUTC']}}
+2024-03-12 10:19:54,105 : {'type': 'send', 'payload': {'function': 'strlen', 'ret': '0x10'}}
+2024-03-12 10:19:54,106 : {'type': 'send', 'payload': {'function': 'cncp', 'ret': '0x562c3cbc4004'}}
+2024-03-12 10:19:54,106 : {'type': 'send', 'payload': {'function': 'test', 'args': ['']}}
+2024-03-12 10:19:54,106 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', '', 1]}}
+2024-03-12 10:19:54,106 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x7ffc0eac8a57'}}
+2024-03-12 10:19:54,106 : {'type': 'send', 'payload': {'function': 'test', 'ret': '0x0'}}
+2024-03-12 10:19:54,106 : {'type': 'send', 'payload': {'function': 'main', 'ret': '0x0'}}
+2024-03-12 10:19:55,106 : Trace function calls
+2024-03-12 10:19:55,142 : {'type': 'send', 'payload': {'function': 'main', 'args': [2, 'ItU|�\x7f']}}
+2024-03-12 10:19:55,142 : {'type': 'send', 'payload': {'function': 'cncp', 'args': ['Ox9tPPlvu30WfUfd66phBejYTAR']}}
+2024-03-12 10:19:55,142 : {'type': 'send', 'payload': {'function': 'strlen', 'args': ['Ox9tPPlvu30WfUfd66phBejYTAR']}}
+2024-03-12 10:19:55,142 : {'type': 'send', 'payload': {'function': 'strlen', 'ret': '0x1b'}}
+2024-03-12 10:19:55,143 : {'type': 'send', 'payload': {'function': 'cncp', 'ret': '0x561a08d79004'}}
+2024-03-12 10:19:55,143 : {'type': 'send', 'payload': {'function': 'test', 'args': ['']}}
+2024-03-12 10:19:55,143 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', '', 1]}}
+2024-03-12 10:19:55,143 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x7ffe7c556057'}}
+2024-03-12 10:19:55,143 : {'type': 'send', 'payload': {'function': 'test', 'ret': '0x0'}}
+2024-03-12 10:19:55,143 : {'type': 'send', 'payload': {'function': 'main', 'ret': '0x0'}}

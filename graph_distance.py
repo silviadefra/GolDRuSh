@@ -24,13 +24,13 @@ def nodes_distance(graph,g, trg):
     shortest_paths = nx.shortest_path_length(subgraph, target=t)
     addresses=list(shortest_paths)
 
-    return addresses,shortest_paths
+    return addresses,shortest_paths,subgraph
 
 # For each function graph distance and list of the targets 
 def first_distance(api_address,function_data,call_graph,reverse_graph):
     
     # Find minimum distance between nodes and target
-    nodes,distance=nodes_distance(call_graph,reverse_graph,api_address)
+    nodes,distance,final_graph=nodes_distance(call_graph,reverse_graph,api_address)
 
     if len(nodes)==1:
         return None,None
@@ -41,14 +41,9 @@ def first_distance(api_address,function_data,call_graph,reverse_graph):
     
     func=function_data.get_function_by_addr(api_address[0])
     func.set_distance(inf)
+    nodes.remove(api_address[0])
 
-    # for api in api_address[1:-1]:
-    #     func=function_data.get_function_by_addr(api)
-    #     func.set_distance(0)
-    # func=function_data.get_function_by_addr(api_address[-1])
-    # func.set_distance(-1)
-
-    return nodes,distance
+    return nodes,distance,final_graph
 
 # Main function
 def main(binary_path,rules):

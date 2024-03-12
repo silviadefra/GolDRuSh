@@ -114,7 +114,7 @@ def main(binary, rules_file):
     steps=8
     lengths_tests = [8, 16, 24, 32]
 
-    tests =generate_tests()  #Our tests
+    tests =generate_tests(lengths_tests)  #Our tests
  
     trees = parse_file(rules_file) # Our rules
     
@@ -145,14 +145,14 @@ def main(binary, rules_file):
         
         function_data=general_function_data.copy()
         # For each function graph distance and list of the targets
-        nodes,distance=first_distance(api_address,function_data,call_graph,reverse_graph)
+        nodes,distance,dcg=first_distance(api_address,function_data,call_graph,reverse_graph)
         # Check if the function is found in the call graph
         if nodes is None:
             continue
         logging.warning('Graph distance')
 
         # Dataframe of functions, for each function: solver, values
-        flag=functions_dataframe(binary_path,project,call_graph,function_data,num_values,steps,nodes,distance,api_address,api_type,visitor,register_inputs)
+        flag=functions_dataframe(binary_path,project,call_graph,function_data,num_values,steps,nodes,distance,api_address,api_type,visitor,register_inputs,dcg)
         # Check if the function is found in the call graph
         if flag is None:
             continue

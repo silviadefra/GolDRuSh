@@ -46,7 +46,7 @@ class SolverUtility:
         try:
             temp=[solver.eval_upto(args[i],n, cast_to=bytes) for i in range(len(args))]  
         except SimUnsatError:
-            return solutions
+            return None
         min_length=min(len(sublist) for sublist in temp)
         for i in range(min_length):
             solutions.append([repr(x[i]) for x in temp])
@@ -65,7 +65,7 @@ class SolverUtility:
         
         solutions=[x for x in solutions if x is not None]
         if not solutions:
-            return None
+            return False
 
         return solutions
 

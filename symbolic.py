@@ -5,11 +5,11 @@ from tree_visitor import RuleVisitor
 from call_graph import file_data
 from graph_distance import first_distance
 from solver_utility import SolverUtility
+from networkx import shortest_path_length
 
 
 # Find the successors with smaller distance
 def find_succ(source,graph,addr,distance):
-    
     elems_in_both_lists = set(addr) & set(list(graph.successors(source)))
     target_addr=[x for x in elems_in_both_lists if distance[source] > distance[x]]
     
@@ -17,7 +17,6 @@ def find_succ(source,graph,addr,distance):
 
 
 def entry_node(nodes,data,graph):
-    
     start_nodes = [n for n, d in graph.in_degree() if d == 0]
     main_f=list(set(start_nodes) & set(nodes))[0]
     func=data.get_function_by_addr(main_f)
@@ -26,8 +25,21 @@ def entry_node(nodes,data,graph):
     return main_f,input_type,func
 
 
+def refine_dcg(dcg,t,distance,function_data,temp_nodes,main_f):
+    shortest_paths = shortest_path_length(dcg, target=t)
+    different_keys=[k for k in shortest_paths if shortest_paths[k] != distance[k]]
+    for node in different_keys:
+        func=function_data.get_function_by_addr(node)
+        func.set_distance(shortest_paths[node])
+    nodes=temp_nodes + [k for k in different_keys if k not in temp_nodes]
+    nodes.remove(main_f)
+
+    return nodes
+
+
+
 # Dataframe of functions, for each function: solver, values  
-def functions_dataframe(binary_path, project, call_graph, function_data, n, steps,nodes,distance,api_address,api_type,visitor,register_inputs):
+def functions_dataframe(binary_path, project, call_graph, function_data, n, steps,nodes,distance,api_address,api_type,visitor,register_inputs,dcg):
     
     # function 'main' of the binary
     main_f,input_type,func=entry_node(nodes,function_data,call_graph)
@@ -50,28 +62,40 @@ def functions_dataframe(binary_path, project, call_graph, function_data, n, step
     func.set_values(v)
 
     nodes.remove(main_f)
-    #TODO in parallel
-    for starting_address in nodes:
-        if distance[starting_address]==0:
-            continue
-        
-        func_solver=SolverUtility(project)
-        func=function_data.get_function_by_addr(starting_address)
-        input_type=func.type 
-        if distance[starting_address]==1:
-            v,a=func_solver.get_solver(api_address,n,input_type,source=starting_address,num_steps=steps,api_type=api_type,visitor=visitor,register_inputs=register_inputs)
-            f_last_api=function_data.get_function_by_addr(api_address[-1])
-            f_last_api.set_args(a)
-        else:
-            # Find for each node successors with smaller distance
-            target_func=find_succ(starting_address,call_graph,nodes,distance) #forse conviene non definire la funzione e mettere tutto nel main
-            # Get the solver with constraints leading to reaching the target_func, and values to solve them
-            v,_=func_solver.get_solver(target_func,n,input_type,source=starting_address)
-        
-        if v is None:
-                return
-        
-        func.set_values(v)
+    temp_nodes=nodes.copy()
+    flag=True
+    while flag:
+        #TODO in parallel
+        for starting_address in nodes:
+            print(nodes)
+            func_solver=SolverUtility(project)
+            func=function_data.get_function_by_addr(starting_address)
+            input_type=func.type 
+            if func.distance==1:
+                v,a=func_solver.get_solver(api_address,n,input_type,source=starting_address,num_steps=steps,api_type=api_type,visitor=visitor,register_inputs=register_inputs)
+                f_last_api=function_data.get_function_by_addr(api_address[-1])
+                f_last_api.set_args(a)
+            else:
+                print(func.name)
+                # Find for each node successors with smaller distance
+                target_func=find_succ(starting_address,call_graph,nodes,distance) #forse conviene non definire la funzione e mettere tutto nel main
+                # Get the solver with constraints leading to reaching the target_func, and values to solve them
+                v,_=func_solver.get_solver(target_func,n,input_type,source=starting_address)
+                print(v)
+                
+            
+            if v is None:
+                    return
+            elif v is False:
+                # refine dcg
+                for c in target_func:
+                    dcg.remove_edge(func.address,c)
+                nodes=refine_dcg(dcg,api_address[0],distance,function_data,temp_nodes,main_f)    
+                break
+                
+            temp_nodes.remove(starting_address)
+            func.set_values(v)
+        flag=False
 
     return True
 
