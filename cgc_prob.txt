@@ -1,0 +1,4 @@
+
+CROMU_00073 --- buffer overflow è legato ad una funzione definita da loro in handler.c,--> if non controlla bene il meccanismo di bufcpy 
+NRFIN_00052 --- 
+NRFIN_00059 --- CWE-201: Information Exposure Through Sent Data, non analizzabile con angr, vulnerabilità postage.c

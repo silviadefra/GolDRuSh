@@ -94,7 +94,7 @@ def trace_function_calls(binary, args,exported_func,internal_func):
     frida.resume(process)
 
     # Wait for the script to complete
-    sleep(1)
+    sleep(0.5)
     
     # Detach and clean up
     try:

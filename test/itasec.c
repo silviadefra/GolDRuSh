@@ -3,7 +3,7 @@
 #include <string.h>
 #include <unistd.h>
 
-char *vuln(char *str, int len) {
+char *vuln(char *str, long len) {
   char *buf = (char *) malloc(16);
   strncpy(buf, str, len);
   return buf;

@@ -107,6 +107,7 @@ def write_n_to_csv(n):
 def main(binary, rules_file):
     
     #TODO Parameters for the algorithm: they must be passed from the command line
+    file_type=True #flag executable or library, default executable
     num_values=4      #Number of solutions of the solver
     num_best_fit=4    #Number of individual in the population
     num_generations=10000 
@@ -146,13 +147,14 @@ def main(binary, rules_file):
         function_data=general_function_data.copy()
         # For each function graph distance and list of the targets
         nodes,distance,dcg=first_distance(api_address,function_data,call_graph,reverse_graph)
+        
         # Check if the function is found in the call graph
         if nodes is None:
             continue
         logging.warning('Graph distance')
 
         # Dataframe of functions, for each function: solver, values
-        flag=functions_dataframe(binary_path,project,call_graph,function_data,num_values,steps,nodes,distance,api_address,api_type,visitor,register_inputs,dcg)
+        flag=functions_dataframe(binary_path,project,call_graph,function_data,num_values,steps,nodes,distance,api_address,api_type,visitor,register_inputs,dcg,file_type)
         # Check if the function is found in the call graph
         if flag is None:
             continue

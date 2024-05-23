@@ -42,6 +42,7 @@ def first_distance(api_address,function_data,call_graph,reverse_graph):
     func=function_data.get_function_by_addr(api_address[0])
     func.set_distance(inf)
     nodes.remove(api_address[0])
+    nodes.reverse()
 
     return nodes,distance,final_graph
 

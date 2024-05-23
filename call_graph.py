@@ -5,11 +5,11 @@ import networkx as nx
 import matplotlib.pyplot as plt
 import sys
 from functionclass import ProgramFunction, FunctionList
+import logging
 
 
 # Generate call graph
 def generate_call_graph(project):
-
     # Set up the call graph analysis
     cfg = project.analyses.CFGEmulated()
     #cfg = project.analyses.CFGFast()
@@ -23,16 +23,24 @@ def generate_call_graph(project):
     program_functions_addr=[]
     
     for function in defined_functions:
-        if not function.is_simprocedure:
+
+        if not function.is_simprocedure and function.block_addrs_set and function.startpoint is not None:
             # Variable recovery
-            project.analyses.VariableRecoveryFast(function)
+            v=project.analyses.VariableRecoveryFast(function)
+            # variable_manager = v.variable_manager[function.addr]
+            # print(variable_manager.get_variables())
             # Set up the calling convention analysis for each function
             cca = project.analyses.CallingConvention(function,cfg=cfg,analyze_callsites=True)
+            # vm=cca._variable_manager[function.addr]
+            # print(function)
+            # print(vm.input_variables())
             if cca.prototype is None:
-                return None,None,None,None
+                return None,None,None
                 #continue
             program_functions.append(ProgramFunction(function,cca))
             program_functions_addr.append(function.addr)
+
+
     functions=FunctionList(program_functions)
 
     register_input=get_register(cca)
@@ -40,7 +48,7 @@ def generate_call_graph(project):
     # Create a subgraph for the program functions
     sub_graph = call_graph.subgraph(program_functions_addr)
 
-    return sub_graph,functions,register_input,cfg
+    return sub_graph,functions,register_input
 
 
 # Inputs register name and position
@@ -69,10 +77,10 @@ def visualize(cfg,graph):
 def file_data(binary_path):
 
     # Create an angr project
-    project = Project(binary_path, auto_load_libs=False)
+    project = Project(binary_path)
 
     # Generate the call graph
-    call_graph, func_addr, register_input,cfg=generate_call_graph(project)
+    call_graph, func_addr, register_input=generate_call_graph(project)
     if call_graph is None:
         return None,None,None,None
 

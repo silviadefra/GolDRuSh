@@ -39,35 +39,35 @@ def refine_dcg(dcg,t,distance,function_data,temp_nodes,main_f):
 
 
 # Dataframe of functions, for each function: solver, values  
-def functions_dataframe(binary_path, project, call_graph, function_data, n, steps,nodes,distance,api_address,api_type,visitor,register_inputs,dcg):
+def functions_dataframe(binary_path, project, call_graph, function_data, n, steps,nodes,distance,api_address,api_type,visitor,register_inputs,dcg,tp_file):
     
-    # function 'main' of the binary
-    main_f,input_type,func=entry_node(nodes,function_data,call_graph)
+    if tp_file:
+        # function 'main' of the binary
+        main_f,input_type,func=entry_node(nodes,function_data,call_graph)
 
-    main_solver=SolverUtility(project)
-    # If 'api_address' are reachable from the main
-    if distance[main_f]==1:
-        v,a=main_solver.get_solver(api_address,n,input_type,binary=binary_path,num_steps=steps,api_type=api_type,visitor=visitor,register_inputs=register_inputs)         
-        f_last_api=function_data.get_function_by_addr(api_address[-1])
-        f_last_api.set_args(a)
-    else:
-        # Find successors with smaller distance
-        target_func=find_succ(main_f,call_graph,nodes,distance)
-        # Get the solver with constraints leading to reaching the target_func, and values to solve them
-        v,_=main_solver.get_solver(target_func,n,input_type,binary=binary_path)
+        main_solver=SolverUtility(project)
+        # If 'api_address' are reachable from the main
+        if distance[main_f]==1:
+            v,a=main_solver.get_solver(api_address,n,input_type,binary=binary_path,num_steps=steps,api_type=api_type,visitor=visitor,register_inputs=register_inputs)         
+            f_last_api=function_data.get_function_by_addr(api_address[-1])
+            f_last_api.set_args(a)
+        else:
+            # Find successors with smaller distance
+            target_func=find_succ(main_f,call_graph,nodes,distance)
+            # Get the solver with constraints leading to reaching the target_func, and values to solve them
+            v,_=main_solver.get_solver(target_func,n,input_type,binary=binary_path)
 
-    if v is None:
+        if v is None:
             return
-    
-    func.set_values(v)
+        
+        func.set_values(v)
 
-    nodes.remove(main_f)
+        nodes.remove(main_f)
     temp_nodes=nodes.copy()
     flag=True
     while flag:
         #TODO in parallel
         for starting_address in nodes:
-            print(nodes)
             func_solver=SolverUtility(project)
             func=function_data.get_function_by_addr(starting_address)
             input_type=func.type 
@@ -76,16 +76,14 @@ def functions_dataframe(binary_path, project, call_graph, function_data, n, step
                 f_last_api=function_data.get_function_by_addr(api_address[-1])
                 f_last_api.set_args(a)
             else:
-                print(func.name)
                 # Find for each node successors with smaller distance
                 target_func=find_succ(starting_address,call_graph,nodes,distance) #forse conviene non definire la funzione e mettere tutto nel main
                 # Get the solver with constraints leading to reaching the target_func, and values to solve them
                 v,_=func_solver.get_solver(target_func,n,input_type,source=starting_address)
-                print(v)
                 
             
             if v is None:
-                    return
+                return
             elif v is False:
                 # refine dcg
                 for c in target_func:

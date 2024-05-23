@@ -1,8 +1,9 @@
 import claripy
-from angr import PointerWrapper
+from angr import PointerWrapper, sim_options, SIM_PROCEDURES
 from angr.sim_type import SimTypeFunction, SimTypePointer
 from angr.errors import SimUnsatError
 from math import ceil
+import sys
 
 class SolverUtility:
     def __init__(self, project):
@@ -10,12 +11,13 @@ class SolverUtility:
     
     def _symbolic_par(self,x,cc,par,state,par_val=None):
         symb_par=claripy.BVS(x, par.size)
-        #if par_val is None:
-        sim_reg=cc.return_val(par)
-        par_val=sim_reg.reg_name
-        
-        setattr(state.regs,par_val,symb_par) #settattr(obj,attr_name,val)=(obj.attr_name=val)
-        
+        if par_val is None:
+            sim_reg=cc.return_val(par)
+            par_val=sim_reg.reg_name
+            
+        symb_val = getattr(state.regs,par_val)
+        state.solver.add(symb_par == symb_val)
+
         return symb_par
 
     def _rules_symbolic_par(self,cc,types,par_list,state,register_inputs):
@@ -32,19 +34,19 @@ class SolverUtility:
 
         return symb_input    
 
-    def _create_call_state(self,args, input_type, source):
+    def _create_call_state(self,args, input_type, source,extras):
         y = [PointerWrapper(x, buffer=True) for x in args]
 
         #Change inputs into pointer
         p = [SimTypePointer(r) for r in input_type.args]
         c = SimTypeFunction(p, input_type.returnty)
 
-        return self.project.factory.call_state(source, *y, prototype=c)
+        return self.project.factory.call_state(source, *y, prototype=c,add_options=extras)
     
     def _get_solutions(self,solver,n,args):
         solutions=[]
         try:
-            temp=[solver.eval_upto(args[i],n, cast_to=bytes) for i in range(len(args))]  
+            temp=[solver.eval_upto(args[i],n, cast_to=bytes) for i in range(len(args))] 
         except SimUnsatError:
             return None
         min_length=min(len(sublist) for sublist in temp)
@@ -74,39 +76,39 @@ class SolverUtility:
         claripy_contstraints=None
         symbolic_par=None
         input_arg = input_type.args
+        extras = {sim_options.REVERSE_MEMORY_NAME_MAP, sim_options.TRACK_ACTION_HISTORY}
 
         # Symbolic input variables
         args = [claripy.BVS("arg"+ str(i), size.size) for i,size in enumerate(input_arg)]
 
         if source is None:
-            state=self.project.factory.entry_state(args=[binary]+args)
+            state=self.project.factory.entry_state(args=[binary]+args, add_options=extras)
         else:
-            state = self._create_call_state(args,input_type, source)
+            state = self._create_call_state(args,input_type, source,extras)
 
-        if num_steps is not None:
-            #Calling convention
-            cc=self.project.factory.cc()
-            symbolic_par=dict()
-            for a,b in zip(api_type,visitor.par_list):
-                symbolic_par.update(self._rules_symbolic_par(cc,a,b,state,register_inputs))
-    
-            claripy_contstraints=visitor.predicate(symbolic_par)
         # Explore the program with symbolic execution
         sm = self.project.factory.simgr(state, save_unconstrained=True)
         sm.explore(find=find)
 
         if num_steps is not None:
-            for a in api_list:
+            #Calling convention
+            cc=self.project.factory.cc()
+            symbolic_par=dict()
+            for i,a in enumerate(api_list):
                 if sm.found:
+                    symbolic_par.update(self._rules_symbolic_par(cc,api_type[i],visitor.par_list[i],sm.found[0],register_inputs))
                     sm= self.project.factory.simgr(sm.found[0], save_unconstrained=True)
                     sm.explore(find=a,n=num_steps)
                 else:
                     return None,None
             if sm.found:
+                symbolic_par.update(self._rules_symbolic_par(cc,api_type[-1],visitor.par_list[-1],sm.found[0],register_inputs))
+                claripy_contstraints=visitor.predicate(symbolic_par)
                 solver=sm.found[0].solver
                 solver.add(claripy_contstraints)
             else:
                 return None,None
+            
             # Get solutions leading to reaching the api_address
             solutions=self._get_solutions(solver,n,args)
         else:
