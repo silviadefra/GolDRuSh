@@ -8,6 +8,7 @@ class ProgramFunction:
         self.address =function.addr
         self.name = function.name
         self.type=cca.prototype
+        self.reg=[str(x)[1:-1] for x in cca.cc.arg_locs(cca.prototype)]
         self.distance = inf
         self.values = [None]
         self.sympar= [None]

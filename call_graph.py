@@ -5,7 +5,6 @@ import networkx as nx
 import matplotlib.pyplot as plt
 import sys
 from functionclass import ProgramFunction, FunctionList
-import logging
 
 
 # Generate call graph
@@ -23,45 +22,26 @@ def generate_call_graph(project):
     program_functions_addr=[]
     
     for function in defined_functions:
-
         if not function.is_simprocedure and function.block_addrs_set and function.startpoint is not None:
             # Variable recovery
-            v=project.analyses.VariableRecoveryFast(function)
-            # variable_manager = v.variable_manager[function.addr]
-            # print(variable_manager.get_variables())
+            project.analyses.VariableRecoveryFast(function)
             # Set up the calling convention analysis for each function
             cca = project.analyses.CallingConvention(function,cfg=cfg,analyze_callsites=True)
-            # vm=cca._variable_manager[function.addr]
-            # print(function)
-            # print(vm.input_variables())
             if cca.prototype is None:
-                return None,None,None
-                #continue
+                continue
+                #return None,None
             program_functions.append(ProgramFunction(function,cca))
             program_functions_addr.append(function.addr)
 
-
     functions=FunctionList(program_functions)
-
-    register_input=get_register(cca)
 
     # Create a subgraph for the program functions
     sub_graph = call_graph.subgraph(program_functions_addr)
 
-    return sub_graph,functions,register_input
+    # Visualize the call graph
+    #visualize(cfg,sub_graph) 
 
-
-# Inputs register name and position
-def get_register(cca):
-    
-    register_inputs=[]    
-    for regnum in cca.cc.arch.argument_registers:
-        register_inputs.append([cca.cc.arch.argument_register_positions[regnum],cca.cc.arch.register_names[regnum]])
-    register_inputs=sorted(register_inputs,key=lambda x:x[0])
-    register_inputs=[x[1] for x in register_inputs]
-
-    return register_inputs
-
+    return sub_graph,functions
 
 # Visualize the call graph
 def visualize(cfg,graph):
@@ -75,19 +55,15 @@ def visualize(cfg,graph):
 
 # Main function: General info of 'binary' (functions name, address)
 def file_data(binary_path):
-
     # Create an angr project
     project = Project(binary_path)
 
     # Generate the call graph
-    call_graph, func_addr, register_input=generate_call_graph(project)
+    call_graph, func_addr=generate_call_graph(project)
     if call_graph is None:
-        return None,None,None,None
+        return None,None,None
 
-    # Visualize the call graph
-    #visualize(cfg,call_graph) 
-
-    return project,call_graph,func_addr,register_input
+    return project,call_graph,func_addr
 
 
 if __name__ == "__main__":
@@ -99,4 +75,4 @@ if __name__ == "__main__":
     # Path to the binary program
     binary_path = sys.argv[1]
 
-    project,call_graph,function_data,func_addr,register_input=file_data(binary_path)
+    project,call_graph,func_addr,register_input=file_data(binary_path)

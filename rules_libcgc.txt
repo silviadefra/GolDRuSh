@@ -1,4 +1,4 @@
-CWE-126
+# CWE-126
 m = read_until(?, b1, ?, ?) , memcpy(?, b2, n);
 b1 == b2 AND m > n ;    
 

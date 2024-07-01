@@ -11,40 +11,40 @@ from math import inf
 def nodes_distance(graph,g, trg):
 
     # Check that functions in 'trg' are called by the same function, if not cut the edge
-    t=trg[0]
+    t=trg[0].address
     t_parents=list(nx.predecessor(g,t,cutoff=1))[1:] #t's parents
     subgraph=graph.copy()
     for p in t_parents:
         p_children=list(nx.predecessor(graph,p,cutoff=1))[1:] 
         # For each function 'c' in 'trg', if 'c' is not child of a parent 'p' of 't', cut the edge (p,t)
         for c in trg[1:]:
-            if c not in p_children:
+            if c.address not in p_children:
                 subgraph.remove_edge(p,t)
     
     shortest_paths = nx.shortest_path_length(subgraph, target=t)
-    addresses=list(shortest_paths)
+    #addresses=list(shortest_paths)
 
-    return addresses,shortest_paths,subgraph
+    return shortest_paths,subgraph
 
 # For each function graph distance and list of the targets 
-def first_distance(api_address,function_data,call_graph,reverse_graph):
+def first_distance(api_list,function_data,call_graph,reverse_graph):
     
     # Find minimum distance between nodes and target
-    nodes,distance,final_graph=nodes_distance(call_graph,reverse_graph,api_address)
+    distance,final_graph=nodes_distance(call_graph,reverse_graph,api_list)
 
-    if len(nodes)==1:
+    if len(distance)==1:
         return None,None
     
-    for node in nodes:
-        func=function_data.get_function_by_addr(node)
-        func.set_distance(distance[node])
+    for key in distance:
+        func=function_data.get_function_by_addr(key)
+        func.set_distance(distance[key])
     
-    func=function_data.get_function_by_addr(api_address[0])
+    func=api_list[0]
     func.set_distance(inf)
-    nodes.remove(api_address[0])
-    nodes.reverse()
+    distance.pop(func.address, None)
+    reversed(sorted(distance.keys()))
 
-    return nodes,distance,final_graph
+    return distance,final_graph
 
 # Main function
 def main(binary_path,rules):
@@ -55,7 +55,7 @@ def main(binary_path,rules):
         visitor = RuleVisitor()
         visitor.visit(tree)
 
-        nodes,distance,function_data=first_distance(visitor.api_list,function_data,call_graph)
+        distance,function_data=first_distance(visitor.api_list,function_data,call_graph)
 
 
 if __name__ == "__main__":

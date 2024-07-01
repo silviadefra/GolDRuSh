@@ -5,6 +5,7 @@ from os import path
 import logging
 logging.basicConfig(filename='test/solutions.log',format='%(asctime)s : %(message)s', encoding='utf-8', level=logging.WARNING)
 #logging.basicConfig(format='[+] %(asctime)s %(levelname)s: %(message)s', level=logging.WARNING)
+from argparse import ArgumentParser
 from call_graph import file_data
 from graph_distance import first_distance
 from symbolic import functions_dataframe
@@ -18,6 +19,9 @@ from random import sample,choices
 from string import ascii_letters,digits
 from csv import writer
 
+def string_length(n):
+    list_length=[8,16,32,64,128,264,526]
+    return choices(list_length, k=n)
 
 def generate_random_string(length):
     return [''.join(choices(ascii_letters + digits, k=length))]
@@ -27,31 +31,14 @@ def generate_tests(lengths):
     logging.warning('Test genereted: {tests}'.format(tests=random_strings))
     return random_strings
 
-
-# Find the address of the target
-def find_func(target,func_data):
-
-    func=func_data.get_function_by_name(target)
-    if func is None:
-        return None
-    target_address = func.address
-    api_prototype=func.type
-
-    return [target_address,api_prototype]
-
-
 def rule_api_list(api_list,function_data):
     # Find the address of the 'api_list'
-    api=[find_func(x,function_data) for x in api_list]
+    api=[function_data.get_function_by_name(x) for x in api_list]
     # Check if the functions are found in the call graph
     if None in api:
-        return None,None
+        return None
     
-    api_address=[x[0] for x in api]
-    api_type=[x[1] for x in api]
-    
-    return api_address,api_type
-
+    return api 
 
 # Separete exported functions with the inputs from intenral functions
 def separete_func(data,exported_list):
@@ -68,7 +55,7 @@ def separete_func(data,exported_list):
 
     return exported_func,internal_func
 
-
+# Generate initial population
 def gen_pop(l,num_best_fit,len_cache):
     temp=sorted(l, key=lambda x: (x[0], len(str(x[0]).split('.')[1])))
     temp=list(k for k,_ in groupby(temp)) #delete duplicate
@@ -85,7 +72,7 @@ def gen_pop(l,num_best_fit,len_cache):
         temp=temp[len(mom):]
     return pop,l
 
-
+# Delete duplicate and previously tested individuals
 def del_duplicate(temp,l):
     temp.sort()
     temp = list(k for k,_ in groupby(temp)) #delete duplicate
@@ -97,34 +84,27 @@ def del_duplicate(temp,l):
 # Create a csv with the best fitness for each generation
 def write_n_to_csv(n):
     csv_file = 'fit_values.csv'
-
     # Write 'n' to the CSV file
     with open(csv_file, mode='a', newline='') as file:
         w = writer(file)
         w.writerow([n])
 
 
-def main(binary, rules_file):
-    
-    #TODO Parameters for the algorithm: they must be passed from the command line
-    file_type=True #flag executable or library, default executable
-    num_values=4      #Number of solutions of the solver
-    num_best_fit=4    #Number of individual in the population
-    num_generations=10000 
-    len_cache=100                #lenght cache for fitness
-    steps=8
-    lengths_tests = [8, 16, 24, 32]
+def main(binary, rules_file='rules.txt', file_type=True, num_values=4, num_best_fit=4, num_generations=10000, len_cache=100, steps=8, tests=None):
+    # Check if the binary file exists
+    if not path.isfile(binary):
+        logging.warning(f"Error: File '{binary}' does not exist.")
 
-    tests =generate_tests(lengths_tests)  #Our tests
+    if tests is None:
+        lengths_tests = string_length(num_best_fit)
+        tests =generate_tests(lengths_tests)  #Our tests
  
     trees = parse_file(rules_file) # Our rules
-    
-    #TODO
     exported_list=['strlen', 'strcmp', 'strncpy']
 
     # General info of 'binary' (functions name, address)
     logging.warning('Binary file: {file}'.format(file=binary))
-    project,call_graph,general_function_data,register_inputs=file_data(binary)
+    project,call_graph,general_function_data=file_data(binary)
     if project is None:
         return
     logging.warning('Call graph genereted')
@@ -138,23 +118,23 @@ def main(binary, rules_file):
         visitor = RuleVisitor()
         visitor.visit(tree)  # Now, 'visitor.api_list' contains a list of 'api' elements.
 
-        api_address,api_type=rule_api_list(visitor.api_list,general_function_data)
+        api_list=rule_api_list(visitor.api_list,general_function_data)
         # Check if the function is found in the call graph
-        if api_address is None:
+        if api_list is None:
             continue
         logging.warning('Rule {num}'.format(num=num_tree+1))
         
         function_data=general_function_data.copy()
         # For each function graph distance and list of the targets
-        nodes,distance,dcg=first_distance(api_address,function_data,call_graph,reverse_graph)
+        distance,dcg=first_distance(api_list,function_data,call_graph,reverse_graph)
         
         # Check if the function is found in the call graph
-        if nodes is None:
+        if distance is None:
             continue
         logging.warning('Graph distance')
-
+        function_data.print_function_info()
         # Dataframe of functions, for each function: solver, values
-        flag=functions_dataframe(binary_path,project,call_graph,function_data,num_values,steps,nodes,distance,api_address,api_type,visitor,register_inputs,dcg,file_type)
+        flag=functions_dataframe(binary,project,call_graph,function_data,num_values,steps,distance,api_list,visitor,dcg,file_type)
         # Check if the function is found in the call graph
         if flag is None:
             continue
@@ -204,20 +184,25 @@ def main(binary, rules_file):
  
     
 if __name__ == "__main__":
-
     if len(sys.argv) < 2:
-        logging.info("Usage: python main_code.py <target_executable> <rules_file>")
+        logging.info("Usage: python main_code.py <target_executable>")
         sys.exit(1)
 
-    # Path to the binary program
-    binary_path = sys.argv[1]
-    # Path to the rules file
-    rules_file=sys.argv[2]
+    parser = ArgumentParser()
+    # Required positional argument
+    parser.add_argument('binary', type=str, help='The binary file to process')
+    # Optional arguments with default values
+    parser.add_argument('--rules_file', type=str, default='rules.txt', help='The rules file to use (default: rules.txt)')
+    parser.add_argument('--file_type', type=str, default=True, help='Flag indicating whether the binary is an executable (True) or a library (False) (default: True)')
+    parser.add_argument('--num_values', type=int, default=4, help='Number of symbolic solutions per function to compare with concrete executions (default: 4)')
+    parser.add_argument('--num_best_fit', type=int, default=4, help='Number of individuals in the population (default: 4)')
+    parser.add_argument('--num_generations', type=int, default=10000, help='Number of generations (default: 10000)')
+    parser.add_argument('--len_cache', type=int, default=100, help='Number of test cases to store for fitness caching (default: 100)')
+    parser.add_argument('--steps', type=int, default=8, help='Maximum number of steps from one API call of the rule to the next (default: 8)')
+    parser.add_argument('--tests', nargs='+', help='List of test cases to be used (default: strings of randomly lenght between 8 and 256)')
 
-    # Check if the binary file exists
-    if not path.isfile(binary_path):
-        logging.warning(f"Error: File '{binary_path}' does not exist.")
+    args = parser.parse_args()
 
-    main(binary_path,rules_file)
+    main(args.binary, args.rules_file, args.file_type, args.num_values, args.num_best_fit, args.num_generations, args.len_cache, args.steps,args.tests)
 
     
