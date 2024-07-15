@@ -3,7 +3,7 @@
 import sys
 from os import path
 import logging
-logging.basicConfig(filename='test/solutions.log',format='%(asctime)s : %(message)s', encoding='utf-8', level=logging.WARNING)
+logging.basicConfig(filename='solution/solutions.log',format='%(asctime)s : %(message)s', encoding='utf-8', level=logging.WARNING)
 #logging.basicConfig(format='[+] %(asctime)s %(levelname)s: %(message)s', level=logging.WARNING)
 from argparse import ArgumentParser
 from call_graph import file_data
