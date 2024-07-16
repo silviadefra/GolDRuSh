@@ -32,6 +32,7 @@ def functions_dataframe(binary_path, project, call_graph, function_data, n, step
     if tp_file:
         # function 'main' of the binary
         func=function_data.get_function_by_name('main')
+        func.print_info()
         main_addr=func.address
         input_type=func.type
         main_solver=SolverUtility(project)
@@ -50,7 +51,6 @@ def functions_dataframe(binary_path, project, call_graph, function_data, n, step
             return
         
         func.set_values(v)
-        func.print_info()
 
         distance.pop(func.address, None)
     temp_nodes=distance.copy()
@@ -60,6 +60,7 @@ def functions_dataframe(binary_path, project, call_graph, function_data, n, step
         for key in distance:
             func_solver=SolverUtility(project)
             func=function_data.get_function_by_addr(key)
+            func.print_info()
             input_type=func.type 
             if func.distance==1:
                 v,a=func_solver.get_solver(api_list,n,input_type,source=key,num_steps=steps,visitor=visitor)
@@ -83,7 +84,6 @@ def functions_dataframe(binary_path, project, call_graph, function_data, n, step
                 
             temp_nodes.pop(key, None)
             func.set_values(v)
-            func.print_info()
         flag=False
 
     return True
