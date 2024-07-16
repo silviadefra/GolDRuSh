@@ -15,14 +15,6 @@ def find_succ(source,graph,distance):
     
     return target_addr
 
-def entry_node(nodes,data,graph):
-    start_nodes = [n for n, d in graph.in_degree() if d == 0]
-    main_f=list(set(start_nodes) & set(nodes.keys()))[0]
-    func=data.get_function_by_addr(main_f)
-    input_type=func.type 
-
-    return main_f,input_type,func
-
 def refine_dcg(dcg,t,distance,function_data,temp_nodes,main_f):
     shortest_paths = shortest_path_length(dcg, target=t.address)
     different_keys=[k for k in shortest_paths if shortest_paths[k] != distance[k]]
@@ -39,7 +31,6 @@ def functions_dataframe(binary_path, project, call_graph, function_data, n, step
     
     if tp_file:
         # function 'main' of the binary
-        #main_f,input_type,func=entry_node(distance,function_data,call_graph)
         func=function_data.get_function_by_name('main')
         main_addr=func.address
         input_type=func.type
@@ -59,6 +50,7 @@ def functions_dataframe(binary_path, project, call_graph, function_data, n, step
             return
         
         func.set_values(v)
+        func.print_info()
 
         distance.pop(func.address, None)
     temp_nodes=distance.copy()
@@ -91,6 +83,7 @@ def functions_dataframe(binary_path, project, call_graph, function_data, n, step
                 
             temp_nodes.pop(key, None)
             func.set_values(v)
+            func.print_info()
         flag=False
 
     return True

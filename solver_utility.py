@@ -8,35 +8,30 @@ class SolverUtility:
     def __init__(self, project):
         self.project = project
     
-    def _symbolic_par(self,x,cc,par,state,par_val=None):
+    def _symbolic_par(self,x,cc,par,st,par_val=None):
         symb_par=claripy.BVS(x, par.size)
-        print(state.solver.constraints)
         if par_val is None:
             sim_reg=cc.return_val(par)
             par_val=sim_reg.reg_name
             
-        # symb_val = getattr(state.regs,par_val)
-        # print(type(symb_val))
-        # t=state.project.concrete_target
-        #print(state.__getstate__())
-        #print(state.read_register(par_val))
-        #state.solver.add(symb_par == symb_val)
-        setattr(state.regs,str(par_val),symb_par)
+        symb_val = getattr(st.regs,par_val)
+        st.solver.add(symb_par == symb_val)
+        setattr(st.regs,str(par_val),symb_par)
 
         return symb_par
 
-    def _rules_symbolic_par(self,cc,api,par_list,state):
+    def _rules_symbolic_par(self,cc,api,par_list,st):
         symb_input=dict()
         # Symbolic return variable
         if par_list[0] is not None:
-            symb_input[par_list[0]]=self._symbolic_par(par_list[0],cc,api.type.returnty,state)
+            symb_input[par_list[0]]=self._symbolic_par(par_list[0],cc,api.type.returnty,st)
             
         # Symbolic input variables
         input_arg=api.type.args
         for i,x in enumerate(par_list[1:]):
             if x!='?':
-                symb_input[x]=self._symbolic_par(x,cc,input_arg[i],state,api.reg[i]) 
-        print(symb_input)
+                symb_input[x]=self._symbolic_par(x,cc,input_arg[i],st,api.reg[i]) 
+
         return symb_input    
 
     def _create_call_state(self,args, input_type, source,extras):
@@ -89,6 +84,18 @@ class SolverUtility:
         else:
             state = self._create_call_state(args,input_type, source,extras)
 
+        # if num_steps is not None:
+        #     cc=self.project.factory.cc()
+        #     symbolic_par=dict()
+        #     for i,a in enumerate(api_list):
+        #         source=a.address
+        #         st = self.project.factory.call_state(source)#_create_call_state(args,input_type, source,extras)
+        #         symbolic_par.update(self._rules_symbolic_par(cc,a,visitor.par_list[i],st,state))
+        #     claripy_contstraints=visitor.predicate(symbolic_par)
+        #     state.solver.add(claripy_contstraints)
+        #     print(state.solver.constraints)
+
+
         # Explore the program with symbolic execution
         sm = self.project.factory.simgr(state, save_unconstrained=True)
         sm.explore(find=find)
@@ -103,10 +110,10 @@ class SolverUtility:
                     sm= self.project.factory.simgr(sm.found[0], save_unconstrained=True)
                     sm.explore(find=api_list[i+1].address,n=num_steps)
                 else:
+                    a.print_info()
                     return None,None
             if sm.found:
                 symbolic_par.update(self._rules_symbolic_par(cc,api_list[-1],visitor.par_list[-1],sm.found[0]))
-                print(symbolic_par)
                 claripy_contstraints=visitor.predicate(symbolic_par)
                 solver=sm.found[0].solver
                 solver.add(claripy_contstraints)

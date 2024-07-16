@@ -33243,3 +33243,1020 @@
 2024-06-28 11:10:09,897 : Values: [None]
 2024-06-28 11:10:09,897 : Symbolic parameters: [None]
 2024-06-28 11:10:09,897 : Unused keyword arguments passed to SimState: args
+2024-07-01 11:00:58,214 : Test genereted: [['Hwi8g1yNyHUc2ryIWwVg22RbXlieb7oonQXRLplqKDBCDwMweC4X7mblicoxC177vHO5NZe8oAzzu0hQMTALD64EgcwTvfhrlJCOdSNbwrOeMKzml0ovhQHlOY6ukL1p'], ['K8xKscfjqZlUzlkC'], ['E9WTeDBwXMqUX377OZHsshHYXtwKXk4FzIhqq9o0BdWz1nwHI6hmhcXJ4HUjzg7wqW3T9k4Atmv3Ww2Ta46sfuegCH2Xx2Xz3fSndXtIJ8TaI8Neil0XaUZ9DvYmTIah9XqbU1BA3VAs6wy1K2KBIBaYgV7Ltj8zezZCtmhRqxcZ5pJeIhrSjhbbWnO4sB3niSC6A7FS5UBPdlLRGHYwt1Tu0X5FzYj2TY6SM8YfVmkLwvvgb5hwlZPaRK7xwC0fr6IAsdhG'], ['YP21plGyCLQxgrCCK8Jw9Iw4zXgOvdnB']]
+2024-07-01 11:00:58,252 : Binary file: test/itasec
+2024-07-01 11:00:59,553 : "auto_load_libs" is enabled. With libraries loaded in project, CFG will cover libraries, which may take significantly more time than expected. You may reload the binary with "auto_load_libs" disabled, or specify "regions" to limit the scope of CFG recovery.
+2024-07-01 11:00:59,923 : Call graph genereted
+2024-07-01 11:00:59,924 : Rule 3
+2024-07-01 11:00:59,926 : Graph distance
+2024-07-01 11:00:59,926 : Function Name: strncpy
+2024-07-01 11:00:59,926 : Function Address: 4198528
+2024-07-01 11:00:59,926 : Function Type: (char*, char*, unsigned long (64 bits)) -> char*
+2024-07-01 11:00:59,926 : Distance: inf
+2024-07-01 11:00:59,926 : Values: [None]
+2024-07-01 11:00:59,926 : Symbolic parameters: [None]
+2024-07-01 11:00:59,926 : Function Name: strlen
+2024-07-01 11:00:59,926 : Function Address: 4198544
+2024-07-01 11:00:59,926 : Function Type: (char*) -> unsigned long (64 bits)
+2024-07-01 11:00:59,926 : Distance: inf
+2024-07-01 11:00:59,926 : Values: [None]
+2024-07-01 11:00:59,926 : Symbolic parameters: [None]
+2024-07-01 11:00:59,926 : Function Name: __stack_chk_fail
+2024-07-01 11:00:59,926 : Function Address: 4198560
+2024-07-01 11:00:59,926 : Function Type: () -> void
+2024-07-01 11:00:59,926 : Distance: inf
+2024-07-01 11:00:59,926 : Values: [None]
+2024-07-01 11:00:59,926 : Symbolic parameters: [None]
+2024-07-01 11:00:59,926 : Function Name: malloc
+2024-07-01 11:00:59,926 : Function Address: 4198576
+2024-07-01 11:00:59,926 : Function Type: (unsigned long (64 bits)) -> void*
+2024-07-01 11:00:59,926 : Distance: 0
+2024-07-01 11:00:59,926 : Values: [None]
+2024-07-01 11:00:59,926 : Symbolic parameters: [None]
+2024-07-01 11:00:59,926 : Function Name: _start
+2024-07-01 11:00:59,926 : Function Address: 4198592
+2024-07-01 11:00:59,927 : Function Type: () -> long long (64 bits)
+2024-07-01 11:00:59,927 : Distance: inf
+2024-07-01 11:00:59,927 : Values: [None]
+2024-07-01 11:00:59,927 : Symbolic parameters: [None]
+2024-07-01 11:00:59,927 : Function Name: vuln
+2024-07-01 11:00:59,927 : Function Address: 4198825
+2024-07-01 11:00:59,927 : Function Type: (long long (64 bits), long long (64 bits)) -> int (32 bits)
+2024-07-01 11:00:59,927 : Distance: 1
+2024-07-01 11:00:59,927 : Values: [None]
+2024-07-01 11:00:59,927 : Symbolic parameters: [None]
+2024-07-01 11:00:59,927 : Function Name: cncp
+2024-07-01 11:00:59,927 : Function Address: 4198888
+2024-07-01 11:00:59,927 : Function Type: (long long (64 bits)) -> int (32 bits)
+2024-07-01 11:00:59,927 : Distance: 2
+2024-07-01 11:00:59,927 : Values: [None]
+2024-07-01 11:00:59,927 : Symbolic parameters: [None]
+2024-07-01 11:00:59,927 : Function Name: test
+2024-07-01 11:00:59,927 : Function Address: 4198982
+2024-07-01 11:00:59,927 : Function Type: (long long (64 bits)) -> int (32 bits)
+2024-07-01 11:00:59,927 : Distance: inf
+2024-07-01 11:00:59,927 : Values: [None]
+2024-07-01 11:00:59,927 : Symbolic parameters: [None]
+2024-07-01 11:00:59,927 : Function Name: main
+2024-07-01 11:00:59,927 : Function Address: 4199087
+2024-07-01 11:00:59,927 : Function Type: (int (32 bits), long long (64 bits)) -> int (32 bits)
+2024-07-01 11:00:59,927 : Distance: 3
+2024-07-01 11:00:59,927 : Values: [None]
+2024-07-01 11:00:59,927 : Symbolic parameters: [None]
+2024-07-01 11:03:15,208 : Test genereted: [['D05NunsRgsd1XTGPfq3dxVDF2tBr8jvXBoAYt3jHvKvOi5a0DPLbG6CF81x2srQIuEXr3903xwnU9j4rZBaUCehVLEyf0fo61Mk4phB0ak3snh1LbDA9yLouCCHrZnN6RQMsGPApcw8pbEE68kZ6rt5MAM094n9gx8X9yWkI1cyNGs4JxvZ9FjwhZkO11G4jk30XQ6XNClVweuEI9YTCWYiOIQGEoImFdX6SJnSBXyClsad1vGiaPz2Y7ovJex5amAnrM1DeJhgRxmfcoiEmeD1zySodSxSlrIcPeuEynFy4uY5OYu8WVziHMgg5S2Rfc1269cCO7TxxIKM0z2CfgUClGZjP3896hyEPEksLZK44qYE5U4vfojfW97szjLsSUkp8ytdO6Uyq4PazMnORS9u6kVS3czhE7GHVdObbzhTtQyiY9Prg5wOMeAVZTRdJ3beYuEdmZKOTcTlYbuMSS70UsyB4pDM6bF5ojnO6NkeN1QajHahAQkEqgr4MJ42peiwunn7WzB6Y7m'], ['3xEI1Dd9MeOHWs3fPtzYtkNpsM27hERZ3ourknbYXCh9e1rSu9ewiC8W0FGuW97GLNgJtoDhhgHLUBZxhS1rso5e1oFKmSOmVTdBh78UGc94I4haJGkXeiqeGLRYPIKT'], ['hLanIrgqeDfT6HXwDhA4yi7hL3FykDE4xbfvrcEr0MzY4EIAry2uquObQPzCvViyvroSFFBHm4SFlcLxoUKDvsUr541t4kN1M0C34njcRPp1Y5q45OT3F2BTF3reMqJ6wp8KRLMBpjtP83Gwcnrbc4q1VW8R6cyt0z75iAQ5fkpcVaYepDCJEGOMfa4dtMho0MKlpLxADn9EFRihFpkYgIvRGCzU07XX3zxgKWJBFKxPaxwe4FZo6Ti7NPfhTETXryiWxqUY'], ['jUmgGbXCUSdfYCi96KaVkl4fDvndyu89QwG5b8UsQUKMjzGyhSVJziIIQxZ8I8X8892Fkm0TOiR8bYuoU5C4iFJ7oZyOddEKhHKHGxpFojSQR1SZ7mvuJdULQZfwDHqfFsKoJ57hBq8Q63XH8zq7PlTisdbx0wFtVMna3vqROtXAWedrN46kQFioUhafiYN1MvRvaQiAdiGrEOjxPEcCkzpSTZ3QTWDqTL9ZcRPJJpheGYqyea8jUFmHwJM1wQADOn4sCyVAuxVB2VwqvDS5qrghKm6rkXm50YHRCOlfIS8IFx1JoSiuzSoWItv78FGtY5mLUW5qMUDPayiDNsFr3C3rQr4W0dTrmwLpXEaHByxBuDVbwL9Xu7HFv8q0elr5YEkP8TbnObQICG4gOkx6ugLPxEzF8nG5dBcurFT98nJpvDpJqlbwvi6nZm5XNikKpGB1pFzzRnlbKinB83bb5vTbZTOlP2TrcG5kCOyxC4LaOXiasjz4hC2r7jQPzh1cUhN0BkMHJ10s0d']]
+2024-07-01 11:03:15,389 : Binary file: test/itasec
+2024-07-01 11:03:16,690 : "auto_load_libs" is enabled. With libraries loaded in project, CFG will cover libraries, which may take significantly more time than expected. You may reload the binary with "auto_load_libs" disabled, or specify "regions" to limit the scope of CFG recovery.
+2024-07-01 11:03:17,069 : Call graph genereted
+2024-07-01 11:03:17,069 : Rule 3
+2024-07-01 11:03:17,072 : Graph distance
+2024-07-01 11:03:17,072 : Function Name: strncpy
+2024-07-01 11:03:17,072 : Function Address: 4198528
+2024-07-01 11:03:17,072 : Function Type: (char*, char*, unsigned long (64 bits)) -> char*
+2024-07-01 11:03:17,072 : Distance: inf
+2024-07-01 11:03:17,072 : Values: [None]
+2024-07-01 11:03:17,072 : Symbolic parameters: [None]
+2024-07-01 11:03:17,072 : Function Name: strlen
+2024-07-01 11:03:17,072 : Function Address: 4198544
+2024-07-01 11:03:17,072 : Function Type: (char*) -> unsigned long (64 bits)
+2024-07-01 11:03:17,072 : Distance: inf
+2024-07-01 11:03:17,072 : Values: [None]
+2024-07-01 11:03:17,072 : Symbolic parameters: [None]
+2024-07-01 11:03:17,072 : Function Name: __stack_chk_fail
+2024-07-01 11:03:17,072 : Function Address: 4198560
+2024-07-01 11:03:17,072 : Function Type: () -> void
+2024-07-01 11:03:17,072 : Distance: inf
+2024-07-01 11:03:17,072 : Values: [None]
+2024-07-01 11:03:17,072 : Symbolic parameters: [None]
+2024-07-01 11:03:17,072 : Function Name: malloc
+2024-07-01 11:03:17,072 : Function Address: 4198576
+2024-07-01 11:03:17,072 : Function Type: (unsigned long (64 bits)) -> void*
+2024-07-01 11:03:17,072 : Distance: 0
+2024-07-01 11:03:17,072 : Values: [None]
+2024-07-01 11:03:17,072 : Symbolic parameters: [None]
+2024-07-01 11:03:17,072 : Function Name: _start
+2024-07-01 11:03:17,072 : Function Address: 4198592
+2024-07-01 11:03:17,072 : Function Type: () -> long long (64 bits)
+2024-07-01 11:03:17,072 : Distance: inf
+2024-07-01 11:03:17,072 : Values: [None]
+2024-07-01 11:03:17,072 : Symbolic parameters: [None]
+2024-07-01 11:03:17,072 : Function Name: vuln
+2024-07-01 11:03:17,072 : Function Address: 4198825
+2024-07-01 11:03:17,072 : Function Type: (long long (64 bits), long long (64 bits)) -> int (32 bits)
+2024-07-01 11:03:17,072 : Distance: 1
+2024-07-01 11:03:17,072 : Values: [None]
+2024-07-01 11:03:17,072 : Symbolic parameters: [None]
+2024-07-01 11:03:17,072 : Function Name: cncp
+2024-07-01 11:03:17,072 : Function Address: 4198888
+2024-07-01 11:03:17,072 : Function Type: (long long (64 bits)) -> int (32 bits)
+2024-07-01 11:03:17,073 : Distance: 2
+2024-07-01 11:03:17,073 : Values: [None]
+2024-07-01 11:03:17,073 : Symbolic parameters: [None]
+2024-07-01 11:03:17,073 : Function Name: test
+2024-07-01 11:03:17,073 : Function Address: 4198982
+2024-07-01 11:03:17,073 : Function Type: (long long (64 bits)) -> int (32 bits)
+2024-07-01 11:03:17,073 : Distance: inf
+2024-07-01 11:03:17,073 : Values: [None]
+2024-07-01 11:03:17,073 : Symbolic parameters: [None]
+2024-07-01 11:03:17,073 : Function Name: main
+2024-07-01 11:03:17,073 : Function Address: 4199087
+2024-07-01 11:03:17,073 : Function Type: (int (32 bits), long long (64 bits)) -> int (32 bits)
+2024-07-01 11:03:17,073 : Distance: 3
+2024-07-01 11:03:17,073 : Values: [None]
+2024-07-01 11:03:17,073 : Symbolic parameters: [None]
+2024-07-01 11:05:03,364 : Test genereted: [['kHpgUQyKOcLbPdoT'], ['jRJIqcuje8uvJCGQeOqsS95E28vRLQxE2BvTCYFJHBJjL6OmENphUuPSutQRi68OQBje49CLfaUM14wK31iUVI3GPzzhAKsjLAANTszqywZQ9LPUSLzlBkWbxYqAlDEIC3b4ClLKEczn3tdhi80qbnA1D59pal3h81pen4Ke0AE58M9wFSEj4Aif4DKKvfbWORFxz23WmwG4slmdJV7MAVuKEVZtgaKTucxKkAAf7JavYmoxg5OswXoe8Qze2HXsWG3MnrOE'], ['IeHm5srJjmUYno8Vwj66930RO6IfA43AZPBZRpgYibcbDtfN8CMs26ibpnxkemh5QLCDrqHgQhRziLOBnd9luEKvoF1tjC7eAWc9oxBr1XmtJLUWqDu7nCI4hGQcYQnGs9kpP7b7rRA66gNiN0a6Xkus0ZWuPd3XMS1DQ9fTtaeEk2HW2oiO2g6tqQ7D9ULMHAif973N4LmkHyas9Vkw2OPLgsbAvowRaYXf0Uxr6bFnK1Jx21VrPl4i2ByLDaHa1s5xMiYf139CLSoBaHFtfWPDtGrWV8bBmjZzWhn55f45qPjC7khDtufaGoylxMhRiuXk27Z5vAPjeIfnaQJ5sHpILxlHjJOpjAxQp8UnNGuTv99TcYOlkFLreQYx8eExrMO4FPxwX9r3m2WGnBHyHrexS81KnBlfDrwOAv6ZqZz9dz5y6pjDaippDlEj8VLdxl8paUQNN2OKxY3XV1iYZ1JmBmvPltqK1NJumR5ekZxuiQQ5MreYEgRfSj9grQIkUk1GbVe1amrEs2'], ['ImlRddms']]
+2024-07-01 11:05:03,551 : Binary file: test/itasec
+2024-07-01 11:05:04,843 : "auto_load_libs" is enabled. With libraries loaded in project, CFG will cover libraries, which may take significantly more time than expected. You may reload the binary with "auto_load_libs" disabled, or specify "regions" to limit the scope of CFG recovery.
+2024-07-01 11:05:05,229 : Call graph genereted
+2024-07-01 11:05:05,230 : Rule 3
+2024-07-01 11:05:05,234 : Graph distance
+2024-07-01 11:05:05,234 : Function Name: strncpy
+2024-07-01 11:05:05,234 : Function Address: 4198528
+2024-07-01 11:05:05,234 : Function Type: (char*, char*, unsigned long (64 bits)) -> char*
+2024-07-01 11:05:05,234 : Distance: inf
+2024-07-01 11:05:05,234 : Values: [None]
+2024-07-01 11:05:05,234 : Symbolic parameters: [None]
+2024-07-01 11:05:05,234 : Function Name: strlen
+2024-07-01 11:05:05,234 : Function Address: 4198544
+2024-07-01 11:05:05,234 : Function Type: (char*) -> unsigned long (64 bits)
+2024-07-01 11:05:05,234 : Distance: inf
+2024-07-01 11:05:05,234 : Values: [None]
+2024-07-01 11:05:05,234 : Symbolic parameters: [None]
+2024-07-01 11:05:05,234 : Function Name: __stack_chk_fail
+2024-07-01 11:05:05,234 : Function Address: 4198560
+2024-07-01 11:05:05,234 : Function Type: () -> void
+2024-07-01 11:05:05,234 : Distance: inf
+2024-07-01 11:05:05,234 : Values: [None]
+2024-07-01 11:05:05,234 : Symbolic parameters: [None]
+2024-07-01 11:05:05,234 : Function Name: malloc
+2024-07-01 11:05:05,234 : Function Address: 4198576
+2024-07-01 11:05:05,234 : Function Type: (unsigned long (64 bits)) -> void*
+2024-07-01 11:05:05,234 : Distance: 0
+2024-07-01 11:05:05,234 : Values: [None]
+2024-07-01 11:05:05,234 : Symbolic parameters: [None]
+2024-07-01 11:05:05,234 : Function Name: _start
+2024-07-01 11:05:05,234 : Function Address: 4198592
+2024-07-01 11:05:05,234 : Function Type: () -> long long (64 bits)
+2024-07-01 11:05:05,234 : Distance: inf
+2024-07-01 11:05:05,234 : Values: [None]
+2024-07-01 11:05:05,234 : Symbolic parameters: [None]
+2024-07-01 11:05:05,234 : Function Name: vuln
+2024-07-01 11:05:05,234 : Function Address: 4198825
+2024-07-01 11:05:05,234 : Function Type: (long long (64 bits), long long (64 bits)) -> int (32 bits)
+2024-07-01 11:05:05,234 : Distance: 1
+2024-07-01 11:05:05,234 : Values: [None]
+2024-07-01 11:05:05,234 : Symbolic parameters: [None]
+2024-07-01 11:05:05,234 : Function Name: cncp
+2024-07-01 11:05:05,234 : Function Address: 4198888
+2024-07-01 11:05:05,234 : Function Type: (long long (64 bits)) -> int (32 bits)
+2024-07-01 11:05:05,234 : Distance: 2
+2024-07-01 11:05:05,234 : Values: [None]
+2024-07-01 11:05:05,234 : Symbolic parameters: [None]
+2024-07-01 11:05:05,234 : Function Name: test
+2024-07-01 11:05:05,234 : Function Address: 4198982
+2024-07-01 11:05:05,234 : Function Type: (long long (64 bits)) -> int (32 bits)
+2024-07-01 11:05:05,234 : Distance: inf
+2024-07-01 11:05:05,234 : Values: [None]
+2024-07-01 11:05:05,235 : Symbolic parameters: [None]
+2024-07-01 11:05:05,235 : Function Name: main
+2024-07-01 11:05:05,235 : Function Address: 4199087
+2024-07-01 11:05:05,235 : Function Type: (int (32 bits), long long (64 bits)) -> int (32 bits)
+2024-07-01 11:05:05,235 : Distance: 3
+2024-07-01 11:05:05,235 : Values: [None]
+2024-07-01 11:05:05,235 : Symbolic parameters: [None]
+2024-07-01 11:05:05,366 : The program is accessing register with an unspecified value. This could indicate unwanted behavior.
+2024-07-01 11:05:05,367 : angr will cope with this by generating an unconstrained symbolic variable and continuing. You can resolve this by:
+2024-07-01 11:05:05,367 : 1) setting a value to the initial state
+2024-07-01 11:05:05,367 : 2) adding the state option ZERO_FILL_UNCONSTRAINED_{MEMORY,REGISTERS}, to make unknown regions hold null
+2024-07-01 11:05:05,367 : 3) adding the state option SYMBOL_FILL_UNCONSTRAINED_{MEMORY,REGISTERS}, to suppress these messages.
+2024-07-01 11:05:05,367 : Filling register rbp with 8 unconstrained bytes referenced from 0x4011ad (vuln+0x4 in itasec (0x11ad))
+2024-07-01 11:05:05,426 : Allocation request of 18446744073709551615 bytes exceeded maximum of 128 bytes; allocating 128 bytes
+2024-07-01 11:05:05,508 : Filling register rbp with 8 unconstrained bytes referenced from 0x4011ec (cncp+0x4 in itasec (0x11ec))
+2024-07-01 11:05:05,514 : Filling memory at 0x7ffffffffff0000 with 121 unconstrained bytes referenced from 0x5a86a0 (strlen+0x0 in libc.so.6 (0xa86a0))
+2024-07-01 11:05:05,690 : Values calculated
+2024-07-01 11:05:05,690 : Function Name: malloc
+2024-07-01 11:05:05,690 : Function Address: 4198576
+2024-07-01 11:05:05,690 : Function Type: (unsigned long (64 bits)) -> void*
+2024-07-01 11:05:05,690 : Distance: 0
+2024-07-01 11:05:05,690 : Values: [None]
+2024-07-01 11:05:05,690 : Symbolic parameters: [None]
+2024-07-01 11:05:05,690 : Function Name: vuln
+2024-07-01 11:05:05,690 : Function Address: 4198825
+2024-07-01 11:05:05,690 : Function Type: (long long (64 bits), long long (64 bits)) -> int (32 bits)
+2024-07-01 11:05:05,690 : Distance: 1
+2024-07-01 11:05:05,690 : Values: [["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x06'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x06'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x06'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x0e'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x0e'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x0e'"]]
+2024-07-01 11:05:05,690 : Symbolic parameters: [None]
+2024-07-01 11:05:05,690 : Function Name: cncp
+2024-07-01 11:05:05,691 : Function Address: 4198888
+2024-07-01 11:05:05,691 : Function Type: (long long (64 bits)) -> int (32 bits)
+2024-07-01 11:05:05,691 : Distance: 2
+2024-07-01 11:05:05,691 : Values: [["b'\\x01\\x01@\\x04A@\\x04\\x02'"], ["b'\\x01\\x01@\\x04\\x01@\\x04\\x02'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\xff'"], ["b'\\x01\\x01\\x01\\x01\\x01\\x01\\x01\\x01'"]]
+2024-07-01 11:05:05,691 : Symbolic parameters: [None]
+2024-07-01 11:05:05,691 : Function Name: main
+2024-07-01 11:05:05,691 : Function Address: 4199087
+2024-07-01 11:05:05,691 : Function Type: (int (32 bits), long long (64 bits)) -> int (32 bits)
+2024-07-01 11:05:05,691 : Distance: 3
+2024-07-01 11:05:05,691 : Values: [["b'\\x00\\x00\\x00\\x00'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'"], ["b'\\x00\\x00\\x00\\x02'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02'"], ["b'\\x00\\x00\\x00\\x06'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x06'"], ["b'\\x00\\x00\\x00\\x0e'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x0e'"]]
+2024-07-01 11:05:05,691 : Symbolic parameters: [None]
+2024-07-01 11:05:05,691 : Function Name: strncpy
+2024-07-01 11:05:05,691 : Function Address: 4198528
+2024-07-01 11:05:05,691 : Function Type: (char*, char*, unsigned long (64 bits)) -> char*
+2024-07-01 11:05:05,691 : Distance: inf
+2024-07-01 11:05:05,691 : Values: [None]
+2024-07-01 11:05:05,691 : Symbolic parameters: [None]
+2024-07-01 11:05:05,691 : Function Name: malloc
+2024-07-01 11:05:05,691 : Function Address: 4198576
+2024-07-01 11:05:05,691 : Function Type: (unsigned long (64 bits)) -> void*
+2024-07-01 11:05:05,691 : Distance: 0
+2024-07-01 11:05:05,691 : Values: [None]
+2024-07-01 11:05:05,691 : Symbolic parameters: [None]
+2024-07-01 11:05:05,793 : {'type': 'send', 'payload': {'function': 'main', 'args': [2, '\t�X��\x7f']}}
+2024-07-01 11:05:05,793 : {'type': 'send', 'payload': {'function': 'cncp', 'args': ['kHpgUQyKOcLbPdoT']}}
+2024-07-01 11:05:05,793 : {'type': 'send', 'payload': {'function': 'strlen', 'args': ['kHpgUQyKOcLbPdoT']}}
+2024-07-01 11:05:05,793 : {'type': 'send', 'payload': {'function': 'strlen', 'ret': '0x10'}}
+2024-07-01 11:05:05,793 : {'type': 'send', 'payload': {'function': 'cncp', 'ret': '0x5668456d4004'}}
+2024-07-01 11:05:05,793 : {'type': 'send', 'payload': {'function': 'test', 'args': ['']}}
+2024-07-01 11:05:05,794 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', '', 1]}}
+2024-07-01 11:05:05,794 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x7ffee458d1e7'}}
+2024-07-01 11:05:05,794 : {'type': 'send', 'payload': {'function': 'test', 'ret': '0x0'}}
+2024-07-01 11:05:05,794 : {'type': 'send', 'payload': {'function': 'main', 'ret': '0x0'}}
+2024-07-01 11:05:06,294 : Trace function calls
+2024-07-01 11:05:06,332 : {'type': 'send', 'payload': {'function': 'main', 'args': [2, '\x11�\x15\x05�\x7f']}}
+2024-07-01 11:05:06,333 : {'type': 'send', 'payload': {'function': 'cncp', 'args': ['jRJIqcuje8uvJCGQeOqsS95E28vRLQxE2BvTCYFJHBJjL6OmENphUuPSutQRi68OQBje49CLfaUM14wK31iUVI3GPzzhAKsjLAANTszqywZQ9LPUSLzlBkWbxYqAlDEIC3b4ClLKEczn3tdhi80qbnA1D59pal3h81pen4Ke0AE58M9wFSEj4Aif4DKKvfbWORFxz23WmwG4slmdJV7MAVuKEVZtgaKTucxKkAAf7JavYmoxg5OswXoe8Qze2HXsWG3MnrOE']}}
+2024-07-01 11:05:06,333 : {'type': 'send', 'payload': {'function': 'strlen', 'args': ['jRJIqcuje8uvJCGQeOqsS95E28vRLQxE2BvTCYFJHBJjL6OmENphUuPSutQRi68OQBje49CLfaUM14wK31iUVI3GPzzhAKsjLAANTszqywZQ9LPUSLzlBkWbxYqAlDEIC3b4ClLKEczn3tdhi80qbnA1D59pal3h81pen4Ke0AE58M9wFSEj4Aif4DKKvfbWORFxz23WmwG4slmdJV7MAVuKEVZtgaKTucxKkAAf7JavYmoxg5OswXoe8Qze2HXsWG3MnrOE']}}
+2024-07-01 11:05:06,333 : {'type': 'send', 'payload': {'function': 'strlen', 'ret': '0x108'}}
+2024-07-01 11:05:06,333 : {'type': 'send', 'payload': {'function': 'cncp', 'ret': '0x5789c6fb2004'}}
+2024-07-01 11:05:06,333 : {'type': 'send', 'payload': {'function': 'test', 'args': ['']}}
+2024-07-01 11:05:06,333 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', '', 1]}}
+2024-07-01 11:05:06,333 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x7fff0515a507'}}
+2024-07-01 11:05:06,333 : {'type': 'send', 'payload': {'function': 'test', 'ret': '0x0'}}
+2024-07-01 11:05:06,333 : {'type': 'send', 'payload': {'function': 'main', 'ret': '0x0'}}
+2024-07-01 11:05:06,833 : Trace function calls
+2024-07-01 11:05:06,873 : {'type': 'send', 'payload': {'function': 'main', 'args': [2, '\x0bB���\x7f']}}
+2024-07-01 11:05:06,873 : {'type': 'send', 'payload': {'function': 'cncp', 'args': ['IeHm5srJjmUYno8Vwj66930RO6IfA43AZPBZRpgYibcbDtfN8CMs26ibpnxkemh5QLCDrqHgQhRziLOBnd9luEKvoF1tjC7eAWc9oxBr1XmtJLUWqDu7nCI4hGQcYQnGs9kpP7b7rRA66gNiN0a6Xkus0ZWuPd3XMS1DQ9fTtaeEk2HW2oiO2g6tqQ7D9ULMHAif973N4LmkHyas9Vkw2OPLgsbAvowRaYXf0Uxr6bFnK1Jx21VrPl4i2ByLDaHa1s5xMiYf139CLSoBaHFtfWPDtGrWV8bBmjZzWhn55f45qPjC7khDtufaGoylxMhRiuXk27Z5vAPjeIfnaQJ5sHpILxlHjJOpjAxQp8UnNGuTv99TcYOlkFLreQYx8eExrMO4FPxwX9r3m2WGnBHyHrexS81KnBlfDrwOAv6ZqZz9dz5y6pjDaippDlEj8VLdxl8paUQNN2OKxY3XV1iYZ1JmBmvPltqK1NJumR5ekZxuiQQ5MreYEgRfSj9grQIkUk1GbVe1amrEs2']}}
+2024-07-01 11:05:06,873 : {'type': 'send', 'payload': {'function': 'strlen', 'args': ['IeHm5srJjmUYno8Vwj66930RO6IfA43AZPBZRpgYibcbDtfN8CMs26ibpnxkemh5QLCDrqHgQhRziLOBnd9luEKvoF1tjC7eAWc9oxBr1XmtJLUWqDu7nCI4hGQcYQnGs9kpP7b7rRA66gNiN0a6Xkus0ZWuPd3XMS1DQ9fTtaeEk2HW2oiO2g6tqQ7D9ULMHAif973N4LmkHyas9Vkw2OPLgsbAvowRaYXf0Uxr6bFnK1Jx21VrPl4i2ByLDaHa1s5xMiYf139CLSoBaHFtfWPDtGrWV8bBmjZzWhn55f45qPjC7khDtufaGoylxMhRiuXk27Z5vAPjeIfnaQJ5sHpILxlHjJOpjAxQp8UnNGuTv99TcYOlkFLreQYx8eExrMO4FPxwX9r3m2WGnBHyHrexS81KnBlfDrwOAv6ZqZz9dz5y6pjDaippDlEj8VLdxl8paUQNN2OKxY3XV1iYZ1JmBmvPltqK1NJumR5ekZxuiQQ5MreYEgRfSj9grQIkUk1GbVe1amrEs2']}}
+2024-07-01 11:05:06,873 : {'type': 'send', 'payload': {'function': 'strlen', 'ret': '0x20e'}}
+2024-07-01 11:05:06,873 : {'type': 'send', 'payload': {'function': 'cncp', 'ret': '0x586cf431f004'}}
+2024-07-01 11:05:06,873 : {'type': 'send', 'payload': {'function': 'test', 'args': ['']}}
+2024-07-01 11:05:06,873 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', '', 1]}}
+2024-07-01 11:05:06,873 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x7ffddaed38a7'}}
+2024-07-01 11:05:06,873 : {'type': 'send', 'payload': {'function': 'test', 'ret': '0x0'}}
+2024-07-01 11:05:06,874 : {'type': 'send', 'payload': {'function': 'main', 'ret': '0x0'}}
+2024-07-01 11:11:30,983 : Test genereted: [['a7vgPDB93fekq75cpy10H6kjlp8kvW7Dda1igrAvRu8KZxzsrdwl8206TERlEDFYRrECtsXw0iE7pVXcV9GcVDEtCkH1ehne53165WfOVNyrMa99vorMfnsDx5DpJ3ufETYiIEmMGLFoCmlUoWPv99UXDXFoCt0uqpmKTC9VeB8Ls3lR5qgEiMF1Bs1UBUGi72hheCLVUnvMMuHL4j29ooRET81qNYXnDXVGbNrrPihiDodDlbCYIyFp3P1JTvbT3CkSat59'], ['YO9h8GSMR3CVUSCDubK5rcjXda1C7h002Q4GhoaHE5CyGYwVGPi5v489nDCkcnRXKvibt6T6YnRoPPRMrX330yPMZD61mmCqlrTkLgXZxFPibkANWbF5SWpCwigJ7E4CzrTs0qpX3kUBlxzLlGH1l5slOWO9PHoVCrvlKiACOVD2G0sAq1NzKmCmEO6CYQXSO2zEzuMAvZnSoSIcnTOqHYrD4cnF9D9dekgnmNi3q6Jv0fZKC7KCCjDPFevGVuS5aoAIFi0T3Fi3z2UePbVFIWfebyPSWrJXK6ojBdLDflLggygnStX6D81k1XCf9Jlw9nv2PmK7Zh9S9oQAA7UghmKc0AIDxpeXvjucWBgSLMtxgPQgFa54gv4Dp2Poc5Yk6GgIRl6xxGHZvYUVWZxaCUmQd9Z5Za0CxSX7uSHRrbFN3bZsLJPCet1IxJfBJ2vIKrQzEVhWQ5V1aDGsVrjpvBb8oqAjzXYoFugGJviFCs4EUUyTDbdXbODhib3gI0ijG20MS9fFJqBxaS'], ['nUbSQVbzxMe9TNXJIcFBAZ6LfyszycXPw1ejSRoBgjnaKMl3aKflAJBB0g7pMOHNBAz8hiLsAUssap7cIKGJqWbsvv0udUNYPAJHjjL4k1gzGNZgRNc4cksQDNKmoCb0'], ['BP0q3rj1midPRFFN']]
+2024-07-01 11:11:31,165 : Binary file: test/itasec
+2024-07-01 11:11:32,472 : "auto_load_libs" is enabled. With libraries loaded in project, CFG will cover libraries, which may take significantly more time than expected. You may reload the binary with "auto_load_libs" disabled, or specify "regions" to limit the scope of CFG recovery.
+2024-07-01 11:11:32,852 : Call graph genereted
+2024-07-01 11:11:32,852 : Rule 3
+2024-07-01 11:11:32,854 : Graph distance
+2024-07-01 11:11:32,854 : Function Name: strncpy
+2024-07-01 11:11:32,854 : Function Address: 4198528
+2024-07-01 11:11:32,854 : Function Type: (char*, char*, unsigned long (64 bits)) -> char*
+2024-07-01 11:11:32,854 : Distance: inf
+2024-07-01 11:11:32,854 : Values: [None]
+2024-07-01 11:11:32,855 : Symbolic parameters: [None]
+2024-07-01 11:11:32,855 : Function Name: strlen
+2024-07-01 11:11:32,855 : Function Address: 4198544
+2024-07-01 11:11:32,855 : Function Type: (char*) -> unsigned long (64 bits)
+2024-07-01 11:11:32,855 : Distance: inf
+2024-07-01 11:11:32,855 : Values: [None]
+2024-07-01 11:11:32,855 : Symbolic parameters: [None]
+2024-07-01 11:11:32,855 : Function Name: __stack_chk_fail
+2024-07-01 11:11:32,855 : Function Address: 4198560
+2024-07-01 11:11:32,855 : Function Type: () -> void
+2024-07-01 11:11:32,855 : Distance: inf
+2024-07-01 11:11:32,855 : Values: [None]
+2024-07-01 11:11:32,855 : Symbolic parameters: [None]
+2024-07-01 11:11:32,855 : Function Name: malloc
+2024-07-01 11:11:32,855 : Function Address: 4198576
+2024-07-01 11:11:32,855 : Function Type: (unsigned long (64 bits)) -> void*
+2024-07-01 11:11:32,855 : Distance: 0
+2024-07-01 11:11:32,855 : Values: [None]
+2024-07-01 11:11:32,855 : Symbolic parameters: [None]
+2024-07-01 11:11:32,855 : Function Name: _start
+2024-07-01 11:11:32,855 : Function Address: 4198592
+2024-07-01 11:11:32,855 : Function Type: () -> long long (64 bits)
+2024-07-01 11:11:32,855 : Distance: inf
+2024-07-01 11:11:32,855 : Values: [None]
+2024-07-01 11:11:32,855 : Symbolic parameters: [None]
+2024-07-01 11:11:32,855 : Function Name: vuln
+2024-07-01 11:11:32,855 : Function Address: 4198825
+2024-07-01 11:11:32,855 : Function Type: (long long (64 bits), long long (64 bits)) -> int (32 bits)
+2024-07-01 11:11:32,855 : Distance: 1
+2024-07-01 11:11:32,855 : Values: [None]
+2024-07-01 11:11:32,855 : Symbolic parameters: [None]
+2024-07-01 11:11:32,855 : Function Name: cncp
+2024-07-01 11:11:32,855 : Function Address: 4198888
+2024-07-01 11:11:32,855 : Function Type: (long long (64 bits)) -> int (32 bits)
+2024-07-01 11:11:32,855 : Distance: 2
+2024-07-01 11:11:32,855 : Values: [None]
+2024-07-01 11:11:32,855 : Symbolic parameters: [None]
+2024-07-01 11:11:32,855 : Function Name: test
+2024-07-01 11:11:32,855 : Function Address: 4198982
+2024-07-01 11:11:32,855 : Function Type: (long long (64 bits)) -> int (32 bits)
+2024-07-01 11:11:32,855 : Distance: inf
+2024-07-01 11:11:32,855 : Values: [None]
+2024-07-01 11:11:32,855 : Symbolic parameters: [None]
+2024-07-01 11:11:32,855 : Function Name: main
+2024-07-01 11:11:32,855 : Function Address: 4199087
+2024-07-01 11:11:32,855 : Function Type: (int (32 bits), long long (64 bits)) -> int (32 bits)
+2024-07-01 11:11:32,855 : Distance: 3
+2024-07-01 11:11:32,855 : Values: [None]
+2024-07-01 11:11:32,855 : Symbolic parameters: [None]
+2024-07-01 11:11:32,975 : The program is accessing register with an unspecified value. This could indicate unwanted behavior.
+2024-07-01 11:11:32,975 : angr will cope with this by generating an unconstrained symbolic variable and continuing. You can resolve this by:
+2024-07-01 11:11:32,975 : 1) setting a value to the initial state
+2024-07-01 11:11:32,976 : 2) adding the state option ZERO_FILL_UNCONSTRAINED_{MEMORY,REGISTERS}, to make unknown regions hold null
+2024-07-01 11:11:32,976 : 3) adding the state option SYMBOL_FILL_UNCONSTRAINED_{MEMORY,REGISTERS}, to suppress these messages.
+2024-07-01 11:11:32,976 : Filling register rax with 8 unconstrained bytes referenced from 0x4010b0 (PLT.malloc+0x0 in itasec (0x10b0))
+2024-07-01 11:11:32,986 : Filling register rax with 8 unconstrained bytes referenced from 0x401080 (PLT.strncpy+0x0 in itasec (0x1080))
+2024-07-01 11:11:32,991 : Filling register rbp with 8 unconstrained bytes referenced from 0x4011ad (vuln+0x4 in itasec (0x11ad))
+2024-07-01 11:12:13,785 : Test genereted: [['0hDoFWZQj121AG2h9BkWRBBgMWAK3V7JkkP5BNmT2QnY5G7b0ZkMV2CAxCkC6lJoKeKcAVwxXkn8Vn0ciMkbzbEKgQS71I68EEEyP1pWsoR2JvbX5tfZO7zMFhC0Y5OA0Y9k5WnJdWLXHSJkgPl7o1gSMpYlSC1MSFoiDwvnFlQzvkxZZp4sQBvXs82GAgrqcBxX5zPwb5t28i3J9Vkmmirf7YrvCMoTQX5GXSX4sFWfTGq3aleLeKsEsGXBK8iwqMzIZK2D'], ['IvCri2W9PJXDnlhjsq44L1hFfpZpNoFIoBtpmNcYhrs3PXznG7farGvCfYRp6nOu4GiMqJyN8yV2jIhHxMitTy5CrHTfTPnZbe9snKMh9N6eJlAICYY1bMf7T4AeZKI3'], ['yTMsCKAR'], ['I9kRBxQJ']]
+2024-07-01 11:12:13,963 : Binary file: test/itasec
+2024-07-01 11:12:15,209 : "auto_load_libs" is enabled. With libraries loaded in project, CFG will cover libraries, which may take significantly more time than expected. You may reload the binary with "auto_load_libs" disabled, or specify "regions" to limit the scope of CFG recovery.
+2024-07-01 11:12:15,587 : Call graph genereted
+2024-07-01 11:12:15,588 : Rule 3
+2024-07-01 11:12:15,590 : Graph distance
+2024-07-01 11:12:15,590 : Function Name: strncpy
+2024-07-01 11:12:15,590 : Function Address: 4198528
+2024-07-01 11:12:15,590 : Function Type: (char*, char*, unsigned long (64 bits)) -> char*
+2024-07-01 11:12:15,590 : Distance: inf
+2024-07-01 11:12:15,590 : Values: [None]
+2024-07-01 11:12:15,590 : Symbolic parameters: [None]
+2024-07-01 11:12:15,590 : Function Name: strlen
+2024-07-01 11:12:15,590 : Function Address: 4198544
+2024-07-01 11:12:15,590 : Function Type: (char*) -> unsigned long (64 bits)
+2024-07-01 11:12:15,590 : Distance: inf
+2024-07-01 11:12:15,590 : Values: [None]
+2024-07-01 11:12:15,590 : Symbolic parameters: [None]
+2024-07-01 11:12:15,590 : Function Name: __stack_chk_fail
+2024-07-01 11:12:15,590 : Function Address: 4198560
+2024-07-01 11:12:15,590 : Function Type: () -> void
+2024-07-01 11:12:15,590 : Distance: inf
+2024-07-01 11:12:15,590 : Values: [None]
+2024-07-01 11:12:15,590 : Symbolic parameters: [None]
+2024-07-01 11:12:15,590 : Function Name: malloc
+2024-07-01 11:12:15,590 : Function Address: 4198576
+2024-07-01 11:12:15,590 : Function Type: (unsigned long (64 bits)) -> void*
+2024-07-01 11:12:15,590 : Distance: 0
+2024-07-01 11:12:15,590 : Values: [None]
+2024-07-01 11:12:15,590 : Symbolic parameters: [None]
+2024-07-01 11:12:15,590 : Function Name: _start
+2024-07-01 11:12:15,590 : Function Address: 4198592
+2024-07-01 11:12:15,590 : Function Type: () -> long long (64 bits)
+2024-07-01 11:12:15,590 : Distance: inf
+2024-07-01 11:12:15,590 : Values: [None]
+2024-07-01 11:12:15,590 : Symbolic parameters: [None]
+2024-07-01 11:12:15,590 : Function Name: vuln
+2024-07-01 11:12:15,590 : Function Address: 4198825
+2024-07-01 11:12:15,590 : Function Type: (long long (64 bits), long long (64 bits)) -> int (32 bits)
+2024-07-01 11:12:15,590 : Distance: 1
+2024-07-01 11:12:15,590 : Values: [None]
+2024-07-01 11:12:15,590 : Symbolic parameters: [None]
+2024-07-01 11:12:15,590 : Function Name: cncp
+2024-07-01 11:12:15,590 : Function Address: 4198888
+2024-07-01 11:12:15,590 : Function Type: (long long (64 bits)) -> int (32 bits)
+2024-07-01 11:12:15,590 : Distance: 2
+2024-07-01 11:12:15,590 : Values: [None]
+2024-07-01 11:12:15,590 : Symbolic parameters: [None]
+2024-07-01 11:12:15,590 : Function Name: test
+2024-07-01 11:12:15,591 : Function Address: 4198982
+2024-07-01 11:12:15,591 : Function Type: (long long (64 bits)) -> int (32 bits)
+2024-07-01 11:12:15,591 : Distance: inf
+2024-07-01 11:12:15,591 : Values: [None]
+2024-07-01 11:12:15,591 : Symbolic parameters: [None]
+2024-07-01 11:12:15,591 : Function Name: main
+2024-07-01 11:12:15,591 : Function Address: 4199087
+2024-07-01 11:12:15,591 : Function Type: (int (32 bits), long long (64 bits)) -> int (32 bits)
+2024-07-01 11:12:15,591 : Distance: 3
+2024-07-01 11:12:15,591 : Values: [None]
+2024-07-01 11:12:15,591 : Symbolic parameters: [None]
+2024-07-01 11:12:15,711 : The program is accessing register with an unspecified value. This could indicate unwanted behavior.
+2024-07-01 11:12:15,712 : angr will cope with this by generating an unconstrained symbolic variable and continuing. You can resolve this by:
+2024-07-01 11:12:15,712 : 1) setting a value to the initial state
+2024-07-01 11:12:15,712 : 2) adding the state option ZERO_FILL_UNCONSTRAINED_{MEMORY,REGISTERS}, to make unknown regions hold null
+2024-07-01 11:12:15,712 : 3) adding the state option SYMBOL_FILL_UNCONSTRAINED_{MEMORY,REGISTERS}, to suppress these messages.
+2024-07-01 11:12:15,712 : Filling register rax with 8 unconstrained bytes referenced from 0x4010b0 (PLT.malloc+0x0 in itasec (0x10b0))
+2024-07-01 11:12:15,722 : Filling register rax with 8 unconstrained bytes referenced from 0x401080 (PLT.strncpy+0x0 in itasec (0x1080))
+2024-07-01 11:12:15,727 : Filling register rbp with 8 unconstrained bytes referenced from 0x4011ad (vuln+0x4 in itasec (0x11ad))
+2024-07-01 11:13:57,949 : Test genereted: [['gugWLCL5MuF6adRsjbEeqdUCJhKN6OQChwkFBZFtBKsuadNKAnee0lZ8RT4EX2geO6wVBpY2IP6iGMJ7GBunoGU6jIMxxh0vnxFqS8yA95w2Zd35iOmybhK6RJxYbskr'], ['7jhCtwBRLj5Vc9jgx4gy68crskFaDOC25BBUrSRhddQ2q90dtBUosyfWeZ82svxO'], ['Yt41fs6weq5j5cynjTTeHmFF4XnaBe6bdaWWbwobjy8KtYZuW8ewUJWWcVG7NXss'], ['kmOZXK6gnRaDhbE9']]
+2024-07-01 11:13:58,131 : Binary file: test/itasec
+2024-07-01 11:13:59,390 : "auto_load_libs" is enabled. With libraries loaded in project, CFG will cover libraries, which may take significantly more time than expected. You may reload the binary with "auto_load_libs" disabled, or specify "regions" to limit the scope of CFG recovery.
+2024-07-01 11:13:59,766 : Call graph genereted
+2024-07-01 11:13:59,767 : Rule 3
+2024-07-01 11:13:59,769 : Graph distance
+2024-07-01 11:13:59,769 : Function Name: strncpy
+2024-07-01 11:13:59,769 : Function Address: 4198528
+2024-07-01 11:13:59,769 : Function Type: (char*, char*, unsigned long (64 bits)) -> char*
+2024-07-01 11:13:59,769 : Distance: inf
+2024-07-01 11:13:59,769 : Values: [None]
+2024-07-01 11:13:59,769 : Symbolic parameters: [None]
+2024-07-01 11:13:59,769 : Function Name: strlen
+2024-07-01 11:13:59,769 : Function Address: 4198544
+2024-07-01 11:13:59,769 : Function Type: (char*) -> unsigned long (64 bits)
+2024-07-01 11:13:59,769 : Distance: inf
+2024-07-01 11:13:59,769 : Values: [None]
+2024-07-01 11:13:59,769 : Symbolic parameters: [None]
+2024-07-01 11:13:59,769 : Function Name: __stack_chk_fail
+2024-07-01 11:13:59,769 : Function Address: 4198560
+2024-07-01 11:13:59,769 : Function Type: () -> void
+2024-07-01 11:13:59,769 : Distance: inf
+2024-07-01 11:13:59,769 : Values: [None]
+2024-07-01 11:13:59,769 : Symbolic parameters: [None]
+2024-07-01 11:13:59,769 : Function Name: malloc
+2024-07-01 11:13:59,769 : Function Address: 4198576
+2024-07-01 11:13:59,769 : Function Type: (unsigned long (64 bits)) -> void*
+2024-07-01 11:13:59,769 : Distance: 0
+2024-07-01 11:13:59,769 : Values: [None]
+2024-07-01 11:13:59,769 : Symbolic parameters: [None]
+2024-07-01 11:13:59,769 : Function Name: _start
+2024-07-01 11:13:59,769 : Function Address: 4198592
+2024-07-01 11:13:59,769 : Function Type: () -> long long (64 bits)
+2024-07-01 11:13:59,769 : Distance: inf
+2024-07-01 11:13:59,769 : Values: [None]
+2024-07-01 11:13:59,769 : Symbolic parameters: [None]
+2024-07-01 11:13:59,769 : Function Name: vuln
+2024-07-01 11:13:59,769 : Function Address: 4198825
+2024-07-01 11:13:59,769 : Function Type: (long long (64 bits), long long (64 bits)) -> int (32 bits)
+2024-07-01 11:13:59,769 : Distance: 1
+2024-07-01 11:13:59,769 : Values: [None]
+2024-07-01 11:13:59,769 : Symbolic parameters: [None]
+2024-07-01 11:13:59,769 : Function Name: cncp
+2024-07-01 11:13:59,770 : Function Address: 4198888
+2024-07-01 11:13:59,770 : Function Type: (long long (64 bits)) -> int (32 bits)
+2024-07-01 11:13:59,770 : Distance: 2
+2024-07-01 11:13:59,770 : Values: [None]
+2024-07-01 11:13:59,770 : Symbolic parameters: [None]
+2024-07-01 11:13:59,770 : Function Name: test
+2024-07-01 11:13:59,770 : Function Address: 4198982
+2024-07-01 11:13:59,770 : Function Type: (long long (64 bits)) -> int (32 bits)
+2024-07-01 11:13:59,770 : Distance: inf
+2024-07-01 11:13:59,770 : Values: [None]
+2024-07-01 11:13:59,770 : Symbolic parameters: [None]
+2024-07-01 11:13:59,770 : Function Name: main
+2024-07-01 11:13:59,770 : Function Address: 4199087
+2024-07-01 11:13:59,770 : Function Type: (int (32 bits), long long (64 bits)) -> int (32 bits)
+2024-07-01 11:13:59,770 : Distance: 3
+2024-07-01 11:13:59,770 : Values: [None]
+2024-07-01 11:13:59,770 : Symbolic parameters: [None]
+2024-07-01 11:13:59,896 : The program is accessing register with an unspecified value. This could indicate unwanted behavior.
+2024-07-01 11:13:59,896 : angr will cope with this by generating an unconstrained symbolic variable and continuing. You can resolve this by:
+2024-07-01 11:13:59,896 : 1) setting a value to the initial state
+2024-07-01 11:13:59,896 : 2) adding the state option ZERO_FILL_UNCONSTRAINED_{MEMORY,REGISTERS}, to make unknown regions hold null
+2024-07-01 11:13:59,896 : 3) adding the state option SYMBOL_FILL_UNCONSTRAINED_{MEMORY,REGISTERS}, to suppress these messages.
+2024-07-01 11:13:59,896 : Filling register rax with 8 unconstrained bytes referenced from 0x4010b0 (PLT.malloc+0x0 in itasec (0x10b0))
+2024-07-01 11:13:59,908 : Filling register rax with 8 unconstrained bytes referenced from 0x401080 (PLT.strncpy+0x0 in itasec (0x1080))
+2024-07-01 11:13:59,913 : Filling register rbp with 8 unconstrained bytes referenced from 0x4011ad (vuln+0x4 in itasec (0x11ad))
+2024-07-01 11:13:59,916 : Function Name: malloc
+2024-07-01 11:13:59,916 : Function Address: 4198576
+2024-07-01 11:13:59,916 : Function Type: (unsigned long (64 bits)) -> void*
+2024-07-01 11:13:59,916 : Distance: inf
+2024-07-01 11:13:59,916 : Values: [None]
+2024-07-01 11:13:59,916 : Symbolic parameters: [None]
+2024-07-01 11:15:07,297 : Test genereted: [['wgwBcWZzMwTDWkfdJsy2xoNk7yLwKabQ'], ['vRkCsLrc1TWiZ0rl6rlQnuddC2MJXnoX'], ['eg8iyDglYC47qQUTAKDw9ZRw5fFLSxLT'], ['SmekRtusNgwRafUL']]
+2024-07-01 11:15:07,476 : Binary file: test/itasec
+2024-07-01 11:15:08,779 : "auto_load_libs" is enabled. With libraries loaded in project, CFG will cover libraries, which may take significantly more time than expected. You may reload the binary with "auto_load_libs" disabled, or specify "regions" to limit the scope of CFG recovery.
+2024-07-01 11:15:09,153 : Call graph genereted
+2024-07-01 11:15:09,153 : Rule 3
+2024-07-01 11:15:09,155 : Graph distance
+2024-07-01 11:15:09,155 : Function Name: strncpy
+2024-07-01 11:15:09,155 : Function Address: 4198528
+2024-07-01 11:15:09,155 : Function Type: (char*, char*, unsigned long (64 bits)) -> char*
+2024-07-01 11:15:09,155 : Distance: inf
+2024-07-01 11:15:09,155 : Values: [None]
+2024-07-01 11:15:09,155 : Symbolic parameters: [None]
+2024-07-01 11:15:09,155 : Function Name: strlen
+2024-07-01 11:15:09,155 : Function Address: 4198544
+2024-07-01 11:15:09,155 : Function Type: (char*) -> unsigned long (64 bits)
+2024-07-01 11:15:09,155 : Distance: inf
+2024-07-01 11:15:09,155 : Values: [None]
+2024-07-01 11:15:09,155 : Symbolic parameters: [None]
+2024-07-01 11:15:09,155 : Function Name: __stack_chk_fail
+2024-07-01 11:15:09,156 : Function Address: 4198560
+2024-07-01 11:15:09,156 : Function Type: () -> void
+2024-07-01 11:15:09,156 : Distance: inf
+2024-07-01 11:15:09,156 : Values: [None]
+2024-07-01 11:15:09,156 : Symbolic parameters: [None]
+2024-07-01 11:15:09,156 : Function Name: malloc
+2024-07-01 11:15:09,156 : Function Address: 4198576
+2024-07-01 11:15:09,156 : Function Type: (unsigned long (64 bits)) -> void*
+2024-07-01 11:15:09,156 : Distance: 0
+2024-07-01 11:15:09,156 : Values: [None]
+2024-07-01 11:15:09,156 : Symbolic parameters: [None]
+2024-07-01 11:15:09,156 : Function Name: _start
+2024-07-01 11:15:09,156 : Function Address: 4198592
+2024-07-01 11:15:09,156 : Function Type: () -> long long (64 bits)
+2024-07-01 11:15:09,156 : Distance: inf
+2024-07-01 11:15:09,156 : Values: [None]
+2024-07-01 11:15:09,156 : Symbolic parameters: [None]
+2024-07-01 11:15:09,156 : Function Name: vuln
+2024-07-01 11:15:09,156 : Function Address: 4198825
+2024-07-01 11:15:09,156 : Function Type: (long long (64 bits), long long (64 bits)) -> int (32 bits)
+2024-07-01 11:15:09,156 : Distance: 1
+2024-07-01 11:15:09,156 : Values: [None]
+2024-07-01 11:15:09,156 : Symbolic parameters: [None]
+2024-07-01 11:15:09,156 : Function Name: cncp
+2024-07-01 11:15:09,156 : Function Address: 4198888
+2024-07-01 11:15:09,156 : Function Type: (long long (64 bits)) -> int (32 bits)
+2024-07-01 11:15:09,156 : Distance: 2
+2024-07-01 11:15:09,156 : Values: [None]
+2024-07-01 11:15:09,156 : Symbolic parameters: [None]
+2024-07-01 11:15:09,156 : Function Name: test
+2024-07-01 11:15:09,156 : Function Address: 4198982
+2024-07-01 11:15:09,156 : Function Type: (long long (64 bits)) -> int (32 bits)
+2024-07-01 11:15:09,156 : Distance: inf
+2024-07-01 11:15:09,156 : Values: [None]
+2024-07-01 11:15:09,156 : Symbolic parameters: [None]
+2024-07-01 11:15:09,156 : Function Name: main
+2024-07-01 11:15:09,156 : Function Address: 4199087
+2024-07-01 11:15:09,156 : Function Type: (int (32 bits), long long (64 bits)) -> int (32 bits)
+2024-07-01 11:15:09,156 : Distance: 3
+2024-07-01 11:15:09,156 : Values: [None]
+2024-07-01 11:15:09,156 : Symbolic parameters: [None]
+2024-07-01 11:15:09,276 : The program is accessing register with an unspecified value. This could indicate unwanted behavior.
+2024-07-01 11:15:09,276 : angr will cope with this by generating an unconstrained symbolic variable and continuing. You can resolve this by:
+2024-07-01 11:15:09,276 : 1) setting a value to the initial state
+2024-07-01 11:15:09,276 : 2) adding the state option ZERO_FILL_UNCONSTRAINED_{MEMORY,REGISTERS}, to make unknown regions hold null
+2024-07-01 11:15:09,276 : 3) adding the state option SYMBOL_FILL_UNCONSTRAINED_{MEMORY,REGISTERS}, to suppress these messages.
+2024-07-01 11:15:09,276 : Filling register rax with 8 unconstrained bytes referenced from 0x4010b0 (PLT.malloc+0x0 in itasec (0x10b0))
+2024-07-01 11:15:09,287 : Filling register rax with 8 unconstrained bytes referenced from 0x401080 (PLT.strncpy+0x0 in itasec (0x1080))
+2024-07-01 11:15:09,292 : Filling register rbp with 8 unconstrained bytes referenced from 0x4011ad (vuln+0x4 in itasec (0x11ad))
+2024-07-01 11:15:09,295 : Function Name: malloc
+2024-07-01 11:15:09,295 : Function Address: 4198576
+2024-07-01 11:15:09,295 : Function Type: (unsigned long (64 bits)) -> void*
+2024-07-01 11:15:09,295 : Distance: inf
+2024-07-01 11:15:09,295 : Values: [None]
+2024-07-01 11:15:09,295 : Symbolic parameters: [None]
+2024-07-01 11:17:08,945 : Test genereted: [['R9irFxoqVQo03eMc'], ['j7Uqxf57dvNplUCwmZyiUDnungjYwj0ZvI0tqAfxhJJp9uqvUKcRuyilvKwVwSBzBFm6kjEbCOW6foSTXhwjMZUVMfAk08zaXGK1u5Tm75rnEGeQN7fOYhp2HQS3SUpF3nEs7sbszzQgBYWyiciE6mZntP0VYBtOFLx4nqVG9boyw3YUCjAuT62EuCysAJf2AtLJZ5s4pO4giyGl6anzJfQZqmCAwQOVIwy5nnjK8wfYWgEnADKMHCzuOPVzuxh3AQCvW7cgHtAYVxRWvJGR0fA8scMKbCR3a89nDwGTsAwqCVpfYp1Xs2HaL70NIuaAjZNjIruxdenoVjKxevmXeYdraLvwDL4Gh0d1z9kuZgS7A2572jLklONkXoHnCZpLvQONZPi5fDr4V6hGvhbJOsEcQuShEVeBoVOzUf4PEu7mfBucJ42m1HUnA3DwJhJjuSbD0E4nDZjCA5CTiADnS1a4SUL2DBRXGs8Telx4GooyGeERSnTucjlHHSdme7aY0ixaEe6YKTTJt8'], ['smMIgomlGvylXW1zqEFRZPUIexHeuf9jwIW2jgoS1ncCK9jwuSqaTeU2slFT3t8y'], ['hRbbrcJzTjqYF2VL']]
+2024-07-01 11:17:09,122 : Binary file: test/itasec
+2024-07-01 11:17:10,420 : "auto_load_libs" is enabled. With libraries loaded in project, CFG will cover libraries, which may take significantly more time than expected. You may reload the binary with "auto_load_libs" disabled, or specify "regions" to limit the scope of CFG recovery.
+2024-07-01 11:17:10,818 : Call graph genereted
+2024-07-01 11:17:10,819 : Rule 3
+2024-07-01 11:17:10,822 : Graph distance
+2024-07-01 11:17:10,822 : Function Name: strncpy
+2024-07-01 11:17:10,822 : Function Address: 4198528
+2024-07-01 11:17:10,822 : Function Type: (char*, char*, unsigned long (64 bits)) -> char*
+2024-07-01 11:17:10,822 : Distance: inf
+2024-07-01 11:17:10,822 : Values: [None]
+2024-07-01 11:17:10,822 : Symbolic parameters: [None]
+2024-07-01 11:17:10,822 : Function Name: strlen
+2024-07-01 11:17:10,822 : Function Address: 4198544
+2024-07-01 11:17:10,822 : Function Type: (char*) -> unsigned long (64 bits)
+2024-07-01 11:17:10,822 : Distance: inf
+2024-07-01 11:17:10,822 : Values: [None]
+2024-07-01 11:17:10,822 : Symbolic parameters: [None]
+2024-07-01 11:17:10,822 : Function Name: __stack_chk_fail
+2024-07-01 11:17:10,822 : Function Address: 4198560
+2024-07-01 11:17:10,822 : Function Type: () -> void
+2024-07-01 11:17:10,822 : Distance: inf
+2024-07-01 11:17:10,822 : Values: [None]
+2024-07-01 11:17:10,822 : Symbolic parameters: [None]
+2024-07-01 11:17:10,822 : Function Name: malloc
+2024-07-01 11:17:10,822 : Function Address: 4198576
+2024-07-01 11:17:10,822 : Function Type: (unsigned long (64 bits)) -> void*
+2024-07-01 11:17:10,823 : Distance: 0
+2024-07-01 11:17:10,823 : Values: [None]
+2024-07-01 11:17:10,823 : Symbolic parameters: [None]
+2024-07-01 11:17:10,823 : Function Name: _start
+2024-07-01 11:17:10,823 : Function Address: 4198592
+2024-07-01 11:17:10,823 : Function Type: () -> long long (64 bits)
+2024-07-01 11:17:10,823 : Distance: inf
+2024-07-01 11:17:10,823 : Values: [None]
+2024-07-01 11:17:10,823 : Symbolic parameters: [None]
+2024-07-01 11:17:10,823 : Function Name: vuln
+2024-07-01 11:17:10,823 : Function Address: 4198825
+2024-07-01 11:17:10,823 : Function Type: (long long (64 bits), long long (64 bits)) -> int (32 bits)
+2024-07-01 11:17:10,823 : Distance: 1
+2024-07-01 11:17:10,823 : Values: [None]
+2024-07-01 11:17:10,823 : Symbolic parameters: [None]
+2024-07-01 11:17:10,823 : Function Name: cncp
+2024-07-01 11:17:10,823 : Function Address: 4198888
+2024-07-01 11:17:10,823 : Function Type: (long long (64 bits)) -> int (32 bits)
+2024-07-01 11:17:10,823 : Distance: 2
+2024-07-01 11:17:10,823 : Values: [None]
+2024-07-01 11:17:10,823 : Symbolic parameters: [None]
+2024-07-01 11:17:10,823 : Function Name: test
+2024-07-01 11:17:10,823 : Function Address: 4198982
+2024-07-01 11:17:10,823 : Function Type: (long long (64 bits)) -> int (32 bits)
+2024-07-01 11:17:10,823 : Distance: inf
+2024-07-01 11:17:10,823 : Values: [None]
+2024-07-01 11:17:10,823 : Symbolic parameters: [None]
+2024-07-01 11:17:10,823 : Function Name: main
+2024-07-01 11:17:10,823 : Function Address: 4199087
+2024-07-01 11:17:10,823 : Function Type: (int (32 bits), long long (64 bits)) -> int (32 bits)
+2024-07-01 11:17:10,823 : Distance: 3
+2024-07-01 11:17:10,823 : Values: [None]
+2024-07-01 11:17:10,823 : Symbolic parameters: [None]
+2024-07-01 11:17:10,943 : The program is accessing register with an unspecified value. This could indicate unwanted behavior.
+2024-07-01 11:17:10,943 : angr will cope with this by generating an unconstrained symbolic variable and continuing. You can resolve this by:
+2024-07-01 11:17:10,943 : 1) setting a value to the initial state
+2024-07-01 11:17:10,943 : 2) adding the state option ZERO_FILL_UNCONSTRAINED_{MEMORY,REGISTERS}, to make unknown regions hold null
+2024-07-01 11:17:10,943 : 3) adding the state option SYMBOL_FILL_UNCONSTRAINED_{MEMORY,REGISTERS}, to suppress these messages.
+2024-07-01 11:17:10,943 : Filling register rax with 8 unconstrained bytes referenced from 0x4010b0 (PLT.malloc+0x0 in itasec (0x10b0))
+2024-07-01 11:17:10,954 : Filling register rax with 8 unconstrained bytes referenced from 0x401080 (PLT.strncpy+0x0 in itasec (0x1080))
+2024-07-01 11:17:10,959 : Filling register rbp with 8 unconstrained bytes referenced from 0x4011ad (vuln+0x4 in itasec (0x11ad))
+2024-07-01 11:17:10,962 : Function Name: malloc
+2024-07-01 11:17:10,962 : Function Address: 4198576
+2024-07-01 11:17:10,962 : Function Type: (unsigned long (64 bits)) -> void*
+2024-07-01 11:17:10,962 : Distance: inf
+2024-07-01 11:17:10,962 : Values: [None]
+2024-07-01 11:17:10,962 : Symbolic parameters: [None]
+2024-07-01 11:17:19,217 : Test genereted: [['KJEIjmKjrR5QWlLYA3uCV5Y06Qw2FQWiK75UEi4AmkVc4gTzCcu1MkkzwjwnxT3GmxH4mruxWSl9w0NH5QivliwvqL6Uie88qPTFF6mqt7w0zEu21vyCESApYSmGUoUBj9CIwY6H5gAASRc3VxrCuSc5fZi0X3N5K0vmwmg8wVFKFYO3T9T5FFx4mAP6uHqrJmWRDA5oWaSmAq3kqMlLcwmozz8TOmhijAWHUWK7rS2t2z3hcSoBfIsKXUWQqe7ZJeRocMsfi4BekFyoOdrg3asxYEdKWKs5GesbxwfUWWRFcEJtJUnY6V3sWvguMTDJJQtzdkcpP6r0JlyGmepbcpmsAl8lzZa8C68W4CEtzYWEck9nkJgRiSoZbZ8XYOScl1hgj5fzsqiVigrcyonPuJge8DabzF2v0EcvhmoU4ox4VFLQIHmdfjtN1Y55skYFN2083eAx9Vir3AWvGoJr6QEvWoZnEpI9Xgr7KpYP34PPuZvoe006Sov9HVuzXifgDGOKe55TXbQPkN'], ['LLrZKCf7EBGxL9vVJTVUAEBZOzFp6ph8ZFSmGVGNLRZNkIysUnw4FbzlgeEXsaFHAw0Mocj8bq81wllviFygGkNMAS3FV6JV4d2mCEPybGzNGG3h3nFKIqkBqELwT1K1ARNnHCf5fsI7f8Jw90mhqRHC6De8LkPErXOnfC5fZ6WfoWeeK1F270sJkGYoISD2YdY7qINWuepBsJQ6mOhokKNZUCFbvuB6WotLZrVht9KghAj3g93y4zQJ7xFf09AVafPoaGlc'], ['nWlePaMGEQK0Q8z1'], ['72acMeHX']]
+2024-07-01 11:17:19,391 : Binary file: test/itasec
+2024-07-01 11:17:20,702 : "auto_load_libs" is enabled. With libraries loaded in project, CFG will cover libraries, which may take significantly more time than expected. You may reload the binary with "auto_load_libs" disabled, or specify "regions" to limit the scope of CFG recovery.
+2024-07-01 11:17:21,083 : Call graph genereted
+2024-07-01 11:17:21,084 : Rule 3
+2024-07-01 11:17:21,086 : Graph distance
+2024-07-01 11:17:21,086 : Function Name: strncpy
+2024-07-01 11:17:21,086 : Function Address: 4198528
+2024-07-01 11:17:21,086 : Function Type: (char*, char*, unsigned long (64 bits)) -> char*
+2024-07-01 11:17:21,086 : Distance: inf
+2024-07-01 11:17:21,086 : Values: [None]
+2024-07-01 11:17:21,086 : Symbolic parameters: [None]
+2024-07-01 11:17:21,086 : Function Name: strlen
+2024-07-01 11:17:21,086 : Function Address: 4198544
+2024-07-01 11:17:21,086 : Function Type: (char*) -> unsigned long (64 bits)
+2024-07-01 11:17:21,086 : Distance: inf
+2024-07-01 11:17:21,086 : Values: [None]
+2024-07-01 11:17:21,086 : Symbolic parameters: [None]
+2024-07-01 11:17:21,086 : Function Name: __stack_chk_fail
+2024-07-01 11:17:21,086 : Function Address: 4198560
+2024-07-01 11:17:21,086 : Function Type: () -> void
+2024-07-01 11:17:21,086 : Distance: inf
+2024-07-01 11:17:21,086 : Values: [None]
+2024-07-01 11:17:21,086 : Symbolic parameters: [None]
+2024-07-01 11:17:21,086 : Function Name: malloc
+2024-07-01 11:17:21,086 : Function Address: 4198576
+2024-07-01 11:17:21,086 : Function Type: (unsigned long (64 bits)) -> void*
+2024-07-01 11:17:21,086 : Distance: 0
+2024-07-01 11:17:21,086 : Values: [None]
+2024-07-01 11:17:21,086 : Symbolic parameters: [None]
+2024-07-01 11:17:21,086 : Function Name: _start
+2024-07-01 11:17:21,086 : Function Address: 4198592
+2024-07-01 11:17:21,086 : Function Type: () -> long long (64 bits)
+2024-07-01 11:17:21,086 : Distance: inf
+2024-07-01 11:17:21,086 : Values: [None]
+2024-07-01 11:17:21,086 : Symbolic parameters: [None]
+2024-07-01 11:17:21,086 : Function Name: vuln
+2024-07-01 11:17:21,086 : Function Address: 4198825
+2024-07-01 11:17:21,087 : Function Type: (long long (64 bits), long long (64 bits)) -> int (32 bits)
+2024-07-01 11:17:21,087 : Distance: 1
+2024-07-01 11:17:21,087 : Values: [None]
+2024-07-01 11:17:21,087 : Symbolic parameters: [None]
+2024-07-01 11:17:21,087 : Function Name: cncp
+2024-07-01 11:17:21,087 : Function Address: 4198888
+2024-07-01 11:17:21,087 : Function Type: (long long (64 bits)) -> int (32 bits)
+2024-07-01 11:17:21,087 : Distance: 2
+2024-07-01 11:17:21,087 : Values: [None]
+2024-07-01 11:17:21,087 : Symbolic parameters: [None]
+2024-07-01 11:17:21,087 : Function Name: test
+2024-07-01 11:17:21,087 : Function Address: 4198982
+2024-07-01 11:17:21,087 : Function Type: (long long (64 bits)) -> int (32 bits)
+2024-07-01 11:17:21,087 : Distance: inf
+2024-07-01 11:17:21,087 : Values: [None]
+2024-07-01 11:17:21,087 : Symbolic parameters: [None]
+2024-07-01 11:17:21,087 : Function Name: main
+2024-07-01 11:17:21,087 : Function Address: 4199087
+2024-07-01 11:17:21,087 : Function Type: (int (32 bits), long long (64 bits)) -> int (32 bits)
+2024-07-01 11:17:21,087 : Distance: 3
+2024-07-01 11:17:21,087 : Values: [None]
+2024-07-01 11:17:21,087 : Symbolic parameters: [None]
+2024-07-01 11:17:21,222 : The program is accessing register with an unspecified value. This could indicate unwanted behavior.
+2024-07-01 11:17:21,222 : angr will cope with this by generating an unconstrained symbolic variable and continuing. You can resolve this by:
+2024-07-01 11:17:21,222 : 1) setting a value to the initial state
+2024-07-01 11:17:21,222 : 2) adding the state option ZERO_FILL_UNCONSTRAINED_{MEMORY,REGISTERS}, to make unknown regions hold null
+2024-07-01 11:17:21,222 : 3) adding the state option SYMBOL_FILL_UNCONSTRAINED_{MEMORY,REGISTERS}, to suppress these messages.
+2024-07-01 11:17:21,223 : Filling register rbp with 8 unconstrained bytes referenced from 0x4011ad (vuln+0x4 in itasec (0x11ad))
+2024-07-01 11:17:21,325 : Filling register rbp with 8 unconstrained bytes referenced from 0x4011ec (cncp+0x4 in itasec (0x11ec))
+2024-07-01 11:17:21,331 : Filling memory at 0x7ffffffffff0000 with 121 unconstrained bytes referenced from 0x5a86a0 (strlen+0x0 in libc.so.6 (0xa86a0))
+2024-07-01 11:17:21,510 : Values calculated
+2024-07-01 11:17:21,510 : Function Name: malloc
+2024-07-01 11:17:21,510 : Function Address: 4198576
+2024-07-01 11:17:21,510 : Function Type: (unsigned long (64 bits)) -> void*
+2024-07-01 11:17:21,510 : Distance: 0
+2024-07-01 11:17:21,510 : Values: [None]
+2024-07-01 11:17:21,510 : Symbolic parameters: [None]
+2024-07-01 11:17:21,510 : Function Name: vuln
+2024-07-01 11:17:21,510 : Function Address: 4198825
+2024-07-01 11:17:21,510 : Function Type: (long long (64 bits), long long (64 bits)) -> int (32 bits)
+2024-07-01 11:17:21,510 : Distance: 1
+2024-07-01 11:17:21,510 : Values: [["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x06'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x06'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x06'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x0e'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x0e'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x0e'"]]
+2024-07-01 11:17:21,510 : Symbolic parameters: [None]
+2024-07-01 11:17:21,510 : Function Name: cncp
+2024-07-01 11:17:21,510 : Function Address: 4198888
+2024-07-01 11:17:21,510 : Function Type: (long long (64 bits)) -> int (32 bits)
+2024-07-01 11:17:21,510 : Distance: 2
+2024-07-01 11:17:21,510 : Values: [["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'"], ["b'\\x01\\x01@ \\x01@\\x04\\x02'"], ["b'\\x01\\t@ \\x01@\\x04\\x02'"], ["b'\\x01\\x01\\x01\\x01\\x01\\x01\\x01\\x01'"]]
+2024-07-01 11:17:21,510 : Symbolic parameters: [None]
+2024-07-01 11:17:21,510 : Function Name: main
+2024-07-01 11:17:21,511 : Function Address: 4199087
+2024-07-01 11:17:21,511 : Function Type: (int (32 bits), long long (64 bits)) -> int (32 bits)
+2024-07-01 11:17:21,511 : Distance: 3
+2024-07-01 11:17:21,511 : Values: [["b'\\x00\\x00\\x00\\x00'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'"], ["b'\\x00\\x00\\x00\\x02'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02'"], ["b'\\x00\\x00\\x00\\x06'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x06'"], ["b'\\x00\\x00\\x00\\x0e'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x0e'"]]
+2024-07-01 11:17:21,511 : Symbolic parameters: [None]
+2024-07-01 11:17:21,511 : Function Name: strncpy
+2024-07-01 11:17:21,511 : Function Address: 4198528
+2024-07-01 11:17:21,511 : Function Type: (char*, char*, unsigned long (64 bits)) -> char*
+2024-07-01 11:17:21,511 : Distance: inf
+2024-07-01 11:17:21,511 : Values: [None]
+2024-07-01 11:17:21,511 : Symbolic parameters: [None]
+2024-07-01 11:17:21,511 : Function Name: malloc
+2024-07-01 11:17:21,511 : Function Address: 4198576
+2024-07-01 11:17:21,511 : Function Type: (unsigned long (64 bits)) -> void*
+2024-07-01 11:17:21,511 : Distance: 0
+2024-07-01 11:17:21,511 : Values: [None]
+2024-07-01 11:17:21,511 : Symbolic parameters: [None]
+2024-07-01 11:17:21,568 : {'type': 'send', 'payload': {'function': 'main', 'args': [2, '\x0bb�-�\x7f']}}
+2024-07-01 11:17:21,568 : {'type': 'send', 'payload': {'function': 'cncp', 'args': ['KJEIjmKjrR5QWlLYA3uCV5Y06Qw2FQWiK75UEi4AmkVc4gTzCcu1MkkzwjwnxT3GmxH4mruxWSl9w0NH5QivliwvqL6Uie88qPTFF6mqt7w0zEu21vyCESApYSmGUoUBj9CIwY6H5gAASRc3VxrCuSc5fZi0X3N5K0vmwmg8wVFKFYO3T9T5FFx4mAP6uHqrJmWRDA5oWaSmAq3kqMlLcwmozz8TOmhijAWHUWK7rS2t2z3hcSoBfIsKXUWQqe7ZJeRocMsfi4BekFyoOdrg3asxYEdKWKs5GesbxwfUWWRFcEJtJUnY6V3sWvguMTDJJQtzdkcpP6r0JlyGmepbcpmsAl8lzZa8C68W4CEtzYWEck9nkJgRiSoZbZ8XYOScl1hgj5fzsqiVigrcyonPuJge8DabzF2v0EcvhmoU4ox4VFLQIHmdfjtN1Y55skYFN2083eAx9Vir3AWvGoJr6QEvWoZnEpI9Xgr7KpYP34PPuZvoe006Sov9HVuzXifgDGOKe55TXbQPkN']}}
+2024-07-01 11:17:21,568 : {'type': 'send', 'payload': {'function': 'strlen', 'args': ['KJEIjmKjrR5QWlLYA3uCV5Y06Qw2FQWiK75UEi4AmkVc4gTzCcu1MkkzwjwnxT3GmxH4mruxWSl9w0NH5QivliwvqL6Uie88qPTFF6mqt7w0zEu21vyCESApYSmGUoUBj9CIwY6H5gAASRc3VxrCuSc5fZi0X3N5K0vmwmg8wVFKFYO3T9T5FFx4mAP6uHqrJmWRDA5oWaSmAq3kqMlLcwmozz8TOmhijAWHUWK7rS2t2z3hcSoBfIsKXUWQqe7ZJeRocMsfi4BekFyoOdrg3asxYEdKWKs5GesbxwfUWWRFcEJtJUnY6V3sWvguMTDJJQtzdkcpP6r0JlyGmepbcpmsAl8lzZa8C68W4CEtzYWEck9nkJgRiSoZbZ8XYOScl1hgj5fzsqiVigrcyonPuJge8DabzF2v0EcvhmoU4ox4VFLQIHmdfjtN1Y55skYFN2083eAx9Vir3AWvGoJr6QEvWoZnEpI9Xgr7KpYP34PPuZvoe006Sov9HVuzXifgDGOKe55TXbQPkN']}}
+2024-07-01 11:17:21,569 : {'type': 'send', 'payload': {'function': 'strlen', 'ret': '0x20e'}}
+2024-07-01 11:17:21,569 : {'type': 'send', 'payload': {'function': 'cncp', 'ret': '0x62a580953004'}}
+2024-07-01 11:17:21,569 : {'type': 'send', 'payload': {'function': 'test', 'args': ['']}}
+2024-07-01 11:17:21,569 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', '', 1]}}
+2024-07-01 11:17:21,569 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x7fff2d8d47f7'}}
+2024-07-01 11:17:21,569 : {'type': 'send', 'payload': {'function': 'test', 'ret': '0x0'}}
+2024-07-01 11:17:21,569 : {'type': 'send', 'payload': {'function': 'main', 'ret': '0x0'}}
+2024-07-01 11:17:22,069 : Trace function calls
+2024-07-01 11:17:22,110 : {'type': 'send', 'payload': {'function': 'main', 'args': [2, '\x11\x03�H�\x7f']}}
+2024-07-01 11:17:22,110 : {'type': 'send', 'payload': {'function': 'cncp', 'args': ['LLrZKCf7EBGxL9vVJTVUAEBZOzFp6ph8ZFSmGVGNLRZNkIysUnw4FbzlgeEXsaFHAw0Mocj8bq81wllviFygGkNMAS3FV6JV4d2mCEPybGzNGG3h3nFKIqkBqELwT1K1ARNnHCf5fsI7f8Jw90mhqRHC6De8LkPErXOnfC5fZ6WfoWeeK1F270sJkGYoISD2YdY7qINWuepBsJQ6mOhokKNZUCFbvuB6WotLZrVht9KghAj3g93y4zQJ7xFf09AVafPoaGlc']}}
+2024-07-01 11:17:22,110 : {'type': 'send', 'payload': {'function': 'strlen', 'args': ['LLrZKCf7EBGxL9vVJTVUAEBZOzFp6ph8ZFSmGVGNLRZNkIysUnw4FbzlgeEXsaFHAw0Mocj8bq81wllviFygGkNMAS3FV6JV4d2mCEPybGzNGG3h3nFKIqkBqELwT1K1ARNnHCf5fsI7f8Jw90mhqRHC6De8LkPErXOnfC5fZ6WfoWeeK1F270sJkGYoISD2YdY7qINWuepBsJQ6mOhokKNZUCFbvuB6WotLZrVht9KghAj3g93y4zQJ7xFf09AVafPoaGlc']}}
+2024-07-01 11:17:22,110 : {'type': 'send', 'payload': {'function': 'strlen', 'ret': '0x108'}}
+2024-07-01 11:17:22,110 : {'type': 'send', 'payload': {'function': 'cncp', 'ret': '0x64387e5be004'}}
+2024-07-01 11:17:22,110 : {'type': 'send', 'payload': {'function': 'test', 'args': ['']}}
+2024-07-01 11:17:22,110 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', '', 1]}}
+2024-07-01 11:17:22,111 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x7ffc48c4fdb7'}}
+2024-07-01 11:17:22,111 : {'type': 'send', 'payload': {'function': 'test', 'ret': '0x0'}}
+2024-07-01 11:17:22,111 : {'type': 'send', 'payload': {'function': 'main', 'ret': '0x0'}}
+2024-07-01 11:17:22,611 : Trace function calls
+2024-07-01 11:17:22,653 : {'type': 'send', 'payload': {'function': 'main', 'args': [2, '\tT�\x1a�\x7f']}}
+2024-07-01 11:17:22,653 : {'type': 'send', 'payload': {'function': 'cncp', 'args': ['nWlePaMGEQK0Q8z1']}}
+2024-07-01 11:17:22,653 : {'type': 'send', 'payload': {'function': 'strlen', 'args': ['nWlePaMGEQK0Q8z1']}}
+2024-07-01 11:17:22,653 : {'type': 'send', 'payload': {'function': 'strlen', 'ret': '0x10'}}
+2024-07-01 11:17:22,653 : {'type': 'send', 'payload': {'function': 'cncp', 'ret': '0x5a664b96f004'}}
+2024-07-01 11:17:22,654 : {'type': 'send', 'payload': {'function': 'test', 'args': ['']}}
+2024-07-01 11:17:22,654 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', '', 1]}}
+2024-07-01 11:17:22,654 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x7ffd1abf3807'}}
+2024-07-01 11:17:22,654 : {'type': 'send', 'payload': {'function': 'test', 'ret': '0x0'}}
+2024-07-01 11:17:22,654 : {'type': 'send', 'payload': {'function': 'main', 'ret': '0x0'}}
+2024-07-01 11:26:15,866 : Test genereted: [['qGefYw9wOOqFVkDkHNHpcgv4jW1fvvwKAE74JPWIoE52ijkpIrTeOQIHteR0sU7mekfWIZsM5b2WTmL1g8J3WhERy3NquzxQTCIJlebDT4mJqRee3jxU1QTyJdK0htub'], ['DRi0zx4B8SgS1lJjm2KqP9aUMU9OiCyf3YHxm7VYdNEr9uu7QQfoFp2EMirxIVoMMQXRGXmshogFVem3DDvcIRULwowHoDY5OrXIwA1ZN6LRNuQXIkQD9shPdFJShFwSp4E4rH5rzTpkIdaUi9hY9PcKIT4lfzbC11L3YPMv9eN6zNx0Odbq5yrWP59umyXheNkPilVSBXlPBR4kc2YcSqhH90uZQjyp0KAQSePqgnLJNHrn7ZOOAxQubDHz4Fg25epPpp06z5Lvaw1FIHbfrTfJu5s3mS67dGQKbK8JXTyVGSIkGTFQwHIW6y4O0RQ8nn9lmcPNskoZuucYTkLoWcVufEDk038xzjzYgU4PEdyewIbGVb5hS225YZfBpYnhtAKp3VA9qgjIZMvsSPYYNr77rXUGV8cGxRyu0UyXER2gGspUaKHim6ee1lQHezKqxItf3oNsqbbb0m8zerxVHucz03rB6ctOmbYDCdfgiibRAWvXSV1M0guZnGFm0YkgwPFX1wDxMAo1op'], ['pE0vLS95Xba5xVv19zdeRDfbvzRVAP6uLCoAjZpt5nPpeSYqtTFpfDwM3Rsblqi5gUK8hRfaaAH2hvL9H4DS1OekRpMFa23Q36Ad59DrfzznNxrxC41wAK89GQIBk1sl'], ['ITsbfcNfFHLhDwIb']]
+2024-07-01 11:26:16,047 : Binary file: test/itasec
+2024-07-01 11:26:17,357 : "auto_load_libs" is enabled. With libraries loaded in project, CFG will cover libraries, which may take significantly more time than expected. You may reload the binary with "auto_load_libs" disabled, or specify "regions" to limit the scope of CFG recovery.
+2024-07-01 11:26:17,751 : Call graph genereted
+2024-07-01 11:26:17,752 : Rule 3
+2024-07-01 11:26:17,754 : Graph distance
+2024-07-01 11:26:17,754 : Function Name: strncpy
+2024-07-01 11:26:17,754 : Function Address: 4198528
+2024-07-01 11:26:17,754 : Function Type: (char*, char*, unsigned long (64 bits)) -> char*
+2024-07-01 11:26:17,754 : Distance: inf
+2024-07-01 11:26:17,754 : Values: [None]
+2024-07-01 11:26:17,754 : Symbolic parameters: [None]
+2024-07-01 11:26:17,754 : Function Name: strlen
+2024-07-01 11:26:17,754 : Function Address: 4198544
+2024-07-01 11:26:17,754 : Function Type: (char*) -> unsigned long (64 bits)
+2024-07-01 11:26:17,754 : Distance: inf
+2024-07-01 11:26:17,754 : Values: [None]
+2024-07-01 11:26:17,754 : Symbolic parameters: [None]
+2024-07-01 11:26:17,754 : Function Name: __stack_chk_fail
+2024-07-01 11:26:17,754 : Function Address: 4198560
+2024-07-01 11:26:17,754 : Function Type: () -> void
+2024-07-01 11:26:17,754 : Distance: inf
+2024-07-01 11:26:17,754 : Values: [None]
+2024-07-01 11:26:17,754 : Symbolic parameters: [None]
+2024-07-01 11:26:17,754 : Function Name: malloc
+2024-07-01 11:26:17,754 : Function Address: 4198576
+2024-07-01 11:26:17,754 : Function Type: (unsigned long (64 bits)) -> void*
+2024-07-01 11:26:17,754 : Distance: 0
+2024-07-01 11:26:17,754 : Values: [None]
+2024-07-01 11:26:17,754 : Symbolic parameters: [None]
+2024-07-01 11:26:17,754 : Function Name: _start
+2024-07-01 11:26:17,754 : Function Address: 4198592
+2024-07-01 11:26:17,754 : Function Type: () -> long long (64 bits)
+2024-07-01 11:26:17,754 : Distance: inf
+2024-07-01 11:26:17,754 : Values: [None]
+2024-07-01 11:26:17,754 : Symbolic parameters: [None]
+2024-07-01 11:26:17,754 : Function Name: vuln
+2024-07-01 11:26:17,754 : Function Address: 4198825
+2024-07-01 11:26:17,754 : Function Type: (long long (64 bits), long long (64 bits)) -> int (32 bits)
+2024-07-01 11:26:17,754 : Distance: 1
+2024-07-01 11:26:17,754 : Values: [None]
+2024-07-01 11:26:17,754 : Symbolic parameters: [None]
+2024-07-01 11:26:17,754 : Function Name: cncp
+2024-07-01 11:26:17,754 : Function Address: 4198888
+2024-07-01 11:26:17,754 : Function Type: (long long (64 bits)) -> int (32 bits)
+2024-07-01 11:26:17,754 : Distance: 2
+2024-07-01 11:26:17,754 : Values: [None]
+2024-07-01 11:26:17,754 : Symbolic parameters: [None]
+2024-07-01 11:26:17,755 : Function Name: test
+2024-07-01 11:26:17,755 : Function Address: 4198982
+2024-07-01 11:26:17,755 : Function Type: (long long (64 bits)) -> int (32 bits)
+2024-07-01 11:26:17,755 : Distance: inf
+2024-07-01 11:26:17,755 : Values: [None]
+2024-07-01 11:26:17,755 : Symbolic parameters: [None]
+2024-07-01 11:26:17,755 : Function Name: main
+2024-07-01 11:26:17,755 : Function Address: 4199087
+2024-07-01 11:26:17,755 : Function Type: (int (32 bits), long long (64 bits)) -> int (32 bits)
+2024-07-01 11:26:17,755 : Distance: 3
+2024-07-01 11:26:17,755 : Values: [None]
+2024-07-01 11:26:17,755 : Symbolic parameters: [None]
+2024-07-01 11:26:17,890 : The program is accessing register with an unspecified value. This could indicate unwanted behavior.
+2024-07-01 11:26:17,891 : angr will cope with this by generating an unconstrained symbolic variable and continuing. You can resolve this by:
+2024-07-01 11:26:17,891 : 1) setting a value to the initial state
+2024-07-01 11:26:17,891 : 2) adding the state option ZERO_FILL_UNCONSTRAINED_{MEMORY,REGISTERS}, to make unknown regions hold null
+2024-07-01 11:26:17,891 : 3) adding the state option SYMBOL_FILL_UNCONSTRAINED_{MEMORY,REGISTERS}, to suppress these messages.
+2024-07-01 11:26:17,891 : Filling register rbp with 8 unconstrained bytes referenced from 0x4011ad (vuln+0x4 in itasec (0x11ad))
+2024-07-01 11:26:17,984 : Filling register rbp with 8 unconstrained bytes referenced from 0x4011ec (cncp+0x4 in itasec (0x11ec))
+2024-07-01 11:26:17,990 : Filling memory at 0x7ffffffffff0000 with 121 unconstrained bytes referenced from 0x5a86a0 (strlen+0x0 in libc.so.6 (0xa86a0))
+2024-07-01 11:26:18,172 : Values calculated
+2024-07-01 11:26:18,172 : Function Name: malloc
+2024-07-01 11:26:18,172 : Function Address: 4198576
+2024-07-01 11:26:18,172 : Function Type: (unsigned long (64 bits)) -> void*
+2024-07-01 11:26:18,172 : Distance: 0
+2024-07-01 11:26:18,173 : Values: [None]
+2024-07-01 11:26:18,173 : Symbolic parameters: [None]
+2024-07-01 11:26:18,173 : Function Name: vuln
+2024-07-01 11:26:18,173 : Function Address: 4198825
+2024-07-01 11:26:18,173 : Function Type: (long long (64 bits), long long (64 bits)) -> int (32 bits)
+2024-07-01 11:26:18,173 : Distance: 1
+2024-07-01 11:26:18,173 : Values: [["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x06'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x06'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x06'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x0e'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x0e'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x0e'"]]
+2024-07-01 11:26:18,173 : Symbolic parameters: [None]
+2024-07-01 11:26:18,173 : Function Name: cncp
+2024-07-01 11:26:18,173 : Function Address: 4198888
+2024-07-01 11:26:18,173 : Function Type: (long long (64 bits)) -> int (32 bits)
+2024-07-01 11:26:18,173 : Distance: 2
+2024-07-01 11:26:18,173 : Values: [["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'"], ["b'\\x01\\x01@ \\x01@\\x04\\x02'"], ["b'\\x01\\t@ \\x01@\\x04\\x02'"], ["b'\\x01\\x01\\x01\\x01\\x01\\x01\\x01\\x01'"]]
+2024-07-01 11:26:18,173 : Symbolic parameters: [None]
+2024-07-01 11:26:18,173 : Function Name: main
+2024-07-01 11:26:18,173 : Function Address: 4199087
+2024-07-01 11:26:18,173 : Function Type: (int (32 bits), long long (64 bits)) -> int (32 bits)
+2024-07-01 11:26:18,173 : Distance: 3
+2024-07-01 11:26:18,173 : Values: [["b'\\x00\\x00\\x00\\x00'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'"], ["b'\\x00\\x00\\x00\\x02'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02'"], ["b'\\x00\\x00\\x00\\x06'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x06'"], ["b'\\x00\\x00\\x00\\x0e'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x0e'"]]
+2024-07-01 11:26:18,173 : Symbolic parameters: [None]
+2024-07-01 11:26:18,173 : Function Name: strncpy
+2024-07-01 11:26:18,173 : Function Address: 4198528
+2024-07-01 11:26:18,173 : Function Type: (char*, char*, unsigned long (64 bits)) -> char*
+2024-07-01 11:26:18,173 : Distance: inf
+2024-07-01 11:26:18,173 : Values: [None]
+2024-07-01 11:26:18,173 : Symbolic parameters: [None]
+2024-07-01 11:26:18,173 : Function Name: malloc
+2024-07-01 11:26:18,173 : Function Address: 4198576
+2024-07-01 11:26:18,173 : Function Type: (unsigned long (64 bits)) -> void*
+2024-07-01 11:26:18,173 : Distance: 0
+2024-07-01 11:26:18,173 : Values: [None]
+2024-07-01 11:26:18,173 : Symbolic parameters: [None]
+2024-07-01 11:26:18,230 : {'type': 'send', 'payload': {'function': 'main', 'args': [2, '�\x13���\x7f']}}
+2024-07-01 11:26:18,230 : {'type': 'send', 'payload': {'function': 'cncp', 'args': ['qGefYw9wOOqFVkDkHNHpcgv4jW1fvvwKAE74JPWIoE52ijkpIrTeOQIHteR0sU7mekfWIZsM5b2WTmL1g8J3WhERy3NquzxQTCIJlebDT4mJqRee3jxU1QTyJdK0htub']}}
+2024-07-01 11:26:18,230 : {'type': 'send', 'payload': {'function': 'strlen', 'args': ['qGefYw9wOOqFVkDkHNHpcgv4jW1fvvwKAE74JPWIoE52ijkpIrTeOQIHteR0sU7mekfWIZsM5b2WTmL1g8J3WhERy3NquzxQTCIJlebDT4mJqRee3jxU1QTyJdK0htub']}}
+2024-07-01 11:26:18,230 : {'type': 'send', 'payload': {'function': 'strlen', 'ret': '0x80'}}
+2024-07-01 11:26:18,230 : {'type': 'send', 'payload': {'function': 'cncp', 'ret': '0x59db88daf004'}}
+2024-07-01 11:26:18,230 : {'type': 'send', 'payload': {'function': 'test', 'args': ['']}}
+2024-07-01 11:26:18,231 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', '', 1]}}
+2024-07-01 11:26:18,231 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x7ffcc0ae0ed7'}}
+2024-07-01 11:26:18,231 : {'type': 'send', 'payload': {'function': 'test', 'ret': '0x0'}}
+2024-07-01 11:26:18,231 : {'type': 'send', 'payload': {'function': 'main', 'ret': '0x0'}}
+2024-07-01 11:26:18,731 : Trace function calls
+2024-07-01 11:26:18,768 : {'type': 'send', 'payload': {'function': 'main', 'args': [2, '\x0brg2�\x7f']}}
+2024-07-01 11:26:18,768 : {'type': 'send', 'payload': {'function': 'cncp', 'args': ['DRi0zx4B8SgS1lJjm2KqP9aUMU9OiCyf3YHxm7VYdNEr9uu7QQfoFp2EMirxIVoMMQXRGXmshogFVem3DDvcIRULwowHoDY5OrXIwA1ZN6LRNuQXIkQD9shPdFJShFwSp4E4rH5rzTpkIdaUi9hY9PcKIT4lfzbC11L3YPMv9eN6zNx0Odbq5yrWP59umyXheNkPilVSBXlPBR4kc2YcSqhH90uZQjyp0KAQSePqgnLJNHrn7ZOOAxQubDHz4Fg25epPpp06z5Lvaw1FIHbfrTfJu5s3mS67dGQKbK8JXTyVGSIkGTFQwHIW6y4O0RQ8nn9lmcPNskoZuucYTkLoWcVufEDk038xzjzYgU4PEdyewIbGVb5hS225YZfBpYnhtAKp3VA9qgjIZMvsSPYYNr77rXUGV8cGxRyu0UyXER2gGspUaKHim6ee1lQHezKqxItf3oNsqbbb0m8zerxVHucz03rB6ctOmbYDCdfgiibRAWvXSV1M0guZnGFm0YkgwPFX1wDxMAo1op']}}
+2024-07-01 11:26:18,768 : {'type': 'send', 'payload': {'function': 'strlen', 'args': ['DRi0zx4B8SgS1lJjm2KqP9aUMU9OiCyf3YHxm7VYdNEr9uu7QQfoFp2EMirxIVoMMQXRGXmshogFVem3DDvcIRULwowHoDY5OrXIwA1ZN6LRNuQXIkQD9shPdFJShFwSp4E4rH5rzTpkIdaUi9hY9PcKIT4lfzbC11L3YPMv9eN6zNx0Odbq5yrWP59umyXheNkPilVSBXlPBR4kc2YcSqhH90uZQjyp0KAQSePqgnLJNHrn7ZOOAxQubDHz4Fg25epPpp06z5Lvaw1FIHbfrTfJu5s3mS67dGQKbK8JXTyVGSIkGTFQwHIW6y4O0RQ8nn9lmcPNskoZuucYTkLoWcVufEDk038xzjzYgU4PEdyewIbGVb5hS225YZfBpYnhtAKp3VA9qgjIZMvsSPYYNr77rXUGV8cGxRyu0UyXER2gGspUaKHim6ee1lQHezKqxItf3oNsqbbb0m8zerxVHucz03rB6ctOmbYDCdfgiibRAWvXSV1M0guZnGFm0YkgwPFX1wDxMAo1op']}}
+2024-07-01 11:26:18,769 : {'type': 'send', 'payload': {'function': 'strlen', 'ret': '0x20e'}}
+2024-07-01 11:26:18,769 : {'type': 'send', 'payload': {'function': 'cncp', 'ret': '0x598eff20f004'}}
+2024-07-01 11:26:18,769 : {'type': 'send', 'payload': {'function': 'test', 'args': ['']}}
+2024-07-01 11:26:18,769 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', '', 1]}}
+2024-07-01 11:26:18,769 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x7ffc32675ed7'}}
+2024-07-01 11:26:18,769 : {'type': 'send', 'payload': {'function': 'test', 'ret': '0x0'}}
+2024-07-01 11:26:18,769 : {'type': 'send', 'payload': {'function': 'main', 'ret': '0x0'}}
+2024-07-01 11:26:19,269 : Trace function calls
+2024-07-01 11:26:19,304 : {'type': 'send', 'payload': {'function': 'main', 'args': [2, '�c~|�\x7f']}}
+2024-07-01 11:26:19,305 : {'type': 'send', 'payload': {'function': 'cncp', 'args': ['pE0vLS95Xba5xVv19zdeRDfbvzRVAP6uLCoAjZpt5nPpeSYqtTFpfDwM3Rsblqi5gUK8hRfaaAH2hvL9H4DS1OekRpMFa23Q36Ad59DrfzznNxrxC41wAK89GQIBk1sl']}}
+2024-07-01 11:26:19,305 : {'type': 'send', 'payload': {'function': 'strlen', 'args': ['pE0vLS95Xba5xVv19zdeRDfbvzRVAP6uLCoAjZpt5nPpeSYqtTFpfDwM3Rsblqi5gUK8hRfaaAH2hvL9H4DS1OekRpMFa23Q36Ad59DrfzznNxrxC41wAK89GQIBk1sl']}}
+2024-07-01 11:26:19,305 : {'type': 'send', 'payload': {'function': 'strlen', 'ret': '0x80'}}
+2024-07-01 11:26:19,305 : {'type': 'send', 'payload': {'function': 'cncp', 'ret': '0x62c8c4984004'}}
+2024-07-01 11:26:19,305 : {'type': 'send', 'payload': {'function': 'test', 'args': ['']}}
+2024-07-01 11:26:19,305 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', '', 1]}}
+2024-07-01 11:26:19,305 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x7ffd7c7e5ef7'}}
+2024-07-01 11:26:19,305 : {'type': 'send', 'payload': {'function': 'test', 'ret': '0x0'}}
+2024-07-01 11:26:19,305 : {'type': 'send', 'payload': {'function': 'main', 'ret': '0x0'}}
+2024-07-03 12:43:09,940 : Test genereted: [['1mADnnJZ0PkqjhELVzbb1mtI9fmbDrKakbFVsydm7KYulVa4fd3nfyUKFcfQEAzMjTMXYCZLojpNjGdG36VcgxfQv08kFL0QjlKt2MufD702vgh9BB19dQ4X6YHTptHHxvsfyeALWOffiGW6jIJTo7GhuNbILoS3M5qMxPnoT7Yz2KW9NNFw4UsfZuPfArVhtriEZe1PnyjwG6077J2cGU8lNGkombnDvy667j7LYqMHxRU5jthExLvG1qk0y8eXqodxyzP76XhE03rxS36h3C0ZrzXt8ZOfVtncOX1ZH1iKm2hGtGrXqzFQNQVTt8nF6MpEksRlQBjBjgMRuDD1Ccp0GlWeI9vuOt7aymtm2yIJD232omNe3Y54w6AzB5KWbv4Gh9zOl8cJYtUR56DOzrI88AX8abMmQtyXPtO8jsqftIyIqRdcRhVGGLc5PrpwAbezy3uoD6AbCwiFSLE1eGVABICXUl3vrqSlbqtDGjwEDkV29hyiMxXf0QESOEjI3T9oJbDwejZkKS'], ['8hArBOnZiYtq6Woi9HKgVoMoDHEAZFGn'], ['ZSicjXIf'], ['bXGGkJQFsRE2lySZ6mK4GWah0ZaqtEDU']]
+2024-07-03 12:43:09,978 : Binary file: test/itasec
+2024-07-03 12:43:11,215 : "auto_load_libs" is enabled. With libraries loaded in project, CFG will cover libraries, which may take significantly more time than expected. You may reload the binary with "auto_load_libs" disabled, or specify "regions" to limit the scope of CFG recovery.
+2024-07-03 12:43:11,591 : Call graph genereted
+2024-07-03 12:43:11,591 : Rule 3
+2024-07-03 12:43:11,593 : Graph distance
+2024-07-03 12:43:11,593 : Function Name: strncpy
+2024-07-03 12:43:11,593 : Function Address: 4198528
+2024-07-03 12:43:11,593 : Function Type: (char*, char*, unsigned long (64 bits)) -> char*
+2024-07-03 12:43:11,593 : Distance: inf
+2024-07-03 12:43:11,593 : Values: [None]
+2024-07-03 12:43:11,593 : Symbolic parameters: [None]
+2024-07-03 12:43:11,593 : Function Name: strlen
+2024-07-03 12:43:11,593 : Function Address: 4198544
+2024-07-03 12:43:11,593 : Function Type: (char*) -> unsigned long (64 bits)
+2024-07-03 12:43:11,593 : Distance: inf
+2024-07-03 12:43:11,593 : Values: [None]
+2024-07-03 12:43:11,593 : Symbolic parameters: [None]
+2024-07-03 12:43:11,593 : Function Name: __stack_chk_fail
+2024-07-03 12:43:11,593 : Function Address: 4198560
+2024-07-03 12:43:11,593 : Function Type: () -> void
+2024-07-03 12:43:11,593 : Distance: inf
+2024-07-03 12:43:11,593 : Values: [None]
+2024-07-03 12:43:11,593 : Symbolic parameters: [None]
+2024-07-03 12:43:11,593 : Function Name: malloc
+2024-07-03 12:43:11,593 : Function Address: 4198576
+2024-07-03 12:43:11,593 : Function Type: (unsigned long (64 bits)) -> void*
+2024-07-03 12:43:11,594 : Distance: 0
+2024-07-03 12:43:11,594 : Values: [None]
+2024-07-03 12:43:11,594 : Symbolic parameters: [None]
+2024-07-03 12:43:11,594 : Function Name: _start
+2024-07-03 12:43:11,594 : Function Address: 4198592
+2024-07-03 12:43:11,594 : Function Type: () -> long long (64 bits)
+2024-07-03 12:43:11,594 : Distance: inf
+2024-07-03 12:43:11,594 : Values: [None]
+2024-07-03 12:43:11,594 : Symbolic parameters: [None]
+2024-07-03 12:43:11,594 : Function Name: vuln
+2024-07-03 12:43:11,594 : Function Address: 4198825
+2024-07-03 12:43:11,594 : Function Type: (long long (64 bits), long long (64 bits)) -> int (32 bits)
+2024-07-03 12:43:11,594 : Distance: 1
+2024-07-03 12:43:11,594 : Values: [None]
+2024-07-03 12:43:11,594 : Symbolic parameters: [None]
+2024-07-03 12:43:11,594 : Function Name: cncp
+2024-07-03 12:43:11,594 : Function Address: 4198888
+2024-07-03 12:43:11,594 : Function Type: (long long (64 bits)) -> int (32 bits)
+2024-07-03 12:43:11,594 : Distance: 2
+2024-07-03 12:43:11,594 : Values: [None]
+2024-07-03 12:43:11,594 : Symbolic parameters: [None]
+2024-07-03 12:43:11,594 : Function Name: test
+2024-07-03 12:43:11,594 : Function Address: 4198982
+2024-07-03 12:43:11,594 : Function Type: (long long (64 bits)) -> int (32 bits)
+2024-07-03 12:43:11,594 : Distance: inf
+2024-07-03 12:43:11,594 : Values: [None]
+2024-07-03 12:43:11,594 : Symbolic parameters: [None]
+2024-07-03 12:43:11,594 : Function Name: main
+2024-07-03 12:43:11,594 : Function Address: 4199087
+2024-07-03 12:43:11,594 : Function Type: (int (32 bits), long long (64 bits)) -> int (32 bits)
+2024-07-03 12:43:11,594 : Distance: 3
+2024-07-03 12:43:11,594 : Values: [None]
+2024-07-03 12:43:11,594 : Symbolic parameters: [None]
+2024-07-03 12:43:11,770 : The program is accessing register with an unspecified value. This could indicate unwanted behavior.
+2024-07-03 12:43:11,770 : angr will cope with this by generating an unconstrained symbolic variable and continuing. You can resolve this by:
+2024-07-03 12:43:11,770 : 1) setting a value to the initial state
+2024-07-03 12:43:11,770 : 2) adding the state option ZERO_FILL_UNCONSTRAINED_{MEMORY,REGISTERS}, to make unknown regions hold null
+2024-07-03 12:43:11,770 : 3) adding the state option SYMBOL_FILL_UNCONSTRAINED_{MEMORY,REGISTERS}, to suppress these messages.
+2024-07-03 12:43:11,770 : Filling register rbp with 8 unconstrained bytes referenced from 0x4011ad (vuln+0x4 in itasec (0x11ad))
+2024-07-03 12:43:11,858 : Filling register rbp with 8 unconstrained bytes referenced from 0x4011ec (cncp+0x4 in itasec (0x11ec))
+2024-07-03 12:43:11,863 : Filling memory at 0x7ffffffffff0000 with 121 unconstrained bytes referenced from 0x5a86a0 (strlen+0x0 in libc.so.6 (0xa86a0))
+2024-07-03 12:43:12,024 : Values calculated
+2024-07-03 12:43:12,024 : Function Name: malloc
+2024-07-03 12:43:12,024 : Function Address: 4198576
+2024-07-03 12:43:12,024 : Function Type: (unsigned long (64 bits)) -> void*
+2024-07-03 12:43:12,024 : Distance: 0
+2024-07-03 12:43:12,024 : Values: [None]
+2024-07-03 12:43:12,025 : Symbolic parameters: [None]
+2024-07-03 12:43:12,025 : Function Name: vuln
+2024-07-03 12:43:12,025 : Function Address: 4198825
+2024-07-03 12:43:12,025 : Function Type: (long long (64 bits), long long (64 bits)) -> int (32 bits)
+2024-07-03 12:43:12,025 : Distance: 1
+2024-07-03 12:43:12,025 : Values: [["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x06'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x06'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x06'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x0e'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x0e'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x0e'"]]
+2024-07-03 12:43:12,025 : Symbolic parameters: [None]
+2024-07-03 12:43:12,025 : Function Name: cncp
+2024-07-03 12:43:12,025 : Function Address: 4198888
+2024-07-03 12:43:12,025 : Function Type: (long long (64 bits)) -> int (32 bits)
+2024-07-03 12:43:12,025 : Distance: 2
+2024-07-03 12:43:12,025 : Values: [["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'"], ["b'\\x01\\x01@\\x04\\x01@\\x04\\x02'"], ["b'\\x01\\x01@\\x04A@\\x04\\x02'"], ["b'\\x01\\x01\\x01\\x01\\x01\\x01\\x01\\x01'"]]
+2024-07-03 12:43:12,025 : Symbolic parameters: [None]
+2024-07-03 12:43:12,025 : Function Name: main
+2024-07-03 12:43:12,025 : Function Address: 4199087
+2024-07-03 12:43:12,025 : Function Type: (int (32 bits), long long (64 bits)) -> int (32 bits)
+2024-07-03 12:43:12,025 : Distance: 3
+2024-07-03 12:43:12,025 : Values: [["b'\\x00\\x00\\x00\\x00'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'"], ["b'\\x00\\x00\\x00\\x02'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02'"], ["b'\\x00\\x00\\x00\\x06'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x06'"], ["b'\\x00\\x00\\x00\\x0e'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x0e'"]]
+2024-07-03 12:43:12,025 : Symbolic parameters: [None]
+2024-07-03 12:43:12,025 : Function Name: strncpy
+2024-07-03 12:43:12,025 : Function Address: 4198528
+2024-07-03 12:43:12,025 : Function Type: (char*, char*, unsigned long (64 bits)) -> char*
+2024-07-03 12:43:12,025 : Distance: inf
+2024-07-03 12:43:12,025 : Values: [None]
+2024-07-03 12:43:12,025 : Symbolic parameters: [None]
+2024-07-03 12:43:12,025 : Function Name: malloc
+2024-07-03 12:43:12,025 : Function Address: 4198576
+2024-07-03 12:43:12,025 : Function Type: (unsigned long (64 bits)) -> void*
+2024-07-03 12:43:12,025 : Distance: 0
+2024-07-03 12:43:12,025 : Values: [None]
+2024-07-03 12:43:12,025 : Symbolic parameters: [None]
+2024-07-03 12:43:12,121 : {'type': 'send', 'payload': {'function': 'main', 'args': [2, '\x0b�s��\x7f']}}
+2024-07-03 12:43:12,121 : {'type': 'send', 'payload': {'function': 'cncp', 'args': ['1mADnnJZ0PkqjhELVzbb1mtI9fmbDrKakbFVsydm7KYulVa4fd3nfyUKFcfQEAzMjTMXYCZLojpNjGdG36VcgxfQv08kFL0QjlKt2MufD702vgh9BB19dQ4X6YHTptHHxvsfyeALWOffiGW6jIJTo7GhuNbILoS3M5qMxPnoT7Yz2KW9NNFw4UsfZuPfArVhtriEZe1PnyjwG6077J2cGU8lNGkombnDvy667j7LYqMHxRU5jthExLvG1qk0y8eXqodxyzP76XhE03rxS36h3C0ZrzXt8ZOfVtncOX1ZH1iKm2hGtGrXqzFQNQVTt8nF6MpEksRlQBjBjgMRuDD1Ccp0GlWeI9vuOt7aymtm2yIJD232omNe3Y54w6AzB5KWbv4Gh9zOl8cJYtUR56DOzrI88AX8abMmQtyXPtO8jsqftIyIqRdcRhVGGLc5PrpwAbezy3uoD6AbCwiFSLE1eGVABICXUl3vrqSlbqtDGjwEDkV29hyiMxXf0QESOEjI3T9oJbDwejZkKS']}}
+2024-07-03 12:43:12,121 : {'type': 'send', 'payload': {'function': 'strlen', 'args': ['1mADnnJZ0PkqjhELVzbb1mtI9fmbDrKakbFVsydm7KYulVa4fd3nfyUKFcfQEAzMjTMXYCZLojpNjGdG36VcgxfQv08kFL0QjlKt2MufD702vgh9BB19dQ4X6YHTptHHxvsfyeALWOffiGW6jIJTo7GhuNbILoS3M5qMxPnoT7Yz2KW9NNFw4UsfZuPfArVhtriEZe1PnyjwG6077J2cGU8lNGkombnDvy667j7LYqMHxRU5jthExLvG1qk0y8eXqodxyzP76XhE03rxS36h3C0ZrzXt8ZOfVtncOX1ZH1iKm2hGtGrXqzFQNQVTt8nF6MpEksRlQBjBjgMRuDD1Ccp0GlWeI9vuOt7aymtm2yIJD232omNe3Y54w6AzB5KWbv4Gh9zOl8cJYtUR56DOzrI88AX8abMmQtyXPtO8jsqftIyIqRdcRhVGGLc5PrpwAbezy3uoD6AbCwiFSLE1eGVABICXUl3vrqSlbqtDGjwEDkV29hyiMxXf0QESOEjI3T9oJbDwejZkKS']}}
+2024-07-03 12:43:12,121 : {'type': 'send', 'payload': {'function': 'strlen', 'ret': '0x20e'}}
+2024-07-03 12:43:12,121 : {'type': 'send', 'payload': {'function': 'cncp', 'ret': '0x569bd5888004'}}
+2024-07-03 12:43:12,121 : {'type': 'send', 'payload': {'function': 'test', 'args': ['']}}
+2024-07-03 12:43:12,121 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', '', 1]}}
+2024-07-03 12:43:12,121 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x7ffcbd73d667'}}
+2024-07-03 12:43:12,121 : {'type': 'send', 'payload': {'function': 'test', 'ret': '0x0'}}
+2024-07-03 12:43:12,121 : {'type': 'send', 'payload': {'function': 'main', 'ret': '0x0'}}
+2024-07-03 12:43:12,621 : Trace function calls
+2024-07-03 12:43:12,656 : {'type': 'send', 'payload': {'function': 'main', 'args': [2, '��G��\x7f']}}
+2024-07-03 12:43:12,656 : {'type': 'send', 'payload': {'function': 'cncp', 'args': ['8hArBOnZiYtq6Woi9HKgVoMoDHEAZFGn']}}
+2024-07-03 12:43:12,656 : {'type': 'send', 'payload': {'function': 'strlen', 'args': ['8hArBOnZiYtq6Woi9HKgVoMoDHEAZFGn']}}
+2024-07-03 12:43:12,656 : {'type': 'send', 'payload': {'function': 'strlen', 'ret': '0x20'}}
+2024-07-03 12:43:12,656 : {'type': 'send', 'payload': {'function': 'cncp', 'ret': '0x5e0905715004'}}
+2024-07-03 12:43:12,656 : {'type': 'send', 'payload': {'function': 'test', 'args': ['']}}
+2024-07-03 12:43:12,656 : {'type': 'send', 'payload': {'function': 'strncpy', 'args': ['', '', 1]}}
+2024-07-03 12:43:12,656 : {'type': 'send', 'payload': {'function': 'strncpy', 'ret': '0x7ffef447a5a7'}}
+2024-07-03 12:43:12,656 : {'type': 'send', 'payload': {'function': 'test', 'ret': '0x0'}}
+2024-07-03 12:43:12,656 : {'type': 'send', 'payload': {'function': 'main', 'ret': '0x0'}}
+2024-07-03 12:43:13,157 : Trace function calls

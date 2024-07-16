@@ -132,7 +132,8 @@ def main(binary, rules_file='rules.txt', file_type=True, num_values=4, num_best_
         if distance is None:
             continue
         logging.warning('Graph distance')
-        function_data.print_function_info()
+        # Only functions with distance =! infinity
+        function_data.remove_functions_with_infinity_distance(visitor.api_list)
         # Dataframe of functions, for each function: solver, values
         flag=functions_dataframe(binary,project,call_graph,function_data,num_values,steps,distance,api_list,visitor,dcg,file_type)
         # Check if the function is found in the call graph
@@ -140,10 +141,7 @@ def main(binary, rules_file='rules.txt', file_type=True, num_values=4, num_best_
             continue
         logging.warning('Values calculated')
 
-        # Only functions with distance =! infinity
-        function_data.remove_functions_with_infinity_distance(visitor.api_list)
         function_data.print_function_info()
-        
         l=[]
         i=0
         while i< num_generations:
