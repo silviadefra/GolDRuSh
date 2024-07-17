@@ -49,7 +49,7 @@ def functions_dataframe(binary_path, project, call_graph, function_data, n, step
 
         # if v is None:
         #     return
-        
+        v=[['16'],['32'],['64'],['128']]
         func.set_values(v)
 
         distance.pop(func.address, None)

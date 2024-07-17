@@ -97,7 +97,7 @@ def main(binary, rules_file='rules.txt', file_type=True, num_values=4, num_best_
 
     if tests is None:
         lengths_tests = string_length(num_best_fit)
-        tests=lengths_tests
+        tests=[[str(l)] for l in lengths_tests]
         logging.warning('Test genereted: {tests}'.format(tests=tests))
         #tests =generate_tests(lengths_tests)  #Our tests
  
