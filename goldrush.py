@@ -97,7 +97,9 @@ def main(binary, rules_file='rules.txt', file_type=True, num_values=4, num_best_
 
     if tests is None:
         lengths_tests = string_length(num_best_fit)
-        tests =generate_tests(lengths_tests)  #Our tests
+        tests=lengths_tests
+        logging.warning('Test genereted: {tests}'.format(tests=tests))
+        #tests =generate_tests(lengths_tests)  #Our tests
  
     trees = parse_file(rules_file) # Our rules
     exported_list=['strlen', 'strcmp', 'strncpy']

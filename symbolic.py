@@ -34,21 +34,21 @@ def functions_dataframe(binary_path, project, call_graph, function_data, n, step
         func=function_data.get_function_by_name('main')
         func.print_info()
         main_addr=func.address
-        input_type=func.type
-        main_solver=SolverUtility(project)
-        # If 'api_address' are reachable from the main
-        if distance[main_addr]==1:
-            v,a=main_solver.get_solver(api_list,n,input_type,binary=binary_path,num_steps=steps,visitor=visitor)         
-            f_last_api=api_list[-1]
-            f_last_api.set_args(a)
-        else:
-            # Find successors with smaller distance
-            target_func=find_succ(main_addr,call_graph,distance)
-            # Get the solver with constraints leading to reaching the target_func, and values to solve them
-            v,_=main_solver.get_solver(target_func,n,input_type,binary=binary_path)
+        # input_type=func.type
+        # main_solver=SolverUtility(project)
+        # # If 'api_address' are reachable from the main
+        # if distance[main_addr]==1:
+        #     v,a=main_solver.get_solver(api_list,n,input_type,binary=binary_path,num_steps=steps,visitor=visitor)         
+        #     f_last_api=api_list[-1]
+        #     f_last_api.set_args(a)
+        # else:
+        #     # Find successors with smaller distance
+        #     target_func=find_succ(main_addr,call_graph,distance)
+        #     # Get the solver with constraints leading to reaching the target_func, and values to solve them
+        #     v,_=main_solver.get_solver(target_func,n,input_type,binary=binary_path)
 
-        if v is None:
-            return
+        # if v is None:
+        #     return
         
         func.set_values(v)
 
