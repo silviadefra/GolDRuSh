@@ -42,7 +42,7 @@ def first_distance(api_list,function_data,call_graph,reverse_graph):
     func=api_list[0]
     func.set_distance(inf)
     distance.pop(func.address, None)
-    reversed(sorted(distance.keys()))
+    distance=dict(reversed(list(distance.items())))
 
     return distance,final_graph
 
