@@ -66,7 +66,6 @@ class SolverUtility:
             solutions.extend(self._get_solutions(s,ceil((n-i)/num_paths),args))
         
         solutions=[x for x in solutions if x is not None]
-        print(solutions)
         if not solutions:
             return False
 

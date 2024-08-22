@@ -11,6 +11,14 @@ b1 = malloc(m) , b2=strncpy(?,?,n) ;
 b1 == b2 AND m < n ;
 
 # CWE-190
+b1 = malloc(m) , memchr(b2,?,n) ;
+b1 == b2 AND m < n ;
+
+# CWE-190
+b1 = malloc(m) , b2 = malloc(n) , b3 = malloc(o) , sprintf(b4,b5,b6) ;
+(b1 == b4 AND ((b2 == b5 AND b3 == b6) OR (b2 == b6 AND b3 ==b5)) AND m < (n + o)) OR (b1 == b5 AND ((b2 == b6 AND b3 == b4) OR (b2==b4 AND b3==b6)) AND n < (m + o)) OR (b1 == b6 AND ((b2 == b4 AND b3 == b5) OR(b2==b5 AND b3==b4)) AND o < (n + m));
+
+# CWE-190
 b1=malloc(?), b2=strcpy(?,?);
 b1==b2;
 
@@ -25,10 +33,6 @@ p1==p2;
 # CWE-190
 p1=malloc(?) , gets(p2);
 p1==p2;
-
-# CWE-20
-memcpy(?,?,x);
-x<0;
 
 # CWE-20
 memcpy(?,?,x);

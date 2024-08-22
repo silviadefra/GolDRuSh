@@ -20,6 +20,7 @@ def generate_call_graph(project):
     defined_functions = cfg.functions.values()
     program_functions = []
     program_functions_addr=[]
+    #visualize(cfg,call_graph)
     
     for function in defined_functions:
         if not function.is_simprocedure and function.block_addrs_set and function.startpoint is not None:
@@ -39,7 +40,7 @@ def generate_call_graph(project):
     sub_graph = call_graph.subgraph(program_functions_addr)
 
     # Visualize the call graph
-    #visualize(cfg,sub_graph) 
+    visualize(cfg,sub_graph) 
 
     return sub_graph,functions
 
@@ -56,7 +57,7 @@ def visualize(cfg,graph):
 # Main function: General info of 'binary' (functions name, address)
 def file_data(binary_path):
     # Create an angr project
-    project = Project(binary_path)
+    project = Project(binary_path, auto_load_libs=False)
 
     # Generate the call graph
     call_graph, func_addr=generate_call_graph(project)

@@ -35,17 +35,19 @@ def first_distance(api_list,function_data,call_graph,reverse_graph):
     if len(distance)==1:
         return None,None
     
-    for key in distance:
-        func=function_data.get_function_by_addr(key)
-        func.set_distance(distance[key])
+    for key in list(distance.keys()):
+        if distance[key]!=0:
+            func=function_data.get_function_by_addr(key)
+            func.set_distance(distance[key])
+        else:
+            distance.pop(key,None)
     
-    func=api_list[0]
-    func.set_distance(inf)
-    distance.pop(func.address, None)
     func=function_data.get_function_by_name('_start')
-    func.set_distance(inf)
-    distance.pop(func.address, None)
+    if func is not None:
+        func.set_distance(inf)
+        distance.pop(func.address, None)
     distance=dict(reversed(list(distance.items())))
+    #function_data.print_function_info()
 
     return distance,final_graph
 
