@@ -2,13 +2,14 @@
 
 import sys
 from os import path
+import networkx as nx
 import logging
+from math import inf
 logging.basicConfig(filename='solution/solutions.log',format='%(asctime)s : %(message)s', encoding='utf-8', level=logging.WARNING)
 #logging.basicConfig(format='[+] %(asctime)s %(levelname)s: %(message)s', level=logging.WARNING)
 from argparse import ArgumentParser
 from call_graph import file_data
-from graph_distance import first_distance
-from symbolic import functions_dataframe
+from parse_curl_symbolic import functions_dataframe
 from debug import trace_function_calls
 from fitness import fitness_func
 from fuzzy import fuzzy_func
@@ -18,6 +19,31 @@ from itertools import groupby
 from random import sample,choices
 from string import ascii_letters,digits
 from csv import writer
+
+
+# For each function graph distance and list of the targets 
+def first_distance(function_data,call_graph):
+    
+    # Find minimum distance between nodes and target
+    trg = function_data.get_function_by_name('parse_cert_parameter')
+    t=trg.address
+    distance = nx.shortest_path_length(call_graph, target=t)
+
+    if len(distance)==1:
+        return None,None
+    
+    for key in list(distance.keys()):
+        func=function_data.get_function_by_addr(key)
+        func.set_distance(distance[key])
+
+    
+    func=function_data.get_function_by_name('_start')
+    if func is not None:
+        func.set_distance(inf)
+        distance.pop(func.address, None)
+    #function_data.print_function_info()
+
+    return distance
 
 def string_length(n):
     list_length=[8,16,32,64,128,264,526]
@@ -101,7 +127,7 @@ def main(binary, rules_file='rules.txt', file_type=True, num_values=4, num_best_
         logging.warning('Test genereted: {tests}'.format(tests=tests))
         
  
-    trees = parse_file(rules_file) # Our rules
+    tree = parse_file(rules_file) # Our rules
     exported_list=['strlen', 'strcmp', 'strncpy']
 
     # General info of 'binary' (functions name, address)
@@ -110,89 +136,80 @@ def main(binary, rules_file='rules.txt', file_type=True, num_values=4, num_best_
     if project is None:
         return
     logging.warning('Call graph genereted')
-    reverse_graph=call_graph.reverse(copy=False)
 
     # Iterate through the 'tree' to find the 'api' subtree.
-    for num_tree,tree in enumerate(trees.children):
-        visitor = RuleVisitor()
-        visitor.visit(tree)  # Now, 'visitor.api_list' contains a list of 'api' elements.
+    visitor = RuleVisitor()
+    visitor.visit(tree)  # Now, 'visitor.api_list' contains a list of 'api' elements.
 
-        api_list=rule_api_list(visitor.api_list,general_function_data)
-        # Check if the function is found in the call graph
-        if api_list is None:
-            continue
-        logging.warning('Rule {num}'.format(num=num_tree+1))
-        
-        function_data=general_function_data.copy()
-        # For each function graph distance and list of the targets
-        distance,dcg=first_distance(api_list,function_data,call_graph,reverse_graph)
-        
-        # Check if the function is found in the call graph
-        if distance is None:
-            continue
-        logging.warning('Graph distance')
-        # Only functions with distance =! infinity
-        function_data.remove_functions_with_infinity_distance(visitor.api_list)
-
-        # Dataframe of functions, for each function: solver, values
-        flag=functions_dataframe(binary,project,function_data,num_values,steps,distance,api_list,visitor,dcg,file_type)
-        # Check if the function is found in the call graph
-        function_data.print_function_info()
-        if flag is None:
-            logging.warning('Angr not able to calculate constraints')
-            continue
-        logging.warning('Values calculated')
-
-        l=[]
-        i=0
-        # Separete exported functions from intenral functions
-        exported_func,internal_func=separete_func(function_data,exported_list)
-        count_frida_execution=0
-        while i< num_generations:
-            for t in tests: #TODO parallel
-                count_frida_execution += 1
-                # Run the binary and trace function calls with their arguments
-                entries = trace_function_calls(binary, t,exported_func,internal_func)
-                if not entries:
-                    logging.warning(f"Warning: trace not found")
-                    return
-                logging.warning('Trace function calls')
+    api_list=rule_api_list(visitor.api_list,general_function_data)
     
-                # Fitness function for each test
-                fit=fitness_func(function_data,entries,visitor)
-                if fit==0:
-                    logging.warning('You found rule {num} with arguments: {fun}\n'.format(num=num_tree+1,fun=t))
-                    logging.warning('Fitness calculated {count} times\n'.format(count=count_frida_execution))
-                    break
-                elif fit is None:
-                    logging.warning(f"Fitness less then 1, but frida stopped before finishing the trace")
-                    return
-                l.append([fit,t])
+    function_data=general_function_data.copy()
+    # For each function graph distance and list of the targets
+    distance=first_distance(function_data,call_graph)
+    
+    logging.warning('Graph distance')
+    # Only functions with distance =! infinity
+    function_data.remove_functions_with_infinity_distance(visitor.api_list)
+
+    # Dataframe of functions, for each function: solver, values
+    flag=functions_dataframe(binary,project,function_data,num_values,steps,distance,api_list,visitor,call_graph,file_type)
+    # Check if the function is found in the call graph
+    function_data.print_function_info()
+    if flag is None:
+        logging.warning('Angr not able to calculate constraints')
+        return
+    logging.warning('Values calculated')
+
+    l=[]
+    i=0
+    # Separete exported functions from intenral functions
+    exported_func,internal_func=separete_func(function_data,exported_list)
+    count_frida_execution=0
+    while i< num_generations:
+        for t in tests: #TODO parallel
+            count_frida_execution += 1
+            # Run the binary and trace function calls with their arguments
+            entries = trace_function_calls(binary, t,exported_func,internal_func)
+            if not entries:
+                logging.warning(f"Warning: trace not found")
+                return
+            logging.warning('Trace function calls')
+
+            # Fitness function for each test
+            fit=fitness_func(function_data,entries,visitor)
             if fit==0:
+                logging.warning('You found the rule with arguments: {fun}\n'.format(fun=t))
+                logging.warning('Fitness calculated {count} times\n'.format(count=count_frida_execution))
                 break
+            elif fit is None:
+                logging.warning(f"Fitness less then 1, but frida stopped before finishing the trace")
+                return
+            l.append([fit,t])
+        if fit==0:
+            break
 
-            # 'num_best_fit' tests with best fitness
-            pop,l=gen_pop(l,num_best_fit,len_cache)
-            logging.warning('Initial population: {pop} at round {num_round}'.format(pop=pop,num_round=i))
-            
-            # Fuzzing
-            temp_tests=fuzzy_func(pop)
-            logging.warning('New generation: {new}\n'.format(new=temp_tests))
+        # 'num_best_fit' tests with best fitness
+        pop,l=gen_pop(l,num_best_fit,len_cache)
+        logging.warning('Initial population: {pop} at round {num_round}'.format(pop=pop,num_round=i))
+        
+        # Fuzzing
+        temp_tests=fuzzy_func(pop)
+        logging.warning('New generation: {new}\n'.format(new=temp_tests))
 
-            # Delete duplicate
-            tests=del_duplicate(temp_tests,l)
-            logging.warning('New Tests: {new}\n'.format(new=tests))
-            
-            if tests:
-                i+=1
-            #write_n_to_csv(pop[0][0])
-        if fit!=0:
-            logging.warning('The best arguments for rule {num} are: {arg}\n'.format(num=num_tree+1,arg=l[0][1]))
-            logging.warning('Fitness calculated {count} times\n'.format(count=count_frida_execution))
+        # Delete duplicate
+        tests=del_duplicate(temp_tests,l)
+        logging.warning('New Tests: {new}\n'.format(new=tests))
+        
+        if tests:
+            i+=1
+        #write_n_to_csv(pop[0][0])
+    if fit!=0:
+        logging.warning('The best arguments for the rule are: {arg}\n'.format(arg=l[0][1]))
+        logging.warning('Fitness calculated {count} times\n'.format(count=count_frida_execution))
     
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        logging.info("Usage: python goldrush.py <target_executable>")
+        logging.info("Usage: python main_code.py <target_executable>")
         sys.exit(1)
 
     parser = ArgumentParser()

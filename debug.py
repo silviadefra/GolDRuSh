@@ -61,7 +61,6 @@ def trace_function_calls(binary, args,exported_func,internal_func):
     Run the binary and trace function calls with their arguments.
     """
     entries = []
-
     def on_message(message, data):
         logging.warning(message)
         if message["type"] == "send" and message["payload"] != "done":
@@ -80,6 +79,7 @@ def trace_function_calls(binary, args,exported_func,internal_func):
     session = frida.attach(process)
     script_txt=""
     #internal_func=[x for x in internal_func if x!='main']
+    internal_func.reverse()
     for f in internal_func:
         script_txt+= make_script_in(f)
         script_txt+="\n"
@@ -90,6 +90,7 @@ def trace_function_calls(binary, args,exported_func,internal_func):
     script = session.create_script(script_txt)
     script.on("message",on_message)
     script.load()
+    sleep(2)
 
     frida.resume(process)
 
@@ -103,11 +104,3 @@ def trace_function_calls(binary, args,exported_func,internal_func):
         logging.info(e)
 
     return entries
-
-# Usage example
-#binary_path = "./test/test" 
-#arguments = ["arg1", "arg2", "arg3"]
-#list_functions=['h','g','f']
-#n=2
-
-#entries = trace_function_calls(binary_path, arguments,list_functions,n)

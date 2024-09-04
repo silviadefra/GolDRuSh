@@ -46,7 +46,6 @@ def first_distance(api_list,function_data,call_graph,reverse_graph):
     if func is not None:
         func.set_distance(inf)
         distance.pop(func.address, None)
-    distance=dict(reversed(list(distance.items())))
     #function_data.print_function_info()
 
     return distance,final_graph

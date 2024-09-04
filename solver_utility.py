@@ -47,6 +47,7 @@ class SolverUtility:
         solutions=[]
         try:
             temp=[solver.eval_upto(args[i],n, cast_to=bytes) for i in range(len(args))] 
+            j=solver.eval(args[0])
         except SimUnsatError:
             return None
         min_length=min(len(sublist) for sublist in temp)
@@ -117,7 +118,6 @@ class SolverUtility:
                 claripy_contstraints=visitor.predicate(symbolic_par)
                 solver=sm.found[0].solver
                 solver.add(claripy_contstraints)
-                print(solver.constraints)
             else:
                 return None,None
             

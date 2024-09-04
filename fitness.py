@@ -40,33 +40,39 @@ def distance_binary(target, values):
             minimum = distance
     return minimum
 
-
+# Only functions called by func
 def filter_entries(data,func):
     output_data=[]
+    entries_inside_func=[]
     found_start = False
 
     for sublist in data:
+        #enter func
         if not found_start and sublist[0] == func.name and sublist[-1] == 'input':
             found_start = True
-            continue
-        elif found_start and sublist[0] == func.name and sublist[-1] == 'output':
-            found_start=False
-            continue
-        elif found_start:
-            output_data.append(sublist[0])
+        elif found_start: 
+            #leave func
+            if sublist[0] == func.name and sublist[-1] == 'output':
+                found_start=False
+            else:
+                #inside func
+                output_data.append(sublist[0])
+                entries_inside_func.append(sublist)
     
-    return output_data
+    return output_data, entries_inside_func
 
 #Associate concrete value to symbolic parameters
 def combine_concrete_symbolic(visitor,entries,par):
     api_list=visitor.api_list
-    entries=[e for e in entries if e[0] in api_list]
-    for x,y in zip(visitor.api_list,visitor.par_list):
+    for x,y in zip(api_list,visitor.par_list):
         ent=[e for e in entries if e[0]==x]
+        # if the rule includes the return value
         if y[0] is not None:
             output=[e for e in ent if e[2]=='output']
-            
-            par[y[0]]=output[0][1]
+            if output:
+                par[y[0]]=output[0][1]
+            else:
+                return
             
         # Symbolic input variables
         input=[e[1] for e in ent if e[2]=='input']
@@ -100,23 +106,25 @@ def prev_func_vals(df,func_list):
 
 #Main Function
 def fitness_func(df,entries,visitor):
-    reached_functions=[(x[0],x[1]) for x in entries if x[2]=="input"] # Functions (x[0]) and inputs (x[1])
-    func_in_both_list=[x for x in reached_functions if x[0] in df.get_names()] 
+    reached_functions=[(x[0],x[1]) for x in entries if x[2]=="input"] # Functions (x[0]) and inputs (x[1]) 
     
     # Function with minimum distance to the target
-    func,test_values=func_with_minimum_distance(df,func_in_both_list)
+    func,test_values=func_with_minimum_distance(df,reached_functions)
     # Values to reach the next 'good' function from the solver
     values=func.values
     fitness=func.distance
     
     # If it reached the last function
     if func.distance==1:
-        filtered=filter_entries(entries,func)
-        if all(el in visitor.api_list for el in filtered):
-            func=df.get_function_by_name(visitor.api_list[-1])
+        # Only functions called by func
+        filtered, functions_called_by_func =filter_entries(entries,func)
+        if all(el in filtered for el in visitor.api_list):
+            api_func=df.get_function_by_name(visitor.api_list[-1])
             #Associate concrete value to symbolic parameters of the rules
-            par=func.sympar
-            conc_val=combine_concrete_symbolic(visitor,entries,par.copy())
+            par=api_func.sympar
+            conc_val=combine_concrete_symbolic(visitor,functions_called_by_func ,par.copy())
+            if conc_val is None:
+                return
             s=add_constraints(par,conc_val,visitor)
             if s.satisfiable():
                 return 0        
