@@ -9,7 +9,7 @@ logging.basicConfig(filename='solution/solutions.log',format='%(asctime)s : %(me
 #logging.basicConfig(format='[+] %(asctime)s %(levelname)s: %(message)s', level=logging.WARNING)
 from argparse import ArgumentParser
 from call_graph import file_data
-from parse_curl_symbolic import functions_dataframe
+from one_symbolic import functions_dataframe
 from debug import trace_function_calls
 from parse_curl_fitness import fitness_func
 from fuzzy import fuzzy_func
@@ -115,7 +115,7 @@ def write_n_to_csv(n):
         w = writer(file)
         w.writerow([n])
 
-def main(binary, target_f, rules_file='rules.txt', file_type=True, num_values=4, num_best_fit=4, num_generations=10000, len_cache=100, steps=20, tests=None):
+def main(binary, target_f, entry, rules_file='rules.txt', file_type=True, num_values=4, num_best_fit=4, num_generations=10000, len_cache=100, steps=20, tests=None):
     # Check if the binary file exists
     if not path.isfile(binary):
         logging.warning(f"Error: File '{binary}' does not exist.")
@@ -153,7 +153,7 @@ def main(binary, target_f, rules_file='rules.txt', file_type=True, num_values=4,
     function_data.print_function_info()
 
     # Dataframe of functions, for each function: solver, values
-    flag=functions_dataframe(binary,project,function_data,num_values,steps,distance,api_list,visitor,call_graph.copy(),file_type, target_f)
+    flag=functions_dataframe(binary,project,function_data,num_values,steps,distance,api_list,visitor,call_graph.copy(),file_type)
     # Check if the function is found in the call graph
     function_data.print_function_info()
     if flag is None:
@@ -217,6 +217,7 @@ if __name__ == "__main__":
     # Required positional argument
     parser.add_argument('binary', type=str, help='The binary file to process')
     parser.add_argument('target', type=str, help='The target function to analyze')
+    parser.add_argument('entry_point', type=str, help='The entry point')
     # Optional arguments with default values
     parser.add_argument('--rules_file', type=str, default='rules.txt', help='The rules file to use (default: rules.txt)')
     parser.add_argument('--file_type', type=str, default=True, help='Flag indicating whether the binary is an executable (True) or a library (False) (default: True)')
@@ -229,6 +230,6 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    main(args.binary,args.target, args.rules_file, args.file_type, args.num_values, args.num_best_fit, args.num_generations, args.len_cache, args.steps,args.tests)
+    main(args.binary,args.target, args.entry_point, args.rules_file, args.file_type, args.num_values, args.num_best_fit, args.num_generations, args.len_cache, args.steps,args.tests)
 
     
