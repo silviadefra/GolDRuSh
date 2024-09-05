@@ -36,10 +36,10 @@ def functions_dataframe(binary_path, project, function_data, n, steps,distance,a
     while flag:
         #TODO in parallel
         for key in list(temp_nodes.keys()):
+            func=function_data.get_function_by_addr(key)
             if func.distance !=1:
                 continue
             func_solver=SolverUtility(project)
-            func=function_data.get_function_by_addr(key)
             input_type=func.type 
 
             # Find for each node successors with smaller distance
