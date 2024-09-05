@@ -85,6 +85,7 @@ def functions_dataframe(binary_path, project, function_data, n, steps,distance,a
                 break
 
             func.set_values(v)
+            func.print_info()
         if not temp_nodes:
             flag=False
     return True
