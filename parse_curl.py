@@ -153,7 +153,7 @@ def main(binary, target_f, rules_file='rules.txt', file_type=True, num_values=4,
     function_data.print_function_info()
 
     # Dataframe of functions, for each function: solver, values
-    flag=functions_dataframe(binary,project,function_data,num_values,steps,distance,api_list,visitor,call_graph,file_type)
+    flag=functions_dataframe(binary,project,function_data,num_values,steps,distance,api_list,visitor,call_graph.copy(),file_type)
     # Check if the function is found in the call graph
     function_data.print_function_info()
     if flag is None:

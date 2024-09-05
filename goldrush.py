@@ -135,7 +135,7 @@ def main(binary, rules_file='rules.txt', file_type=True, num_values=4, num_best_
         function_data.remove_functions_with_infinity_distance(visitor.api_list)
 
         # Dataframe of functions, for each function: solver, values
-        flag=functions_dataframe(binary,project,function_data,num_values,steps,distance,api_list,visitor,dcg,file_type)
+        flag=functions_dataframe(binary,project,function_data,num_values,steps,distance,api_list,visitor,dcg.copy(),file_type)
         # Check if the function is found in the call graph
         function_data.print_function_info()
         if flag is None:
