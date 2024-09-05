@@ -117,8 +117,6 @@ def main(binary, rules_file='rules.txt', file_type=True, num_values=4, num_best_
         # Check if the function is found in the call graph
         if api_list is None:
             continue
-        for f in api_list:
-            f.print_info()
         logging.warning('Rule {num}'.format(num=num_tree+1))
         
         function_data=general_function_data.copy()

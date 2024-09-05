@@ -62,6 +62,7 @@ def functions_dataframe(binary_path, project, function_data, n, steps,distance,a
             func=function_data.get_function_by_addr(key)
             input_type=func.type 
             if func.distance==0:
+                target_func=[x.address for x in api_list]
                 v,a=func_solver.get_solver(api_list,n,input_type,source=key,num_steps=steps,visitor=visitor)
                 f_last_api=function_data.get_function_by_addr(api_list[-1].address)
                 f_last_api.set_args(a)

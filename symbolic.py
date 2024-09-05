@@ -62,19 +62,20 @@ def functions_dataframe(binary_path, project, function_data, n, steps,distance,a
             func=function_data.get_function_by_addr(key)
             input_type=func.type 
             if func.distance==1:
+                target_func=[x.address for x in api_list]
                 v,a=func_solver.get_solver(api_list,n,input_type,source=key,num_steps=steps,visitor=visitor)
-                f_last_api=function_data.get_function_by_addr(api_list[-1].address)
+                f_last_api=function_data.get_function_by_addr(target_func[-1])
                 f_last_api.set_args(a)
             else:
                 # Find for each node successors with smaller distance
-                target_func=find_succ(key,dcg,distance) #forse conviene non definire la funzione e mettere tutto nel main
+                target_func=find_succ(key,dcg,distance)
                 # Get the solver with constraints leading to reaching the target_func, and values to solve them
                 v,_=func_solver.get_solver(target_func,n,input_type,source=key)
                 
             temp_nodes.pop(key, None)
 
             if v is None:
-                return None
+                continue
             elif v is False:
                 func.set_distance(inf)
                 # refine dcg

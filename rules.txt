@@ -34,9 +34,9 @@ p1==p2;
 p1=malloc(?) , gets(p2);
 p1==p2;
 
-# CWE-20 rule 10
-#memcpy(?,?,x);
-#x<0;
+# CWE-190 rule 10
+b1 = malloc(m) , b2=memset(?,?,n) ;
+b1 == b2 AND m < n ;
 
 # CWE-20 rule 11
 #strcpy(?,?,x);
@@ -51,8 +51,8 @@ memcpy(to,from,?) , printf(p);
 from == \x40000 AND to == p ;
 
 # CWE-134 rule 13
-printf(p);
-p == \x40000;
+#printf(p);
+#p == \x40000;
 
 # CWE-416 rule 14
 free(x), free(y);
