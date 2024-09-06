@@ -7,7 +7,7 @@ import logging
 from math import inf
 logging.basicConfig(filename='solution/solutions.log',format='%(asctime)s : %(message)s', encoding='utf-8', level=logging.WARNING)
 #logging.basicConfig(format='[+] %(asctime)s %(levelname)s: %(message)s', level=logging.WARNING)
-from argparse import ArgumentParser
+from argparse import ArgumentParser, ArgumentTypeError
 from call_graph import file_data
 from parse_curl_symbolic import functions_dataframe
 from debug import trace_function_calls
@@ -207,7 +207,15 @@ def main(binary, target_f, rules_file='rules.txt', file_type=True, num_values=4,
     if fit!=0:
         logging.warning('The best arguments for the rule are: {arg}\n'.format(arg=l[0][1]))
         logging.warning('Fitness calculated {count} times\n'.format(count=count_frida_execution))
-    
+
+def str2bool(v):
+    if v == '1':
+        return True
+    elif v == '0':
+        return False
+    else:
+        raise ArgumentTypeError('Value must be 0 or 1.')
+
 if __name__ == "__main__":
     if len(sys.argv) < 2:
         logging.info("Usage: python main_code.py <target_executable>")
@@ -219,7 +227,7 @@ if __name__ == "__main__":
     parser.add_argument('target', type=str, help='The target function to analyze')
     # Optional arguments with default values
     parser.add_argument('--rules_file', type=str, default='rules.txt', help='The rules file to use (default: rules.txt)')
-    parser.add_argument('--file_type', type=str, default=True, help='Flag indicating whether the binary is an executable (True) or a library (False) (default: True)')
+    parser.add_argument('--file_type', type=str2bool, nargs='?', const=True, default=True, help='Flag indicating whether the binary is an executable (1) or a library (0) (default: 1)')
     parser.add_argument('--num_values', type=int, default=4, help='Number of symbolic solutions per function to compare with concrete executions (default: 4)')
     parser.add_argument('--num_best_fit', type=int, default=4, help='Number of individuals in the population (default: 4)')
     parser.add_argument('--num_generations', type=int, default=10000, help='Number of generations (default: 10000)')
