@@ -161,52 +161,6 @@ def main(binary, target_f, entry, rules_file='rules.txt', file_type=True, num_va
         return
     logging.warning('Values calculated')
 
-    l=[]
-    i=0
-    # Separete exported functions from intenral functions
-    exported_func,internal_func=separete_func(function_data,exported_list)
-    count_frida_execution=0
-    while i< num_generations:
-        for t in tests: #TODO parallel
-            count_frida_execution += 1
-            # Run the binary and trace function calls with their arguments
-            entries = trace_function_calls(binary, t,exported_func,internal_func)
-            if not entries:
-                logging.warning(f"Warning: trace not found")
-                return
-            logging.warning('Trace function calls')
-
-            # Fitness function for each test
-            fit=fitness_func(function_data,entries,visitor)
-            if fit==0:
-                logging.warning('You found the rule with arguments: {fun}\n'.format(fun=t))
-                logging.warning('Fitness calculated {count} times\n'.format(count=count_frida_execution))
-                break
-            elif fit is None:
-                logging.warning(f"Fitness less then 1, but frida stopped before finishing the trace")
-                return
-            l.append([fit,t])
-        if fit==0:
-            break
-
-        # 'num_best_fit' tests with best fitness
-        pop,l=gen_pop(l,num_best_fit,len_cache)
-        logging.warning('Initial population: {pop} at round {num_round}'.format(pop=pop,num_round=i))
-        
-        # Fuzzing
-        temp_tests=fuzzy_func(pop)
-        logging.warning('New generation: {new}\n'.format(new=temp_tests))
-
-        # Delete duplicate
-        tests=del_duplicate(temp_tests,l)
-        logging.warning('New Tests: {new}\n'.format(new=tests))
-        
-        if tests:
-            i+=1
-        #write_n_to_csv(pop[0][0])
-    if fit!=0:
-        logging.warning('The best arguments for the rule are: {arg}\n'.format(arg=l[0][1]))
-        logging.warning('Fitness calculated {count} times\n'.format(count=count_frida_execution))
     
 if __name__ == "__main__":
     if len(sys.argv) < 2:

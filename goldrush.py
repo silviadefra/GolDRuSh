@@ -138,6 +138,7 @@ def main(binary, rules_file, file_type, num_values, num_best_fit, num_generation
         # Dataframe of functions, for each function: solver, values
         flag=functions_dataframe(binary,project,function_data,num_values,steps,distance,api_list,visitor,dcg.copy(),file_type)
         # Check if the function is found in the call graph
+        function_data.remove_functions_with_infinity_distance(visitor.api_list)
         function_data.print_function_info()
         if flag is None:
             logging.warning('Angr not able to calculate constraints')

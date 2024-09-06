@@ -25,7 +25,10 @@ def generate_call_graph(project):
     for function in defined_functions:
         if not function.is_simprocedure and function.block_addrs_set and function.startpoint is not None:
             # Variable recovery
-            project.analyses.VariableRecoveryFast(function)
+            try:
+                project.analyses.VariableRecoveryFast(function)
+            except AttributeError as e:
+                continue
             # Set up the calling convention analysis for each function
             cca = project.analyses.CallingConvention(function,cfg=cfg,analyze_callsites=True)
             if cca.prototype is None:

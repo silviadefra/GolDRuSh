@@ -83,6 +83,7 @@ def functions_dataframe(binary_path, project, function_data, n, steps,distance,a
                 for c in target_func:
                     dcg.remove_edge(key,c)
                 temp_nodes,distance=refine_dcg(dcg,tg,function_data,temp_nodes,distance)#,main_addr)
+                function_data.print_function_info()
                 break
 
             func.set_values(v)
