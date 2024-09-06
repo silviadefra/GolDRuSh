@@ -16,7 +16,8 @@ def find_succ(source,graph,distance):
     
     return target_addr
 
-def refine_dcg(dcg,t,function_data,temp_nodes,distance):
+def refine_dcg(dcg,tg,function_data,temp_nodes,distance):
+    t=function_data.get_function_by_name(tg)
     shortest_paths = shortest_path_length(dcg, target=t.address)
     different_nodes={k: shortest_paths[k] for k in shortest_paths.keys() & distance.keys() if shortest_paths[k]!=distance[k]}
     new_nodes= {k: shortest_paths[k] for k in shortest_paths.keys() & temp_nodes.keys()}
