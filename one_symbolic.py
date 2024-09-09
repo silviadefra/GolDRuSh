@@ -31,7 +31,7 @@ def refine_dcg(dcg,t,function_data,temp_nodes,distance):
 # Dataframe of functions, for each function: solver, values  
 def functions_dataframe(binary_path, project, function_data, n, steps,distance,api_list,visitor,dcg,tp_file):
     
-    source=function_data.get_function_by_name('CompileRule')
+    source=function_data.get_function_by_name('compileRule')
     target=function_data.get_function_by_name('parse_cert_parameter')
     input_type=source.type
     func_solver=SolverUtility(project)
