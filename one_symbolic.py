@@ -31,46 +31,46 @@ def refine_dcg(dcg,t,function_data,temp_nodes,distance):
 # Dataframe of functions, for each function: solver, values  
 def functions_dataframe(binary_path, project, function_data, n, steps,distance,api_list,visitor,dcg,tp_file):
     sys.set_int_max_str_digits(10000)
-    source=function_data.get_function_by_name('compileRule')
-    target=function_data.get_function_by_name('parse_cert_parameter')
-    input_type=source.type
-    func_solver=SolverUtility(project)
-    v,_=func_solver.get_solver(target.address,n,input_type,source=source.address)
-    source.set_values(v)
-    # temp_nodes=distance.copy()
-    # flag=True
-    # while flag:
-    #     #TODO in parallel
-    #     for key in list(temp_nodes.keys()):
-    #         func=function_data.get_function_by_addr(key)
-    #         if func.distance !=1:
-    #             temp_nodes.pop(key, None)
-    #             continue
-    #         func_solver=SolverUtility(project)
-    #         input_type=func.type 
+    # source=function_data.get_function_by_name('compileRule')
+    # target=function_data.get_function_by_name('parse_cert_parameter')
+    # input_type=source.type
+    # func_solver=SolverUtility(project)
+    # v,_=func_solver.get_solver(target.address,n,input_type,source=source.address)
+    # source.set_values(v)
+    temp_nodes=distance.copy()
+    flag=True
+    while flag:
+        #TODO in parallel
+        for key in list(temp_nodes.keys()):
+            func=function_data.get_function_by_addr(key)
+            if func.distance !=1:
+                temp_nodes.pop(key, None)
+                continue
+            func_solver=SolverUtility(project)
+            input_type=func.type 
 
-    #         # Find for each node successors with smaller distance
-    #         target_func=find_succ(key,dcg,distance) #forse conviene non definire la funzione e mettere tutto nel main
-    #         # Get the solver with constraints leading to reaching the target_func, and values to solve them
-    #         v,_=func_solver.get_solver(target_func,n,input_type,source=key)
+            # Find for each node successors with smaller distance
+            target_func=find_succ(key,dcg,distance) #forse conviene non definire la funzione e mettere tutto nel main
+            # Get the solver with constraints leading to reaching the target_func, and values to solve them
+            v,_=func_solver.get_solver(target_func,n,input_type,source=key)
                 
-    #         temp_nodes.pop(key, None)
+            temp_nodes.pop(key, None)
 
-    #         if v is None:
-    #             continue
-    #         elif v is False:
-    #             func.set_distance(inf)
-    #             # refine dcg
-    #             for c in target_func:
-    #                 dcg.remove_edge(key,c)
-    #                 t=function_data.get_function_by_addr(c)
-    #             temp_nodes,distance=refine_dcg(dcg,t,function_data,temp_nodes,distance)#,main_addr)
-    #             break
+            if v is None:
+                continue
+            elif v is False:
+                func.set_distance(inf)
+                # refine dcg
+                for c in target_func:
+                    dcg.remove_edge(key,c)
+                    t=function_data.get_function_by_addr(c)
+                temp_nodes,distance=refine_dcg(dcg,t,function_data,temp_nodes,distance)#,main_addr)
+                break
 
-    #         func.set_values(v)
-    #         func.print_info()
-    #     if not temp_nodes:
-    #         flag=False
+            func.set_values(v)
+            func.print_info()
+        if not temp_nodes:
+            flag=False
     return True
 
 
