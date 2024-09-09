@@ -38,6 +38,7 @@ def functions_dataframe(binary_path, project, function_data, n, steps,distance,a
         for key in list(temp_nodes.keys()):
             func=function_data.get_function_by_addr(key)
             if func.distance !=1:
+                temp_nodes.pop(key, None)
                 continue
             func_solver=SolverUtility(project)
             input_type=func.type 
@@ -56,11 +57,13 @@ def functions_dataframe(binary_path, project, function_data, n, steps,distance,a
                 # refine dcg
                 for c in target_func:
                     dcg.remove_edge(key,c)
-                temp_nodes,distance=refine_dcg(dcg,target_func,function_data,temp_nodes,distance)#,main_addr)
+                    t=function_data.get_function_by_addr(c)
+                temp_nodes,distance=refine_dcg(dcg,t,function_data,temp_nodes,distance)#,main_addr)
                 break
 
             func.set_values(v)
             func.print_info()
+        if not temp_nodes:
             flag=False
     return True
 

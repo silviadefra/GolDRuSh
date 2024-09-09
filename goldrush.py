@@ -91,7 +91,6 @@ def write_n_to_csv(n):
 
 def main(binary, rules_file, file_type, num_values, num_best_fit, num_generations, len_cache, steps, tests=None):
     # Check if the binary file exists
-    print(file_type)
     if not path.isfile(binary):
         logging.warning(f"Error: File '{binary}' does not exist.")
 
