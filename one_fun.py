@@ -115,7 +115,7 @@ def write_n_to_csv(n):
         w = writer(file)
         w.writerow([n])
 
-def main(binary, target_f, entry, rules_file='rules.txt', file_type=True, num_values=4, num_best_fit=4, num_generations=10000, len_cache=100, steps=20, tests=None):
+def main(binary, target_f, rules_file='rules.txt', file_type=True, num_values=4, num_best_fit=4, num_generations=10000, len_cache=100, steps=20, tests=None):
     # Check if the binary file exists
     if not path.isfile(binary):
         logging.warning(f"Error: File '{binary}' does not exist.")
@@ -183,6 +183,6 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    main(args.binary,args.target, args.entry_point, args.rules_file, args.file_type, args.num_values, args.num_best_fit, args.num_generations, args.len_cache, args.steps,args.tests)
+    main(args.binary,args.target, args.rules_file, args.file_type, args.num_values, args.num_best_fit, args.num_generations, args.len_cache, args.steps,args.tests)
 
     
