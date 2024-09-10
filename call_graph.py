@@ -20,7 +20,7 @@ def generate_call_graph(project):
     defined_functions = cfg.functions.values()
     program_functions = []
     program_functions_addr=[]
-    visualize(cfg,call_graph)
+    #visualize(cfg,call_graph)
     
     for function in defined_functions:
         if not function.is_simprocedure and function.block_addrs_set and function.startpoint is not None:
