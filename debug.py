@@ -91,12 +91,11 @@ def trace_function_calls(binary, args,exported_func,internal_func):
     script = session.create_script(script_txt)
     script.on("message",on_message)
     script.load()
-    sleep(2)
 
     frida.resume(process)
 
     # Wait for the script to complete
-    sleep(0.5)
+    sleep(2)
     
     # Detach and clean up
     try:
