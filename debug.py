@@ -3,6 +3,7 @@ import frida
 from time import sleep
 from angr.sim_type import SimTypePointer, SimTypeLongLong, SimTypeInt
 import logging
+import sys
 
 
 #Script Internal functions

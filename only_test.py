@@ -110,7 +110,6 @@ def main(binary, rules_file, file_type, num_values, num_best_fit, num_generation
     if project is None:
         return
     logging.warning('Call graph genereted')
-    reverse_graph=call_graph.reverse(copy=False)
 
     visitor = RuleVisitor()
     visitor.visit(tree)  # Now, 'visitor.api_list' contains a list of 'api' elements.

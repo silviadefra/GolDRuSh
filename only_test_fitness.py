@@ -130,7 +130,7 @@ def fitness_func(df,entries,visitor):
             if s.satisfiable():
                 return 0  
 
-    if not values:
+    if values[0] is None:
         m=uniform(0.6,1)
     
     else:
