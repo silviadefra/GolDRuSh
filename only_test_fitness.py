@@ -11,6 +11,8 @@ def func_with_minimum_distance(data,functions):
     dist=sys.maxsize
     min_f=data.get_function_by_name('operate')
     values=None
+    if min_f is None:
+        min_f=data.get_function_by_name('lou_compileString')
     for f in functions:
         func=data.get_function_by_name(f[0])
         if func.distance<dist:
