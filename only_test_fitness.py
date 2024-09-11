@@ -9,14 +9,13 @@ from random import uniform
 # Function with minimum distance
 def func_with_minimum_distance(data,functions):
     dist=sys.maxsize
+    min_f=data.get_function_by_name('operate')
+    values=None
     for f in functions:
         func=data.get_function_by_name(f[0])
         if func.distance<dist:
             min_f=func
             values=f[1]
-        else:
-            min_f=data.get_function_by_name('operate')
-            values=None
     return min_f,values
 
 # From characters to binary
