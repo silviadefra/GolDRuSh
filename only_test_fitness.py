@@ -92,7 +92,9 @@ def add_constraints(par,conc_val,visitor):
     constraints=visitor.predicate(par)
     s.add(constraints)
     for key in conc_val:
-        if type(conc_val[key]) is str:
+        if conc_val[key]=="":
+            s.add(par[key] == "")
+        elif type(conc_val[key]) is str:
             s.add(par[key] == int(conc_val[key],16))
         elif type(conc_val[key]) is int:
             s.add(par[key] == conc_val[key])

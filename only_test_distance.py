@@ -2,7 +2,7 @@
 
 
 def first_distance(rule,functions):
-    functions.print_function_info()
+    #functions.print_function_info()
     dict={"x" : "Bv", "y" : "Bv"}
     if rule=='rule_louis.txt':
         f=functions.get_function_by_name('addCharacterClass')
