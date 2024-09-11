@@ -14,6 +14,9 @@ def func_with_minimum_distance(data,functions):
         if func.distance<dist:
             min_f=func
             values=f[1]
+        else:
+            min_f=data.get_function_by_name('operate')
+            values=None
     return min_f,values
 
 # From characters to binary
@@ -130,7 +133,7 @@ def fitness_func(df,entries,visitor):
             if s.satisfiable():
                 return 0  
 
-    if values[0] is None:
+    if values[0] is None or test_values is None:
         m=uniform(0.6,1)
     
     else:

@@ -102,7 +102,7 @@ def main(binary, rules_file, file_type, num_values, num_best_fit, num_generation
         
  
     tree = parse_file(rules_file) # Our rules
-    exported_list=['strlen', 'strcmp', 'strncpy', 'memset']
+    exported_list=['strlen', 'strcmp', 'strncpy', 'memset', 'memcpy']
 
     # General info of 'binary' (functions name, address)
     logging.warning('Binary file: {file}'.format(file=binary))
