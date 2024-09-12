@@ -142,6 +142,7 @@ def main(binary, rules_file, file_type, num_values, num_best_fit, num_generation
                 logging.warning(f"Warning: trace not found")
                 return
             logging.warning('Trace function calls')
+            logging.warning('Fitness calculated {count} times\n'.format(count=count_frida_execution))
 
             # Fitness function for each test
             fit=fitness_func(function_data,entries,visitor)
@@ -192,7 +193,7 @@ if __name__ == "__main__":
     # Required positional argument
     parser.add_argument('binary', type=str, help='The binary file to process')
     # Optional arguments with default values
-    parser.add_argument('--rules_file', type=str, default='rules.txt', help='The rules file to use (default: rules.txt)')
+    parser.add_argument('--rules_file', type=str, default='rules/rules.txt', help='The rules file to use (default: rules.txt)')
     parser.add_argument('--file_type', type=str2bool, nargs='?', const=True, default=True, help='Flag indicating whether the binary is an executable (1) or a library (0) (default: 1)')
     parser.add_argument('--num_values', type=int, default=4, help='Number of symbolic solutions per function to compare with concrete executions (default: 4)')
     parser.add_argument('--num_best_fit', type=int, default=4, help='Number of individuals in the population (default: 4)')
