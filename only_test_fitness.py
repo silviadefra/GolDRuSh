@@ -27,6 +27,8 @@ def to_bit(args):
         # If the argument is a string
         if isinstance(elm, str):
             c = ''.join(format(ord(i), 'b') for i in elm)
+        elif elm is None:
+            return None
         else:
             c=format(elm,'b')
         ch_values.append(c)
@@ -39,7 +41,13 @@ def distance_binary(target, values):
     for value in values:
         distance=0
         for v,t in zip(value,target):
-            distance+=sum(c1 != c2 for c1, c2 in zip_longest(t, v)) 
+            if v is None and t is None:
+                return 0
+            # Case when one is None and the other is not
+            elif v is None or t is None:
+                distance+= 1000
+            else:
+                distance+=sum(c1 != c2 for c1, c2 in zip_longest(t, v)) 
             #logging.warning('Distance {d} between {v} and {t}'.format(d=distance,v=v,t=t))
         if distance < minimum:
             minimum = distance
