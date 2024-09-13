@@ -64,6 +64,7 @@ class SolverUtility:
         solutions = []
         for i, path in enumerate(paths):
             s=path.solver
+            print(s.constraints)
             solutions.extend(self._get_solutions(s,ceil((n-i)/num_paths),args))
         
         solutions=[x for x in solutions if x is not None]

@@ -10,8 +10,8 @@ from functionclass import ProgramFunction, FunctionList
 # Generate call graph
 def generate_call_graph(project):
     # Set up the call graph analysis
-    #cfg = project.analyses.CFGEmulated()
-    cfg = project.analyses.CFGFast()
+    cfg = project.analyses.CFGEmulated()
+    #cfg = project.analyses.CFGFast()
 
     # Retrieve the call graph
     call_graph = cfg.functions.callgraph

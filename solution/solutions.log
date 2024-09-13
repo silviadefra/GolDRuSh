@@ -1457,3 +1457,217 @@
 2024-09-11 14:54:21,248 : Values: [None]
 2024-09-11 14:54:21,248 : Symbolic parameters: [None]
 2024-09-11 14:54:21,248 : Values calculated
+2024-09-11 15:07:36,024 : Test genereted: [['ndQCiVYk'], ['ListKKxtCWGQpSpi716r0o60viy9NyNW'], ['61dbk1McpeLNro03'], ['L5rN2AnJLtavxCfOPlmug8PVIPwGNY06R44K0lZmu4lgwUgKJ9WAeb0IAp65Vjl7F57CqXAkwZcD1Ey3zgW4szXwXADQQv431Be1FfAnRCi9ECdXslBM43yAKszvMjEl11sqMWpHYkpvLnsySyHZjnmqzPA5tK1B0UV7nApro0MCalwhm6urUFfnnJ1yPZnTPbAJ1vG0YDBlCthTe3QTBdCbE285MZBTbDwNbJbnVewvIQib7Z45P8oTlOk2FuKPk0Jktmmb']]
+2024-09-11 15:07:36,056 : Binary file: test/CROMU_00047c
+2024-09-11 15:07:37,386 : Returning to an unexpected address 0x1
+2024-09-11 15:07:37,460 : Returning to an unexpected address 0xbaaaad48
+2024-09-11 15:07:49,659 : Returning to an unexpected address 0x1000
+2024-09-11 15:08:09,520 : Unsupported Binop Iop_CmpF64.
+2024-09-11 15:08:09,526 : Unsupported Binop Iop_F64toI32S.
+2024-09-11 15:08:10,227 : _analyze_function(): Cannot find a calling convention for <Function get_rand_uniform (0x80495f0)> that fits the given arguments.
+2024-09-11 15:08:10,227 : Cannot determine calling convention for <Function get_rand_uniform (0x80495f0)>.
+2024-09-11 15:08:10,304 : _analyze_function(): Cannot find a calling convention for <Function add_awgn_to_sample (0x8049650)> that fits the given arguments.
+2024-09-11 15:08:10,304 : Cannot determine calling convention for <Function add_awgn_to_sample (0x8049650)>.
+2024-09-11 15:08:10,325 : Reading memory with overlapping variables: [(0, <0x8049840[is_18]|Stack bp-0x10, 4 B>), (-4, <0x8049840[is_17]|Stack bp-0xc, 4 B>)]. Ignoring all but the first one.
+2024-09-11 15:08:10,375 : Reading memory with overlapping variables: [(0, <0x8049840[is_21]|Stack bp-0x20, 4 B>), (-4, <0x8049840[is_20]|Stack bp-0x1c, 4 B>)]. Ignoring all but the first one.
+2024-09-11 15:08:12,925 : _analyze_function(): Cannot find a calling convention for <Function printf_float_to_string (0x804be80)> that fits the given arguments.
+2024-09-11 15:08:12,925 : Cannot determine calling convention for <Function printf_float_to_string (0x804be80)>.
+2024-09-11 15:08:13,052 : _analyze_function(): Cannot find a calling convention for <Function printf_helper_float (0x804c890)> that fits the given arguments.
+2024-09-11 15:08:13,052 : Cannot determine calling convention for <Function printf_helper_float (0x804c890)>.
+2024-09-11 15:08:13,813 : Unsupported Triop Iop_Yl2xF64.
+2024-09-11 15:08:13,854 : Unsupported Binop Iop_RoundF64toInt.
+2024-09-11 15:08:13,878 : Unsupported Binop Iop_SqrtF64.
+2024-09-11 15:08:13,919 : Unsupported Binop Iop_2xm1F64.
+2024-09-11 15:08:13,926 : _analyze_function(): Cannot find a calling convention for <Function pow (0x804df4c)> that fits the given arguments.
+2024-09-11 15:08:13,926 : Cannot determine calling convention for <Function pow (0x804df4c)>.
+2024-09-11 15:08:13,938 : Call graph genereted
+2024-09-11 15:08:13,942 : Graph distance
+2024-09-11 15:08:13,942 : Function Name: process_sample
+2024-09-11 15:08:13,942 : Function Address: 134512928
+2024-09-11 15:08:13,942 : Function Type: (int (32 bits), char) -> void
+2024-09-11 15:08:13,942 : Distance: 0
+2024-09-11 15:08:13,942 : Values: [None]
+2024-09-11 15:08:13,942 : Symbolic parameters: [None]
+2024-09-11 15:08:13,942 : Function Name: main
+2024-09-11 15:08:13,942 : Function Address: 134520496
+2024-09-11 15:08:13,942 : Function Type: (int (32 bits), int (32 bits)) -> int (32 bits)
+2024-09-11 15:08:13,942 : Distance: 1
+2024-09-11 15:08:13,943 : Values: [None]
+2024-09-11 15:08:13,943 : Symbolic parameters: [None]
+2024-09-11 15:08:13,943 : Function Name: malloc
+2024-09-11 15:08:13,943 : Function Address: 134523168
+2024-09-11 15:08:13,943 : Function Type: (int (32 bits)) -> int (32 bits)
+2024-09-11 15:08:13,943 : Distance: inf
+2024-09-11 15:08:13,943 : Values: [None]
+2024-09-11 15:08:13,943 : Symbolic parameters: [None]
+2024-09-11 15:08:15,241 : The program is accessing register with an unspecified value. This could indicate unwanted behavior.
+2024-09-11 15:08:15,242 : angr will cope with this by generating an unconstrained symbolic variable and continuing. You can resolve this by:
+2024-09-11 15:08:15,242 : 1) setting a value to the initial state
+2024-09-11 15:08:15,242 : 2) adding the state option ZERO_FILL_UNCONSTRAINED_{MEMORY,REGISTERS}, to make unknown regions hold null
+2024-09-11 15:08:15,242 : 3) adding the state option SYMBOL_FILL_UNCONSTRAINED_{MEMORY,REGISTERS}, to suppress these messages.
+2024-09-11 15:08:15,242 : Filling register ebp with 4 unconstrained bytes referenced from 0x8049eb0 (main+0x0 in CROMU_00047c (0x8049eb0))
+2024-09-11 15:08:15,243 : Filling register esi with 4 unconstrained bytes referenced from 0x8049eb3 (main+0x3 in CROMU_00047c (0x8049eb3))
+2024-09-11 15:08:15,247 : Filling memory at 0xbaaab000 with 4 unconstrained bytes referenced from 0x8049ee7 (main+0x37 in CROMU_00047c (0x8049ee7))
+2024-09-11 15:08:15,247 : Filling memory at 0xbaaab004 with 4 unconstrained bytes referenced from 0x8049eed (main+0x3d in CROMU_00047c (0x8049eed))
+2024-09-11 15:08:15,259 : Filling register edi with 4 unconstrained bytes referenced from 0x804b1b3 (vprintf_buffered+0x3 in CROMU_00047c (0x804b1b3))
+2024-09-11 15:08:15,266 : Filling register ebx with 4 unconstrained bytes referenced from 0x804b2f3 (wrapper_output+0x3 in CROMU_00047c (0x804b2f3))
+2024-09-11 15:18:37,112 : Test genereted: [['hRZfRcNSTFv9vHGBIs1oOcFfz7bqSdzyhy0uXYwBxsQ9D42qXb5G4bYcRVJKoiONKtDndd6UH5IYXBrhU5jfIufVn0RXGmWp9Xl6lfZ1b5zfTjAM3zNmOLTSc9nAOpVE'], ['igLrtM74Ptwh397qBuLiusQ03dQGBKoF'], ['mpsqq0dKg6V2f3ngEidFXkMRyep5FWom'], ['keevbmDwlbxTNKVuo3lmbFnCkw25Qq7x']]
+2024-09-11 15:18:37,145 : Binary file: test/CROMU_00047c
+2024-09-11 15:18:38,272 : Returning to an unexpected address 0x1
+2024-09-11 15:18:38,335 : Returning to an unexpected address 0xbaaaad48
+2024-09-11 15:18:50,273 : Returning to an unexpected address 0x1000
+2024-09-11 15:19:10,571 : Unsupported Binop Iop_CmpF64.
+2024-09-11 15:19:10,576 : Unsupported Binop Iop_F64toI32S.
+2024-09-11 15:19:11,311 : _analyze_function(): Cannot find a calling convention for <Function get_rand_uniform (0x80495f0)> that fits the given arguments.
+2024-09-11 15:19:11,311 : Cannot determine calling convention for <Function get_rand_uniform (0x80495f0)>.
+2024-09-11 15:19:11,376 : _analyze_function(): Cannot find a calling convention for <Function add_awgn_to_sample (0x8049650)> that fits the given arguments.
+2024-09-11 15:19:11,376 : Cannot determine calling convention for <Function add_awgn_to_sample (0x8049650)>.
+2024-09-11 15:19:11,393 : Reading memory with overlapping variables: [(0, <0x8049840[is_18]|Stack bp-0x10, 4 B>), (-4, <0x8049840[is_17]|Stack bp-0xc, 4 B>)]. Ignoring all but the first one.
+2024-09-11 15:19:11,435 : Reading memory with overlapping variables: [(0, <0x8049840[is_21]|Stack bp-0x20, 4 B>), (-4, <0x8049840[is_20]|Stack bp-0x1c, 4 B>)]. Ignoring all but the first one.
+2024-09-11 15:19:14,007 : _analyze_function(): Cannot find a calling convention for <Function printf_float_to_string (0x804be80)> that fits the given arguments.
+2024-09-11 15:19:14,007 : Cannot determine calling convention for <Function printf_float_to_string (0x804be80)>.
+2024-09-11 15:19:14,130 : _analyze_function(): Cannot find a calling convention for <Function printf_helper_float (0x804c890)> that fits the given arguments.
+2024-09-11 15:19:14,130 : Cannot determine calling convention for <Function printf_helper_float (0x804c890)>.
+2024-09-11 15:19:14,897 : Unsupported Triop Iop_Yl2xF64.
+2024-09-11 15:19:14,942 : Unsupported Binop Iop_RoundF64toInt.
+2024-09-11 15:19:14,964 : Unsupported Binop Iop_SqrtF64.
+2024-09-11 15:19:15,000 : Unsupported Binop Iop_2xm1F64.
+2024-09-11 15:19:15,008 : _analyze_function(): Cannot find a calling convention for <Function pow (0x804df4c)> that fits the given arguments.
+2024-09-11 15:19:15,008 : Cannot determine calling convention for <Function pow (0x804df4c)>.
+2024-09-11 15:19:15,019 : Call graph genereted
+2024-09-11 15:19:15,022 : Graph distance
+2024-09-11 15:19:15,023 : Function Name: process_sample
+2024-09-11 15:19:15,023 : Function Address: 134512928
+2024-09-11 15:19:15,023 : Function Type: (int (32 bits), char) -> void
+2024-09-11 15:19:15,023 : Distance: 2
+2024-09-11 15:19:15,023 : Values: [None]
+2024-09-11 15:19:15,023 : Symbolic parameters: [None]
+2024-09-11 15:19:15,023 : Function Name: run_cdr
+2024-09-11 15:19:15,023 : Function Address: 134512976
+2024-09-11 15:19:15,023 : Function Type: (int (32 bits), char) -> void
+2024-09-11 15:19:15,023 : Distance: 1
+2024-09-11 15:19:15,023 : Values: [None]
+2024-09-11 15:19:15,023 : Symbolic parameters: [None]
+2024-09-11 15:19:15,023 : Function Name: do_sample
+2024-09-11 15:19:15,023 : Function Address: 134513936
+2024-09-11 15:19:15,023 : Function Type: (int (32 bits), char) -> void
+2024-09-11 15:19:15,023 : Distance: 0
+2024-09-11 15:19:15,023 : Values: [None]
+2024-09-11 15:19:15,023 : Symbolic parameters: [None]
+2024-09-11 15:19:15,023 : Function Name: main
+2024-09-11 15:19:15,023 : Function Address: 134520496
+2024-09-11 15:19:15,023 : Function Type: (int (32 bits), int (32 bits)) -> int (32 bits)
+2024-09-11 15:19:15,023 : Distance: 3
+2024-09-11 15:19:15,023 : Values: [None]
+2024-09-11 15:19:15,023 : Symbolic parameters: [None]
+2024-09-11 15:19:15,023 : Function Name: malloc
+2024-09-11 15:19:15,023 : Function Address: 134523168
+2024-09-11 15:19:15,023 : Function Type: (int (32 bits)) -> int (32 bits)
+2024-09-11 15:19:15,023 : Distance: inf
+2024-09-11 15:19:15,023 : Values: [None]
+2024-09-11 15:19:15,023 : Symbolic parameters: [None]
+2024-09-11 15:19:16,394 : The program is accessing register with an unspecified value. This could indicate unwanted behavior.
+2024-09-11 15:19:16,394 : angr will cope with this by generating an unconstrained symbolic variable and continuing. You can resolve this by:
+2024-09-11 15:19:16,394 : 1) setting a value to the initial state
+2024-09-11 15:19:16,394 : 2) adding the state option ZERO_FILL_UNCONSTRAINED_{MEMORY,REGISTERS}, to make unknown regions hold null
+2024-09-11 15:19:16,394 : 3) adding the state option SYMBOL_FILL_UNCONSTRAINED_{MEMORY,REGISTERS}, to suppress these messages.
+2024-09-11 15:19:16,394 : Filling register ebp with 4 unconstrained bytes referenced from 0x8048150 (run_cdr+0x0 in CROMU_00047c (0x8048150))
+2024-09-11 15:19:16,397 : Filling memory at 0xbaaab013 with 4 unconstrained bytes referenced from 0x8048165 (run_cdr+0x15 in CROMU_00047c (0x8048165))
+2024-09-11 15:19:16,590 : Filling memory at 0xbaaab007 with 8 unconstrained bytes referenced from 0x8048388 (run_cdr+0x238 in CROMU_00047c (0x8048388))
+2024-09-11 15:19:17,022 : Filling memory at 0xbaaab000 with 7 unconstrained bytes referenced from 0x804821b (run_cdr+0xcb in CROMU_00047c (0x804821b))
+2024-09-11 15:19:17,037 : Filling memory at 0xbaaab00f with 4 unconstrained bytes referenced from 0x804845d (free_run_lock+0x3d in CROMU_00047c (0x804845d))
+2024-09-11 15:19:34,140 : Filling register ebx with 4 unconstrained bytes referenced from 0x804dc69 (_terminate+0x5 in CROMU_00047c (0x804dc69))
+2024-09-11 15:21:16,250 : Filling register 168 with 8 unconstrained bytes referenced from 0x80484ee (free_run_lock+0xce in CROMU_00047c (0x80484ee))
+2024-09-11 15:21:16,344 : Function Name: run_cdr
+2024-09-11 15:21:16,344 : Function Address: 134512976
+2024-09-11 15:21:16,344 : Function Type: (int (32 bits), char) -> void
+2024-09-11 15:21:16,344 : Distance: 1
+2024-09-11 15:21:16,344 : Values: [["b'\\x02\\xff\\x00\\x05'", "b'\\x00'"], ["b'\\x02\\xff\\x00\\x00'", "b'\\x02'"], ["b'\\x02\\xff\\x00\\x01'", "b'\\x06'"], ["b'\\x02\\xff\\x00\\r'", "b'\\x0e'"]]
+2024-09-11 15:21:16,344 : Symbolic parameters: [None]
+2024-09-11 15:21:16,344 : Function Name: process_sample
+2024-09-11 15:21:16,344 : Function Address: 134512928
+2024-09-11 15:21:16,344 : Function Type: (int (32 bits), char) -> void
+2024-09-11 15:21:16,344 : Distance: 2
+2024-09-11 15:21:16,344 : Values: [None]
+2024-09-11 15:21:16,344 : Symbolic parameters: [None]
+2024-09-11 15:21:16,344 : Function Name: run_cdr
+2024-09-11 15:21:16,344 : Function Address: 134512976
+2024-09-11 15:21:16,344 : Function Type: (int (32 bits), char) -> void
+2024-09-11 15:21:16,344 : Distance: 1
+2024-09-11 15:21:16,344 : Values: [["b'\\x02\\xff\\x00\\x05'", "b'\\x00'"], ["b'\\x02\\xff\\x00\\x00'", "b'\\x02'"], ["b'\\x02\\xff\\x00\\x01'", "b'\\x06'"], ["b'\\x02\\xff\\x00\\r'", "b'\\x0e'"]]
+2024-09-11 15:21:16,344 : Symbolic parameters: [None]
+2024-09-11 15:21:16,344 : Function Name: do_sample
+2024-09-11 15:21:16,344 : Function Address: 134513936
+2024-09-11 15:21:16,344 : Function Type: (int (32 bits), char) -> void
+2024-09-11 15:21:16,344 : Distance: 0
+2024-09-11 15:21:16,344 : Values: [None]
+2024-09-11 15:21:16,344 : Symbolic parameters: [None]
+2024-09-11 15:21:16,344 : Function Name: main
+2024-09-11 15:21:16,345 : Function Address: 134520496
+2024-09-11 15:21:16,345 : Function Type: (int (32 bits), int (32 bits)) -> int (32 bits)
+2024-09-11 15:21:16,345 : Distance: 3
+2024-09-11 15:21:16,345 : Values: [None]
+2024-09-11 15:21:16,345 : Symbolic parameters: [None]
+2024-09-11 15:21:16,345 : Function Name: malloc
+2024-09-11 15:21:16,345 : Function Address: 134523168
+2024-09-11 15:21:16,345 : Function Type: (int (32 bits)) -> int (32 bits)
+2024-09-11 15:21:16,345 : Distance: inf
+2024-09-11 15:21:16,345 : Values: [None]
+2024-09-11 15:21:16,345 : Symbolic parameters: [None]
+2024-09-11 15:21:16,345 : Values calculated
+2024-09-11 15:26:26,046 : Test genereted: [['xokmXEXUMR0Zni9sdSWScXkBeg9OIbuctvF5EDPwJszWLShXHjGsACQJ5Ehgpe7Q2b0tMfR2GSb36iOh3H6tWS1kGz5QH8IhwsecOUYiSSs2N03YYJKsGNAsKtDWs3ou7Hp7FkPQFOMTq3lGnLskm2h2bD4KmkUSChHdekzrlAyKngyxnOGBVFVz3t3S0shQGpx3aHNToOxzZ7Awzdv4uqLURRa1xe2QQtz6iuPCeo8K5oF4YPVT1UNIW2XArmfEmaimjBoU'], ['rvaWyXOFpffMhZZVwEhNBdv8kZ0F5KjvR8wpHziIfFXjn3FLqRSXerHiAzGu9X2b'], ['RBgSLXfiXv0vAWLvQFPPzoROQNiRU19CVv8EhN9nA4RnucUy6dQX0iHat119DFOXRXrugoHM5L6fbj5KodPTmiLwdiAAtPSCShGnJpwm2XeUuP7bIOplxBwDN6tkdxCJ'], ['Dx9dLtHIEIE8mClr']]
+2024-09-11 15:26:33,016 : Test genereted: [['WrVBQ1bGOPbTqHOXPBjHe3EmqxmOiFTsnR7xsxfZlY16bQxCIgr1Rd0LoWd0RumX'], ['JDqVuyafJaJIEoUMzldEepCn6ZN7tb9uLWGNvSxk46RDL8lR6G7DT3cmGujstxCqcaszHQZESB9bGRYlJf6FLe9NKSu574XvhVhezsTQOHEZO4YinsbyJiOXJXrDquQlFVISKbGjVaOl5QjbQvKJbmfJegpOROHLchfxvekzgRyqByTnu3sBHPhCWd1i3hv82cBYyJRG5a6G4Cck8Qkv7FSdLhBVAaLKlqxyF8mc4WpMTZZDz7vUDph1MOSylBPUgLszDjuKYxCX1ABNANQlhTu7QncHht7Kl5t4gFrBksrEvrzs6Y6agx0O5mZlbMDElqrB11m3BNWfJdlv59oddY31NG8hNosOSTV4cHDe3CKWJOBRiB12A9zdAa7bvWwy6QW4pMGOPuL0KpmRXu8iC4H1UhhZ3rnqWA7CJBCtMamWob5PgBl8rmK7XqfuV9pmWCfqTxKg95O1QNKm3OLTjTQS3yHGv1IyeWOI23BbJUETiqZsEOKHUEy8EV6KH1YOJh14K06bJ6G5EZ'], ['HHYj1t4xPM4uXDje9kiNCTRvD4oKIyU2EKvgKXXa7HjMf7FQXaOnY0EQVxTDd0seK0DHQsWXRyJu4FbnmjBiaQTzj1p7Z2gpMvsnFPUodQo17wgfFhpZ0b2hna3swA5c'], ['LKlNEfIW']]
+2024-09-11 15:26:33,048 : Binary file: test/CROMU_00047c
+2024-09-11 15:26:34,173 : Returning to an unexpected address 0x1
+2024-09-11 15:26:34,236 : Returning to an unexpected address 0xbaaaad48
+2024-09-11 15:26:46,648 : Returning to an unexpected address 0x1000
+2024-09-11 15:27:08,401 : Unsupported Binop Iop_CmpF64.
+2024-09-11 15:27:08,406 : Unsupported Binop Iop_F64toI32S.
+2024-09-11 15:27:09,233 : _analyze_function(): Cannot find a calling convention for <Function get_rand_uniform (0x80495f0)> that fits the given arguments.
+2024-09-11 15:27:09,233 : Cannot determine calling convention for <Function get_rand_uniform (0x80495f0)>.
+2024-09-11 15:27:09,307 : _analyze_function(): Cannot find a calling convention for <Function add_awgn_to_sample (0x8049650)> that fits the given arguments.
+2024-09-11 15:27:09,307 : Cannot determine calling convention for <Function add_awgn_to_sample (0x8049650)>.
+2024-09-11 15:27:09,327 : Reading memory with overlapping variables: [(0, <0x8049840[is_18]|Stack bp-0x10, 4 B>), (-4, <0x8049840[is_17]|Stack bp-0xc, 4 B>)]. Ignoring all but the first one.
+2024-09-11 15:27:09,374 : Reading memory with overlapping variables: [(0, <0x8049840[is_21]|Stack bp-0x20, 4 B>), (-4, <0x8049840[is_20]|Stack bp-0x1c, 4 B>)]. Ignoring all but the first one.
+2024-09-11 15:27:11,984 : _analyze_function(): Cannot find a calling convention for <Function printf_float_to_string (0x804be80)> that fits the given arguments.
+2024-09-11 15:27:11,984 : Cannot determine calling convention for <Function printf_float_to_string (0x804be80)>.
+2024-09-11 15:27:12,116 : _analyze_function(): Cannot find a calling convention for <Function printf_helper_float (0x804c890)> that fits the given arguments.
+2024-09-11 15:27:12,117 : Cannot determine calling convention for <Function printf_helper_float (0x804c890)>.
+2024-09-11 15:27:12,883 : Unsupported Triop Iop_Yl2xF64.
+2024-09-11 15:27:12,920 : Unsupported Binop Iop_RoundF64toInt.
+2024-09-11 15:27:12,938 : Unsupported Binop Iop_SqrtF64.
+2024-09-11 15:27:12,974 : Unsupported Binop Iop_2xm1F64.
+2024-09-11 15:27:12,980 : _analyze_function(): Cannot find a calling convention for <Function pow (0x804df4c)> that fits the given arguments.
+2024-09-11 15:27:12,980 : Cannot determine calling convention for <Function pow (0x804df4c)>.
+2024-09-11 15:27:12,991 : Call graph genereted
+2024-09-11 15:27:12,994 : Graph distance
+2024-09-11 15:27:12,994 : Function Name: process_sample
+2024-09-11 15:27:12,994 : Function Address: 134512928
+2024-09-11 15:27:12,994 : Function Type: (int (32 bits), char) -> void
+2024-09-11 15:27:12,994 : Distance: 0
+2024-09-11 15:27:12,994 : Values: [None]
+2024-09-11 15:27:12,994 : Symbolic parameters: [None]
+2024-09-11 15:27:12,994 : Function Name: main
+2024-09-11 15:27:12,994 : Function Address: 134520496
+2024-09-11 15:27:12,994 : Function Type: (int (32 bits), int (32 bits)) -> int (32 bits)
+2024-09-11 15:27:12,994 : Distance: 1
+2024-09-11 15:27:12,994 : Values: [None]
+2024-09-11 15:27:12,994 : Symbolic parameters: [None]
+2024-09-11 15:27:12,994 : Function Name: malloc
+2024-09-11 15:27:12,994 : Function Address: 134523168
+2024-09-11 15:27:12,994 : Function Type: (int (32 bits)) -> int (32 bits)
+2024-09-11 15:27:12,994 : Distance: inf
+2024-09-11 15:27:12,994 : Values: [None]
+2024-09-11 15:27:12,994 : Symbolic parameters: [None]
+2024-09-11 15:27:12,994 : Function Name: memcpy
+2024-09-11 15:27:12,994 : Function Address: 134533488
+2024-09-11 15:27:12,994 : Function Type: (int (32 bits), int (32 bits), int (32 bits)) -> int (32 bits)
+2024-09-11 15:27:12,994 : Distance: inf
+2024-09-11 15:27:12,994 : Values: [None]
+2024-09-11 15:27:12,995 : Symbolic parameters: [None]
+2024-09-11 15:27:12,995 : Unused keyword arguments passed to SimState: args
+2024-09-11 16:57:20,647 : Test genereted: [['C6eAzxB9e7ANhpZRpG6sttMLe5Qy84bIscgf1FeqTwofzNJFUaEb4q2ujhB3Zpl439a3q8FFLFJW8LFVudsCY7wyuuy81RJjy7zbW3giTHpJMfQGWmaWmcwBkauDqZtK'], ['stkyMGb2'], ['ZfedKXGzj0ram3D7qX2JJvB4Cx4DAQfMMoMxavFHIXzEpQiKuJkkWuqBGtjP2ADLO6S9gNHJOZlcOnkRNdubDQMubLUyv5sxj3WdxUvyD1KK4bLty8yGbVeCCOz4I0tX'], ['bGMzOxXMvzV9qujCWgrf2f8zDLSNCD6nxRel6AyexZkmHyJJMvWD1gFNMYaMEWNO']]
+2024-09-11 16:57:20,678 : Binary file: test/CROMU_00047c
+2024-09-11 16:57:21,465 : Returning to an unexpected address 0x1
+2024-09-11 16:57:21,526 : Returning to an unexpected address 0xbaaaad48
+2024-09-11 16:57:33,328 : Returning to an unexpected address 0x1000

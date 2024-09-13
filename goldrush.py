@@ -208,7 +208,7 @@ if __name__ == "__main__":
     # Required positional argument
     parser.add_argument('binary', type=str, help='The binary file to process')
     # Optional arguments with default values
-    parser.add_argument('--rules_file', type=str, default='rules.txt', help='The rules file to use (default: rules.txt)')
+    parser.add_argument('--rules_file', type=str, default='rules/rules.txt', help='The rules file to use (default: rules.txt)')
     parser.add_argument('--file_type', type=str2bool, nargs='?', const=True, default=True, help='Flag indicating whether the binary is an executable (1) or a library (0) (default: 1)')
     parser.add_argument('--num_values', type=int, default=4, help='Number of symbolic solutions per function to compare with concrete executions (default: 4)')
     parser.add_argument('--num_best_fit', type=int, default=4, help='Number of individuals in the population (default: 4)')

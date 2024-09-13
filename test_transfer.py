@@ -2,16 +2,15 @@
 
 import sys
 from os import path
-import networkx as nx
 import logging
-from math import inf
 logging.basicConfig(filename='solution/solutions.log',format='%(asctime)s : %(message)s', encoding='utf-8', level=logging.WARNING)
 #logging.basicConfig(format='[+] %(asctime)s %(levelname)s: %(message)s', level=logging.WARNING)
 from argparse import ArgumentParser, ArgumentTypeError
 from call_graph import file_data
-from parse_curl_symbolic import functions_dataframe
+from only_test_distance import first_distance
+from symbolic import functions_dataframe
 from debug import trace_function_calls
-from parse_curl_fitness import fitness_func
+from only_test_fitness import fitness_func
 from fuzzy import fuzzy_func
 from grammar import parse_file
 from tree_visitor import RuleVisitor
@@ -19,31 +18,6 @@ from itertools import groupby
 from random import sample,choices
 from string import ascii_letters,digits
 from csv import writer
-
-
-# For each function graph distance and list of the targets 
-def first_distance(function_data,call_graph,target_f):
-    
-    # Find minimum distance between nodes and target
-    trg = function_data.get_function_by_name(target_f)
-    t=trg.address
-    distance = nx.shortest_path_length(call_graph, target=t)
-
-    if len(distance)==1:
-        return None,None
-    
-    for key in list(distance.keys()):
-        func=function_data.get_function_by_addr(key)
-        func.set_distance(distance[key])
-
-    
-    func=function_data.get_function_by_name('_start')
-    if func is not None:
-        func.set_distance(inf)
-        distance.pop(func.address, None)
-    #function_data.print_function_info()
-
-    return distance
 
 def string_length(n):
     list_length=[8,16,32,64,128,264,526]
@@ -115,20 +89,21 @@ def write_n_to_csv(n):
         w = writer(file)
         w.writerow([n])
 
-def main(binary, target_f, rules_file='rules.txt', file_type=True, num_values=4, num_best_fit=4, num_generations=10000, len_cache=100, steps=20, tests=None):
+def main(binary, rules_file, file_type, num_values, num_best_fit, num_generations, len_cache, steps, tests=None):
     # Check if the binary file exists
     if not path.isfile(binary):
         logging.warning(f"Error: File '{binary}' does not exist.")
 
     if tests is None:
-        lengths_tests = string_length(num_best_fit)
+        tests=[['l<v$D\x0eG-Ld>~\x0c|3wcqt*,~OG7E5=\\}s\x1d\x7f>\x16\x17]+\x19\x7fjU[\x14={+/NZxzy->z\x02SWGWJKuj'], ['l<v$D\x0eG-Ld>~\x0c|3wcqt*,~OG7E5=\\}s\x1d\x7f>\x17]+\x19\x7fjU[\x14={+/NZ::xzy->z\x02SWGWJKuj'], ['SbWP004hKjqfG'], ['SbWP004hhKq'], ['SbWP00J4hKjqOM7p5w'], ['SbWP00JKjqfGOM7p5w']]
+        #lengths_tests = string_length(num_best_fit)
         # tests=[[str(l)] for l in lengths_tests]
-        tests = generate_tests(lengths_tests)  #Our tests
-        logging.warning('Test genereted: {tests}'.format(tests=tests))
+        #tests = generate_tests(lengths_tests)  #Our tests
+    logging.warning('Test genereted: {tests}'.format(tests=tests))
         
  
     tree = parse_file(rules_file) # Our rules
-    exported_list=['strlen', 'strcmp', 'strncpy']
+    exported_list=['strlen', 'strcmp', 'strncpy', 'memset', 'memcpy']
 
     # General info of 'binary' (functions name, address)
     logging.warning('Binary file: {file}'.format(file=binary))
@@ -137,28 +112,21 @@ def main(binary, target_f, rules_file='rules.txt', file_type=True, num_values=4,
         return
     logging.warning('Call graph genereted')
 
-    # Iterate through the 'tree' to find the 'api' subtree.
     visitor = RuleVisitor()
     visitor.visit(tree)  # Now, 'visitor.api_list' contains a list of 'api' elements.
-
-    api_list=rule_api_list(visitor.api_list,general_function_data)
     
     function_data=general_function_data.copy()
     # For each function graph distance and list of the targets
-    distance=first_distance(function_data,call_graph,target_f)
+    first_distance(rules_file,function_data)
     
     logging.warning('Graph distance')
-    # Only functions with distance =! infinity
+
+    # Dataframe of functions, for each function: solver, values
+    #flag=functions_dataframe(binary,project,function_data,num_values,steps,distance,api_list,visitor,dcg.copy(),file_type)
+    # Check if the function is found in the call graph
     function_data.remove_functions_with_infinity_distance(visitor.api_list)
     function_data.print_function_info()
 
-    # Dataframe of functions, for each function: solver, values
-    flag=functions_dataframe(binary,project,function_data,num_values,steps,distance,api_list,visitor,call_graph.copy(),file_type, target_f)
-    # Check if the function is found in the call graph
-    function_data.print_function_info()
-    if flag is None:
-        logging.warning('Angr not able to evaluate solution')
-        return
     logging.warning('Values calculated')
 
     l=[]
@@ -175,6 +143,7 @@ def main(binary, target_f, rules_file='rules.txt', file_type=True, num_values=4,
                 logging.warning(f"Warning: trace not found")
                 return
             logging.warning('Trace function calls')
+            logging.warning('Fitness calculated {count} times\n'.format(count=count_frida_execution))
 
             # Fitness function for each test
             fit=fitness_func(function_data,entries,visitor)
@@ -215,18 +184,17 @@ def str2bool(v):
         return False
     else:
         raise ArgumentTypeError('Value must be 0 or 1.')
-
+    
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        logging.info("Usage: python main_code.py <target_executable>")
+        logging.info("Usage: python goldrush.py <target_executable>")
         sys.exit(1)
 
     parser = ArgumentParser()
     # Required positional argument
     parser.add_argument('binary', type=str, help='The binary file to process')
-    parser.add_argument('target', type=str, help='The target function to analyze')
     # Optional arguments with default values
-    parser.add_argument('--rules_file', type=str, default='rules.txt', help='The rules file to use (default: rules.txt)')
+    parser.add_argument('--rules_file', type=str, default='rules/rules.txt', help='The rules file to use (default: rules.txt)')
     parser.add_argument('--file_type', type=str2bool, nargs='?', const=True, default=True, help='Flag indicating whether the binary is an executable (1) or a library (0) (default: 1)')
     parser.add_argument('--num_values', type=int, default=4, help='Number of symbolic solutions per function to compare with concrete executions (default: 4)')
     parser.add_argument('--num_best_fit', type=int, default=4, help='Number of individuals in the population (default: 4)')
@@ -237,6 +205,6 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    main(args.binary,args.target, args.rules_file, args.file_type, args.num_values, args.num_best_fit, args.num_generations, args.len_cache, args.steps,args.tests)
+    main(args.binary, args.rules_file, args.file_type, args.num_values, args.num_best_fit, args.num_generations, args.len_cache, args.steps,args.tests)
 
-    
+
