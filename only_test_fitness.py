@@ -28,7 +28,7 @@ def to_bit(args):
         if isinstance(elm, str):
             c = ''.join(format(ord(i), 'b') for i in elm)
         elif elm is None:
-            return None
+            return [None]
         else:
             c=format(elm,'b')
         ch_values.append(c)
