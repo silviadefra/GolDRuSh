@@ -4,7 +4,7 @@
 def first_distance(rule,functions):
     #functions.print_function_info()
     dict={"x" : "Bv", "y" : "Bv"}
-    if rule=='rule_louis.txt':
+    if rule=='rules/rule_louis.txt':
         f=functions.get_function_by_name('addCharacterClass')
         f.set_distance(0)
         f=functions.get_function_by_name('lou_compileString')
@@ -37,7 +37,7 @@ def first_distance(rule,functions):
         op=functions.get_function_by_name('operate')
         op.set_values([["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x06'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x06'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x06'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x0e'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x0e'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x0e'"]])
             
-        if rule=='rule_transfer.txt':
+        if rule=='rules/rule_transfer.txt':
             main.set_distance(6)
             f=functions.get_function_by_name('single_transfer')
             f.set_distance(0)
@@ -55,7 +55,7 @@ def first_distance(rule,functions):
             f.set_values([["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x06'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x06'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x06'"], ["b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x0e'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x0e'", "b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x0e'"]])
             op.set_distance(5)
             api=functions.get_function_by_name('memset')
-        elif rule=='rule.txt':
+        elif rule=='rules/rule.txt':
             main.set_distance(5)
             f=functions.get_function_by_name('parse_cert_parameter')
             f.set_distance(0)
