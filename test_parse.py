@@ -107,7 +107,7 @@ def main(binary, rules_file, file_type, num_values, num_best_fit, num_generation
 
     # General info of 'binary' (functions name, address)
     logging.warning('Binary file: {file}'.format(file=binary))
-    project,call_graph,general_function_data=file_data(binary)
+    project,call_graph,general_function_data=file_data(binary,file_type)
     if project is None:
         return
     logging.warning('Call graph genereted')

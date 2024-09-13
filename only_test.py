@@ -83,7 +83,7 @@ def del_duplicate(temp,l):
 
 # Create a csv with the best fitness for each generation
 def write_n_to_csv(n):
-    csv_file = 'fit_values.csv'
+    csv_file = 'solution/fit_values.csv'
     # Write 'n' to the CSV file
     with open(csv_file, mode='a', newline='') as file:
         w = writer(file)
@@ -106,7 +106,7 @@ def main(binary, rules_file, file_type, num_values, num_best_fit, num_generation
 
     # General info of 'binary' (functions name, address)
     logging.warning('Binary file: {file}'.format(file=binary))
-    project,call_graph,general_function_data=file_data(binary)
+    project,call_graph,general_function_data=file_data(binary,file_type)
     if project is None:
         return
     logging.warning('Call graph genereted')
@@ -171,7 +171,7 @@ def main(binary, rules_file, file_type, num_values, num_best_fit, num_generation
         
         if tests:
             i+=1
-        #write_n_to_csv(pop[0][0])
+        write_n_to_csv(pop[0][0])
     if fit!=0:
         logging.warning('The best arguments for the rule are: {arg}\n'.format(arg=l[0][1]))
         logging.warning('Fitness calculated {count} times\n'.format(count=count_frida_execution))

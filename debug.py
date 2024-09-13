@@ -19,15 +19,12 @@ def make_script_in(pair):
             args_str+=f'args[{i}]'
         args_str+=', '
     return """
-            console.log('Called function '+DebugSymbol.getFunctionByName('"""+f+"""'))
             Interceptor.attach(DebugSymbol.getFunctionByName('"""+f+"""'), {
                 onEnter: function (args) {
                     send({function: '"""+f+"""', args: [""" + args_str + """]})
-                    console.log('onEnter function '+DebugSymbol.getFunctionByName('"""+f+"""'))
                 },
                 onLeave: function (retval) {
                 	send({function: '"""+f+"""', ret: retval})
-                    console.log('onLeave function '+DebugSymbol.getFunctionByName('"""+f+"""'))
 
                 }
             });
@@ -63,7 +60,7 @@ def trace_function_calls(binary, args,exported_func,internal_func):
     """
     entries = []
     def on_message(message, data):
-        #logging.warning(message)
+        logging.warning(message)
         if message["type"] == "send" and message["payload"] != "done":
             function_name = message["payload"]["function"]
             #TODO: cambiare

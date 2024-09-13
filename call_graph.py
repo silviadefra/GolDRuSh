@@ -8,10 +8,12 @@ from functionclass import ProgramFunction, FunctionList
 
 
 # Generate call graph
-def generate_call_graph(project):
+def generate_call_graph(project,binary_type):
     # Set up the call graph analysis
-    cfg = project.analyses.CFGEmulated()
-    #cfg = project.analyses.CFGFast()
+    if binary_type:
+        cfg = project.analyses.CFGEmulated()
+    else:
+        cfg = project.analyses.CFGFast()
 
     # Retrieve the call graph
     call_graph = cfg.functions.callgraph
@@ -58,12 +60,12 @@ def visualize(cfg,graph):
 
 
 # Main function: General info of 'binary' (functions name, address)
-def file_data(binary_path):
+def file_data(binary_path,binary_type):
     # Create an angr project
     project = Project(binary_path, auto_load_libs=False)
 
     # Generate the call graph
-    call_graph, func_addr=generate_call_graph(project)
+    call_graph, func_addr=generate_call_graph(project,binary_type)
     if call_graph is None:
         return None,None,None
 
