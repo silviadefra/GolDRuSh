@@ -21,13 +21,14 @@ from csv import writer
 
 def string_length(n):
     list_length=[8,16,32,64,128,264,526]
-    return choices(list_length, k=n)
+    return choices(list_length, k=n), choices(list_length, k=n)
 
-def generate_random_string(length):
-    return [''.join(choices(ascii_letters + digits, k=length))]
+def generate_random_string(l1,l2):
+    return [''.join(choices(ascii_letters + digits, k=l1)), ''.join(choices(ascii_letters + digits, k=l2))]
 
-def generate_tests(lengths):
-    random_strings = [generate_random_string(length) for length in lengths]
+def generate_tests(lengths1,lengths2):
+    random_strings = [generate_random_string(l1,l2) for l1,l2 in zip(lengths1,lengths2)]
+    random_strings.append(['EE','E'])
     #logging.warning('Test genereted: {tests}'.format(tests=random_strings))
     return random_strings
 
@@ -95,9 +96,9 @@ def main(binary, rules_file, file_type, num_values, num_best_fit, num_generation
         logging.warning(f"Error: File '{binary}' does not exist.")
 
     if tests is None:
-        lengths_tests = string_length(num_best_fit)
+        lengths_tests1,lengths_tests2 = string_length(num_best_fit)
         # tests=[[str(l)] for l in lengths_tests]
-        tests = generate_tests(lengths_tests)  #Our tests
+        tests = generate_tests(lengths_tests1,lengths_tests2)  #Our tests
     logging.warning('Test genereted: {tests}'.format(tests=tests))
         
  
