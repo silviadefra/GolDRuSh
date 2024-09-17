@@ -21,14 +21,17 @@ from csv import writer
 
 def string_length(n):
     list_length=[8,16,32,64,128,264,526]
-    return choices(list_length, k=n), choices(list_length, k=n)
+    return choices(list_length, k=n)
 
-def generate_random_string(l1,l2):
-    return [''.join(choices(ascii_letters + digits, k=l1)), ''.join(choices(ascii_letters + digits, k=l2))]
+def cmd_option(n):
+    list_cmd=['--cert', '--key', '--cacert', '--insecure', '--user', '--data', '--data-binary', '--header', '--request', '--url', '--output', '--silent', '--verbose', '--location', '--max-time', '--connect-timeout', '--cookie', '--cookie-jar', '--referer', '--user-agent', '--proxy', '--no-proxy', '--form', '--upload-file', '--include', '--compressed']
+    return choices(list_cmd, k=n)   
 
-def generate_tests(lengths1,lengths2):
-    random_strings = [generate_random_string(l1,l2) for l1,l2 in zip(lengths1,lengths2)]
-    random_strings.append(['EE','E'])
+def generate_random_string(l):
+    return ''.join(choices(ascii_letters + digits, k=l))
+
+def generate_tests(cmd,lengths):
+    random_strings = [[c,generate_random_string(l)] for c,l in zip(cmd,lengths)]
     random_strings.append(['--cert','/ksjahf'])
     #logging.warning('Test genereted: {tests}'.format(tests=random_strings))
     return random_strings
@@ -97,9 +100,10 @@ def main(binary, rules_file, file_type, num_values, num_best_fit, num_generation
         logging.warning(f"Error: File '{binary}' does not exist.")
 
     if tests is None:
-        lengths_tests1,lengths_tests2 = string_length(num_best_fit)
+        lengths_tests= string_length(num_best_fit)
+        cmd=cmd_option(num_best_fit)
         # tests=[[str(l)] for l in lengths_tests]
-        tests = generate_tests(lengths_tests1,lengths_tests2)  #Our tests
+        tests = generate_tests(cmd,lengths_tests)  #Our tests
     logging.warning('Test genereted: {tests}'.format(tests=tests))
         
  
