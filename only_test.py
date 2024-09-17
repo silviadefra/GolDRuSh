@@ -29,6 +29,7 @@ def generate_random_string(l1,l2):
 def generate_tests(lengths1,lengths2):
     random_strings = [generate_random_string(l1,l2) for l1,l2 in zip(lengths1,lengths2)]
     random_strings.append(['EE','E'])
+    random_strings.append(['--cert','/ksjahf'])
     #logging.warning('Test genereted: {tests}'.format(tests=random_strings))
     return random_strings
 
