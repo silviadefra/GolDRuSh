@@ -39,106 +39,98 @@ b1 = malloc(m) , b2=memset(?,?,n) ;
 b1 == b2 AND m < n ;
 
 # CWE-20 rule 11
-#strcpy(?,?,x);
-#x<0;
-
-# CWE-20 
-#scanf(?,m) , malloc(n) ;
-#m == &n;
+strncpy(?,?,x);
+x<0;
 
 # CWE-134 rule 12
 memcpy(to,from,?) , printf(p);
 from == \x40000 AND to == p ;
 
-# CWE-134 rule 13
-#printf(p);
-#p == \x40000;
-
-# CWE-416 rule 14
+# CWE-416 rule 13
 free(x), free(y);
 x == y;
 
-# CWE-416 rule 15
+# CWE-416 rule 14
 free(x), memchr(y,?,?);
 x == y;
 
-# CWE-416 rule 16
+# CWE-416 rule 15
 free(x), memcmp(y,z,?);
 x == y OR x == z;
 
-# CWE-416 rule 17
+# CWE-416 rule 16
 free(x), memcpy(y,z,?);
 x == y OR x == z;
 
-# CWE-416 rule 18
+# CWE-416 rule 17
 free(x), memmove(y,z,?);
 x == y OR x == z;
 
-# CWE-416 rule 19
+# CWE-416 rule 18
 free(x), memset(y,?,?);
 x == y;
 
-# CWE-416 rule 20
+# CWE-416 rule 19
 free(x), strcat(y,z);
 x == y OR x == z;
 
-# CWE-416 rule 21
+# CWE-416 rule 20
 free(x), strncat(y,z,?);
 x == y OR x == z;
 
-# CWE-416 rule 22
+# CWE-416 rule 21
 free(x), strcmp(y,z);
 x == y OR x == z;
 
-# CWE-416 rule 23
+# CWE-416 rule 22
 free(x), strncmp(y,z,?);
 x == y OR x == z;
 
-# CWE-416 rule 24
+# CWE-416 rule 23
 free(x), strchr(y,z);
 x == y OR x == z;
 
-# CWE-416 rule 25
+# CWE-416 rule 24
 free(x), strcpy(y,z);
 x == y OR x == z;
 
-# CWE-416 rule 26
+# CWE-416 rule 25
 free(x), strncpy(y,z,?);
 x == y OR x == z;
 
-# CWE-416 rule 27
+# CWE-416 rule 26
 free(x), strcspn(y,z);
 x == y OR x == z;
 
-# CWE-416 rule 28
+# CWE-416 rule 27
 free(x), strlen(y);
 x == y;
 
-# CWE-416 rule 29
+# CWE-416 rule 28
 free(x), strpbrk(y,z);
 x == y OR x == z;
 
-# CWE-416 rule 30
+# CWE-416 rule 29
 free(x), strrchr(y,?);
 x == y;
 
-# CWE-416 rule 31
+# CWE-416 rule 30
 free(x), strspn(y,z);
 x == y OR x == z;
 
-# CWE-416 rule 32
+# CWE-416 rule 31
 free(x), strstr(y,z);
 x == y OR x == z;
 
-# CWE-416 rule 33
+# CWE-416 rule 32
 free(x), strtok(y,?);
 x == y;
 
-# CWE-416 rule 34
+# CWE-416 rule 33
 free(x), strxfrm(y,z,?);
 x == y OR x == z;
 
-# CWE-416 rule 35
+# CWE-416 rule 34
 free(x), printf(y);
 x == y;
 

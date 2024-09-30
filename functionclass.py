@@ -13,7 +13,6 @@ class ProgramFunction:
         self.values = [None]
         self.sympar= [None]
 
-
     def set_distance(self,num):
         self.distance=num
 
@@ -22,6 +21,12 @@ class ProgramFunction:
 
     def set_args(self,args):
         self.sympar=args
+
+    def set_address(self,address):
+        self.address=address
+
+    def set_prototype(self,prototype):
+        self.type=prototype
 
     def print_info(self):
         logging.warning(f"Function Name: {self.name}")

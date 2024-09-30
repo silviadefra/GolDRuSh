@@ -13,11 +13,14 @@ from debug import trace_function_calls
 from fitness import fitness_func
 from fuzzy import fuzzy_func
 from grammar import parse_file
+from create_delete_main import create_main_file, clean_up
 from tree_visitor import RuleVisitor
 from itertools import groupby
 from random import sample,choices
 from string import ascii_letters,digits
 from csv import writer
+
+exported_list=['strlen', 'strcmp', 'strncpy','memset', 'memcpy', 'malloc']
 
 def string_length(n):
     list_length=[8,16,32,64,128,264,526]
@@ -28,19 +31,16 @@ def generate_random_string(length):
 
 def generate_tests(lengths):
     random_strings = [generate_random_string(length) for length in lengths]
-    #logging.warning('Test genereted: {tests}'.format(tests=random_strings))
     return random_strings
 
 def rule_api_list(api_list,function_data):
-    # Find the address of the 'api_list'
     api=[function_data.get_function_by_name(x) for x in api_list]
-    # Check if the functions are found in the call graph
+    # Check if alle the apis are found
     if None in api:
-        return None
-    
+        return None    
     return api 
 
-# Separete exported functions with the inputs from intenral functions
+# Separete exported functions from internal functions adding the prototype
 def separete_func(data,exported_list):
     list_functions=data.get_names()
     prototypes=data.get_prototypes()
@@ -57,7 +57,7 @@ def separete_func(data,exported_list):
 
 # Generate initial population
 def gen_pop(l,num_best_fit,len_cache):
-    temp=sorted(l, key=lambda x: (x[0], len(str(x[0]).split('.')[1])))
+    temp=sorted(l, key=lambda x: (x[0], len(str(x[0]).split('.')[1]))) # Sort by fitness (first element of tuple) and then by number of decimal places in the fitness value
     temp=list(k for k,_ in groupby(temp)) #delete duplicate
     l=temp[:len_cache]
     i=0
@@ -68,7 +68,7 @@ def gen_pop(l,num_best_fit,len_cache):
         mom=[x for x in l if x[0]==min_fit]
         ki=min(num_best_fit-i,len(mom))
         pop=pop + sample(mom,k=ki)
-        i=i+ki
+        i+=ki
         temp=temp[len(mom):]
     return pop,l
 
@@ -93,19 +93,20 @@ def main(binary, rules_file, file_type, num_values, num_best_fit, num_generation
     # Check if the binary file exists
     if not path.isfile(binary):
         logging.warning(f"Error: File '{binary}' does not exist.")
+    logging.warning('Binary file: {file}'.format(file=binary))
 
     if tests is None:
         lengths_tests = string_length(num_best_fit)
-        # tests=[[str(l)] for l in lengths_tests]
         tests = generate_tests(lengths_tests)  #Our tests
     logging.warning('Test genereted: {tests}'.format(tests=tests))
-        
+
+    # If binary is a .so, create a minimal test application for frida
+    if not file_type:
+        create_main_file(binary)
  
     trees = parse_file(rules_file) # Our rules
-    exported_list=['strlen', 'strcmp', 'strncpy']
 
-    # General info of 'binary' (functions name, address)
-    logging.warning('Binary file: {file}'.format(file=binary))
+    # General info: dcg, functions info (name, address,prototype)
     project,call_graph,general_function_data=file_data(binary,file_type)
     if project is None:
         return
@@ -117,8 +118,8 @@ def main(binary, rules_file, file_type, num_values, num_best_fit, num_generation
         visitor = RuleVisitor()
         visitor.visit(tree)  # Now, 'visitor.api_list' contains a list of 'api' elements.
 
+        # Check if the apis of the rule are in the call graph
         api_list=rule_api_list(visitor.api_list,general_function_data)
-        # Check if the function is found in the call graph
         if api_list is None:
             continue
         logging.warning('Rule {num}'.format(num=num_tree+1))
@@ -126,17 +127,14 @@ def main(binary, rules_file, file_type, num_values, num_best_fit, num_generation
         function_data=general_function_data.copy()
         # For each function graph distance and list of the targets
         distance,dcg=first_distance(api_list,function_data,call_graph,reverse_graph)
-        
-        # Check if the function is found in the call graph
         if distance is None:
             continue
         logging.warning('Graph distance')
         # Only functions with distance =! infinity
         function_data.remove_functions_with_infinity_distance(visitor.api_list)
 
-        # Dataframe of functions, for each function: solver, values
+        # For each function: solver, values
         flag=functions_dataframe(binary,project,function_data,num_values,steps,distance,api_list,visitor,dcg.copy(),file_type)
-        # Check if the function is found in the call graph
         function_data.remove_functions_with_infinity_distance(visitor.api_list)
         function_data.print_function_info()
         if flag is None:
@@ -144,16 +142,16 @@ def main(binary, rules_file, file_type, num_values, num_best_fit, num_generation
             continue
         logging.warning('Values calculated')
 
-        l=[]
-        i=0
         # Separete exported functions from intenral functions
         exported_func,internal_func=separete_func(function_data,exported_list)
+        l=[]
+        i=0
         count_frida_execution=0
         while i< num_generations:
             for t in tests: #TODO parallel
                 count_frida_execution += 1
                 # Run the binary and trace function calls with their arguments
-                entries = trace_function_calls(binary, t,exported_func,internal_func)
+                entries = trace_function_calls(binary, t,exported_func,internal_func,file_type)
                 if not entries:
                     logging.warning(f"Warning: trace not found")
                     return
@@ -186,7 +184,10 @@ def main(binary, rules_file, file_type, num_values, num_best_fit, num_generation
             
             if tests:
                 i+=1
-            #write_n_to_csv(pop[0][0])
+                #write_n_to_csv(pop[0][0])
+        # delete files created
+        if not file_type:
+            clean_up()
         if fit!=0:
             logging.warning('The best arguments for rule {num} are: {arg}\n'.format(num=num_tree+1,arg=l[0][1]))
             logging.warning('Fitness calculated {count} times\n'.format(count=count_frida_execution))

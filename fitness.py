@@ -20,7 +20,9 @@ def to_bit(args):
     ch_values=[]
     for elm in args:
         # If the argument is a string
-        if isinstance(elm, str):
+        if elm is None:
+            return [None]
+        elif isinstance(elm, str):
             c = ''.join(format(ord(i), 'b') for i in elm)
         else:
             c=format(elm,'b')
@@ -34,7 +36,13 @@ def distance_binary(target, values):
     for value in values:
         distance=0
         for v,t in zip(value,target):
-            distance+=sum(c1 != c2 for c1, c2 in zip_longest(t, v)) 
+            if v is None and t is None:
+                return 0
+            # Case when one is None and the other is not
+            elif v is None or t is None:
+                distance+= 1000
+            else:
+                distance+=sum(c1 != c2 for c1, c2 in zip_longest(t, v)) 
             #logging.warning('Distance {d} between {v} and {t}'.format(d=distance,v=v,t=t))
         if distance < minimum:
             minimum = distance
@@ -87,7 +95,9 @@ def add_constraints(par,conc_val,visitor):
     constraints=visitor.predicate(par)
     s.add(constraints)
     for key in conc_val:
-        if type(conc_val[key]) is str:
+        if conc_val[key]=="":
+            s.add(par[key] == "")
+        elif type(conc_val[key]) is str:
             s.add(par[key] == int(conc_val[key],16))
         elif type(conc_val[key]) is int:
             s.add(par[key] == conc_val[key])
@@ -107,7 +117,8 @@ def prev_func_vals(df,func_list):
 #Main Function
 def fitness_func(df,entries,visitor):
     reached_functions=[(x[0],x[1]) for x in entries if x[2]=="input"] # Functions (x[0]) and inputs (x[1]) 
-    
+    if not reached_functions:
+        return
     # Function with minimum distance to the target
     func,test_values=func_with_minimum_distance(df,reached_functions)
     # Values to reach the next 'good' function from the solver

@@ -64,7 +64,6 @@ class SolverUtility:
         solutions = []
         for i, path in enumerate(paths):
             s=path.solver
-            print(s.constraints)
             solutions.extend(self._get_solutions(s,ceil((n-i)/num_paths),args))
         
         solutions=[x for x in solutions if x is not None]
@@ -101,18 +100,6 @@ class SolverUtility:
             state=self.project.factory.entry_state(args=[binary]+args, add_options=extras)
         else:
             state = self._create_call_state(args,input_type, source,extras)
-
-        # if num_steps is not None:
-        #     cc=self.project.factory.cc()
-        #     symbolic_par=dict()
-        #     for i,a in enumerate(api_list):
-        #         source=a.address
-        #         st = self.project.factory.call_state(source)#_create_call_state(args,input_type, source,extras)
-        #         symbolic_par.update(self._rules_symbolic_par(cc,a,visitor.par_list[i],st,state))
-        #     claripy_contstraints=visitor.predicate(symbolic_par)
-        #     state.solver.add(claripy_contstraints)
-        #     print(state.solver.constraints)
-
 
         # Explore the program with symbolic execution
         sm = self.project.factory.simgr(state, save_unconstrained=True)
