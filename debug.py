@@ -58,14 +58,14 @@ def make_script_ex(pair):
 
 def make_script_lib(pair,binary):
     (f,input)=pair
-    last_slash_index = binary.rfind('/')
-    # Check if '/' was found
-    if last_slash_index == -1:
-        # If no '/' found, the path is the file name itself
-        file_name = binary
-    else:
-        # Extract the part after the last '/'
-        file_name = binary[last_slash_index + 1:]
+    # last_slash_index = binary.rfind('/')
+    # # Check if '/' was found
+    # if last_slash_index == -1:
+    #     # If no '/' found, the path is the file name itself
+    #     file_name = binary
+    # else:
+    #     # Extract the part after the last '/'
+    #     file_name = binary[last_slash_index + 1:]
 
     args_str=''
     for i,type in enumerate(input):
@@ -79,7 +79,9 @@ def make_script_lib(pair,binary):
             args_str+=f'args[{i}]'
         args_str+=', '
     return """
-            Interceptor.attach(Module.findExportByName('"""+file_name+"""', '"""+f+"""'), {
+            var c= Module.load('"""+binary+"""');
+            console.log('module info:\n'+JSON.stringify(c));
+            Interceptor.attach(Module.findExportByName('"""+binary+"""', '"""+f+"""'), {
                 onEnter: function (args) {
                     send({function: '"""+f+"""', args: [""" + args_str + """]})
                 },
@@ -89,6 +91,7 @@ def make_script_lib(pair,binary):
             });
         """
 
+
 #Main Function
 def trace_function_calls(binary, args,exported_func,internal_func,flag):
     """
@@ -96,7 +99,7 @@ def trace_function_calls(binary, args,exported_func,internal_func,flag):
     """
     entries = []
     def on_message(message, data):
-        logging.warning(message)
+        #logging.warning(message)
         if message["type"] == "send" and message["payload"] != "done":
             function_name = message["payload"]["function"]
             #TODO: cambiare

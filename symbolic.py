@@ -31,28 +31,28 @@ def refine_dcg(dcg,t,function_data,temp_nodes,distance):
 # Dataframe of functions, for each function: solver, values  
 def functions_dataframe(binary_path, project, function_data, n, steps,distance,api_list,visitor,dcg,tp_file):
     
-    # if tp_file:
-    #     # function 'main' of the binary
-    #     func=function_data.get_function_by_name('main')
-    #     main_addr=func.address
-    #     input_type=func.type
-    #     main_solver=SolverUtility(project)
-    #     # If 'api_address' are reachable from the main
-    #     if distance[main_addr]==1:
-    #         v,a=main_solver.get_solver(api_list,n,input_type,binary=binary_path,num_steps=steps,visitor=visitor)         
-    #         f_last_api=api_list[-1]
-    #         f_last_api.set_args(a)
-    #     else:
-    #         # Find successors with smaller distance
-    #         target_func=find_succ(main_addr,dcg,distance)
-    #         # Get the solver with constraints leading to reaching the target_func, and values to solve them
-    #         v,_=main_solver.get_solver(target_func,n,input_type,binary=binary_path)
+    if tp_file:
+        # function 'main' of the binary
+        func=function_data.get_function_by_name('main')
+        main_addr=func.address
+        input_type=func.type
+        main_solver=SolverUtility(project)
+        # If 'api_address' are reachable from the main
+        if distance[main_addr]==1:
+            v,a=main_solver.get_solver(api_list,n,input_type,binary=binary_path,num_steps=steps,visitor=visitor)         
+            f_last_api=api_list[-1]
+            f_last_api.set_args(a)
+        else:
+            # Find successors with smaller distance
+            target_func=find_succ(main_addr,dcg,distance)
+            # Get the solver with constraints leading to reaching the target_func, and values to solve them
+            v,_=main_solver.get_solver(target_func,n,input_type,binary=binary_path)
 
-    #     if v is None:
-    #         return
-    #     func.set_values(v)
+        if v is None:
+            return
+        func.set_values(v)
 
-    #     distance.pop(func.address, None)
+        distance.pop(func.address, None)
     temp_nodes=distance.copy()
     flag=True
     while flag:
