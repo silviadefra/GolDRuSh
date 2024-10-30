@@ -20,7 +20,7 @@ from random import sample,choices
 from string import ascii_letters,digits
 from csv import writer
 
-exported_list=['strlen', 'strcmp', 'strncpy','memset', 'memcpy', 'malloc']
+exported_list=['strlen', 'strcmp', 'strncpy','memset', 'memcpy']
 
 def string_length(n):
     list_length=[8,16,32,64,128,264,526]
