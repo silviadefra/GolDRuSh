@@ -14,7 +14,9 @@ def make_script_binary(pair,binary):
     (f,input)=pair
     args_str=''
     for i,t in enumerate(input):
-        if isinstance(t, SimTypePointer) or isinstance(t, SimTypeLongLong):
+        if isinstance(type, SimTypePointer):  # Handle pointers
+            args_str += f'args[{i}] !== null ? args[{i}].readPointer().toString() : "null"'
+        elif isinstance(type, SimTypeLongLong):
             args_str+=f'args[{i}].readCString()'
         elif isinstance(t,SimTypeInt):
             args_str+=f'args[{i}].toInt32()'
@@ -38,7 +40,9 @@ def make_script_ex(pair):
     (f,input)=pair
     args_str=''
     for i,type in enumerate(input):
-        if isinstance(type, SimTypePointer) or isinstance(type, SimTypeLongLong):
+        if isinstance(type, SimTypePointer):  # Handle pointers
+            args_str += f'args[{i}] !== null ? args[{i}].readPointer().toString() : "null"'
+        elif isinstance(type, SimTypeLongLong):
             args_str+=f'args[{i}].readCString()'
         elif isinstance(type,SimTypeInt):
             args_str+=f'args[{i}].toInt32()'
@@ -99,7 +103,7 @@ def trace_function_calls(binary, args,exported_func,internal_func,flag):
     """
     entries = []
     def on_message(message, data):
-        #logging.warning(message)
+        logging.warning(message)
         if message["type"] == "send" and message["payload"] != "done":
             function_name = message["payload"]["function"]
             #TODO: cambiare
@@ -122,11 +126,11 @@ def trace_function_calls(binary, args,exported_func,internal_func,flag):
     script_txt=""
     script_txt+="\n"
     internal_func.reverse()
-    for f in exported_func:
-        script_txt+= make_script_ex(f)
-        script_txt+="\n"
     for f in internal_func:
         script_txt+= make_script_in(f,binary)
+        script_txt+="\n"
+    for f in exported_func:
+        script_txt+= make_script_ex(f)
         script_txt+="\n"
 
     script = session.create_script(script_txt)
@@ -136,7 +140,7 @@ def trace_function_calls(binary, args,exported_func,internal_func,flag):
     frida.resume(process)
 
     # Wait for the script to complete
-    sleep(10)
+    sleep(5)
     
     # Detach and clean up
     try:
