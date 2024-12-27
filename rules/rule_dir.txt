@@ -1,3 +1,0 @@
-# CWE-190 rule 6
-b1=malloc(?), b2=strcpy(?,?);
-b1==b2;

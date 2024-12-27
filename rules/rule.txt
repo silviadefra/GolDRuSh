@@ -1,3 +1,0 @@
-# CWE-190
-b1 = malloc(m) , b2=strncpy(?,?,n) ;
-b1 == b2 AND m < n ;

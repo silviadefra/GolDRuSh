@@ -1,3 +1,0 @@
-# CWE-416 rule 19
-free(x), memset(y,?,?);
-x == y;

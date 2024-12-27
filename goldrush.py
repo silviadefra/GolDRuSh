@@ -3,8 +3,6 @@
 import sys
 from os import path
 import logging
-logging.basicConfig(filename='solution/solutions.log',format='%(asctime)s : %(message)s', encoding='utf-8', level=logging.WARNING)
-#logging.basicConfig(format='[+] %(asctime)s %(levelname)s: %(message)s', level=logging.WARNING)
 from argparse import ArgumentParser, ArgumentTypeError
 from call_graph import file_data
 from graph_distance import first_distance
@@ -219,6 +217,12 @@ if __name__ == "__main__":
     parser.add_argument('--tests', nargs='+', help='List of test cases to be used (default: strings of randomly lenght between 8 and 256)')
 
     args = parser.parse_args()
+
+    for handler in logging.root.handlers[:]:
+        logging.root.removeHandler(handler)
+    logging.basicConfig(filename='log_file/solutions.log',format='%(asctime)s : %(message)s', encoding='utf-8', level=logging.WARNING)
+
+    
 
     main(args.binary, args.rules_file, args.file_type, args.num_values, args.num_best_fit, args.num_generations, args.len_cache, args.steps,args.tests)
 

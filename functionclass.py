@@ -33,7 +33,7 @@ class ProgramFunction:
         logging.warning(f"Function Address: {self.address}")
         logging.warning(f"Function Type: {self.type}")
         logging.warning(f"Distance: {self.distance}")
-        #logging.warning(f"Values: {self.values}")
+        logging.warning(f"Values: {self.values}")
         logging.warning(f"Symbolic parameters: {self.sympar}")
 
 
@@ -84,9 +84,4 @@ class FunctionList:
     
     def print_function_info(self):
         for func in self.program_functions:
-            logging.warning(f"Function Name: {func.name}")
-            logging.warning(f"Function Address: {func.address}")
-            logging.warning(f"Function Type: {func.type}")
-            logging.warning(f"Distance: {func.distance}")
-            #logging.warning(f"Values: {func.values}")
-            logging.warning(f"Symbolic parameters: {func.sympar}")
+            func.print_info()
