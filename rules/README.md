@@ -7,10 +7,13 @@ b1 == b2 AND m < n ;
 ```
 ## Rule Structure
 Each `rule` is composed of two parts: the **signature** (`sign`) and the **predicate** (`pred`).
+
 - **Signature**: This is a finite sequence of API calls `api` separated by a comma. Each API call consists of:
+
   - Return variable
   - API name
   - A list of parameters
+
   In the example above, the signature includes the following API calls:
   - `b1 = malloc(m)`
   - `read(?,b2,n)`
@@ -22,6 +25,7 @@ Each `rule` is composed of two parts: the **signature** (`sign`) and the **predi
     - Variables
     - Constants
     - Classical operators
+  
   In this case, the predicate is a conjunction of conditions:
   ```text
   b1 == b2 AND m < n 

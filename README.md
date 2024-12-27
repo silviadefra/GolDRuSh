@@ -47,7 +47,7 @@ the labeled call graph for the TEE.
 To run the framework, execute the following command in your terminal:
 
 ```bash
-python goldrush.py <target_executable> <rules_file>
+python goldrush.py <target_executable> --rules <rules_file>
 ```
 
 ## Configuration
