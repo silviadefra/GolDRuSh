@@ -80,14 +80,13 @@ def del_duplicate(temp,l):
     return tests
 
 # Create a csv with the best fitness for each generation
-def write_n_to_csv(n):
-    csv_file = 'fit_values.csv'
+def write_n_to_csv(n,csv_file):
     # Write 'n' to the CSV file
     with open(csv_file, mode='a', newline='') as file:
         w = writer(file)
         w.writerow([n])
 
-def main(binary, rules_file, file_type, num_values, num_best_fit, num_generations, len_cache, steps, tests=None):
+def main(binary, rules_file, file_type, num_values, num_best_fit, num_generations, len_cache, steps, csv_file, tests=None):
     # Check if the binary file exists
     if not path.isfile(binary):
         logging.warning(f"Error: File '{binary}' does not exist.")
@@ -182,7 +181,8 @@ def main(binary, rules_file, file_type, num_values, num_best_fit, num_generation
             
             if tests:
                 i+=1
-                #write_n_to_csv(pop[0][0])
+                if path.isfile(csv_file):
+                    write_n_to_csv(pop[0][0])
         # delete files created
         if not file_type:
             clean_up()
@@ -215,6 +215,8 @@ if __name__ == "__main__":
     parser.add_argument('--len_cache', type=int, default=100, help='Number of test cases to store for fitness caching (default: 100)')
     parser.add_argument('--steps', type=int, default=20, help='Maximum number of steps from one API call of the rule to the next (default: 8)')
     parser.add_argument('--tests', nargs='+', help='List of test cases to be used (default: strings of randomly lenght between 8 and 256)')
+    parser.add_argument('--csv_file', type=str, default='log_file/fitness.csv', help='The csv file to write the fitness')
+
 
     args = parser.parse_args()
 
@@ -222,8 +224,6 @@ if __name__ == "__main__":
         logging.root.removeHandler(handler)
     logging.basicConfig(filename='log_file/solutions.log',format='%(asctime)s : %(message)s', encoding='utf-8', level=logging.WARNING)
 
-    
-
-    main(args.binary, args.rules_file, args.file_type, args.num_values, args.num_best_fit, args.num_generations, args.len_cache, args.steps,args.tests)
+    main(args.binary, args.rules_file, args.file_type, args.num_values, args.num_best_fit, args.num_generations, args.len_cache, args.steps, args.csv_file,args.tests)
 
 
