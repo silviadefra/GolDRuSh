@@ -1,4 +1,5 @@
 from lark import Lark
+from sys import exit, argv
 
 grammar = r"""
 
@@ -7,7 +8,8 @@ grammar = r"""
     COMMENT: /#.*/
 
 
-    ?rule: pattern pred ";" 
+    ?rule:type pattern pred ";" 
+    ?type: (CNAME par ",")* CNAME par ";"
     ?pattern: (api ",")* api ";"
     ?api: CNAME"("[parlist]")" | CNAME "=" CNAME"("[parlist]")"
     ?parlist: (par ",")* par
@@ -16,9 +18,8 @@ grammar = r"""
     pred: neg | pred BOP neg 
     neg: term | NEG term 
     term: TRUE | FALSE | spred | apred | "("pred")" 
-    spred: sptr IOP clist   #ci serve?
+    spred: sptr IOP sptr
     sptr: CNAME | CNAME "[" NUMBER "]"
-    clist: ESCAPED_STRING
 
     IOP: "IN"
     BOP: "AND" | "OR"
@@ -63,18 +64,18 @@ def parse_file(filename):
     return l
 
 
-
-
-def main():
-
-    tree = parse_file("rules.txt")   
-
+def main(rules):
+    tree = parse_file(rules)   
     return tree
 
 
 if __name__ == '__main__':
-    tree = main()
+    if len(argv) < 2:
+        print("Usage: python grammar.py  <filename>")
+        exit(1)
 
+    rules_file = argv[1]
+    tree = main(rules_file)
     print(tree)
     
 

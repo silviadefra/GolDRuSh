@@ -7,9 +7,32 @@ from math import ceil
 class SolverUtility:
     def __init__(self, project):
         self.project = project
+
+    # Decode as UTF-8
+    def _decode_utf8(st,pointer_value):
+        string_bytes = b""
+        for i in range(100):  
+            byte = st.memory.load(pointer_value + i, 1)
+            byte_value = st.solver.eval(byte, cast_to=bytes)
+            if byte_value == b'\x00':  # Stop at null terminator in UTF-8
+                break
+            string_bytes += byte_value
+        return string_bytes.decode('utf-8', errors='ignore')
+
+    # Decode as UTF-16
+    def _decode_utf16(st,pointer_value):
+        string_bytes = b""
+        for i in range(0, 100, 2):  
+            byte = st.memory.load(pointer_value + i, 2)
+            byte_value = st.solver.eval(byte, cast_to=bytes)
+            if byte_value == b'\x00\x00':  # Stop at null terminator in UTF-16
+                break
+            string_bytes += byte_value
+        return string_bytes.decode('utf-16', errors='ignore')
     
-    def _symbolic_par(self,x,cc,par,st,par_val=None):
+    def _symbolic_par(self,x,cc,par,st,flag,par_val=None):
         symb_par=claripy.BVS(x, par.size)
+        string=None
         if par_val is None:
             sim_reg=cc.return_val(par)
             par_val=sim_reg.reg_name
@@ -18,20 +41,35 @@ class SolverUtility:
         st.solver.add(symb_par == symb_val)
         setattr(st.regs,str(par_val),symb_par)
 
-        return symb_par
+        if flag:
+            pointer_value = st.solver.eval(symb_val)
+            byte = st.memory.load(pointer_value, 2) # Read the first 2 bytes to determine encoding
+            byte_value = st.solver.eval(byte, cast_to=bytes)
+            if byte_value[1] == 0x00: # Check if likely UTF-16 
+                string = self._decode_utf16(st,pointer_value)
+            else:
+                string = self._decode_utf8(st,pointer_value)
+        return symb_par,string
 
-    def _rules_symbolic_par(self,cc,api,par_list,st):
+    def _rules_symbolic_par(self,cc,api,par_list,st,string_list):
         symb_input=dict()
-        # Symbolic return variable
-        if par_list[0] is not None:
-            symb_input[par_list[0]]=self._symbolic_par(par_list[0],cc,api.type.returnty,st)
-            
         # Symbolic input variables
         input_arg=api.type.args
         for i,x in enumerate(par_list[1:]):
+            flag=False
             if x!='?':
-                symb_input[x]=self._symbolic_par(x,cc,input_arg[i],st,api.reg[i]) 
-
+                if x in string_list: # need string of the parameter
+                    flag=True
+                val,string_val=self._symbolic_par(x,cc,input_arg[i],st,flag,api.reg[i])
+                symb_input[x]=val
+                if flag:
+                   symb_input[x+'s']= string_val 
+        # Symbolic return variable
+        if par_list[0] is not None:
+            val,string_val=self._symbolic_par(par_list[0],cc,api.type.returnty,st,flag)
+            symb_input[par_list[0]]=val
+            if flag:
+                symb_input[par_list[0]+'s']= string_val
         return symb_input    
 
     def _create_call_state(self,args, input_type, source,extras):
@@ -111,16 +149,17 @@ class SolverUtility:
             symbolic_par=dict()
             for i,a in enumerate(api_list[:-1]):
                 if sm.found:
-                    symbolic_par.update(self._rules_symbolic_par(cc,a,visitor.par_list[i],sm.found[0]))
+                    symbolic_par.update(self._rules_symbolic_par(cc,a,visitor.par_list[i],sm.found[0],visitor.string_list))
                     sm= self.project.factory.simgr(sm.found[0], save_unconstrained=True)
                     sm.explore(find=api_list[i+1].address,n=num_steps)
                 else:
                     return False, None
             if sm.found:
-                symbolic_par.update(self._rules_symbolic_par(cc,api_list[-1],visitor.par_list[-1],sm.found[0]))
+                symbolic_par.update(self._rules_symbolic_par(cc,api_list[-1],visitor.par_list[-1],sm.found[0],visitor.string_list))
                 claripy_contstraints=visitor.predicate(symbolic_par)
                 solver=sm.found[0].solver
                 solver.add(claripy_contstraints)
+                #print(solver.constraints)
             else:
                 return False, None
             

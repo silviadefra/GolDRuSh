@@ -23,6 +23,7 @@ class RuleVisitor(Visitor):
         self.api_list = []  # To store 'api' elements
         self.par_list= []
         self.pred_tree=None
+        self.string_list=[]
 
     def pred(self,tree):
         self.pred_tree=tree
@@ -51,6 +52,10 @@ class RuleVisitor(Visitor):
     #parlist: (par ",")* par
     def parlist(self, tree):
         return [child.value for child in tree.children]
+    
+    #type:(CNAME par ",")* CNAME par ";"
+    def type(self,tree):
+        self.string_list= [child.value for i,child in enumerate(tree.children) if i % 2==1]
     
     def predicate(self, symb):
         global symb_val
@@ -99,7 +104,10 @@ class RuleVisitor(Visitor):
                 return claripy.false
             else:
                 pass
-                
+
+        elif termtree.data=='spred':
+            return self.claripy_spred(termtree)
+
         elif termtree.data=='apred':
             return self.claripy_apred(termtree)
         
@@ -109,14 +117,20 @@ class RuleVisitor(Visitor):
         else:
             pass
 
+    # spred: clist IOP sptr
+    def claripy_spred(self,tree):
+        st1=tree.children[0]
+        lf=claripy.StringV(symb_val[st1.children[0].value+'s'].lower())
+        st2=tree.children[2]
+        rf=claripy.StringV(symb_val[st2.children[0].value+'s'].lower())
+        return claripy.StrContains(rf, lf)
+    
     # apred: sum COP sum
     def claripy_apred(self,tree):
         lf=self.claripy_sum(tree.children[0])
         rf=self.claripy_sum(tree.children[2])
-        op=tree.children[1].value
-        # COP: "==" | "<" | ">" | ">=" | "<=" | "!="
-        return ops[op](lf,rf)
-        
+        op=tree.children[1].value # COP: "==" | "<" | ">" | ">=" | "<=" | "!="
+        return ops[op](lf,rf)        
 
     # sum: sum SOP prod | prod
     def claripy_sum(self,tree):
@@ -151,7 +165,6 @@ class RuleVisitor(Visitor):
         else:
             pass
 
-
     #atom: decorhex | CNAME | "(" sum ")"  | "&"CNAME 
     def claripy_atom(self,tree):
         termtree=tree.children[0]
@@ -170,7 +183,6 @@ class RuleVisitor(Visitor):
 
         else:
             pass
-
     
     # decorhex: ["+"|"-"] INT | "\\x" HEXDIGIT+ 
     def claripy_decorhex(self,tree):
@@ -179,8 +191,8 @@ class RuleVisitor(Visitor):
             return int(termtree.value)
         
         elif termtree.type== 'HEXDIGIT':
-            s='0x'.join(x.value for x in tree.children)
-            return s
+            s=''.join(x.value for x in tree.children)
+            return '0x'+ s
 
 
 
