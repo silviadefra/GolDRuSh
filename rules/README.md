@@ -2,16 +2,21 @@
 In this document, we illustrate how a rule of `rules/rules.txt` file is written following the specific grammar of `grammar.py` . Below is an example rule:
 ```text
 # CWE-122
-string none;
 b1 = malloc(m) , read(?,b2,n) ;
 b1 == b2 AND m < n ;
 ```
 ## Rule Structure
-Each `rule` is composed of three parts: the **string declaration** (`string`), the **signature** (`sign`) and the **predicate** (`pred`).
+Each `rule` is composed of either three or two parts: the **string declaration** (`string`), the **signature** (`sign`) and the **predicate** (`pred`) or only the **signature** (`sign`) and the **predicate** (`pred`).
+
+  In the example above there is no **string declaration**.
 
 - **String Declaration**: This is a list of parameters for which we need the values as strings.
 
-  In the example above, the string declaration does not include any parameters.
+  Usually , the string declaration appears before the signature and has the following format:
+  ```text
+  string a, b, c;
+  ```
+  where `a`,`b` and `c` are parameters
 
 - **Signature**: This is a finite sequence of API calls `api` separated by a comma. Each API call consists of:
 

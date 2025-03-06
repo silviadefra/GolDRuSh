@@ -55,7 +55,7 @@ class RuleVisitor(Visitor):
     
     #type:(CNAME par ",")* CNAME par ";"
     def type(self,tree):
-        self.string_list= [child.value for i,child in enumerate(tree.children) if i % 2==1]
+        self.string_list= [child.value for i,child in enumerate(tree.children) if i !=0]
     
     def predicate(self, symb):
         global symb_val

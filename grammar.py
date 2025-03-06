@@ -8,7 +8,7 @@ grammar = r"""
     COMMENT: /#.*/
 
 
-    ?rule:type pattern pred ";" 
+    ?rule:type pattern pred ";" | pattern pred ";"
     ?type: (CNAME par ",")* CNAME par ";"
     ?pattern: (api ",")* api ";"
     ?api: CNAME"("[parlist]")" | CNAME "=" CNAME"("[parlist]")"
