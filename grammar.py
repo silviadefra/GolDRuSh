@@ -19,7 +19,7 @@ grammar = r"""
     neg: term | NEG term 
     term: TRUE | FALSE | spred | apred | "("pred")" 
     spred: sptr IOP sptr
-    sptr: CNAME | CNAME "[" NUMBER "]"
+    sptr: CNAME | ESCAPED_STRING
 
     IOP: "IN"
     BOP: "AND" | "OR"
