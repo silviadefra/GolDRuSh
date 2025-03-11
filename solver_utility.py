@@ -38,8 +38,6 @@ class SolverUtility:
             par_val=sim_reg.reg_name
             
         symb_val = getattr(st.regs,par_val)
-        st.solver.add(symb_par == symb_val)
-        setattr(st.regs,str(par_val),symb_par)
 
         if flag:
             pointer_value = st.solver.eval(symb_val)
@@ -49,6 +47,10 @@ class SolverUtility:
                 string = self._decode_utf16(st,pointer_value)
             else:
                 string = self._decode_utf8(st,pointer_value)
+        
+        st.solver.add(symb_par == symb_val)
+        setattr(st.regs,str(par_val),symb_par)
+
         return symb_par,string
 
     def _rules_symbolic_par(self,cc,api,par_list,st,string_list):
