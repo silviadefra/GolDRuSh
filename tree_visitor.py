@@ -117,19 +117,22 @@ class RuleVisitor(Visitor):
         else:
             pass
 
-    # spred: clist IOP sptr
+    # spred: sptr IOP sptr
     def claripy_spred(self,tree):
-        lf=self.verify_string(tree.children[0])
-        rf=self.verify_string(tree.children[2])
+        lf=self.claripy_sptr(tree.children[0])
+        rf=self.claripy_sptr(tree.children[2])
         return claripy.StrContains(rf, lf)
     
     # CNAME | ESCAPED_STRING
-    def verify_string(st):
-        if st.type=='CNAME':
-            return claripy.StringV(symb_val[st.children[0].value+'s'].lower())
-        elif st.type=='ESCAPED_STRING':
-            string=st.children[0].value[1:-1].lower()
+    def claripy_sptr(self,tree):
+        termtree=tree.children[0]
+        if termtree.type=='ESCAPED_STRING':
+            string=termtree.value[1:-1].lower()
             return claripy.StringV(string)
+        elif termtree.type=='CNAME':
+            return claripy.StringV(symb_val[termtree.value+'s'].lower())
+        else:
+            pass
     
     # apred: sum COP sum
     def claripy_apred(self,tree):

@@ -53,7 +53,7 @@ def functions_dataframe(binary_path, project, function_data, n, steps,distance,a
             # Get the solver with constraints leading to reaching the target_func, and values to solve them
             v,_=main_solver.get_solver(target_func,n,input_type,binary=binary_path)
 
-        if v is None:
+        if v is None or v is False:
             return
         func.set_values(v)
         distance.pop(func.address, None)

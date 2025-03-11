@@ -9,7 +9,7 @@ class SolverUtility:
         self.project = project
 
     # Decode as UTF-8
-    def _decode_utf8(st,pointer_value):
+    def _decode_utf8(self,st,pointer_value):
         string_bytes = b""
         for i in range(100):  
             byte = st.memory.load(pointer_value + i, 1)
@@ -20,7 +20,7 @@ class SolverUtility:
         return string_bytes.decode('utf-8', errors='ignore')
 
     # Decode as UTF-16
-    def _decode_utf16(st,pointer_value):
+    def _decode_utf16(self,st,pointer_value):
         string_bytes = b""
         for i in range(0, 100, 2):  
             byte = st.memory.load(pointer_value + i, 2)
@@ -47,8 +47,10 @@ class SolverUtility:
                 string = self._decode_utf16(st,pointer_value)
             else:
                 string = self._decode_utf8(st,pointer_value)
-        
-        st.solver.add(symb_par == symb_val)
+        try:
+            st.solver.add(symb_par == symb_val)
+        except:
+            pass
         setattr(st.regs,str(par_val),symb_par)
 
         return symb_par,string
@@ -120,22 +122,10 @@ class SolverUtility:
 
         # Symbolic input variables
         args = [claripy.BVS("arg"+ str(i), size.size) for i,size in enumerate(input_arg)]
-        if not args:
-            if num_steps is not None:
-                symbolic_par=dict()
-                for i,a in enumerate(api_list[:-1]):
-                    p=visitor.par_list[i]
-                    if p[0] is not None:
-                        symbolic_par[p[0]]=claripy.BVS(p[0], a.type.returnty.size)
-            
-                    # Symbolic input variables
-                    input_arg=a.type.args
-                    for j,x in enumerate(p[1:]):
-                        if x!='?':
-                            symbolic_par[x]=claripy.BVS(p[0], input_arg[j].size)
-                return [], symbolic_par
-            else:
-                return [], None
+        # function does not have inputs and has not graph distance 0
+        if not args and num_steps is None:
+            return True, None
+
         if source is None:
             state=self.project.factory.entry_state(args=[binary]+args, add_options=extras)
         else:
@@ -153,6 +143,7 @@ class SolverUtility:
                 if sm.found:
                     symbolic_par.update(self._rules_symbolic_par(cc,a,visitor.par_list[i],sm.found[0],visitor.string_list))
                     sm= self.project.factory.simgr(sm.found[0], save_unconstrained=True)
+                    sm.step()
                     sm.explore(find=api_list[i+1].address,n=num_steps)
                 else:
                     return False, None
@@ -164,6 +155,12 @@ class SolverUtility:
                 #print(solver.constraints)
             else:
                 return False, None
+            
+            if not args: 
+                if solver.satisfiable():
+                    return True, symbolic_par
+                else:
+                    return False, symbolic_par
             
             # Get solutions leading to reaching the api_address
             solutions=self._get_solutions(solver,n,args)
