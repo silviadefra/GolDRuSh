@@ -1,8 +1,8 @@
 # Use a lightweight Python image as the base
-FROM python:3.9-slim
+FROM python:3.10
 
 # Install git to clone the repository
-RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y git protobuf-compiler && rm -rf /var/lib/apt/lists/*
 
 # Set the working directory
 WORKDIR /goldrush
@@ -11,6 +11,8 @@ WORKDIR /goldrush
 RUN git clone https://github.com/silviadefra/GolDRuSh .
 
 # Install any required packages from requirements.txt
+RUN pip install --no-cache-dir --upgrade pip
+RUN pip install --no-cache-dir "protobuf==5.28.2"
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Set the entry point to run main.py as a command-line tool

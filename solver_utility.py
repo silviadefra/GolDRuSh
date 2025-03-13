@@ -3,6 +3,7 @@ from angr import PointerWrapper, sim_options, SIM_PROCEDURES
 from angr.sim_type import SimTypeFunction, SimTypePointer
 from angr.errors import SimUnsatError
 from math import ceil
+from logging import warning
 
 class SolverUtility:
     def __init__(self, project):
@@ -160,6 +161,7 @@ class SolverUtility:
                 if solver.satisfiable():
                     return True, symbolic_par
                 else:
+                    warning(f"Rule unsat, the vulnerability can not be triggered")
                     return False, symbolic_par
             
             # Get solutions leading to reaching the api_address
