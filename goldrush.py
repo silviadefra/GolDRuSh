@@ -182,7 +182,7 @@ def main(binary, rules_file, file_type, num_values, num_best_fit, num_generation
             if tests:
                 i+=1
                 if path.isfile(csv_file):
-                    write_n_to_csv(pop[0][0])
+                    write_n_to_csv(pop[0][0],csv_file)
         # delete files created
         if not file_type:
             clean_up()
