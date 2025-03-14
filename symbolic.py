@@ -44,8 +44,9 @@ def functions_dataframe(binary_path, project, function_data, n, steps,distance,a
         main_solver=SolverUtility(project)
         # If 'api_address' are reachable from the main
         if distance[main_addr]==1:
+            target_func=[x.address for x in api_list]
             v,a=main_solver.get_solver(api_list,n,input_type,binary=binary_path,num_steps=steps,visitor=visitor)         
-            f_last_api=api_list[-1]
+            f_last_api=function_data.get_function_by_addr(target_func[-1])
             f_last_api.set_args(a)
         else:
             # Find successors with smaller distance
