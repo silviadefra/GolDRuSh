@@ -121,16 +121,66 @@ class RuleVisitor(Visitor):
     def claripy_spred(self,tree):
         lf=self.claripy_sptr(tree.children[0])
         rf=self.claripy_sptr(tree.children[2])
-        return claripy.StrContains(rf, lf)
-    
+        
+        if isinstance(lf, claripy.ast.BV) and isinstance(rf, claripy.ast.BV):
+            lf_size = lf.size() // 8  # Convert bit size to byte size
+            rf_size = rf.size() // 8
+            idx = claripy.BVS("idx", 32)  # Symbolic index
+            constraints = [
+                idx >= 0,
+                idx <= rf_size - lf_size
+            ]
+            substring_constraints = claripy.Or(*[
+                claripy.And(*[
+                    lf.get_byte(j) == rf.get_byte(i + j)  # Enforce byte-wise equality
+                    for j in range(lf_size)
+                ])
+                for i in range(rf_size - lf_size + 1)  # Try all possible starting positions
+            ])
+
+            return claripy.And(*constraints, substring_constraints)  
+
+        # Case 2: lf is concrete, rf is symbolic
+        elif isinstance(lf, str) and isinstance(rf, claripy.ast.BV):
+            lf_size = len(lf)
+
+            lf_bv=claripy.BVV(int.from_bytes(lf.encode(), 'big'), lf_size * 8) # Convert concrete string to BV
+
+            rf_size = rf.size() // 8
+            idx = claripy.BVS("idx", 32)  # Symbolic index
+
+            constraints = [
+                idx >= 0,
+                idx <= rf_size - lf_size
+            ]
+
+            substring_constraints = claripy.Or(*[
+                claripy.And(*[
+                    lf_bv.get_byte(j) == rf.get_byte(i + j)
+                    for j in range(lf_size)
+                ])
+                for i in range(rf_size - lf_size + 1)
+            ])
+
+            return claripy.And(*constraints, substring_constraints)
+
+        # Case 3: If both are already concrete
+        elif isinstance(lf, str) and isinstance(rf, str):
+            return claripy.StrContains(claripy.StringV(rf), claripy.StringV(lf))
+        
     # CNAME | ESCAPED_STRING
     def claripy_sptr(self,tree):
         termtree=tree.children[0]
         if termtree.type=='ESCAPED_STRING':
             string=termtree.value[1:-1].lower()
-            return claripy.StringV(string)
+            return string
         elif termtree.type=='CNAME':
-            return claripy.StringV(symb_val[termtree.value+'s'].lower())
+            x=symb_val[termtree.value]
+            if isinstance(x,str):
+                return x.lower()
+            else:
+                return x
+
         else:
             pass
     

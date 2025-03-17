@@ -75,8 +75,6 @@ def mutation(child):
 
 #Main Function
 def fuzzy_func(initial_pop):
-
-    # Usage examples
     num_children=len(initial_pop)
     children=[]
 

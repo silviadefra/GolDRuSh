@@ -14,11 +14,11 @@ def make_script_binary(pair,binary):
     (f,input)=pair
     args_str=''
     for i,t in enumerate(input):
-        if isinstance(type, SimTypePointer):  # Handle pointers
-            args_str += f'args[{i}] !== null ? args[{i}].readPointer().toString() : "null"'
+        if isinstance(t, SimTypePointer):  # Handle pointers
+            args_str += f'args[{i}].isNull() ? "null" : Memory.readUtf8String(args[{i}])'
         elif isinstance(type, SimTypeLongLong):
             args_str+=f'args[{i}].readCString()'
-        elif isinstance(t,SimTypeInt):
+        elif isinstance(type,SimTypeInt):
             args_str+=f'args[{i}].toInt32()'
         else:
             args_str+=f'args[{i}]'
@@ -41,7 +41,7 @@ def make_script_ex(pair):
     args_str=''
     for i,type in enumerate(input):
         if isinstance(type, SimTypePointer):  # Handle pointers
-            args_str += f'args[{i}] !== null ? args[{i}].readPointer().toString() : "null"'
+            args_str += f'args[{i}].isNull() ? "null" : Memory.readUtf8String(args[{i}])'
         elif isinstance(type, SimTypeLongLong):
             args_str+=f'args[{i}].readCString()'
         elif isinstance(type,SimTypeInt):
@@ -74,7 +74,7 @@ def make_script_lib(pair,binary):
     args_str=''
     for i,type in enumerate(input):
         if isinstance(type, SimTypePointer):  # Handle pointers
-            args_str += f'args[{i}] !== null ? args[{i}].readPointer().toString() : "null"'
+            args_str += f'args[{i}].isNull() ? "null" : Memory.readUtf8String(args[{i}])'
         elif isinstance(type, SimTypeLongLong):
             args_str+=f'args[{i}].readCString()'
         elif isinstance(type,SimTypeInt):
@@ -103,7 +103,7 @@ def trace_function_calls(binary, args,exported_func,internal_func,flag):
     """
     entries = []
     def on_message(message, data):
-        #logging.warning(message)
+        logging.warning(message)
         if message["type"] == "send" and message["payload"] != "done":
             function_name = message["payload"]["function"]
             #TODO: cambiare
