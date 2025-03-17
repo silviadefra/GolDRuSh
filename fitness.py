@@ -4,6 +4,7 @@ import sys
 from itertools import zip_longest
 from claripy import Solver
 from math import log10
+from collections import Counter
 
 # Function with minimum distance
 def func_with_minimum_distance(data,functions):
@@ -129,7 +130,7 @@ def fitness_func(df,entries,visitor):
     if func.distance==1:
         # Only functions called by func
         filtered, functions_called_by_func =filter_entries(entries,func)
-        if all(el in filtered for el in visitor.api_list):
+        if not (Counter(visitor.api_list) - Counter(filtered)):
             api_func=df.get_function_by_name(visitor.api_list[-1])
             #Associate concrete value to symbolic parameters of the rules
             par=api_func.sympar
