@@ -231,14 +231,9 @@ if __name__ == "__main__":
     parser.add_argument('--steps', type=int, default=20, help='Maximum number of steps from one API call of the rule to the next (default: 8)')
     parser.add_argument('--tests', nargs='+', help='List of test cases to be used (default: strings of randomly lenght between 8 and 256)')
     parser.add_argument('--csv_file', type=str, default='log_file/fitness.csv', help='The csv file to write the fitness')
-    parser.add_argument('--debug', type=str2bool, nargs='?', const=True, default=True, help='Flag enabling debug information on log file (1) (default: 0)')
-
+    parser.add_argument('--debug', type=str2bool, nargs='?', const=True, default=False, help='Flag enabling debug information on log file (1) (default: 0)')
 
     args = parser.parse_args()
-
-    for handler in logging.root.handlers[:]:
-        logging.root.removeHandler(handler)
-    logging.basicConfig(filename='log_file/solutions.log',format='%(asctime)s : %(message)s', encoding='utf-8', level=logging.WARNING)
 
     main(args.binary, args.rules_file, args.file_type, args.num_values, args.num_best_fit, args.num_generations, args.len_cache, args.steps, args.csv_file,args.debug,args.tests)
 
