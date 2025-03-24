@@ -4,6 +4,7 @@ from angr.sim_type import SimTypeFunction, SimTypePointer
 from angr.errors import SimUnsatError
 from math import ceil
 from logging import warning
+from myprocedure import myfprintf
 
 class SolverUtility:
     def __init__(self, project):
@@ -88,6 +89,11 @@ class SolverUtility:
         # function does not have inputs and has not graph distance 0
         if not args and num_steps is None:
             return True, None
+        
+        symbol=self.project.loader.find_symbol('fprintf')
+        if symbol:
+            self.project.unhook(symbol.rebased_addr)
+            self.project.hook(symbol.rebased_addr, myfprintf())
 
         if source is None:
             state=self.project.factory.entry_state(args=[binary]+args, add_options=extras)
