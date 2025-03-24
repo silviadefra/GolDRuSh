@@ -94,7 +94,10 @@ class SolverUtility:
         # if symbol:
         #     self.project.unhook(symbol.rebased_addr)
         #     self.project.hook(symbol.rebased_addr, myfprintf())
-        self.project.hook_symbol("fprintf", myfprintf())
+        #self.project.hook_symbol("fprintf", myfprintf())
+        symbol = self.project.loader.find_symbol('error')
+        if symbol:
+            avoid=symbol.rebased_addr
 
         if source is None:
             state=self.project.factory.entry_state(args=[binary]+args, add_options=extras)
@@ -103,7 +106,7 @@ class SolverUtility:
 
         # Explore the program with symbolic execution
         sm = self.project.factory.simgr(state, save_unconstrained=True)
-        sm.explore(find=find)
+        sm.explore(find=find,avoid=avoid)
 
         if num_steps is not None:
             #Calling convention
