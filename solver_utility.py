@@ -113,7 +113,6 @@ class SolverUtility:
             if sm.found:
                 symbolic_par.update(self._rules_symbolic_par(cc,api_list[-1],visitor.par_list[-1],sm.found[0]))
                 claripy_contstraints=visitor.predicate(symbolic_par)
-                print(claripy_contstraints)
                 solver=sm.found[0].solver
                 solver.add(claripy_contstraints)
             else:

@@ -20,6 +20,20 @@ from csv import writer
 
 exported_list=['strlen', 'strcmp', 'strncpy','memset', 'memcpy']
 
+def create_logger(binary):
+    #remove handlers (if not problem with angr logger)
+    for handler in logging.root.handlers[:]:
+        logging.root.removeHandler(handler)
+    # file_name is the binary name (not the path)
+    last_slash_index = binary.rfind('/')
+    if last_slash_index == -1:
+        file_name = binary
+    else:
+        file_name = binary[last_slash_index + 1:]
+    log_file=f'test/log_file/debug_{file_name}.log'
+    logging.basicConfig(filename=log_file,format='%(asctime)s : %(message)s', encoding='utf-8', level=logging.WARNING)
+    return
+
 def string_length(n):
     list_length=[8,16,32,64,128,264,526]
     return choices(list_length, k=n)
@@ -91,6 +105,7 @@ def main(binary, rules_file, file_type, num_values, num_best_fit, num_generation
     if not path.isfile(binary):
         logging.warning(f"Error: File '{binary}' does not exist.")
     logging.warning('Binary file: {file}'.format(file=binary))
+    create_logger(binary)
 
     if tests is None:
         lengths_tests = string_length(num_best_fit)
@@ -216,6 +231,7 @@ if __name__ == "__main__":
     parser.add_argument('--steps', type=int, default=20, help='Maximum number of steps from one API call of the rule to the next (default: 8)')
     parser.add_argument('--tests', nargs='+', help='List of test cases to be used (default: strings of randomly lenght between 8 and 256)')
     parser.add_argument('--csv_file', type=str, default='log_file/fitness.csv', help='The csv file to write the fitness')
+    parser.add_argument('--debug', type=str2bool, nargs='?', const=True, default=True, help='Flag enabling debug information on log file (1) (default: 0)')
 
 
     args = parser.parse_args()
