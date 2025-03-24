@@ -30,7 +30,7 @@ def create_logger(binary):
         file_name = binary
     else:
         file_name = binary[last_slash_index + 1:]
-    log_file=f'test/log_file/debug_{file_name}.log'
+    log_file=f'log_file/debug_{file_name}.log'
     logging.basicConfig(filename=log_file,format='%(asctime)s : %(message)s', encoding='utf-8', level=logging.WARNING)
     return
 
@@ -100,7 +100,7 @@ def write_n_to_csv(n,csv_file):
         w = writer(file)
         w.writerow([n])
 
-def main(binary, rules_file, file_type, num_values, num_best_fit, num_generations, len_cache, steps, csv_file, tests=None):
+def main(binary, rules_file, file_type, num_values, num_best_fit, num_generations, len_cache, steps, csv_file, debug_flag, tests=None):
     # Check if the binary file exists
     if not path.isfile(binary):
         logging.warning(f"Error: File '{binary}' does not exist.")
@@ -163,7 +163,7 @@ def main(binary, rules_file, file_type, num_values, num_best_fit, num_generation
             for t in tests: #TODO parallel
                 count_frida_execution += 1
                 # Run the binary and trace function calls with their arguments
-                entries = trace_function_calls(binary, t,exported_func,internal_func,file_type)
+                entries = trace_function_calls(binary, t,exported_func,internal_func,file_type,debug_flag)
                 if not entries:
                     logging.warning(f"Warning: trace not found")
                     return
@@ -240,6 +240,6 @@ if __name__ == "__main__":
         logging.root.removeHandler(handler)
     logging.basicConfig(filename='log_file/solutions.log',format='%(asctime)s : %(message)s', encoding='utf-8', level=logging.WARNING)
 
-    main(args.binary, args.rules_file, args.file_type, args.num_values, args.num_best_fit, args.num_generations, args.len_cache, args.steps, args.csv_file,args.tests)
+    main(args.binary, args.rules_file, args.file_type, args.num_values, args.num_best_fit, args.num_generations, args.len_cache, args.steps, args.csv_file,args.debug,args.tests)
 
 

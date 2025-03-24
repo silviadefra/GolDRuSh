@@ -97,13 +97,14 @@ def make_script_lib(pair,binary):
 
 
 #Main Function
-def trace_function_calls(binary, args,exported_func,internal_func,flag):
+def trace_function_calls(binary, args,exported_func,internal_func,file_flag,debug_flag):
     """
     Run the binary and trace function calls with their arguments.
     """
     entries = []
     def on_message(message, data):
-        #logging.warning(message)
+        if debug_flag:
+            logging.warning(message)
         if message["type"] == "send" and message["payload"] != "done":
             function_name = message["payload"]["function"]
             #TODO: cambiare
@@ -116,7 +117,7 @@ def trace_function_calls(binary, args,exported_func,internal_func,flag):
             entries.append([function_name,function_args,io])
 
     # Run the binary
-    if flag:
+    if file_flag:
         process = frida.spawn(binary, argv=[binary] + args)
         make_script_in=make_script_binary
     else:
