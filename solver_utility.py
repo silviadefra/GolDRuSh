@@ -90,10 +90,11 @@ class SolverUtility:
         if not args and num_steps is None:
             return True, None
         
-        symbol=self.project.loader.find_symbol('fprintf')
-        if symbol:
-            self.project.unhook(symbol.rebased_addr)
-            self.project.hook(symbol.rebased_addr, myfprintf())
+        # symbol=self.project.loader.find_symbol('fprintf')
+        # if symbol:
+        #     self.project.unhook(symbol.rebased_addr)
+        #     self.project.hook(symbol.rebased_addr, myfprintf())
+        self.project.hook_symbol("fprintf", myfprintf())
 
         if source is None:
             state=self.project.factory.entry_state(args=[binary]+args, add_options=extras)
