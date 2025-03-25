@@ -98,6 +98,8 @@ class SolverUtility:
         symbol = self.project.loader.find_symbol('error')
         if symbol:
             avoid=symbol.rebased_addr
+        else:
+            avoid=[]
 
         if source is None:
             state=self.project.factory.entry_state(args=[binary]+args, add_options=extras)
