@@ -10,10 +10,10 @@ from functionclass import ProgramFunction, FunctionList
 # Generate call graph
 def generate_call_graph(project,binary_type):
     # Set up the call graph analysis
-    # if binary_type:
-    #     cfg = project.analyses.CFGEmulated()
-    # else:
-    cfg = project.analyses.CFGFast()
+    if binary_type:
+        cfg = project.analyses.CFGEmulated()
+    else:
+        cfg = project.analyses.CFGFast()
 
     # Retrieve the call graph
     call_graph = cfg.functions.callgraph
@@ -31,11 +31,13 @@ def generate_call_graph(project,binary_type):
                 project.analyses.VariableRecoveryFast(function)
             except AttributeError as e:
                 continue
-            # Set up the calling convention analysis for each function
-            cca = project.analyses.CallingConvention(function,cfg=cfg,analyze_callsites=True)
-            if cca.prototype is None:
+            try:
+                cca = project.analyses.CallingConvention(function,cfg=cfg,analyze_callsites=True) # Set up the calling convention analysis for each function
+                if cca.prototype is None:
+                    continue
+            except:
                 continue
-                #return None,None
+            # Set up the calling convention analysis for each function
             program_functions.append(ProgramFunction(function,cca))
             program_functions_addr.append(function.addr)
 
