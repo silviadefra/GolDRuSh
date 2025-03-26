@@ -10,10 +10,10 @@ from functionclass import ProgramFunction, FunctionList
 # Generate call graph
 def generate_call_graph(project,binary_type):
     # Set up the call graph analysis
-    if binary_type:
-        cfg = project.analyses.CFGEmulated()
-    else:
-        cfg = project.analyses.CFGFast()
+    # if binary_type:
+    #     cfg = project.analyses.CFGEmulated()
+    # else:
+    cfg = project.analyses.CFGFast()
 
     # Retrieve the call graph
     call_graph = cfg.functions.callgraph
