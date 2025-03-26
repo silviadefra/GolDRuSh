@@ -1,4 +1,3 @@
-# Use a lightweight Python image as the base
 FROM python:3.10
 
 # Install git to clone the repository
