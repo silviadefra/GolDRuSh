@@ -31,11 +31,8 @@ def generate_call_graph(project,binary_type):
                 project.analyses.VariableRecoveryFast(function)
             except AttributeError as e:
                 continue
-            try:
-                cca = project.analyses.CallingConvention(function,cfg=cfg,analyze_callsites=True) # Set up the calling convention analysis for each function
-                if cca.prototype is None:
-                    continue
-            except:
+            cca = project.analyses.CallingConvention(function,cfg=cfg,analyze_callsites=True) # Set up the calling convention analysis for each function
+            if cca.prototype is None:
                 continue
             # Set up the calling convention analysis for each function
             program_functions.append(ProgramFunction(function,cca))
