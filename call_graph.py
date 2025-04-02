@@ -25,7 +25,7 @@ def generate_call_graph(project,binary_type):
     #visualize(cfg,call_graph)
     
     for function in defined_functions:
-        if function.block_addrs_set and function.startpoint is not None:
+        if not function.is_simprocedure and function.block_addrs_set and function.startpoint is not None:
             # Variable recovery
             try:
                 project.analyses.VariableRecoveryFast(function)
