@@ -1,4 +1,4 @@
-angr==9.2.129
+angr
 frida-tools
 numpy
 lark
