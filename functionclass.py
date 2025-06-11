@@ -35,6 +35,7 @@ class ProgramFunction:
         logging.warning(f"Distance: {self.distance}")
         logging.warning(f"Values: {self.values}")
         logging.warning(f"Symbolic parameters: {self.sympar}")
+        logging.warning(f'Regs: {self.reg}')
 
 
 class FunctionList:

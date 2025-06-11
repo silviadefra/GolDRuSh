@@ -63,6 +63,7 @@ def functions_dataframe(binary_path, project, function_data, n, steps,distance,a
     flag=True
     while flag:
         #TODO in parallel
+        flag=False
         for key in list(temp_nodes.keys()):
             func_solver=SolverUtility(project)
             func=function_data.get_function_by_addr(key)
@@ -83,6 +84,7 @@ def functions_dataframe(binary_path, project, function_data, n, steps,distance,a
             if v is None:
                 continue
             elif v is False:
+                flag=True
                 func.set_distance(inf)
                 # refine dcg
                 for c in target_func:
@@ -93,8 +95,6 @@ def functions_dataframe(binary_path, project, function_data, n, steps,distance,a
                 break
 
             func.set_values(v)
-        if not temp_nodes:
-            flag=False
     return True
 
 

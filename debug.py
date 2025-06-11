@@ -118,7 +118,7 @@ def trace_function_calls(binary, args,exported_func,internal_func,file_flag,debu
 
     # Run the binary
     if file_flag:
-        process = frida.spawn(binary, argv=[binary] + args)
+        process = frida.spawn(binary, argv=[binary]+args)
         make_script_in=make_script_binary
     else:
         process=frida.spawn('my_program')

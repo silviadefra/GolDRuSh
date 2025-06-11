@@ -80,4 +80,4 @@ if __name__ == "__main__":
     # Path to the binary program
     binary_path = sys.argv[1]
 
-    project,call_graph,func_addr,register_input=file_data(binary_path)
+    project,call_graph,func_addr=file_data(binary_path,1)

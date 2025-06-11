@@ -4,11 +4,24 @@ from angr.sim_type import SimTypeFunction, SimTypePointer
 from angr.errors import SimUnsatError
 from math import ceil
 from logging import warning
-from myprocedure import myfprintf
 
 class SolverUtility:
     def __init__(self, project):
         self.project = project
+
+    # Get concrete value
+    def _concrete_value(self,symb_val):
+        val=symb_val.args[0]
+        if isinstance(val, str):
+            list = val.split('_')  # Extract the address part as a string
+            address_str=list[1]
+            if address_str[:2]=='0x':
+                val = int(address_str, 16)
+            elif list[0]=='mem':
+                val=int('0x'+address_str,16)
+            else:
+                return list[:-2]
+        return val
 
     def _symbolic_par(self,x,cc,par,st,par_val=None):
         symb_par=claripy.BVS(x, par.size)
@@ -35,7 +48,7 @@ class SolverUtility:
 
         # Symbolic return variable
         if par_list[0] is not None:
-            st.step()
+            #st.step()
             symb_input[par_list[0]]=self._symbolic_par(par_list[0],cc,api.type.returnty,st)
 
         return symb_input    
