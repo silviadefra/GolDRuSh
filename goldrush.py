@@ -144,7 +144,7 @@ def main(binary, rules_file, file_type, num_values, num_best_fit, num_generation
         logging.warning('Graph distance')
         # Only functions with distance =! infinity
         function_data.remove_functions_with_infinity_distance(visitor.api_list)
-        
+
         # For each function: solver, values
         flag=functions_dataframe(binary,project,function_data,num_values,steps,distance,api_list,visitor,dcg.copy(),file_type)
         function_data.remove_functions_with_infinity_distance(visitor.api_list)

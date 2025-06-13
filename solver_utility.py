@@ -48,7 +48,7 @@ class SolverUtility:
 
         # Symbolic return variable
         if par_list[0] is not None:
-            #st.step()
+            st=st.step().successors[0]
             symb_input[par_list[0]]=self._symbolic_par(par_list[0],cc,api.type.returnty,st)
 
         return symb_input    
@@ -103,11 +103,6 @@ class SolverUtility:
         if not args and num_steps is None:
             return True, None
         
-        # symbol=self.project.loader.find_symbol('fprintf')
-        # if symbol:
-        #     self.project.unhook(symbol.rebased_addr)
-        #     self.project.hook(symbol.rebased_addr, myfprintf())
-        #self.project.hook_symbol("fprintf", myfprintf())
         symbol = self.project.loader.find_symbol('error')
         if symbol:
             avoid=symbol.rebased_addr
@@ -140,6 +135,7 @@ class SolverUtility:
                 claripy_contstraints=visitor.predicate(symbolic_par)
                 solver=sm.found[0].solver
                 solver.add(claripy_contstraints)
+                warning(solver.constraints)
             else:
                 return False, None
             

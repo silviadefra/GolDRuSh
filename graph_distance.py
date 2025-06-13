@@ -19,7 +19,8 @@ def nodes_distance(graph,g, trg):
         # For each function 'c' in 'trg', if 'c' is not child of a parent 'p' of 't', cut the edge (p,t)
         for c in trg[1:]:
             if c.address not in p_children:
-                subgraph.remove_edge(p,t)
+                if subgraph.has_edge(p, t):
+                    subgraph.remove_edge(p,t)
     
     shortest_paths = nx.shortest_path_length(subgraph, target=t)
     #addresses=list(shortest_paths)

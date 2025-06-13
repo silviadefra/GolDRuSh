@@ -88,7 +88,8 @@ def functions_dataframe(binary_path, project, function_data, n, steps,distance,a
                 func.set_distance(inf)
                 # refine dcg
                 for c in target_func:
-                    dcg.remove_edge(key,c)
+                    if dcg.has_edge(key, c):
+                        dcg.remove_edge(key,c)
                 temp_nodes,distance=refine_dcg(dcg,api_list[0],function_data,distance,verified_nodes)#,main_addr)
                 if distance== None:
                     return None
