@@ -123,7 +123,6 @@ def main(binary, rules_file, file_type, num_values, num_best_fit, num_generation
     if project is None:
         return
     logging.warning('Call graph genereted')
-    reverse_graph=call_graph.reverse(copy=False)
 
     # Iterate through the 'tree' to find the 'api' subtree.
     for num_tree,tree in enumerate(trees.children):
@@ -138,7 +137,7 @@ def main(binary, rules_file, file_type, num_values, num_best_fit, num_generation
         
         function_data=general_function_data.copy()
         # For each function graph distance and list of the targets
-        distance,dcg=first_distance(api_list,function_data,call_graph,reverse_graph)
+        distance,dcg=first_distance(api_list,function_data,call_graph)
         if distance is None:
             continue
         logging.warning('Graph distance')

@@ -3,7 +3,7 @@ b1 = malloc(m) , read(?,b2,n) ;
 b1 == b2 AND m < n ;
 
 # CWE-122 rule 2
-b1 = malloc(m) , b2=memcpy(?,?,n) ;
+b1 = malloc(m) , memcpy(b2,?,n) ;
 b1 == b2 AND m < n ;
 
 # CWE-122 rule 3
@@ -18,115 +18,115 @@ b1 == b2 AND m < n ;
 b1 = malloc(m) , b2 = malloc(n) , b3 = malloc(o) , sprintf(b4,b5,b6) ;
 (b1 == b4 AND ((b2 == b5 AND b3 == b6) OR (b2 == b6 AND b3 ==b5)) AND m < (n + o)) OR (b1 == b5 AND ((b2 == b6 AND b3 == b4) OR (b2==b4 AND b3==b6)) AND n < (m + o)) OR (b1 == b6 AND ((b2 == b4 AND b3 == b5) OR(b2==b5 AND b3==b4)) AND o < (n + m));
 
-# CWE-122 rule 7
+# CWE-122 rule 6
 b1 = malloc(m), b2 = malloc(n) , strcpy(to,from) ;
 (b1 == from AND b2 == to AND m > n) OR (b1 == to AND b2 == from AND m < n);
 
-# CWE-122 rule 8
+# CWE-122 rule 7
 p1=malloc(?) , p2=getenv(?);
 p1==p2;
 
-# CWE-122 rule 9
+# CWE-122 rule 8
 p1=malloc(?) , gets(p2);
 p1==p2;
 
-# CWE-122 rule 10
+# CWE-122 rule 9
 b1 = malloc(m) , b2=memset(?,?,n) ;
 b1 == b2 AND m < n ;
 
-# CWE-20 rule 11
+# CWE-20 rule 10
 strncpy(?,?,x);
 x<0;
 
-# CWE-134 rule 12
+# CWE-134 rule 11
 memcpy(to,from,?) , printf(p);
 from == \x40000 AND to == p ;
 
-# CWE-416 rule 13
+# CWE-416 rule 12
 free(x), free(y);
 x == y;
 
-# CWE-416 rule 14
+# CWE-416 rule 13
 free(x), memchr(y,?,?);
 x == y;
 
-# CWE-416 rule 15
+# CWE-416 rule 14
 free(x), memcmp(y,z,?);
 x == y OR x == z;
 
-# CWE-416 rule 16
+# CWE-416 rule 15
 free(x), memcpy(y,z,?);
 x == y OR x == z;
 
-# CWE-416 rule 17
+# CWE-416 rule 16
 free(x), memmove(y,z,?);
 x == y OR x == z;
 
-# CWE-416 rule 18
+# CWE-416 rule 17
 free(x), memset(y,?,?);
 x == y;
 
-# CWE-416 rule 19
+# CWE-416 rule 18
 free(x), strcat(y,z);
 x == y OR x == z;
 
-# CWE-416 rule 20
+# CWE-416 rule 19
 free(x), strncat(y,z,?);
 x == y OR x == z;
 
-# CWE-416 rule 21
+# CWE-416 rule 20
 free(x), strcmp(y,z);
 x == y OR x == z;
 
-# CWE-416 rule 22
+# CWE-416 rule 21
 free(x), strncmp(y,z,?);
 x == y OR x == z;
 
-# CWE-416 rule 23
+# CWE-416 rule 22
 free(x), strchr(y,z);
 x == y OR x == z;
 
-# CWE-416 rule 24
+# CWE-416 rule 23
 free(x), strcpy(y,z);
 x == y OR x == z;
 
-# CWE-416 rule 25
+# CWE-416 rule 24
 free(x), strncpy(y,z,?);
 x == y OR x == z;
 
-# CWE-416 rule 26
+# CWE-416 rule 25
 free(x), strcspn(y,z);
 x == y OR x == z;
 
-# CWE-416 rule 27
+# CWE-416 rule 26
 free(x), strlen(y);
 x == y;
 
-# CWE-416 rule 28
+# CWE-416 rule 27
 free(x), strpbrk(y,z);
 x == y OR x == z;
 
-# CWE-416 rule 29
+# CWE-416 rule 28
 free(x), strrchr(y,?);
 x == y;
 
-# CWE-416 rule 30
+# CWE-416 rule 29
 free(x), strspn(y,z);
 x == y OR x == z;
 
-# CWE-416 rule 31
+# CWE-416 rule 30
 free(x), strstr(y,z);
 x == y OR x == z;
 
-# CWE-416 rule 32
+# CWE-416 rule 31
 free(x), strtok(y,?);
 x == y;
 
-# CWE-416 rule 33
+# CWE-416 rule 32
 free(x), strxfrm(y,z,?);
 x == y OR x == z;
 
-# CWE-416 rule 34
+# CWE-416 rule 33
 free(x), printf(y);
 x == y;
 

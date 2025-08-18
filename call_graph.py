@@ -61,7 +61,7 @@ def visualize(cfg,graph):
 # Main function: General info of 'binary' (functions name, address)
 def file_data(binary_path,binary_type):
     # Create an angr project
-    project = Project(binary_path, auto_load_libs=False)
+    project = Project(binary_path, auto_load_libs=False, use_sim_procedures = True)
 
     # Generate the call graph
     call_graph, func_addr=generate_call_graph(project,binary_type)

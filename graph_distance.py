@@ -8,11 +8,11 @@ from math import inf
 
 
 # Label the nodes with the minimum path length to the target node
-def nodes_distance(graph,g, trg):
+def nodes_distance(graph, trg):
 
     # Check that functions in 'trg' are called by the same function, if not cut the edge
     t=trg[0].address
-    t_parents=list(nx.predecessor(g,t,cutoff=1))[1:] #t's parents
+    t_parents=list(nx.single_target_shortest_path(graph,t,cutoff=1))[1:] #t's parents
     subgraph=graph.copy()
     for p in t_parents:
         p_children=list(nx.predecessor(graph,p,cutoff=1))[1:] 
@@ -28,10 +28,10 @@ def nodes_distance(graph,g, trg):
     return shortest_paths,subgraph
 
 # For each function graph distance and list of the targets 
-def first_distance(api_list,function_data,call_graph,reverse_graph):
+def first_distance(api_list,function_data,call_graph):
     
     # Find minimum distance between nodes and target
-    distance,final_graph=nodes_distance(call_graph,reverse_graph,api_list)
+    distance,dcg=nodes_distance(call_graph,api_list)
 
     if len(distance)==1:
         return None,None
@@ -49,7 +49,7 @@ def first_distance(api_list,function_data,call_graph,reverse_graph):
         distance.pop(func.address, None)
     #function_data.print_function_info()
 
-    return distance,final_graph
+    return distance, dcg
 
 # Main function
 def main(binary_path,rules):

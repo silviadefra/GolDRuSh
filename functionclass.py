@@ -42,6 +42,12 @@ class FunctionList:
     def __init__(self, program_functions):
         self.program_functions = program_functions
 
+    def __iter__(self):
+        return iter(self.program_functions)
+    
+    def __len__(self):
+        return len(self.program_functions)
+
     def get_function_by_addr(self, function_addr):
         for func in self.program_functions:
             if func.address == function_addr:
@@ -83,6 +89,24 @@ class FunctionList:
 
         return copied_function_list
     
+    def exists_functions(self,n):
+        return any(func.distance == n for func in self.program_functions)
+    
+    def specific_distance(self,n):
+        distance_n=[func for func in self.program_functions if func.distance == n]
+        if distance_n:
+            self.program_functions= distance_n
+            return True
+        else:
+            return False
+        
+    def num_specific_distance(self,n):
+        distance_n=[func for func in self.program_functions if func.distance == n]
+        if distance_n:
+            return len(distance_n)
+        else:
+            return 0
+
     def print_function_info(self):
         for func in self.program_functions:
             func.print_info()
