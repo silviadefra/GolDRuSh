@@ -138,3 +138,18 @@ x == y OR x == z;
 free(x), printf(y);
 x == y;
 
+# CWE-416 rule 36
+free(x), printLine(y);
+x == y;
+
+# CWE-416 rule 37
+free(x),  printIntLine(y);
+x == y;
+
+# CWE-416 rule 38
+free(x),  printLongLine(y);
+x == y;
+
+# CWE-416 rule 39
+free(x),  printLongLongLine(y);
+x == y;
