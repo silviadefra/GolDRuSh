@@ -15,7 +15,7 @@ b1 = malloc(m) , memchr(b2,?,n) ;
 b1 == b2 AND m < n ;
 
 # CWE-122 rule 5
-b1 = malloc(m) , memcpy(b2,?,n) ;
+b1 = malloc(m) , memmove(b2,?,n) ;
 b1 == b2 AND m < n ;
 
 # CWE-122 rule 6
