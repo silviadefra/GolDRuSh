@@ -177,7 +177,7 @@ def functions_dataframe(project, function_data, steps,api_list,visitor):
         except Exception as e:
             logging.warning(f"Unhandled exception for function at address {func.address}: {e}")
     for none_list in none_lists:
-        if any(elem is not None for elem in none_list):
+        if any(elem == 1 for elem in none_list):
             return 0   
     return None
 

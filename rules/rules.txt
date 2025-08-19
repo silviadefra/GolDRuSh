@@ -18,7 +18,7 @@ b1 == b2 AND m < n ;
 b1 = malloc(m) , memcpy(b2,?,n) ;
 b1 == b2 AND m < n ;
 
-# CWE-122 rule 5
+# CWE-122 rule 6
 b1 = malloc(m) , snprintf(b2,n,?) ;
 b1 == b2 AND m < n ;
 
