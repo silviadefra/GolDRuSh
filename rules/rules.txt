@@ -143,13 +143,6 @@ free(x), printLine(y);
 x == y;
 
 # CWE-416 rule 37
-free(x),  printIntLine(y);
+free(x),  printStructLine(y);
 x == y;
 
-# CWE-416 rule 38
-free(x),  printLongLine(y);
-x == y;
-
-# CWE-416 rule 39
-free(x),  printLongLongLine(y);
-x == y;
