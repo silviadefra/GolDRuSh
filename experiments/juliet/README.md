@@ -75,7 +75,7 @@ For each CWE, we record the number of true positives (TP), false positives (FP),
 
 Each of the three tools generates one output file per test case.
 - For the tools SVDL and `Weggli`, the output files list which functions are detected as vulnerable. Since vulnerable and safe functions are named using the words *"bad"* and *"good"*, respectively, we examine each output file to check for the presence of these words.
-- For `CodeQL`, the output files specify the type of vulnerability detected and the corresponding line of code. Therefore, to determine whether the reported vulnerability was located within a bad or good function, we needed to cross-reference the results with the source code (`count_codeql.py`).
+- For `CodeQL`, the output files specify the line of code of the vulnerability detected. Therefore, to determine whether the reported vulnerability was located within a bad or good function, we needed to cross-reference the results with the source code (`count_codeql.py`).
 
 ## Results
 
