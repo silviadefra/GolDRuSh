@@ -5,3 +5,4 @@ lark
 claripy
 matplotlib
 pandas
+pycparser<3
